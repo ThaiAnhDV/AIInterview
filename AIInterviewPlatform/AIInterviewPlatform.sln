@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIInterviewPlatform.API", "AIInterviewPlatform.API\AIInterviewPlatform.API.csproj", "{106DBC10-C8FE-4940-8CCC-CF065716CC86}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIInterviewPlatform.Application", "AIInterviewPlatform.Application\AIInterviewPlatform.Application.csproj", "{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIInterviewPlatform.Infrastructure", "AIInterviewPlatform.Infrastructure\AIInterviewPlatform.Infrastructure.csproj", "{61B32759-C840-4A09-8AD2-B372DECCCDCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIInterviewPlatform.Web", "AIInterviewPlatform.Web\AIInterviewPlatform.Web.csproj", "{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{61B32759-C840-4A09-8AD2-B372DECCCDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61B32759-C840-4A09-8AD2-B372DECCCDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61B32759-C840-4A09-8AD2-B372DECCCDCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 bg-gradient-primary">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container py-lg-md d-flex">
+        <div class="col px-0">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="display-3 text-white">
+                        AI Interview Platform
+                    </h1>
+
+                    <p class="lead text-white">
+                        Practice mock interviews, analyze skill gaps, and track your interview readiness.
+                    </p>
+
+                    <div class="btn-wrapper">
+                        <a asp-page="/Account/Register" class="btn btn-info btn-icon mb-3 mb-sm-0">
+                            <span class="btn-inner--text">Get Started</span>
+                        </a>
+
+                        <a asp-page="/Interview/Start" class="btn btn-white btn-icon mb-3 mb-sm-0">
+                            <span class="btn-inner--text">Start Mock Interview</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
