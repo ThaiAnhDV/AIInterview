@@ -1,0 +1,183 @@
+﻿@page
+@{
+    Layout = null;
+    ViewData["Title"] = "Profile";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Profile - AI Interview Platform</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
+</head>
+
+<body class="profile-page">
+
+    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light py-2">
+        <div class="container">
+            <a class="navbar-brand mr-lg-5" href="/">
+                <strong class="text-white">AI INTERVIEW PLATFORM</strong>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbar_global">
+                <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <span class="nav-link-inner--text">Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/Profile" class="nav-link">
+                            <span class="nav-link-inner--text">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+                    <li class="nav-item">
+                        <button onclick="logout()" class="btn btn-danger btn-sm">
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <section class="section-profile-cover section-shaped my-0">
+            <img class="bg-image" src="/assets/img/pages/mohamed.jpg" style="width: 100%;">
+
+            <div class="separator separator-bottom separator-skew">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none">
+                    <polygon class="fill-secondary" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </section>
+
+        <section class="section bg-secondary">
+            <div class="container">
+                <div class="card card-profile shadow mt--300">
+                    <div class="px-4">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 order-lg-2">
+                                <div class="card-profile-image">
+                                    <a href="javascript:;">
+                                        <img src="/assets/img/faces/team-4.jpg" class="rounded-circle">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
+                                <div class="card-profile-actions py-4 mt-lg-0">
+                                    <a href="#" class="btn btn-sm btn-info mr-4">Dashboard</a>
+                                    <a href="#" class="btn btn-sm btn-default float-right">Start Interview</a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 order-lg-1">
+                                <div class="card-profile-stats d-flex justify-content-center">
+                                    <div>
+                                        <span class="heading">0</span>
+                                        <span class="description">Sessions</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">0</span>
+                                        <span class="description">Roadmaps</span>
+                                    </div>
+                                    <div>
+                                        <span class="heading">0%</span>
+                                        <span class="description">Readiness</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-5">
+                            <h3 id="profileFullName">User Name</h3>
+
+                            <div class="h6 font-weight-300">
+                                <i class="ni location_pin mr-2"></i>
+                                <span id="profileEmail">email@example.com</span>
+                            </div>
+
+                            <div class="h6 mt-4">
+                                <i class="ni business_briefcase-24 mr-2"></i>
+                                AI Interview Platform User
+                            </div>
+
+                            <div>
+                                <i class="ni education_hat mr-2"></i>
+                                Preparing for better interviews
+                            </div>
+                        </div>
+
+                        <div class="mt-5 py-5 border-top text-center">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-9">
+                                    <p>
+                                        Welcome to your profile. From here, you can track interview sessions,
+                                        view your readiness score, manage your resume, and follow your learning roadmap.
+                                    </p>
+
+                                    <a href="/">Back to Home</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <hr>
+            <div class="row align-items-center justify-content-md-between">
+                <div class="col-md-6">
+                    <div class="copyright">
+                        &copy; 2026 AI Interview Platform
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/core/jquery.min.js"></script>
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/argon-design-system.min.js?v=1.2.2"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/guard.js"></script>
+
+    <script>
+        requireLogin();
+
+        const user = getCurrentUser();
+
+        if (user) {
+            document.getElementById("profileFullName").innerText =
+                user.fullName || user.email;
+
+            document.getElementById("profileEmail").innerText =
+                user.email;
+        }
+    </script>
+</body>
+</html>
