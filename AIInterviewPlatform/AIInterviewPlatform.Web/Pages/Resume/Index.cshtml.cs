@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AIInterviewPlatform.Web.Pages.Auth
+namespace AIInterviewPlatform.Web.Pages.Resume
 {
-    public class LoginModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {

@@ -1,79 +1,73 @@
 ﻿using AIInterviewPlatform.Application.DTOs.Auth;
-using AIInterviewPlatform.Application.DTOs.Common;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace AIInterviewPlatform.API.Controllers
+namespace AIInterviewPlatform.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    private readonly IAuthService _authService;
+
+    public AuthController(IAuthService authService)
     {
-        private readonly IAuthService _authService;
+        _authService = authService;
+    }
 
-        public AuthController(IAuthService authService)
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegisterRequestDto request)
+    {
+        var result = await _authService.RegisterAsync(request);
+
+        return Ok(new
         {
-            _authService = authService;
-        }
+            success = true,
+            message = "Register successfully.",
+            data = result
+        });
+    }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterRequestDto request)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequestDto request)
+    {
+        var result = await _authService.LoginAsync(request);
+
+        return Ok(new
         {
-            try
-            {
-                var result = await _authService.RegisterAsync(request);
-                return Ok(ApiResponse<object>.Ok(result, "Register successfully."));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail(ex.Message));
-            }
-        }
+            success = true,
+            message = "Login successfully.",
+            data = result
+        });
+    }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequestDto request)
+    [Authorize]
+    [HttpGet("me")]
+    public IActionResult Me()
+    {
+        return Ok(new
         {
-            try
+            success = true,
+            data = new
             {
-                var result = await _authService.LoginAsync(request);
-                return Ok(ApiResponse<object>.Ok(result, "Login successfully."));
+                userId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                fullName = User.FindFirstValue(ClaimTypes.Name),
+                email = User.FindFirstValue(ClaimTypes.Email),
+                role = User.FindFirstValue(ClaimTypes.Role)
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail(ex.Message));
-            }
-        }
+        });
+    }
 
-        [Authorize]
-        [HttpGet("me")]
-        public IActionResult Me()
+    [Authorize]
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+        return Ok(new
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var role = User.FindFirstValue(ClaimTypes.Role);
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                return Unauthorized(ApiResponse<object>.Fail("Unauthorized."));
-            }
-
-            var data = new
-            {
-                UserId = userId,
-                Email = email,
-                Role = role
-            };
-
-            return Ok(ApiResponse<object>.Ok(data, "Get current user successfully."));
-        }
-
-        [Authorize]
-        [HttpPost("logout")]
-        public IActionResult Logout()
-        {
-            return Ok(ApiResponse<object>.Ok(null!, "Logout successfully. Please remove token on client side."));
-        }
+            success = true,
+            message = "Logout successfully. Please remove token on client side."
+        });
     }
 }

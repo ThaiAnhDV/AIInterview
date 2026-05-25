@@ -1,9 +1,8 @@
-﻿using AIInterviewPlatform.Application.DTOs.Common;
-using AIInterviewPlatform.Application.DTOs.Profile;
+﻿using AIInterviewPlatform.Application.DTOs.Profile;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AIInterviewPlatform.API.Controllers
 {
@@ -22,51 +21,36 @@ namespace AIInterviewPlatform.API.Controllers
         [HttpGet("me")]
         public async Task<IActionResult> GetMyProfile()
         {
-            try
-            {
-                var userId = GetCurrentUserId();
-                var result = await _profileService.GetMyProfileAsync(userId);
+            var userId = GetCurrentUserId();
 
-                return Ok(ApiResponse<ProfileResponseDto>.Ok(result, "Get profile successfully."));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Unauthorized(ApiResponse<object>.Fail("Unauthorized."));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail(ex.Message));
-            }
+            var result = await _profileService.GetMyProfileAsync(userId);
+
+            return Ok(result);
         }
 
         [HttpPut("me")]
-        public async Task<IActionResult> UpdateMyProfile(UpdateProfileRequestDto request)
+        public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateProfileRequest request)
         {
-            try
-            {
-                var userId = GetCurrentUserId();
-                var result = await _profileService.UpdateMyProfileAsync(userId, request);
+            var userId = GetCurrentUserId();
 
-                return Ok(ApiResponse<ProfileResponseDto>.Ok(result, "Update profile successfully."));
-            }
-            catch (UnauthorizedAccessException)
+            await _profileService.UpdateMyProfileAsync(userId, request);
+
+            return Ok(new
             {
-                return Unauthorized(ApiResponse<object>.Fail("Unauthorized."));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ApiResponse<object>.Fail(ex.Message));
-            }
+                message = "Profile updated successfully"
+            });
         }
 
         private long GetCurrentUserId()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
-            if (string.IsNullOrEmpty(userId))
-                throw new UnauthorizedAccessException();
+            if (userIdClaim == null)
+            {
+                throw new Exception("User ID not found in token");
+            }
 
-            return long.Parse(userId);
+            return long.Parse(userIdClaim.Value);
         }
     }
 }
