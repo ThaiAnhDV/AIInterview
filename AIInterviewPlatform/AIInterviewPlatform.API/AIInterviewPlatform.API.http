@@ -1,6 +1,0 @@
-@AIInterviewPlatform.API_HostAddress = http://localhost:5099
-
-GET {{AIInterviewPlatform.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
