@@ -1,11 +1,16 @@
 ﻿using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
+using AIInterviewPlatform.Application.Services;
 using AIInterviewPlatform.Infrastructure.Data;
 using AIInterviewPlatform.Infrastructure.Repositories;
 using AIInterviewPlatform.Infrastructure.Services;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +32,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Services
 // =======================
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IResumeService, ResumeService>();
 
 // =======================
 // Controllers
@@ -40,9 +47,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 
@@ -75,15 +83,48 @@ builder.Services.AddAuthentication(options =>
 });
 
 // =======================
-// Swagger basic
+// Swagger
 // =======================
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "AIInterviewPlatform.API",
+        Version = "v1"
+    });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Input JWT token"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
 // =======================
-// Middleware
+// Swagger
 // =======================
 if (app.Environment.IsDevelopment())
 {
@@ -91,14 +132,41 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// =======================
+// Middleware
+// =======================
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
+// =======================
+// Static Files
+// =======================
+app.UseStaticFiles();
+
+var uploadsPath = Path.Combine(builder.Environment.WebRootPath, "uploads");
+
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(uploadsPath),
+    RequestPath = "/uploads"
+});
+
+// =======================
+// Authentication
+// =======================
 app.UseAuthentication();
 
 app.UseAuthorization();
 
+// =======================
+// Controllers
+// =======================
 app.MapControllers();
 
 app.Run();

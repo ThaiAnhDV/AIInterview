@@ -3,25 +3,32 @@
     const email = document.getElementById("registerEmail").value;
     const password = document.getElementById("registerPassword").value;
 
-    const response = await fetch(`${API_BASE_URL}/Auth/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fullName: fullName,
-            email: email,
-            password: password
-        })
-    });
+    try {
+        const response = await fetch(`${API_BASE_URL}/Auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fullName,
+                email,
+                password
+            })
+        });
 
-    const result = await response.json();
+        const result = await response.json();
 
-    if (response.ok) {
-        alert("Register successfully!");
-        window.location.href = "/auth/login.html";
-    } else {
-        alert(result.message || "Register failed!");
+        if (response.ok) {
+            showToast("Account created successfully!", "success");
+
+            setTimeout(() => {
+                window.location.href = "/Auth/Login";
+            }, 1200);
+        } else {
+            showToast(result.message || "Register failed!", "error");
+        }
+    } catch (error) {
+        showToast("Cannot connect to server!", "error");
     }
 }
 
@@ -29,27 +36,34 @@ async function login() {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
-    const response = await fetch(`${API_BASE_URL}/Auth/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    });
+    try {
+        const response = await fetch(`${API_BASE_URL}/Auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
 
-    const result = await response.json();
+        const result = await response.json();
 
-    if (response.ok) {
-        localStorage.setItem("token", result.data.token);
-        localStorage.setItem("user", JSON.stringify(result.data));
+        if (response.ok) {
+            localStorage.setItem("token", result.data.token);
+            localStorage.setItem("user", JSON.stringify(result.data));
 
-        alert("Login successfully!");
-        window.location.href = "/profile/profile.html";
-    } else {
-        alert(result.message || "Login failed!");
+            showToast("Login successfully!", "success");
+
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1200);
+        } else {
+            showToast(result.message || "Invalid email or password!", "error");
+        }
+    } catch (error) {
+        showToast("Cannot connect to server!", "error");
     }
 }
 
@@ -57,5 +71,5 @@ function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    window.location.href = "/auth/login.html";
+    window.location.href = "/Auth/Login";
 }
