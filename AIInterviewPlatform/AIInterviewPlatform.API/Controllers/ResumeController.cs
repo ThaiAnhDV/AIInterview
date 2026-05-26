@@ -1,4 +1,5 @@
-﻿using AIInterviewPlatform.Application.Interfaces.Services;
+﻿using AIInterviewPlatform.Application.DTOs.Resume;
+using AIInterviewPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -19,29 +20,25 @@ namespace AIInterviewPlatform.API.Controllers
 
         [HttpPost("upload")]
         [RequestSizeLimit(10_000_000)]
-        public async Task<IActionResult> UploadResume([FromForm] IFormFile file)
+        public async Task<IActionResult> UploadResume(
+    [FromForm] ResumeUploadRequest request)
         {
-            if (file == null)
-            {
-                return BadRequest(new { message = "File is null. Please choose a file." });
-            }
-
-            try
-            {
-                var userId = GetUserId();
-
-                var result = await _resumeService.UploadResumeAsync(userId, file);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
+            if (request.File == null || request.File.Length == 0)
             {
                 return BadRequest(new
                 {
-                    message = ex.Message,
-                    detail = ex.InnerException?.Message
+                    message = "File is required"
                 });
             }
+
+            var userId = GetUserId();
+
+            var result = await _resumeService.UploadResumeAsync(
+                userId,
+                request.File
+            );
+
+            return Ok(result);
         }
 
         [HttpGet("my-resumes")]

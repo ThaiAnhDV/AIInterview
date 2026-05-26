@@ -2,6 +2,7 @@
 using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Domain.Enities;
+using AIInterviewPlatform.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 
 namespace AIInterviewPlatform.Infrastructure.Services
@@ -14,63 +15,58 @@ namespace AIInterviewPlatform.Infrastructure.Services
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResumeResponse> UploadResumeAsync(long userId, IFormFile file)
+        public async Task<ResumeResponse> UploadResumeAsync(
+    long userId,
+    IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
                 throw new Exception("File is required.");
             }
 
+            var allowedExtensions = new[] { ".pdf", ".doc", ".docx" };
+
             var extension = Path.GetExtension(file.FileName).ToLower();
 
-            if (extension != ".pdf" && extension != ".doc" && extension != ".docx")
+            if (!allowedExtensions.Contains(extension))
             {
-                throw new Exception("Only PDF, DOC, DOCX files are allowed.");
+                throw new Exception("Only PDF/DOC/DOCX files are allowed.");
             }
 
-            var webRoot = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            var uploadsFolder = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "uploads",
+                "resumes");
 
-            if (!Directory.Exists(webRoot))
+            if (!Directory.Exists(uploadsFolder))
             {
-                Directory.CreateDirectory(webRoot);
+                Directory.CreateDirectory(uploadsFolder);
             }
 
-            var uploadFolder = Path.Combine(webRoot, "uploads", "resumes");
+            var uniqueFileName =
+                $"{Guid.NewGuid()}{extension}";
 
-            if (!Directory.Exists(uploadFolder))
-            {
-                Directory.CreateDirectory(uploadFolder);
-            }
+            var filePath = Path.Combine(
+                uploadsFolder,
+                uniqueFileName);
 
-            var storedFileName = $"{Guid.NewGuid()}{extension}";
-            var physicalPath = Path.Combine(uploadFolder, storedFileName);
-
-            await using (var stream = new FileStream(physicalPath, FileMode.Create))
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
-            }
-
-            var fileUrl = $"/uploads/resumes/{storedFileName}";
-
-            var oldResumes = await _unitOfWork.Resumes.FindAsync(x => x.UserId == userId);
-
-            foreach (var oldResume in oldResumes)
-            {
-                oldResume.IsActive = false;
-                _unitOfWork.Resumes.Update(oldResume);
             }
 
             var resume = new Resume
             {
                 UserId = userId,
                 FileName = file.FileName,
-                FileUrl = fileUrl,
-                UploadedAt = DateTime.Now,
-                IsActive = true
+                FileUrl = $"/uploads/resumes/{uniqueFileName}",
+                UploadedAt = DateTime.UtcNow,
+                IsActive = false
             };
 
             await _unitOfWork.Resumes.AddAsync(resume);
+
             await _unitOfWork.SaveChangesAsync();
 
             return new ResumeResponse
@@ -78,11 +74,10 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 Id = resume.Id,
                 FileName = resume.FileName,
                 FileUrl = resume.FileUrl,
-                UploadedAt = resume.UploadedAt,
-                IsActive = resume.IsActive
+                IsActive = resume.IsActive,
+                UploadedAt = resume.UploadedAt
             };
         }
-
         public async Task<List<ResumeResponse>> GetMyResumesAsync(long userId)
         {
             var resumes = await _unitOfWork.Resumes.FindAsync(x => x.UserId == userId);
