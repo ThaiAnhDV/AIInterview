@@ -18,3 +18,11 @@
         }, 400);
     }, 2500);
 }
+
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("mainContent");
+
+    sidebar.classList.toggle("hide");
+    mainContent.classList.toggle("sidebar-open");
+}

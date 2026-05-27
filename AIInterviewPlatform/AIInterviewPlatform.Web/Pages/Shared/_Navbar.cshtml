@@ -1,54 +1,26 @@
-﻿<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
-    <div class="container">
-        <a class="navbar-brand mr-lg-5" asp-page="/Index">
-            AI Interview Platform
-        </a>
+﻿<button class="menu-toggle" onclick="toggleSidebar()">
+    ☰
+</button>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
-                aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div class="sidebar hide" id="sidebar">
 
-        <div class="navbar-collapse collapse" id="navbar_global">
-            <div class="navbar-collapse-header">
-                <div class="row">
-                    <div class="col-6 collapse-brand">
-                        <a asp-page="/Index">AI Interview</a>
-                    </div>
-
-                    <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global"
-                                aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/Dashboard/Index">Dashboard</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/Interview/Start">Mock Interview</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/Roadmap/Index">Roadmap</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                <li class="nav-item">
-                    <a class="btn btn-neutral" asp-page="/Account/Login">Login</a>
-                </li>
-
-                <li class="nav-item ml-lg-2">
-                    <a class="btn btn-primary" asp-page="/Account/Register">Register</a>
-                </li>
-            </ul>
-        </div>
+    <div class="sidebar-logo">
+        AI INTERVIEW
     </div>
-</nav>
+
+    <ul class="sidebar-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/Profile">Profile</a></li>
+        <li><a href="/Resume">Resume</a></li>
+        <li><a href="/TargetJob">Target Jobs</a></li>
+        <li><a href="/Interview/Start">Mock Interview</a></li>
+        <li><a href="/Roadmap">Roadmap</a></li>
+    </ul>
+
+    <div class="sidebar-bottom">
+        <a href="/Auth/Login" class="btn btn-light btn-sm w-100 mb-2">Login</a>
+        <a href="/Auth/Register" class="btn btn-info btn-sm w-100 mb-2">Register</a>
+        <button onclick="logout()" class="btn btn-danger btn-sm w-100">Logout</button>
+    </div>
+
+</div>

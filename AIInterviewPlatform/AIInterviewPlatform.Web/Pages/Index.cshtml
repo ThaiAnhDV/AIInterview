@@ -20,266 +20,364 @@
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
     <link href="/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
+    <link href="/css/site.css" rel="stylesheet" />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            width: 100%;
+        }
+
+        .welcome-box {
+            animation: fadeInUp 1s ease;
+        }
+
+        .typing-container {
+            min-height: 45px;
+        }
+
+        .typing-text {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .typing-cursor {
+            color: #11cdef;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: blink 0.8s infinite;
+        }
+
+        @@keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body class="landing-page">
 
-    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light py-2">
-        <div class="container">
-            <a class="navbar-brand mr-lg-5" href="/">
-                <strong class="text-white">AI INTERVIEW PLATFORM</strong>
-            </a>
+    <partial name="_Navbar" />
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="main-content" id="mainContent">
 
-            <div class="navbar-collapse collapse" id="navbar_global">
-                <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">
-                            <span class="nav-link-inner--text">Home</span>
-                        </a>
-                    </li>
+        <div class="wrapper">
+            <div class="section section-hero section-shaped">
+                <div class="shape shape-style-3 shape-default">
+                    <span class="span-150"></span>
+                    <span class="span-50"></span>
+                    <span class="span-50"></span>
+                    <span class="span-75"></span>
+                    <span class="span-100"></span>
+                    <span class="span-75"></span>
+                    <span class="span-50"></span>
+                    <span class="span-100"></span>
+                    <span class="span-50"></span>
+                    <span class="span-100"></span>
+                </div>
 
-                    <li class="nav-item">
-                        <a href="/Profile" class="nav-link">
-                            <span class="nav-link-inner--text">Profile</span>
-                        </a>
-                    </li>
+                <div class="page-header">
+                    <div class="container shape-container d-flex align-items-center py-lg">
+                        <div class="col px-0">
+                            <div class="row align-items-center justify-content-center">
 
-                    <li class="nav-item">
-                        <a href="/Resume" class="nav-link">
-                            <span class="nav-link-inner--text">Resume</span>
-                        </a>
-                    </li>
+                                <div class="col-lg-8 text-center">
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-link-inner--text">Mock Interview</span>
-                        </a>
-                    </li>
+                                    <h1 class="display-2 text-white font-weight-bold mb-4">
+                                        AI Interview Platform
+                                    </h1>
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-link-inner--text">Roadmap</span>
-                        </a>
-                    </li>
-                </ul>
+                                    <div class="welcome-box mb-4">
 
-                <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                    <li class="nav-item">
-                        <a id="loginButton" href="/Auth/Login" class="btn btn-neutral btn-sm">
-                            Login
-                        </a>
-                    </li>
+                                        <h2 class="text-white font-weight-bold">
+                                            Welcome back,
+                                            <span id="welcomeUserName" class="text-info">
+                                                Future Interviewer
+                                            </span>
+                                        </h2>
 
-                    <li class="nav-item ml-2">
-                        <a id="registerButton" href="/Auth/Register" class="btn btn-info btn-sm">
-                            Register
-                        </a>
-                    </li>
+                                        <div class="typing-container mt-3">
+                                            <span id="typedText" class="typing-text"></span>
+                                            <span class="typing-cursor">|</span>
+                                        </div>
 
-                    <li class="nav-item">
-                        <span id="currentUserName" class="text-white mr-3"></span>
-                    </li>
+                                    </div>
 
-                    <li class="nav-item">
-                        <button id="logoutButton" onclick="logout()" class="btn btn-danger btn-sm">
-                            Logout
-                        </button>
-                    </li>
-                </ul>
+                                    <p class="lead text-white mb-5">
+                                        Upload your resume, analyze skill gaps,
+                                        practice mock interviews, and improve your
+                                        readiness score with AI-powered feedback.
+                                    </p>
+
+                                    <div class="btn-wrapper">
+
+                                        <a href="/TargetJob"
+                                           class="btn btn-info btn-icon mb-3 mb-sm-0">
+
+                                            <span class="btn-inner--icon">
+                                                <i class="ni ni-spaceship"></i>
+                                            </span>
+
+                                            <span class="btn-inner--text">
+                                                Explore Features
+                                            </span>
+
+                                        </a>
+
+                                        <a href="/Profile"
+                                           class="btn btn-white btn-icon mb-3 mb-sm-0">
+
+                                            <span class="btn-inner--icon">
+                                                <i class="ni ni-single-02"></i>
+                                            </span>
+
+                                            <span class="btn-inner--text">
+                                                My Profile
+                                            </span>
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator separator-bottom separator-skew zindex-100">
+                    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none">
+                        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+                    </svg>
+                </div>
             </div>
-        </div>
-    </nav>
 
-    <div class="wrapper">
-        <div class="section section-hero section-shaped">
-            <div class="shape shape-style-3 shape-default">
-                <span class="span-150"></span>
-                <span class="span-50"></span>
-                <span class="span-50"></span>
-                <span class="span-75"></span>
-                <span class="span-100"></span>
-                <span class="span-75"></span>
-                <span class="span-50"></span>
-                <span class="span-100"></span>
-                <span class="span-50"></span>
-                <span class="span-100"></span>
-            </div>
+            <div class="section features-6">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
 
-            <div class="page-header">
-                <div class="container shape-container d-flex align-items-center py-lg">
-                    <div class="col px-0">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-lg-7 text-center">
-                                <h1 class="text-white display-2">
-                                    AI Interview Platform
-                                </h1>
-
-                                <h2 class="display-4 font-weight-normal text-white">
-                                    Practice smarter. Interview better.
-                                </h2>
-
-                                <p class="lead text-white mt-4">
-                                    Upload your resume, analyze skill gaps, practice mock interviews,
-                                    and improve your readiness score with AI-powered feedback.
-                                </p>
-
-                                <div class="btn-wrapper mt-4">
-                                    <a href="/Auth/Register" class="btn btn-info btn-icon mt-3 mb-sm-0">
-                                        <span class="btn-inner--icon">
-                                            <i class="ni ni-spaceship"></i>
-                                        </span>
-                                        <span class="btn-inner--text">Get Started</span>
-                                    </a>
-
-                                    <a href="/Profile" class="btn btn-white btn-icon mt-3 mb-sm-0">
-                                        <span class="btn-inner--icon">
-                                            <i class="ni ni-single-02"></i>
-                                        </span>
-                                        <span class="btn-inner--text">My Profile</span>
-                                    </a>
+                            <div class="info info-horizontal info-hover-primary">
+                                <div class="description pl-4">
+                                    <h5 class="title">Resume & Job Analysis</h5>
+                                    <p>
+                                        Compare your resume with target job descriptions and discover
+                                        matched skills, missing skills, and improvement areas.
+                                    </p>
                                 </div>
                             </div>
+
+                            <div class="info info-horizontal info-hover-primary mt-5">
+                                <div class="description pl-4">
+                                    <h5 class="title">AI Mock Interview</h5>
+                                    <p>
+                                        Practice behavioral and technical interview questions tailored
+                                        to your target role.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="info info-horizontal info-hover-primary mt-5">
+                                <div class="description pl-4">
+                                    <h5 class="title">Personalized Roadmap</h5>
+                                    <p>
+                                        Follow a learning roadmap generated from your weaknesses and
+                                        track progress over time.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6 col-10 mx-md-auto">
+                            <img class="ml-lg-5" src="/assets/img/ill/ill.png" width="100%">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="separator separator-bottom separator-skew zindex-100">
-                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none">
-                    <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-                </svg>
+            <div class="section features-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 mx-auto text-center">
+                            <span class="badge badge-primary badge-pill mb-3">Core Features</span>
+                            <h3 class="display-3">Prepare with data-driven feedback</h3>
+                            <p class="lead">
+                                Turn every practice session into measurable improvement.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="info">
+                                <div class="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle">
+                                    <i class="ni ni-chart-bar-32"></i>
+                                </div>
+                                <h6 class="info-title text-uppercase text-primary">Readiness Score</h6>
+                                <p class="description opacity-8">
+                                    Measure how ready you are for your target role.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="info">
+                                <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle">
+                                    <i class="ni ni-chat-round"></i>
+                                </div>
+                                <h6 class="info-title text-uppercase text-success">Answer Feedback</h6>
+                                <p class="description opacity-8">
+                                    Receive feedback on clarity, relevance, structure, and technical accuracy.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="info">
+                                <div class="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle">
+                                    <i class="ni ni-map-big"></i>
+                                </div>
+                                <h6 class="info-title text-uppercase text-warning">Learning Path</h6>
+                                <p class="description opacity-8">
+                                    Know exactly what to practice next.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+
         </div>
 
-        <div class="section features-6">
+        <footer class="footer">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="info info-horizontal info-hover-primary">
-                            <div class="description pl-4">
-                                <h5 class="title">Resume & Job Analysis</h5>
-                                <p>
-                                    Compare your resume with target job descriptions and discover
-                                    matched skills, missing skills, and improvement areas.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="info info-horizontal info-hover-primary mt-5">
-                            <div class="description pl-4">
-                                <h5 class="title">AI Mock Interview</h5>
-                                <p>
-                                    Practice behavioral and technical interview questions tailored
-                                    to your target role.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="info info-horizontal info-hover-primary mt-5">
-                            <div class="description pl-4">
-                                <h5 class="title">Personalized Roadmap</h5>
-                                <p>
-                                    Follow a learning roadmap generated from your weaknesses and
-                                    track progress over time.
-                                </p>
-                            </div>
+                <hr>
+                <div class="row align-items-center justify-content-md-between">
+                    <div class="col-md-6">
+                        <div class="copyright">
+                            &copy; 2026 AI Interview Platform
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-10 mx-md-auto">
-                        <img class="ml-lg-5" src="/assets/img/ill/ill.png" width="100%">
+                    <div class="col-md-6">
+                        <ul class="nav nav-footer justify-content-end">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Profile" class="nav-link">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/TargetJob" class="nav-link">Target Jobs</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
 
-        <div class="section features-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 mx-auto text-center">
-                        <span class="badge badge-primary badge-pill mb-3">Core Features</span>
-                        <h3 class="display-3">Prepare with data-driven feedback</h3>
-                        <p class="lead">
-                            Turn every practice session into measurable improvement.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle">
-                                <i class="ni ni-chart-bar-32"></i>
-                            </div>
-                            <h6 class="info-title text-uppercase text-primary">Readiness Score</h6>
-                            <p class="description opacity-8">
-                                Measure how ready you are for your target role.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle">
-                                <i class="ni ni-chat-round"></i>
-                            </div>
-                            <h6 class="info-title text-uppercase text-success">Answer Feedback</h6>
-                            <p class="description opacity-8">
-                                Receive feedback on clarity, relevance, structure, and technical accuracy.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle">
-                                <i class="ni ni-map-big"></i>
-                            </div>
-                            <h6 class="info-title text-uppercase text-warning">Learning Path</h6>
-                            <p class="description opacity-8">
-                                Know exactly what to practice next.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <footer class="footer">
-        <div class="container">
-            <hr>
-            <div class="row align-items-center justify-content-md-between">
-                <div class="col-md-6">
-                    <div class="copyright">
-                        &copy; 2026 AI Interview Platform
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <ul class="nav nav-footer justify-content-end">
-                        <li class="nav-item">
-                            <a href="/" class="nav-link">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Profile" class="nav-link">Profile</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script src="/assets/js/core/jquery.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/argon-design-system.min.js?v=1.2.2"></script>
+
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/site.js"></script>
+
+    <script>
+        const slogans = [
+            "Practice smarter. Interview better.",
+            "Discover your dream career with AI.",
+            "Explore personalized interview roadmaps.",
+            "Train with realistic mock interviews.",
+            "Boost your confidence before every interview.",
+            "Start your AI-powered career journey today."
+        ];
+
+        let sloganIndex = 0;
+        let charIndex = 0;
+        let currentText = "";
+        let deleting = false;
+
+        const typedText =
+            document.getElementById("typedText");
+
+        function typeEffect() {
+            currentText = slogans[sloganIndex];
+
+            if (!deleting) {
+                typedText.textContent =
+                    currentText.substring(0, charIndex);
+
+                charIndex++;
+            }
+            else {
+                typedText.textContent =
+                    currentText.substring(0, charIndex);
+
+                charIndex--;
+            }
+
+            let speed = deleting ? 40 : 80;
+
+            if (!deleting && charIndex > currentText.length) {
+                deleting = true;
+                speed = 1500;
+            }
+
+            if (deleting && charIndex < 0) {
+                deleting = false;
+
+                sloganIndex++;
+
+                if (sloganIndex >= slogans.length) {
+                    sloganIndex = 0;
+                }
+
+                speed = 400;
+            }
+
+            setTimeout(typeEffect, speed);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const user =
+                JSON.parse(localStorage.getItem("user"));
+
+            if (user && user.fullName) {
+                document.getElementById("welcomeUserName")
+                    .innerText = user.fullName;
+            }
+
+            typeEffect();
+        });
+    </script>
+
 </body>
 </html>

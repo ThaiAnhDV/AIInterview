@@ -1,21 +1,16 @@
 ﻿function requireLogin() {
     const token = localStorage.getItem("token");
 
-    if (!token) {
+    if (!token || token.trim() === "") {
         window.location.href = "/Auth/Login";
-    }
-}
-
-function getCurrentUser() {
-    const userJson = localStorage.getItem("user");
-
-    if (!userJson) {
-        return null;
+        return false;
     }
 
-    return JSON.parse(userJson);
+    return true;
 }
 
-function isLoggedIn() {
-    return localStorage.getItem("token") !== null;
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/Auth/Login";
 }

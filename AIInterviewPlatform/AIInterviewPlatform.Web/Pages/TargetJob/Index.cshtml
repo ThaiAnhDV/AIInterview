@@ -1,0 +1,102 @@
+﻿@page
+@model AIInterviewPlatform.Web.Pages.TargetJob.IndexModel
+@{
+    ViewData["Title"] = "Target Jobs";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Target Job Management</h4>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Job Title</label>
+                    <input id="jobTitle" class="form-control" placeholder="Backend Developer" />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label>Industry</label>
+                    <input id="industry" class="form-control" placeholder="Software" />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label>Experience Level</label>
+                    <input id="experienceLevel" class="form-control" placeholder="Junior / Senior" />
+                </div>
+            </div>
+
+            <button class="btn btn-success" onclick="createTargetJob()">
+                Create Target Job
+            </button>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">My Target Jobs</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Industry</th>
+                            <th>Experience Level</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="targetJobTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jdModal" class="jd-modal">
+    <div class="jd-modal-content">
+
+        <div class="jd-modal-header">
+            <h4>Target Job Description</h4>
+            <button onclick="closeJdModal()" class="jd-close-btn">×</button>
+        </div>
+
+        <div class="jd-modal-body">
+            <p class="text-muted">
+                Enter JD for this target job.
+            </p>
+
+            <textarea id="jobDescriptionContent"
+                      class="form-control"
+                      rows="10"
+                      placeholder="Required skills: C#, ASP.NET Core, SQL Server, REST API, JWT, Git..."></textarea>
+        </div>
+
+        <div class="jd-modal-footer">
+            <button class="btn btn-secondary" onclick="closeJdModal()">Close</button>
+            <button class="btn btn-success" onclick="saveJobDescription()">Save JD</button>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/api.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/auth.js"></script>
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/target-job.js"></script>
+
+    <script>
+        if (requireLogin()) {
+            loadTargetJobs();
+        }
+    </script>
+}

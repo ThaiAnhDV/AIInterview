@@ -17,9 +17,13 @@
 <body>
     <partial name="_Navbar" />
 
-    <main role="main">
-        @RenderBody()
-    </main>
+    <div class="main-content">
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+    </div>
 
     <partial name="_Footer" />
 
@@ -35,5 +39,8 @@
 
     @await RenderSectionAsync("Scripts", required: false)
     <script src="~/js/site.js"></script>
+    <script src="~/assets/js/core/jquery.min.js"></script>
+    <script src="~/assets/js/core/popper.min.js"></script>
+    <script src="~/assets/js/core/bootstrap.min.js"></script>
 </body>
 </html>
