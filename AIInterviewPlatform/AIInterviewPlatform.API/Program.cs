@@ -38,6 +38,9 @@ builder.Services.AddScoped<ITargetJobService, TargetJobService>();
 builder.Services.AddScoped<
     ISkillService,
     SkillService>();
+builder.Services.AddScoped<
+    ISkillGapAnalysisService,
+    SkillGapAnalysisService>();
 
 // =======================
 // Controllers
