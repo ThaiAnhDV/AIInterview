@@ -1,4 +1,5 @@
-﻿using AIInterviewPlatform.Application.Interfaces.Repositories;
+﻿using AIInterviewPlatform.Application.Interfaces;
+using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Application.Services;
 using AIInterviewPlatform.Infrastructure.Data;
@@ -41,6 +42,9 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     ISkillGapAnalysisService,
     SkillGapAnalysisService>();
+builder.Services.AddScoped<
+    IInterviewService,
+    InterviewService>();
 
 // =======================
 // Controllers
