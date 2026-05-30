@@ -24,11 +24,20 @@
 
         const jd = await response.json();
 
+        if (jd && jd.id) {
+            document.getElementById("jobDescriptionId").value = jd.id;
+        }
+
         if (jd && jd.content) {
             document.getElementById("jobDescriptionContent").value = jd.content;
         }
+
+        if (jd && jd.id) {
+            await loadRequiredSkills(jd.id);
+        }
+
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -67,9 +76,101 @@ async function saveJobDescription() {
             return;
         }
 
+        const jd = await response.json();
+
+        if (jd && jd.id) {
+            document.getElementById("jobDescriptionId").value = jd.id;
+        }
+
         showToast("Job description saved successfully!", "success");
+
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server!", "error");
+    }
+}
+
+async function extractSkills() {
+    const token = localStorage.getItem("token");
+    let jobDescriptionId = document.getElementById("jobDescriptionId").value;
+
+    if (!jobDescriptionId) {
+        await saveJobDescription();
+        jobDescriptionId = document.getElementById("jobDescriptionId").value;
+    }
+
+    if (!jobDescriptionId) {
+        showToast("Please save job description first!", "error");
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/Skills/extract/${jobDescriptionId}`,
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!response.ok) {
+            showToast("Cannot extract skills!", "error");
+            return;
+        }
+
+        showToast("Skills extracted successfully!", "success");
+
+        await loadRequiredSkills(jobDescriptionId);
+
+    } catch (error) {
+        console.error(error);
+        showToast("Cannot connect to server!", "error");
+    }
+}
+
+async function loadRequiredSkills(jobDescriptionId) {
+    const token = localStorage.getItem("token");
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/Skills/required/${jobDescriptionId}`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const skills = await response.json();
+        const container = document.getElementById("requiredSkillsContainer");
+
+        if (!skills || skills.length === 0) {
+            container.innerHTML = `
+                <div class="text-muted">
+                    No skills extracted yet.
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = "";
+
+        skills.forEach(skill => {
+            container.innerHTML += `
+                <span class="badge badge-primary mr-2 mb-2 p-2">
+                    ${skill.skillName}
+                </span>
+            `;
+        });
+
+    } catch (error) {
+        console.error(error);
     }
 }
