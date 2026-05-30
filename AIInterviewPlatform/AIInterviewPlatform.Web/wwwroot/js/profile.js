@@ -1,6 +1,21 @@
 ﻿async function loadProfile() {
     const token = localStorage.getItem("token");
+    
+    console.log("=== DEBUG Profile ===");
+    console.log("Token:", token ? "EXISTS" : "NULL/MISSING");
+    console.log("API_BASE_URL:", API_BASE_URL);
 
+    if (!token) {
+        console.log("NO TOKEN - Redirecting to login");
+        showToast("Please login again!", "error");
+        setTimeout(() => {
+            logout();
+        }, 1000);
+        return;
+    }
+
+    console.log("Calling API...");
+    
     try {
         const response = await fetch(`${API_BASE_URL}/Profile/me`, {
             method: "GET",
@@ -9,7 +24,13 @@
             }
         });
 
+        console.log("Response Status:", response.status);
+        console.log("Response OK:", response.ok);
+
         if (!response.ok) {
+            const errorText = await response.text();
+            console.log("Error Response:", errorText);
+            
             showToast("Please login again!", "error");
 
             setTimeout(() => {
@@ -20,6 +41,7 @@
         }
 
         const profile = await response.json();
+        console.log("Profile Data:", profile);
 
         document.getElementById("profileDisplayName").innerText =
             profile.fullName || "Unknown User";
@@ -48,6 +70,7 @@
         document.getElementById("profileCareerGoal").value =
             profile.careerGoal || "";
     } catch (error) {
+        console.error("Error loading profile:", error);
         showToast("Cannot load profile!", "error");
     }
 }

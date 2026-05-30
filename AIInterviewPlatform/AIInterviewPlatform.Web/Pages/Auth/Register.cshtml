@@ -21,260 +21,396 @@
     <link href="/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
     <link href="/css/site.css" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0a0a1a;
+            font-family: 'Open Sans', sans-serif;
+            overflow: hidden;
+        }
+
+        .auth-video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .auth-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .auth-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.7);
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: 420px;
+            background: rgb(2, 0, 36);
+            background: linear-gradient(
+                90deg,
+                rgba(2, 0, 36, 1) 9%,
+                rgba(9, 9, 121, 1) 68%,
+                rgba(0, 91, 255, 1) 97%
+            );
+            backdrop-filter: blur(9px);
+            color: #fff;
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-login {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+
+        .wrapper .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 30px 0;
+        }
+
+        .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 25px 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-box input:focus {
+            border-color: rgba(0, 91, 255, 1);
+        }
+
+        .input-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .wrapper .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14.5px;
+            margin: -15px 0 15px;
+        }
+
+        .remember-forgot label {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+        }
+
+        .remember-forgot label input {
+            accent-color: #fff;
+            margin-right: 3px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .remember-forgot a {
+            color: #fff;
+            text-decoration: none;
+            transition: text-decoration 0.3s ease;
+        }
+
+        .remember-forgot a:hover {
+            text-decoration: underline;
+        }
+
+        .wrapper .btn {
+            width: 150px;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+            margin-left: 90px;
+            margin-top: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .wrapper .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .wrapper .btn:active {
+            transform: translateY(0);
+        }
+
+        .wrapper .register-link {
+            font-size: 14.5px;
+            text-align: center;
+            margin: 20px 0 15px;
+        }
+
+        .register-link p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .register-link p a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: text-decoration 0.3s ease;
+        }
+
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-home a {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-home a:hover {
+            color: #fff;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .social-btn i {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider span {
+            padding: 0 15px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            color: #00ff88;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
 </head>
 
-<body class="register-page">
-
-    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light py-2">
-        <div class="container">
-            <a class="navbar-brand mr-lg-5" href="/">
-                <strong class="text-white">AI Interview Platform</strong>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="navbar-collapse collapse" id="navbar_global">
-                <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link text-white">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Dashboard" class="nav-link text-white">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">Mock Interview</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">Roadmap</a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                    <li class="nav-item">
-                        <a href="/Auth/Login" class="btn btn-neutral btn-sm">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/Auth/Register" class="btn btn-primary btn-sm">Register</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body>
+    <div class="auth-video-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline>
+            <source src="/videos/auth-background.mp4" type="video/mp4">
+            <source src="/videos/auth-background.webm" type="video/webm">
+        </video>
+        <div class="auth-video-overlay"></div>
+    </div>
 
     <div class="wrapper">
-        <section class="section section-shaped section-lg">
-            <div class="shape shape-style-1 bg-gradient-default">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
+        <div class="logo-container">
+            <img src="/img/logo.png" alt="Logo" onerror="this.style.display='none'">
+        </div>
+        
+        <div class="form-login">Register</div>
+        
+        <div class="subtitle">Create your account</div>
+
+        <div class="social-login">
+            <a href="#" class="social-btn" title="Sign up with Google">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="#" class="social-btn" title="Sign up with GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-btn" title="Sign up with Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </div>
+
+        <div class="divider">
+            <span>or with email</span>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="registerForm" onsubmit="event.preventDefault(); register();">
+            <div class="input-box">
+                <input id="registerFullName" 
+                       type="text" 
+                       placeholder="Full Name" 
+                       required />
+                <i class="fas fa-user"></i>
             </div>
 
-            <div class="container pt-lg-7">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5">
-                        <div class="card bg-secondary shadow border-0">
-                            <div class="card-header bg-white pb-5">
-                                <div class="text-muted text-center mb-3">
-                                    <small>Join AI Interview Platform</small>
-                                </div>
-
-                                <div class="text-center">
-                                    <a href="#" class="btn btn-neutral btn-icon mr-4">
-                                        <span class="btn-inner--icon">
-                                            <img src="/assets/img/icons/common/github.svg">
-                                        </span>
-                                        <span class="btn-inner--text">Github</span>
-                                    </a>
-
-                                    <a href="#" class="btn btn-neutral btn-icon">
-                                        <span class="btn-inner--icon">
-                                            <img src="/assets/img/icons/common/google.svg">
-                                        </span>
-                                        <span class="btn-inner--text">Google</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="card-body px-lg-5 py-lg-5">
-                                <div class="text-center text-muted mb-4">
-                                    <small>Create your account</small>
-                                </div>
-
-                                <form id="registerForm" onsubmit="event.preventDefault(); register();">
-
-                                    <div class="form-group">
-                                        <div class="input-group input-group-alternative mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="ni ni-hat-3"></i>
-                                                </span>
-                                            </div>
-
-                                            <input id="registerFullName"
-                                                   class="form-control"
-                                                   placeholder="Full Name"
-                                                   type="text"
-                                                   required />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="input-group input-group-alternative mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="ni ni-email-83"></i>
-                                                </span>
-                                            </div>
-
-                                            <input id="registerEmail"
-                                                   class="form-control"
-                                                   placeholder="Email"
-                                                   type="email"
-                                                   required />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="input-group input-group-alternative">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="ni ni-lock-circle-open"></i>
-                                                </span>
-                                            </div>
-
-                                            <input id="registerPassword"
-                                                   class="form-control"
-                                                   placeholder="Password"
-                                                   type="password"
-                                                   required />
-                                        </div>
-                                    </div>
-
-                                    <div class="text-muted font-italic">
-                                        <small>
-                                            Password should be at least
-                                            <span class="text-success font-weight-700">6 characters</span>
-                                        </small>
-                                    </div>
-
-                                    <div class="row my-4">
-                                        <div class="col-12">
-                                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                                <input class="custom-control-input"
-                                                       id="customCheckRegister"
-                                                       type="checkbox"
-                                                       required>
-
-                                                <label class="custom-control-label" for="customCheckRegister">
-                                                    <span>
-                                                        I agree with the
-                                                        <a href="#">Privacy Policy</a>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary mt-4">
-                                            Create Account
-                                        </button>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <a href="/Auth/Login" class="text-light">
-                                    <small>Already have account?</small>
-                                </a>
-                            </div>
-
-                            <div class="col-6 text-right">
-                                <a href="/" class="text-light">
-                                    <small>Back to home</small>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+            <div class="input-box">
+                <input id="registerEmail" 
+                       type="email" 
+                       placeholder="Email" 
+                       required />
+                <i class="fas fa-envelope"></i>
             </div>
-        </section>
 
-        <footer class="footer">
-            <div class="container">
-                <div class="row row-grid align-items-center mb-5">
-                    <div class="col-lg-6">
-                        <h3 class="text-primary font-weight-light mb-2">
-                            Thank you for using AI Interview Platform!
-                        </h3>
-
-                        <h4 class="mb-0 font-weight-light">
-                            Practice interviews and improve your readiness.
-                        </h4>
-                    </div>
-
-                    <div class="col-lg-6 text-lg-center btn-wrapper">
-                        <button class="btn btn-icon-only btn-twitter rounded-circle">
-                            <span class="btn-inner--icon">
-                                <i class="fa fa-twitter"></i>
-                            </span>
-                        </button>
-
-                        <button class="btn btn-icon-only btn-facebook rounded-circle">
-                            <span class="btn-inner--icon">
-                                <i class="fab fa-facebook"></i>
-                            </span>
-                        </button>
-
-                        <button class="btn btn-icon-only btn-dribbble rounded-circle">
-                            <span class="btn-inner--icon">
-                                <i class="fa fa-dribbble"></i>
-                            </span>
-                        </button>
-
-                        <button class="btn btn-icon-only btn-github rounded-circle">
-                            <span class="btn-inner--icon">
-                                <i class="fa fa-github"></i>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row align-items-center justify-content-md-between">
-                    <div class="col-md-6">
-                        <div class="copyright">
-                            © 2026 AI Interview Platform
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <ul class="nav nav-footer justify-content-end">
-                            <li class="nav-item">
-                                <a href="/" class="nav-link">Home</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="/Auth/Login" class="nav-link">Login</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="/Profile" class="nav-link">Profile</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Roadmap</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="input-box">
+                <input id="registerPassword" 
+                       type="password" 
+                       placeholder="Password" 
+                       required />
+                <i class="fas fa-lock"></i>
             </div>
-        </footer>
+
+            <div class="remember-forgot">
+                <label>
+                    <input type="checkbox" id="customCheckRegister" required>
+                    <span>I agree with the <a href="#">Privacy Policy</a></span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+
+        <div class="register-link">
+            <p>Already have an account? <a href="/Auth/Login">Login</a></p>
+        </div>
+
+        <div class="back-home">
+            <a href="/">Back to home</a>
+        </div>
     </div>
 
     <script src="/assets/js/core/jquery.min.js"></script>

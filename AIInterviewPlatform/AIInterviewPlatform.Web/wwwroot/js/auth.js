@@ -32,9 +32,38 @@
     }
 }
 
+function setLoginLoading(isLoading) {
+    const overlay = document.getElementById("login-loading-overlay");
+    const submitBtn = document.getElementById("loginSubmitBtn");
+
+    if (overlay) {
+        overlay.classList.toggle("is-active", isLoading);
+        overlay.setAttribute("aria-hidden", isLoading ? "false" : "true");
+        overlay.style.display = isLoading ? "flex" : "none";
+    }
+
+    if (submitBtn) {
+        submitBtn.disabled = isLoading;
+    }
+}
+
 async function login() {
-    const email = document.getElementById("loginEmail").value;
+    const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
+
+    if (!email || !password) {
+        showToast("Please enter email and password.", "error");
+        return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+        showToast("Email format is invalid.", "error");
+        return;
+    }
+
+    setLoginLoading(true);
 
     try {
         const response = await fetch(`${API_BASE_URL}/Auth/login`, {
@@ -48,22 +77,91 @@ async function login() {
             })
         });
 
-        const result = await response.json();
+        let result = null;
+
+        try {
+            result = await response.json();
+        } catch {
+            result = null;
+        }
 
         if (response.ok) {
-            localStorage.setItem("token", result.data.token);
-            localStorage.setItem("user", JSON.stringify(result.data));
 
-            showToast("Login successfully!", "success");
+            if (!result?.data?.token) {
+                setLoginLoading(false);
+
+                showToast(
+                    "Login failed: invalid server response.",
+                    "error"
+                );
+
+                return;
+            }
+
+            localStorage.setItem(
+                "token",
+                result.data.token
+            );
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(result.data)
+            );
+
+            showToast(
+                "Login successfully!",
+                "success"
+            );
+
+            /*
+             IMPORTANT:
+             keep overlay visible until redirect
+            */
 
             setTimeout(() => {
                 window.location.href = "/";
             }, 1200);
+
         } else {
-            showToast(result.message || "Invalid email or password!", "error");
+
+            setLoginLoading(false);
+
+            const serverMessage =
+                result?.message ||
+                result?.detail ||
+                result?.title ||
+                "";
+
+            const lower = serverMessage.toLowerCase();
+
+            if (
+                response.status === 401 ||
+                response.status === 400 ||
+                lower.includes("invalid")
+            ) {
+
+                showToast(
+                    "Email or password is invalid.",
+                    "error"
+                );
+
+            } else {
+
+                showToast(
+                    serverMessage || "Login failed.",
+                    "error"
+                );
+            }
         }
+
     } catch (error) {
-        showToast("Cannot connect to server!", "error");
+
+        setLoginLoading(false);
+
+        showToast(
+            "Cannot connect to server!",
+            "error"
+        );
     }
 }
 
