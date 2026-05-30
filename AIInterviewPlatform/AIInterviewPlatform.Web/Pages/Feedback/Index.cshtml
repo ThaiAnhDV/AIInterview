@@ -1,0 +1,61 @@
+﻿@page
+@model AIInterviewPlatform.Web.Pages.Feedback.IndexModel
+
+@{
+    ViewData["Title"] = "Interview Feedback";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Interview Feedback</h4>
+        </div>
+
+        <div class="card-body">
+
+            <input type="hidden" id="sessionId" value="@Request.Query["sessionId"]" />
+
+            <div class="mb-4">
+                <button class="btn btn-success" onclick="evaluateAllAnswers()">
+                    Evaluate All Answers
+                </button>
+
+                <a href="/Interview" class="btn btn-secondary">
+                    Back to Interviews
+                </a>
+            </div>
+
+            <div id="feedbackSummary" style="display:none;">
+                <h4>
+                    Average Score:
+                    <span id="averageScore" class="text-primary"></span>
+                </h4>
+
+                <hr />
+            </div>
+
+            <div id="feedbackContainer">
+                <div class="text-muted">
+                    No feedback yet. Click "Evaluate All Answers".
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/api.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/auth.js"></script>
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/feedback.js"></script>
+
+    <script>
+        if (requireLogin()) {
+            loadSessionFeedback();
+        }
+    </script>
+}

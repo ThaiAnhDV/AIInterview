@@ -45,6 +45,13 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     IInterviewService,
     InterviewService>();
+builder.Services.AddScoped<
+    IInterviewAnswerService,
+    InterviewAnswerService>();
+builder.Services.AddScoped<
+    IAnswerEvaluationService,
+    AnswerEvaluationService>();
+builder.Services.AddScoped<ILearningRoadmapService, LearningRoadmapService>();
 
 // =======================
 // Controllers

@@ -19,7 +19,55 @@
 
         <div class="card-body">
 
-            <div id="questionContainer">
+            <div id="questionContainer"></div>
+
+            <hr />
+
+            <div class="text-center mt-4">
+
+                <button class="btn btn-success"
+                        onclick="submitInterviewAnswers()">
+
+                    Submit Answers
+
+                </button>
+
+            </div>
+
+            <hr />
+
+            <div id="evaluationResult"
+                 style="display:none;">
+
+                <div class="card border-success">
+
+                    <div class="card-header bg-success text-white">
+
+                        <h5>
+                            Interview Result
+                        </h5>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Overall Score:
+                            <span id="overallScore"></span>
+                        </h4>
+
+                        <hr />
+
+                        <h5>
+                            Feedback
+                        </h5>
+
+                        <ul id="feedbackList"></ul>
+
+                    </div>
+
+                </div>
+
             </div>
 
             <hr />
@@ -30,6 +78,12 @@
                 Complete Interview
 
             </button>
+
+            <a id="feedbackLink"
+               class="btn btn-info"
+               href="#">
+                View Feedback
+            </a>
 
         </div>
 
