@@ -8,13 +8,16 @@
 <div class="container mt-4">
 
     <div class="card shadow-sm border-0">
+
         <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Target Job Description</h4>
         </div>
 
         <div class="card-body">
 
-            <input type="hidden" id="targetJobId" value="@Request.Query["targetJobId"]" />
+            <input type="hidden"
+                   id="targetJobId"
+                   value="@Request.Query["targetJobId"]" />
 
             <p class="text-muted">
                 Enter the job description for this target job.
@@ -22,20 +25,23 @@
 
             <textarea id="jobDescriptionContent"
                       class="form-control"
-                      rows="12"
-                      placeholder="Required skills: C#, ASP.NET Core, SQL Server, REST API, JWT, Git..."></textarea>
+                      rows="14"
+                      placeholder="Example: Required skills: C#, ASP.NET Core, SQL Server, REST API, JWT, Git..."></textarea>
 
             <div class="mt-4">
-                <button class="btn btn-success" onclick="saveJobDescription()">
+                <button class="btn btn-success"
+                        onclick="saveJobDescription()">
                     Save Job Description
                 </button>
 
-                <a href="/TargetJob" class="btn btn-secondary">
+                <a href="/TargetJob"
+                   class="btn btn-secondary">
                     Back
                 </a>
             </div>
 
         </div>
+
     </div>
 
 </div>

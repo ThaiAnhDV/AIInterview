@@ -37,6 +37,11 @@ async function saveJobDescription() {
     const targetJobId = document.getElementById("targetJobId").value;
     const content = document.getElementById("jobDescriptionContent").value;
 
+    if (!targetJobId) {
+        showToast("Target job id is missing!", "error");
+        return;
+    }
+
     if (!content.trim()) {
         showToast("Job description is required!", "error");
         return;
