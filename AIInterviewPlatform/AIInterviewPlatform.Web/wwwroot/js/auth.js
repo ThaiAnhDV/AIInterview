@@ -1,4 +1,247 @@
-﻿async function register() {
+﻿// =============================================================================
+// AuthManager - Centralized Authentication State Management
+// =============================================================================
+
+const AuthManager = (function() {
+    'use strict';
+
+    // Private state
+    let _state = {
+        isAuthenticated: false,
+        isInitialized: false,
+        isValidating: false,
+        user: null,
+        token: null
+    };
+
+    // Event listeners for auth state changes
+    const _listeners = [];
+
+    // -------------------------------------------------------------------------
+    // Private: Get token from localStorage
+    // -------------------------------------------------------------------------
+    function _getToken() {
+        return localStorage.getItem('token');
+    }
+
+    // -------------------------------------------------------------------------
+    // Private: Get user from localStorage
+    // -------------------------------------------------------------------------
+    function _getUser() {
+        const userJson = localStorage.getItem('user');
+        if (!userJson) return null;
+        try {
+            return JSON.parse(userJson);
+        } catch {
+            return null;
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Private: Clear auth data from localStorage
+    // -------------------------------------------------------------------------
+    function _clearAuth() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        _state.token = null;
+        _state.user = null;
+        _state.isAuthenticated = false;
+    }
+
+    // -------------------------------------------------------------------------
+    // Private: Store auth data in localStorage
+    // -------------------------------------------------------------------------
+    function _storeAuth(token, user) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        _state.token = token;
+        _state.user = user;
+    }
+
+    // -------------------------------------------------------------------------
+    // Private: Notify all listeners of state change
+    // -------------------------------------------------------------------------
+    function _notifyListeners() {
+        _listeners.forEach(callback => {
+            try {
+                callback(_state);
+            } catch (e) {
+                console.error('AuthManager listener error:', e);
+            }
+        });
+    }
+
+    // -------------------------------------------------------------------------
+    // Private: Validate token with backend
+    // -------------------------------------------------------------------------
+    async function _validateTokenWithBackend(token) {
+        if (!token) return { valid: false, user: null };
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/Auth/me`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                return { 
+                    valid: true, 
+                    user: result.data || result 
+                };
+            } else if (response.status === 401) {
+                // Token is invalid or expired
+                return { valid: false, user: null };
+            } else {
+                // Other errors - treat as invalid
+                return { valid: false, user: null };
+            }
+        } catch (error) {
+            console.error('AuthManager: Token validation failed', error);
+            // Network error - assume invalid for security
+            return { valid: false, user: null };
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Public API
+    // -------------------------------------------------------------------------
+    return {
+        // -------------------------------------------------------------------------
+        // Initialize auth state - MUST be called on app start
+        // Validates existing token with backend
+        // -------------------------------------------------------------------------
+        async init() {
+            if (_state.isInitialized) {
+                return _state;
+            }
+
+            // Prevent multiple simultaneous validations
+            if (_state.isValidating) {
+                // Wait for existing validation to complete
+                while (_state.isValidating) {
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                }
+                return _state;
+            }
+
+            _state.isValidating = true;
+
+            const token = _getToken();
+
+            if (!token) {
+                // No token found
+                _state.isAuthenticated = false;
+                _state.isInitialized = true;
+                _state.isValidating = false;
+                _notifyListeners();
+                return _state;
+            }
+
+            // Validate token with backend
+            const validation = await _validateTokenWithBackend(token);
+
+            if (validation.valid) {
+                _state.isAuthenticated = true;
+                _state.user = validation.user;
+                _state.token = token;
+            } else {
+                // Token invalid or expired - clear it
+                _clearAuth();
+            }
+
+            _state.isInitialized = true;
+            _state.isValidating = false;
+            _notifyListeners();
+
+            return _state;
+        },
+
+        // -------------------------------------------------------------------------
+        // Get current auth state (synchronous)
+        // Returns cached state, not validated
+        // -------------------------------------------------------------------------
+        getState() {
+            return { ..._state };
+        },
+
+        // -------------------------------------------------------------------------
+        // Check if user is authenticated (synchronous)
+        // Returns cached state - use isReady() first to ensure initialized
+        // -------------------------------------------------------------------------
+        isAuthenticated() {
+            return _state.isAuthenticated;
+        },
+
+        // -------------------------------------------------------------------------
+        // Check if initialization is complete
+        // -------------------------------------------------------------------------
+        isReady() {
+            return _state.isInitialized;
+        },
+
+        // -------------------------------------------------------------------------
+        // Get current user
+        // -------------------------------------------------------------------------
+        getUser() {
+            return _state.user;
+        },
+
+        // -------------------------------------------------------------------------
+        // Get token
+        // -------------------------------------------------------------------------
+        getToken() {
+            return _state.token;
+        },
+
+        // -------------------------------------------------------------------------
+        // Login - set auth state after successful login
+        // -------------------------------------------------------------------------
+        setAuth(token, user) {
+            _storeAuth(token, user);
+            _state.isAuthenticated = true;
+            _state.isInitialized = true;
+            _notifyListeners();
+        },
+
+        // -------------------------------------------------------------------------
+        // Logout - clear auth state
+        // -------------------------------------------------------------------------
+        logout() {
+            _clearAuth();
+            _state.isInitialized = true;
+            _notifyListeners();
+            window.location.href = '/Auth/Login';
+        },
+
+        // -------------------------------------------------------------------------
+        // Subscribe to auth state changes
+        // -------------------------------------------------------------------------
+        onAuthChange(callback) {
+            if (typeof callback === 'function') {
+                _listeners.push(callback);
+            }
+        },
+
+        // -------------------------------------------------------------------------
+        // Force re-validation (e.g., after token refresh)
+        // -------------------------------------------------------------------------
+        async revalidate() {
+            _state.isInitialized = false;
+            return await this.init();
+        }
+    };
+})();
+
+
+// =============================================================================
+// Legacy Functions - Kept for backward compatibility
+// =============================================================================
+
+async function register() {
     const fullName = document.getElementById("registerFullName").value;
     const email = document.getElementById("registerEmail").value;
     const password = document.getElementById("registerPassword").value;
@@ -98,25 +341,13 @@ async function login() {
                 return;
             }
 
-            localStorage.setItem(
-                "token",
-                result.data.token
-            );
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(result.data)
-            );
+            // Use AuthManager to set auth state
+            AuthManager.setAuth(result.data.token, result.data);
 
             showToast(
                 "Login successfully!",
                 "success"
             );
-
-            /*
-             IMPORTANT:
-             keep overlay visible until redirect
-            */
 
             setTimeout(() => {
                 window.location.href = "/";
@@ -166,8 +397,37 @@ async function login() {
 }
 
 function logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    AuthManager.logout();
+}
 
-    window.location.href = "/Auth/Login";
+
+// =============================================================================
+// Guard Functions - Updated to use AuthManager
+// =============================================================================
+
+async function requireLogin() {
+    console.log("=== Guard: requireLogin ===");
+
+    // Wait for auth to be initialized
+    if (!AuthManager.isReady()) {
+        console.log("Auth not ready, waiting...");
+        await AuthManager.init();
+    }
+
+    if (!AuthManager.isAuthenticated()) {
+        console.log("Not authenticated - Redirecting to /Auth/Login");
+        window.location.href = "/Auth/Login";
+        return false;
+    }
+
+    console.log("Authenticated - returning true");
+    return true;
+}
+
+function getCurrentUser() {
+    return AuthManager.getUser();
+}
+
+function isLoggedIn() {
+    return AuthManager.isAuthenticated();
 }

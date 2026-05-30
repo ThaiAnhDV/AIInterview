@@ -35,7 +35,6 @@
             min-height: 100vh;
         }
 
-        /* Video Background */
         .video-bg {
             position: fixed;
             top: 0;
@@ -58,7 +57,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 10, 26, 0.7);
+            background: rgba(10, 10, 26, 0.75);
             backdrop-filter: blur(5px);
         }
 
@@ -69,20 +68,29 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 15px 0;
-            background: rgba(10, 10, 26, 0.8);
-            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .navbar-brand {
             display: flex;
             align-items: center;
             flex-shrink: 0;
+            text-decoration: none;
         }
 
         .navbar-brand img {
-            height: 80px;
+            height: 50px;
             width: auto;
+        }
+
+        .navbar-brand .brand-text {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-left: 10px;
+            color: #fff;
         }
 
         .navbar-container {
@@ -100,161 +108,169 @@
             flex: 1;
         }
 
-        .navbar-auth-buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        /* Pill Navigation */
-        .pill-radio-container {
-            --main-color: #ff6ec4;
-            --secondary-color: #7873f5;
-            --text-color: #ddd;
-            --pill-bg: rgba(26, 26, 26, 0.6);
-            --total-options: 5;
-
-            display: flex;
-            position: relative;
-            background: var(--pill-bg);
-            border-radius: 3rem;
-            padding: 0.5rem;
-            gap: 0.5rem;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5) inset;
-            width: fit-content;
-            backdrop-filter: blur(10px);
-        }
-
-        .pill-radio-container input {
-            display: none;
-        }
-
-        .pill-radio-container label {
-            position: relative;
-            padding: 0.6rem 1.2rem;
-            border-radius: 3rem;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-color);
-            transition: color 0.3s ease-in-out;
-            z-index: 2;
-            white-space: nowrap;
-            font-size: 14px;
-        }
-
-        .pill-radio-container input:checked + label {
-            color: #fff;
-        }
-
-        .pill-radio-container label:hover {
-            color: var(--main-color);
-        }
-
-        .pill-indicator {
-            position: absolute;
-            bottom: 5px;
-            left: 0;
-            height: 4px;
-            width: calc(100% / var(--total-options));
-            background: linear-gradient(
-                to right,
-                var(--main-color),
-                var(--secondary-color)
-            );
-            border-radius: 2px;
-            transition: transform 0.3s ease-in-out;
-            z-index: 1;
-        }
-
-        /* Sliding effect for pill navigation */
-        #pill-home:checked ~ .pill-indicator {
-            transform: translateX(0%);
-        }
-        #pill-profile:checked ~ .pill-indicator {
-            transform: translateX(100%);
-        }
-        #pill-resume:checked ~ .pill-indicator {
-            transform: translateX(200%);
-        }
-        #pill-interview:checked ~ .pill-indicator {
-            transform: translateX(300%);
-        }
-        #pill-roadmap:checked ~ .pill-indicator {
-            transform: translateX(400%);
-        }
-
-        /* Action Buttons with Glow Effect */
-        .button {
-            position: relative;
-            width: 120px;
-            height: 40px;
-            background-color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            flex-direction: column;
-            border: none;
-            padding: 12px;
-            gap: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            overflow: hidden;
-            text-align: center;
-            line-height: 1;
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            left: -4px;
-            top: -1px;
-            margin: auto;
-            width: 128px;
-            height: 48px;
-            border-radius: 10px;
-            background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
-            z-index: -10;
-            pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .button::after {
-            content: "";
-            z-index: -1;
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
-            transform: translate3d(0, 0, 0) scale(0.95);
-            filter: blur(20px);
-        }
-
-        .button:hover::after {
-            filter: blur(30px);
-        }
-
-        .button:hover::before {
-            transform: rotate(-180deg);
-        }
-
-        .button:active::before {
-            scale: 0.7;
-        }
-
-        .user-info {
+        .navbar-right {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-shrink: 0;
         }
 
-        .user-name {
+        .nav-pills {
+            display: flex;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: 50px;
+        }
+
+        .nav-pills .nav-item {
+            list-style: none;
+        }
+
+        .nav-pills .nav-link {
+            padding: 10px 18px;
+            border-radius: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-pills .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            color: #fff;
+        }
+
+        /* User Dropdown */
+        .user-dropdown {
+            position: relative;
+        }
+
+        .user-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .user-dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 110, 196, 0.5);
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #fff;
             font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-name-nav {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .user-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            min-width: 200px;
+            background: rgba(20, 20, 40, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .user-dropdown:hover .user-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            color: #ff6ec4;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 8px 0;
+        }
+
+        .dropdown-item.text-danger:hover {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        .dropdown-item.text-danger i {
+            color: #f44336;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
         }
 
         /* Profile Content */
@@ -281,12 +297,12 @@
         }
 
         .profile-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 100%;
-            object-fit: contain;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
             border: 4px solid rgba(255, 110, 196, 0.5);
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             box-shadow: 0 0 30px rgba(255, 110, 196, 0.3);
         }
 
@@ -309,7 +325,6 @@
             font-weight: 600;
         }
 
-        /* Stats */
         .profile-stats {
             display: flex;
             justify-content: center;
@@ -340,7 +355,6 @@
             margin-top: 5px;
         }
 
-        /* Form Styles */
         .form-section {
             background: rgba(30, 30, 60, 0.5);
             border-radius: 15px;
@@ -394,7 +408,6 @@
             cursor: not-allowed;
         }
 
-        /* Buttons */
         .btn-group {
             display: flex;
             gap: 15px;
@@ -435,10 +448,9 @@
             transform: translateY(-3px);
         }
 
-        /* Footer */
         footer {
             background: rgba(10, 10, 26, 0.95);
-            padding: 40px 20px;
+            padding: 30px 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 60px;
             position: relative;
@@ -452,7 +464,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
         }
 
         .footer-copyright {
@@ -462,12 +474,13 @@
 
         .footer-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
         }
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
+            font-size: 14px;
             transition: color 0.3s ease;
         }
 
@@ -475,24 +488,17 @@
             color: #ff6ec4;
         }
 
-        /* Responsive */
         @@media (max-width: 768px) {
-            .pill-radio-container {
-                flex-wrap: wrap;
-                justify-content: center;
-                --total-options: 3;
-            }
-
-            .pill-indicator {
+            .navbar-center {
                 display: none;
             }
 
-            .navbar-auth-buttons {
+            .nav-pills {
                 display: none;
             }
 
-            .user-info {
-                display: none;
+            .mobile-menu-toggle {
+                display: block;
             }
 
             .profile-stats {
@@ -513,7 +519,6 @@
 </head>
 
 <body>
-    <!-- Video Background -->
     <div class="video-bg">
         <video autoplay muted loop playsinline>
             <source src="/videos/videoBackGoundHome.mp4" type="video/mp4">
@@ -527,41 +532,70 @@
             <div class="navbar-container">
                 <a class="navbar-brand" href="/">
                     <img src="/img/logo.png" alt="Logo">
+                    <span class="brand-text">AI INTERVIEW</span>
                 </a>
 
                 <div class="navbar-center">
-                    <div class="pill-radio-container">
-                        <input type="radio" name="pill" id="pill-home">
-                        <label for="pill-home" onclick="window.location.href='/'">Home</label>
+                    <ul class="nav-pills">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">
+                                <i class="fas fa-home mr-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/TargetJob" class="nav-link">
+                                <i class="fas fa-bullseye mr-2"></i>Target Jobs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Resume" class="nav-link">
+                                <i class="fas fa-file-alt mr-2"></i>Resume
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/SkillGap" class="nav-link">
+                                <i class="fas fa-chart-line mr-2"></i>Skill Analysis
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Interview" class="nav-link">
+                                <i class="fas fa-comments mr-2"></i>Mock Interview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Roadmap" class="nav-link">
+                                <i class="fas fa-map mr-2"></i>Roadmap
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-                        <input type="radio" name="pill" id="pill-profile" checked>
-                        <label for="pill-profile" onclick="window.location.href='/Profile'">Profile</label>
-
-                        <input type="radio" name="pill" id="pill-resume">
-                        <label for="pill-resume" onclick="window.location.href='/Resume'">Resume</label>
-
-                        <input type="radio" name="pill" id="pill-interview">
-                        <label for="pill-interview">Interview</label>
-
-                        <input type="radio" name="pill" id="pill-roadmap">
-                        <label for="pill-roadmap">Roadmap</label>
-
-                        <div class="pill-indicator"></div>
+                <div class="navbar-right">
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" class="user-dropdown-toggle">
+                            <div class="user-avatar" id="userAvatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="user-name-nav" id="userNameNav">User</span>
+                            <i class="fas fa-chevron-down" style="color: rgba(255,255,255,0.6); font-size: 12px;"></i>
+                        </a>
+                        <div class="user-dropdown-menu">
+                            <a href="/Profile" class="dropdown-item active">
+                                <i class="fas fa-user"></i> Profile
+                            </a>
+                            <a href="/Resume" class="dropdown-item">
+                                <i class="fas fa-file-alt"></i> My Resume
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="logout(); return false;" class="dropdown-item text-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="user-info">
-                    <span id="currentUserName" class="user-name"></span>
-                    <span id="navbarUserName" class="user-name"></span>
-                    <a id="logoutButton" href="#" onclick="logout(); return false;" class="button">
-                        Logout
-                    </a>
-                </div>
-
-                <div class="navbar-auth-buttons">
-                    <a id="logoutButtonNew" href="#" onclick="logout(); return false;" class="button">
-                        Logout
-                    </a>
+                    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -655,8 +689,9 @@
                 &copy; 2026 AI Interview Platform
             </div>
             <div class="footer-links">
-                <a href="/">Home</a>
+                <a href="/">Dashboard</a>
                 <a href="/Profile">Profile</a>
+                <a href="/Resume">Resume</a>
             </div>
         </div>
     </footer>
@@ -675,25 +710,37 @@
 
     <script>
         (function() {
-            console.log("=== INLINE DEBUG ===");
-            
-            // Check localStorage directly
             const token = localStorage.getItem("token");
-            console.log("Inline - Token:", token ? "EXISTS" : "NULL");
-            console.log("Inline - Token value:", token);
+            const user = localStorage.getItem("user");
             
             if (!token) {
-                console.log("Inline - No token, redirecting...");
                 window.location.href = "/Auth/Login";
                 return;
             }
             
-            console.log("Inline - Token found! Calling loadProfile...");
+            // Update user dropdown
+            const userNameNav = document.getElementById('userNameNav');
+            const userAvatar = document.getElementById('userAvatar');
+            
+            if (user) {
+                try {
+                    const userData = JSON.parse(user);
+                    const displayName = userData.fullName || userData.email || 'User';
+                    userNameNav.textContent = displayName;
+                    
+                    const initials = displayName.split(' ')
+                        .map(n => n[0])
+                        .join('')
+                        .substring(0, 2)
+                        .toUpperCase();
+                    userAvatar.innerHTML = initials;
+                } catch (e) {
+                    userNameNav.textContent = 'User';
+                }
+            }
             
             if (typeof loadProfile === 'function') {
                 loadProfile();
-            } else {
-                console.error("loadProfile not found!");
             }
         })();
     </script>
