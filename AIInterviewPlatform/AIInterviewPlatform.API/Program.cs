@@ -29,6 +29,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IRoadmapUnitOfWork, RoadmapUnitOfWork>();
 
 // =======================
 // Services
@@ -58,6 +59,9 @@ builder.Services.AddHttpClient<IJobDescriptionSkillExtractionService, JobDescrip
 builder.Services.AddScoped<ISkillMatchingService, SkillMatchingService>();
 builder.Services.AddScoped<ISkillGapAnalysisOrchestratorService, SkillGapAnalysisOrchestratorService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IMilestoneGeneratorService, MilestoneGeneratorService>();
+builder.Services.AddHttpClient<IActivityDescriptionService, ActivityDescriptionService>();
+builder.Services.AddScoped<IRoadmapApplicationService, RoadmapApplicationService>();
 
 // =======================
 // Controllers

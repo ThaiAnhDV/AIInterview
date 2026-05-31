@@ -1,8 +1,23 @@
-﻿let currentRoadmapId = null;
+﻿// ===== ROADMAP MODULE =====
+let currentRoadmapId = null;
 
+// DOM Element Cache
+const Elements = {
+    get: function(id) {
+        const el = document.getElementById(id);
+        if (!el) {
+            console.error(`Element with id "${id}" not found`);
+        }
+        return el;
+    }
+};
+
+// ===== ROADMAP LIST =====
 async function loadRoadmaps() {
+    showRoadmapsLoading();
+    
     const token = localStorage.getItem("token");
-
+    
     try {
         const response = await fetch(`${API_BASE_URL}/Roadmaps/my`, {
             method: "GET",
@@ -13,58 +28,362 @@ async function loadRoadmaps() {
 
         if (!response.ok) {
             showToast("Cannot load roadmaps.", "error");
+            hideAllRoadmapStates();
             return;
         }
 
-        const roadmaps = await response.json();
-        const container = document.getElementById("roadmapList");
+        const data = await response.json();
+        
+        // Handle both array and wrapped response
+        const roadmaps = Array.isArray(data) ? data : (data.data || []);
+
+        hideAllRoadmapStates();
 
         if (!roadmaps || roadmaps.length === 0) {
-            container.innerHTML = `
-                <div class="text-muted">
-                    No roadmaps found.
-                </div>
-            `;
+            showRoadmapsEmpty();
             return;
         }
 
-        container.innerHTML = "";
-
-        roadmaps.forEach(roadmap => {
-            container.innerHTML += `
-                <div class="d-flex justify-content-between align-items-center border rounded p-3 mb-2">
-                    <div>
-                        <strong>${roadmap.roadmapTitle}</strong>
-                        <br />
-                        <small>Status: ${roadmap.roadmapStatus}</small>
-                        <br />
-                        <small>Progress: ${Number(roadmap.completionPercentage).toFixed(2)}%</small>
-                    </div>
-
-                    <button class="btn btn-primary btn-sm"
-                            onclick="loadRoadmapDetail(${roadmap.id})">
-                        View
-                    </button>
-                </div>
-            `;
-        });
+        renderRoadmaps(roadmaps);
 
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server.", "error");
+        hideAllRoadmapStates();
     }
 }
 
+function showRoadmapsLoading() {
+    const el = Elements.get("roadmapsLoading");
+    const listEl = Elements.get("roadmapsList");
+    const emptyEl = Elements.get("roadmapsEmpty");
+    
+    if (el) el.style.display = "grid";
+    if (emptyEl) emptyEl.style.display = "none";
+    if (listEl) listEl.style.display = "none";
+}
+
+function showRoadmapsEmpty() {
+    const el = Elements.get("roadmapsEmpty");
+    const loadingEl = Elements.get("roadmapsLoading");
+    const listEl = Elements.get("roadmapsList");
+    
+    if (loadingEl) loadingEl.style.display = "none";
+    if (el) el.style.display = "block";
+    if (listEl) listEl.style.display = "none";
+}
+
+function hideAllRoadmapStates() {
+    const loadingEl = Elements.get("roadmapsLoading");
+    const emptyEl = Elements.get("roadmapsEmpty");
+    
+    if (loadingEl) loadingEl.style.display = "none";
+    if (emptyEl) emptyEl.style.display = "none";
+}
+
+function renderRoadmaps(roadmaps) {
+    const container = Elements.get("roadmapsList");
+    
+    if (!container) {
+        console.error("Cannot render roadmaps: container element not found");
+        return;
+    }
+    
+    container.style.display = "grid";
+    container.innerHTML = roadmaps.map(roadmap => createRoadmapCard(roadmap)).join('');
+}
+
+function createRoadmapCard(roadmap) {
+    const progress = Number(roadmap.completionPercentage || 0).toFixed(0);
+    const circumference = 2 * Math.PI * 25;
+    const offset = circumference - (progress / 100) * circumference;
+    const createdDate = new Date(roadmap.createdAt).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+    const statusBadge = getStatusBadge(roadmap.roadmapStatus);
+
+    return `
+        <div class="roadmap-card" onclick="loadRoadmapDetail(${roadmap.id})">
+            <div class="roadmap-card-header">
+                <div>
+                    <h3 class="roadmap-card-title">${escapeHtml(roadmap.roadmapTitle || 'Untitled Roadmap')}</h3>
+                    <span class="roadmap-card-date">${createdDate}</span>
+                </div>
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="64" height="64">
+                        <circle class="progress-ring-bg" cx="32" cy="32" r="25"/>
+                        <circle class="progress-ring-fill" cx="32" cy="32" r="25" 
+                                style="stroke-dashoffset: ${offset}"/>
+                    </svg>
+                    <span class="progress-ring-text">${progress}%</span>
+                </div>
+            </div>
+            <div class="roadmap-card-stats">
+                <div class="roadmap-stat">
+                    <i class="fas fa-flag-checkered"></i>
+                    <span>${roadmap.totalMilestones || 0} milestones</span>
+                </div>
+                <div class="roadmap-stat">
+                    <i class="fas fa-tasks"></i>
+                    <span>${roadmap.totalActivities || 0} activities</span>
+                </div>
+            </div>
+            <div style="margin-top: 16px;">
+                ${statusBadge}
+            </div>
+        </div>
+    `;
+}
+
+// ===== ROADMAP DETAIL =====
+async function loadRoadmapDetail(id) {
+    showMilestoneLoading();
+    showRoadmapDetail();
+    
+    const token = localStorage.getItem("token");
+    currentRoadmapId = id;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/Roadmaps/${id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            showToast("Cannot load roadmap detail.", "error");
+            hideMilestoneLoading();
+            return;
+        }
+
+        const data = await response.json();
+        const roadmap = data.data || data;
+        
+        renderRoadmapDetail(roadmap);
+
+    } catch (error) {
+        console.error(error);
+        showToast("Cannot connect to server.", "error");
+        hideMilestoneLoading();
+    }
+}
+
+function showMilestoneLoading() {
+    const loadingEl = Elements.get("milestoneLoading");
+    const containerEl = Elements.get("milestoneContainer");
+    
+    if (loadingEl) loadingEl.style.display = "block";
+    if (containerEl) containerEl.style.display = "none";
+}
+
+function hideMilestoneLoading() {
+    const loadingEl = Elements.get("milestoneLoading");
+    const containerEl = Elements.get("milestoneContainer");
+    
+    if (loadingEl) loadingEl.style.display = "none";
+    if (containerEl) containerEl.style.display = "block";
+}
+
+function showRoadmapDetail() {
+    const detailEl = Elements.get("roadmapDetail");
+    
+    if (!detailEl) {
+        console.error("Roadmap detail element not found");
+        return;
+    }
+    
+    detailEl.classList.add("active");
+    detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeRoadmapDetail() {
+    const detailEl = Elements.get("roadmapDetail");
+    
+    if (detailEl) {
+        detailEl.classList.remove("active");
+    }
+    currentRoadmapId = null;
+}
+
+function renderRoadmapDetail(roadmap) {
+    const progress = Number(roadmap.completionPercentage || 0).toFixed(0);
+    
+    const titleEl = Elements.get("roadmapDetailTitle");
+    const progressBarEl = Elements.get("roadmapDetailProgressBar");
+    const progressTextEl = Elements.get("roadmapDetailProgressText");
+    
+    if (titleEl) titleEl.textContent = roadmap.roadmapTitle || 'Untitled Roadmap';
+    if (progressBarEl) progressBarEl.style.width = `${progress}%`;
+    if (progressTextEl) progressTextEl.textContent = `${progress}%`;
+
+    hideMilestoneLoading();
+
+    const container = Elements.get("milestoneContainer");
+    
+    if (!container) {
+        console.error("Milestone container element not found");
+        return;
+    }
+    
+    if (!roadmap.milestones || roadmap.milestones.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <h3>No Milestones Yet</h3>
+                <p>This roadmap doesn't have any milestones yet.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = roadmap.milestones
+        .sort((a, b) => a.milestoneOrder - b.milestoneOrder)
+        .map(milestone => createMilestoneCard(milestone))
+        .join('');
+}
+
+function createMilestoneCard(milestone) {
+    const statusClass = getMilestoneStatusClass(milestone);
+    const statusBadge = getMilestoneStatusBadge(milestone);
+    const markerClass = milestone.isCompleted ? 'completed' : '';
+    const activities = milestone.activities || [];
+
+    return `
+        <div class="milestone-card">
+            <div class="milestone-marker ${markerClass}">
+                ${milestone.isCompleted ? '<i class="fas fa-check"></i>' : milestone.milestoneOrder}
+            </div>
+            <div class="milestone-content">
+                <div class="milestone-header">
+                    <h4 class="milestone-title">${escapeHtml(milestone.milestoneTitle)}</h4>
+                    <div class="milestone-actions">
+                        ${statusBadge}
+                    </div>
+                </div>
+                <div class="activities-list">
+                    ${activities.length > 0 
+                        ? activities.map(activity => createActivityItem(activity)).join('')
+                        : '<p class="text-muted" style="padding: 16px 0; margin: 0;">No activities in this milestone.</p>'
+                    }
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function createActivityItem(activity) {
+    const completedClass = activity.isCompleted ? 'completed' : '';
+    const checkboxClass = activity.isCompleted ? 'completed' : '';
+    const typeBadge = getActivityTypeBadge(activity.activityType);
+
+    return `
+        <div class="activity-item ${completedClass}">
+            <div class="activity-checkbox ${checkboxClass}" onclick="toggleActivity(event, ${activity.id}, ${!activity.isCompleted})">
+                ${activity.isCompleted ? '<i class="fas fa-check"></i>' : ''}
+            </div>
+            <div class="activity-content">
+                <h5 class="activity-title">${escapeHtml(activity.activityTitle)}</h5>
+                ${activity.activityDescription ? `<p class="activity-description">${escapeHtml(activity.activityDescription)}</p>` : ''}
+                <div class="activity-meta">
+                    ${typeBadge}
+                </div>
+            </div>
+            <div class="activity-action">
+                ${getActivityActionButton(activity)}
+            </div>
+        </div>
+    `;
+}
+
+// ===== STATUS HELPERS =====
+function getStatusBadge(status) {
+    const statusMap = {
+        'ACTIVE': '<span class="status-badge status-in-progress"><i class="fas fa-circle"></i> Active</span>',
+        'COMPLETED': '<span class="status-badge status-completed"><i class="fas fa-check-circle"></i> Completed</span>',
+        'ARCHIVED': '<span class="status-badge status-not-started"><i class="fas fa-archive"></i> Archived</span>'
+    };
+    return statusMap[status?.toUpperCase()] || statusMap['ACTIVE'];
+}
+
+function getMilestoneStatusBadge(milestone) {
+    if (milestone.isCompleted) {
+        return '<span class="status-badge status-completed"><i class="fas fa-check-circle"></i> Completed</span>';
+    }
+    
+    const completedCount = milestone.activities?.filter(a => a.isCompleted).length || 0;
+    const totalCount = milestone.activities?.length || 0;
+    
+    if (completedCount > 0) {
+        return `<span class="status-badge status-in-progress"><i class="fas fa-spinner"></i> In Progress (${completedCount}/${totalCount})</span>`;
+    }
+    
+    return '<span class="status-badge status-not-started"><i class="fas fa-circle"></i> Not Started</span>';
+}
+
+function getMilestoneStatusClass(milestone) {
+    if (milestone.isCompleted) return 'status-completed';
+    
+    const hasCompleted = milestone.activities?.some(a => a.isCompleted);
+    return hasCompleted ? 'status-in-progress' : 'status-not-started';
+}
+
+function getActivityTypeBadge(type) {
+    const iconMap = {
+        'READING': 'fas fa-book',
+        'PRACTICE': 'fas fa-laptop-code',
+        'MOCK_INTERVIEW': 'fas fa-comments',
+        'QUIZ': 'fas fa-question-circle',
+        'OTHER': 'fas fa-tasks'
+    };
+    const icon = iconMap[type?.toUpperCase()] || iconMap['OTHER'];
+    const label = type?.replace(/_/g, ' ') || 'Other';
+    
+    return `<span class="activity-type-badge"><i class="${icon}"></i> ${label}</span>`;
+}
+
+function getActivityActionButton(activity) {
+    if (activity.isCompleted) {
+        return `<button class="btn-action btn-completed" disabled>
+                    <i class="fas fa-check"></i> Completed
+                </button>`;
+    }
+    
+    return `<button class="btn-action btn-complete" onclick="completeActivity(${activity.id})">
+                <i class="fas fa-check"></i> Mark Complete
+            </button>`;
+}
+
+// ===== ACTIONS =====
 async function generateRoadmap() {
     const token = localStorage.getItem("token");
-
-    const skillGapAnalysisId =
-        document.getElementById("skillGapAnalysisId").value;
+    const inputEl = Elements.get("skillGapAnalysisId");
+    
+    if (!inputEl) {
+        showToast("Form element not found.", "error");
+        return;
+    }
+    
+    const skillGapAnalysisId = inputEl.value;
 
     if (!skillGapAnalysisId) {
         showToast("Please enter Skill Gap Analysis Id.", "error");
         return;
     }
+
+    const btn = event?.target?.closest?.('button');
+    if (!btn) {
+        showToast("Button element not found.", "error");
+        return;
+    }
+    
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
 
     try {
         const response = await fetch(`${API_BASE_URL}/Roadmaps/generate`, {
@@ -85,122 +404,25 @@ async function generateRoadmap() {
             return;
         }
 
-        const roadmap = await response.json();
+        const data = await response.json();
+        const roadmap = data.data || data;
 
         showToast("Roadmap generated successfully.", "success");
-
+        
+        if (inputEl) inputEl.value = '';
+        
         await loadRoadmaps();
         await loadRoadmapDetail(roadmap.id);
 
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server.", "error");
-    }
-}
-
-async function loadRoadmapDetail(id) {
-    const token = localStorage.getItem("token");
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/Roadmaps/${id}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            showToast("Cannot load roadmap detail.", "error");
-            return;
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         }
-
-        const roadmap = await response.json();
-        currentRoadmapId = roadmap.id;
-
-        renderRoadmapDetail(roadmap);
-
-    } catch (error) {
-        console.error(error);
-        showToast("Cannot connect to server.", "error");
     }
-}
-
-function renderRoadmapDetail(roadmap) {
-    const card = document.getElementById("roadmapDetailCard");
-    const title = document.getElementById("roadmapTitle");
-    const progressText = document.getElementById("roadmapProgress");
-    const progressBar = document.getElementById("roadmapProgressBar");
-    const milestoneContainer = document.getElementById("milestoneContainer");
-
-    card.style.display = "block";
-
-    title.innerText = roadmap.roadmapTitle;
-
-    const progress = Number(roadmap.completionPercentage).toFixed(2);
-
-    progressText.innerText = `${progress}%`;
-    progressBar.style.width = `${progress}%`;
-    progressBar.innerText = `${progress}%`;
-
-    milestoneContainer.innerHTML = "";
-
-    if (!roadmap.milestones || roadmap.milestones.length === 0) {
-        milestoneContainer.innerHTML = `
-            <div class="text-muted">
-                No milestones found.
-            </div>
-        `;
-        return;
-    }
-
-    roadmap.milestones.forEach(milestone => {
-        milestoneContainer.innerHTML += `
-            <div class="card mb-3 border-0 shadow-sm">
-                <div class="card-header">
-                    <strong>
-                        ${milestone.milestoneOrder}. ${milestone.milestoneTitle}
-                    </strong>
-
-                    ${milestone.isCompleted
-                ? `<span class="badge badge-success ml-2">Completed</span>`
-                : `<span class="badge badge-warning ml-2">In Progress</span>`
-            }
-                </div>
-
-                <div class="card-body">
-                    ${milestone.activities.map(activity => `
-                            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                                <div>
-                                    <strong>${activity.activityTitle}</strong>
-                                    <br />
-                                    <small>${activity.activityDescription ?? ""}</small>
-                                    <br />
-                                    <span class="badge badge-info">
-                                        ${activity.activityType ?? "OTHER"}
-                                    </span>
-
-                                    ${activity.isCompleted
-                    ? `<span class="badge badge-success ml-1">Done</span>`
-                    : `<span class="badge badge-secondary ml-1">Pending</span>`
-                }
-                                </div>
-
-                                ${activity.isCompleted
-                    ? `<button class="btn btn-secondary btn-sm" disabled>
-                                               Completed
-                                           </button>`
-                    : `<button class="btn btn-success btn-sm"
-                                                   onclick="completeActivity(${activity.id})">
-                                               Mark Complete
-                                           </button>`
-                }
-                            </div>
-                        `).join("")
-            }
-                </div>
-            </div>
-        `;
-    });
 }
 
 async function completeActivity(activityId) {
@@ -208,9 +430,9 @@ async function completeActivity(activityId) {
 
     try {
         const response = await fetch(
-            `${API_BASE_URL}/RoadmapActivities/${activityId}/complete`,
+            `${API_BASE_URL}/Roadmaps/complete-activity/${activityId}`,
             {
-                method: "PUT",
+                method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -224,14 +446,33 @@ async function completeActivity(activityId) {
 
         showToast("Activity completed.", "success");
 
-        await loadRoadmaps();
-
         if (currentRoadmapId) {
             await loadRoadmapDetail(currentRoadmapId);
         }
+
+        await loadRoadmaps();
 
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server.", "error");
     }
 }
+
+function toggleActivity(event, activityId, shouldComplete) {
+    if (!event) return;
+    event.stopPropagation();
+    if (shouldComplete) {
+        completeActivity(activityId);
+    }
+}
+
+// ===== UTILITIES =====
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// ===== INITIALIZATION =====
+console.log("Roadmap module loaded");

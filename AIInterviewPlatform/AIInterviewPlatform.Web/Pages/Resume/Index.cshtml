@@ -266,17 +266,17 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/api.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="~/js/auth.js"></script>
+    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
     <script src="~/js/guard.js"></script>
     <script src="~/js/resume.js"></script>
     
     <script>
-        if (requireLogin()) {
-            if (typeof loadResumes === 'function') {
-                loadResumes();
+        document.addEventListener('DOMContentLoaded', function() {
+            if (requireLogin()) {
+                if (typeof loadResumes === 'function') {
+                    loadResumes();
+                }
             }
-        }
+        });
     </script>
 }

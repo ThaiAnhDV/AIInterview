@@ -470,16 +470,16 @@
 </div>
 
 @section Scripts {
+    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="~/js/api.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="~/js/auth.js"></script>
     <script src="~/js/guard.js"></script>
     <script src="~/js/dashboard.js"></script>
     
     <script>
-        if (requireLogin()) {
-            loadAllDashboardData();
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (requireLogin()) {
+                loadAllDashboardData();
+            }
+        });
     </script>
 }

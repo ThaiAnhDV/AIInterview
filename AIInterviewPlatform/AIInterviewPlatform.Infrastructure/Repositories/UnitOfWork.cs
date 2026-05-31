@@ -44,10 +44,10 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
             WeakCommunicationPatterns = new GenericRepository<WeakCommunicationPattern>(_context);
             Recommendations = new GenericRepository<Recommendation>(_context);
 
-            LearningRoadmaps = new GenericRepository<LearningRoadmap>(_context);
-            RoadmapMilestones = new GenericRepository<RoadmapMilestone>(_context);
-            LearningActivities = new GenericRepository<LearningActivity>(_context);
-            RoadmapProgresses = new GenericRepository<RoadmapProgress>(_context);
+            LearningRoadmaps = new RoadmapRepository(_context);
+            RoadmapMilestones = new MilestoneRepository(_context);
+            LearningActivities = new ActivityRepository(_context);
+            RoadmapProgresses = new ProgressRepository(_context);
             RoadmapRecommendations = new GenericRepository<RoadmapRecommendation>(_context);
 
             PracticeHistories = new GenericRepository<PracticeHistory>(_context);

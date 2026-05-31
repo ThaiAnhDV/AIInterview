@@ -4,7 +4,8 @@ public class SkillGapDto
 {
     public long SkillId { get; set; }
     public string SkillName { get; set; } = string.Empty;
-    public string? GapLevel { get; set; }
+    public string SkillType { get; set; } = string.Empty;
+    public string GapLevel { get; set; } = string.Empty;
     public string? GapDescription { get; set; }
     public DateTime AnalysisDate { get; set; }
 }
