@@ -6,50 +6,969 @@
 }
 
 <div class="container mt-4">
-
-    <div class="card shadow border-0">
-
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">
-                Mock Interview
-            </h4>
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-white mb-3">
+                <i class="fas fa-microphone-alt text-primary mr-2"></i>
+                Mock Interview Generator
+            </h2>
+            <p class="text-muted">Generate personalized interview questions based on your target job and skill gap analysis.</p>
         </div>
-
-        <div class="card-body">
-
-            <div class="form-group">
-
-                <label>
-                    Select Target Job
-                </label>
-
-                <select id="targetJobSelect"
-                        class="form-control">
-                </select>
-
-            </div>
-
-            <button class="btn btn-success"
-                    onclick="startInterview()">
-
-                Start Interview
-
-            </button>
-
-        </div>
-
     </div>
 
+    <!-- Selection Card -->
+    <div class="card shadow border-0 mb-4" id="selectionCard">
+        <div class="card-header bg-dark">
+            <h5 class="mb-0 text-white">
+                <i class="fas fa-cog mr-2"></i>
+                Configure Interview
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="text-white font-weight-600">Target Job</label>
+                    <select id="targetJobSelect" class="form-control">
+                        <option value="">-- Select Target Job --</option>
+                    </select>
+                    <div id="noTargetJobsMessage" class="empty-state-message" style="display: none;">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Create a Target Job first.
+                        <a href="/TargetJob" class="text-primary ml-2">Go to Target Jobs →</a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="text-white font-weight-600">Skill Gap Analysis</label>
+                    <select id="skillGapSelect" class="form-control">
+                        <option value="">-- Select Analysis --</option>
+                    </select>
+                    <div id="noAnalysesMessage" class="empty-state-message" style="display: none;">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Run Skill Gap Analysis first.
+                        <a href="/SkillGap" class="text-primary ml-2">Go to Analysis →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button id="startInterviewBtn" class="btn btn-success btn-lg" onclick="startMockInterview()">
+                    <i class="fas fa-play mr-2"></i>
+                    Start Mock Interview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="card shadow border-0" style="display: none;">
+        <div class="card-body text-center py-5">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <h5 class="text-white">Generating Interview Questions...</h5>
+            <p class="text-muted">Our AI is crafting personalized questions based on your profile.</p>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultsContainer" style="display: none;">
+        <!-- Summary Card -->
+        <div class="card shadow border-0 mb-4">
+            <div class="card-header bg-dark">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <h5 class="mb-0 text-white">
+                        <i class="fas fa-clipboard-check mr-2"></i>
+                        Interview Summary
+                    </h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <span id="fallbackBadge" class="badge badge-warning" style="display: none;">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                            Fallback Questions Generated
+                        </span>
+                        <span id="sessionBadge" class="badge badge-info">Session #0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Stats Grid -->
+                <div class="row mb-4">
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon text-info">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="stat-value" id="statTotal">0</div>
+                            <div class="stat-label">Total Questions</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="color: #40c9ff;">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="stat-value" id="statTechnical">0</div>
+                            <div class="stat-label">Technical</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="color: #ffc107;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-value" id="statBehavioral">0</div>
+                            <div class="stat-label">Behavioral</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="color: #4caf50;">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="stat-value" id="statCommunication">0</div>
+                            <div class="stat-label">Communication</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Info -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="text-muted small">Job Position</div>
+                        <div id="summaryJobTitle" class="text-white font-weight-600">-</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small">Session ID</div>
+                        <div id="summarySessionId" class="text-white font-weight-600">-</div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-success" onclick="showAnswerForm()">
+                        <i class="fas fa-edit mr-2"></i>
+                        Answer Questions
+                    </button>
+                    <button class="btn btn-secondary ml-2" onclick="resetToSelection()">
+                        <i class="fas fa-plus mr-2"></i>
+                        New Interview
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Questions -->
+        <div id="technicalSection" class="category-section mb-4" style="display: none;">
+            <div class="category-header mb-3">
+                <h4 class="text-white">
+                    <i class="fas fa-laptop-code text-info mr-2"></i>
+                    Technical Questions
+                </h4>
+                <span id="technicalCount" class="badge badge-info">0</span>
+            </div>
+            <div id="technicalCards" class="row"></div>
+        </div>
+
+        <!-- Behavioral Questions -->
+        <div id="behavioralSection" class="category-section mb-4" style="display: none;">
+            <div class="category-header mb-3">
+                <h4 class="text-white">
+                    <i class="fas fa-users text-warning mr-2"></i>
+                    Behavioral Questions
+                </h4>
+                <span id="behavioralCount" class="badge badge-warning">0</span>
+            </div>
+            <div id="behavioralCards" class="row"></div>
+        </div>
+
+        <!-- Communication Questions -->
+        <div id="communicationSection" class="category-section mb-4" style="display: none;">
+            <div class="category-header mb-3">
+                <h4 class="text-white">
+                    <i class="fas fa-comments text-success mr-2"></i>
+                    Communication Questions
+                </h4>
+                <span id="communicationCount" class="badge badge-success">0</span>
+            </div>
+            <div id="communicationCards" class="row"></div>
+        </div>
+    </div>
+
+    <!-- Answer Form Section -->
+    <div id="answerFormSection" style="display: none;">
+        <div class="card shadow border-0 mb-4">
+            <div class="card-header bg-dark">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 text-white">
+                        <i class="fas fa-edit mr-2"></i>
+                        Answer Questions
+                    </h5>
+                    <div>
+                        <span id="answerProgress" class="badge badge-info">0/0 Answered</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="answerQuestionsContainer"></div>
+                
+                <!-- Validation Messages -->
+                <div id="validationMessage" class="alert alert-warning mt-3" style="display: none;">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <span id="validationText"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-4 text-center">
+                    <button id="submitAnswersBtn" class="btn btn-success btn-lg" onclick="submitAllAnswers()">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Submit All Answers
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="card shadow border-0" style="display: none;">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-exclamation-triangle text-danger mb-3" style="font-size: 3rem;"></i>
+            <h5 class="text-white">Something went wrong</h5>
+            <p id="errorMessage" class="text-muted">-</p>
+            <button class="btn btn-secondary" onclick="resetToSelection()">
+                <i class="fas fa-redo mr-2"></i>
+                Try Again
+            </button>
+        </div>
+    </div>
+
+    <!-- Success State -->
+    <div id="successState" class="card shadow border-0" style="display: none;">
+        <div class="card-body text-center py-5">
+            <div class="success-icon mb-3">
+                <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+            </div>
+            <h4 class="text-white mb-3">Answers Submitted Successfully!</h4>
+            <p class="text-muted mb-4">Your interview answers have been recorded.</p>
+            <div>
+                <a id="viewFeedbackBtn" href="#" class="btn btn-success">
+                    <i class="fas fa-star mr-2"></i>
+                    View Feedback
+                </a>
+                <button class="btn btn-secondary ml-2" onclick="resetToSelection()">
+                    <i class="fas fa-plus mr-2"></i>
+                    Start New Interview
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
-    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
     <script src="~/js/interview.js"></script>
-
     <script>
+        // ============================================
+        // Page State
+        // ============================================
+        const InterviewPageState = {
+            currentSessionId: null,
+            questions: [],
+            answers: new Map(),
+            currentView: 'selection', // selection | results | answer | success | error
 
-        loadTargetJobsForInterview();
+            setSession(sessionId, questions) {
+                this.currentSessionId = sessionId;
+                this.questions = questions;
+                this.answers = new Map();
+                questions.forEach(q => {
+                    this.answers.set(q.questionId, {
+                        questionId: q.questionId,
+                        answerText: '',
+                        isValid: false
+                    });
+                });
+                this.persist();
+            },
 
+            persist() {
+                const answerData = {};
+                this.answers.forEach((v, k) => {
+                    answerData[k] = v;
+                });
+                localStorage.setItem('interviewPageState', JSON.stringify({
+                    currentSessionId: this.currentSessionId,
+                    questions: this.questions,
+                    answers: answerData,
+                    savedAt: new Date().toISOString()
+                }));
+            },
+
+            updateAnswer(questionId, answerText) {
+                const answer = this.answers.get(questionId);
+                if (answer) {
+                    answer.answerText = answerText;
+                    answer.isValid = answerText.trim().length >= 10;
+                    this.answers.set(questionId, answer);
+                    this.persist();
+                }
+            },
+
+            getAnsweredCount() {
+                let count = 0;
+                this.answers.forEach(a => {
+                    if (a.answerText.trim().length > 0) count++;
+                });
+                return count;
+            },
+
+            getAllAnswers() {
+                const result = [];
+                this.answers.forEach(a => {
+                    result.push({
+                        interviewQuestionId: a.questionId,
+                        answerText: a.answerText
+                    });
+                });
+                return result;
+            },
+
+            clear() {
+                this.currentSessionId = null;
+                this.questions = [];
+                this.answers = new Map();
+                localStorage.removeItem('interviewPageState');
+            },
+
+            getQuestion(questionId) {
+                return this.questions.find(q => q.questionId === questionId);
+            },
+
+            getQuestionsByCategory(category) {
+                return this.questions.filter(q =>
+                    q.category?.toLowerCase() === category.toLowerCase()
+                );
+            }
+        };
+
+        // ============================================
+        // Initialize Page
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadTargetJobs();
+            await loadSkillGapAnalyses();
+        });
+
+        // Load target jobs
+        async function loadTargetJobs() {
+            const token = localStorage.getItem("token");
+            const select = document.getElementById("targetJobSelect");
+            const emptyMessage = document.getElementById("noTargetJobsMessage");
+
+            try {
+                const response = await axios.get(`${API_BASE_URL}/TargetJobs/my`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                select.innerHTML = '<option value="">-- Select Target Job --</option>';
+
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(job => {
+                        const option = document.createElement('option');
+                        option.value = job.id;
+                        option.textContent = `${job.jobTitle} ${job.company ? '- ' + job.company : ''}`;
+                        select.appendChild(option);
+                    });
+                    emptyMessage.style.display = 'none';
+                    select.style.display = 'block';
+                } else {
+                    select.innerHTML = '<option value="">No target jobs available</option>';
+                    select.style.display = 'none';
+                    emptyMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Failed to load target jobs:', error);
+                showToast("Cannot load target jobs.", "error");
+            }
+        }
+
+        // Load skill gap analyses
+        async function loadSkillGapAnalyses() {
+            const token = localStorage.getItem("token");
+            const select = document.getElementById("skillGapSelect");
+            const emptyMessage = document.getElementById("noAnalysesMessage");
+
+            console.log("Loading Skill Gap Analyses");
+
+            try {
+                const response = await axios.get(`${API_BASE_URL}/SkillGapAnalysis/my-analyses`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                console.log("Skill Gap Analyses Response:", response.data);
+
+                select.innerHTML = '<option value="">-- Select Analysis --</option>';
+
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(analysis => {
+                        const option = document.createElement('option');
+                        // Use correct property names from API response
+                        option.value = analysis.id;
+                        const readinessScore = analysis.readinessScore ?? 0;
+                        const date = analysis.createdAt 
+                            ? new Date(analysis.createdAt).toLocaleDateString() 
+                            : 'N/A';
+                        option.textContent = `Analysis #${analysis.id} - Readiness: ${readinessScore}% (${date})`;
+                        select.appendChild(option);
+                    });
+                    emptyMessage.style.display = 'none';
+                    select.style.display = 'block';
+                } else {
+                    select.innerHTML = '<option value="">-- Select Analysis --</option>';
+                    select.style.display = 'none';
+                    emptyMessage.innerHTML = `
+                        <i class="fas fa-info-circle mr-2"></i>
+                        No Skill Gap Analysis found.
+                        Please run Skill Gap Analysis first.
+                        <a href="/SkillGap" class="text-primary ml-2">Go to Analysis →</a>
+                    `;
+                    emptyMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Failed to load analyses:', error);
+                // Show friendly empty state instead of error toast
+                select.innerHTML = '<option value="">-- Select Analysis --</option>';
+                select.style.display = 'none';
+                emptyMessage.innerHTML = `
+                    <i class="fas fa-info-circle mr-2"></i>
+                    No Skill Gap Analysis found.
+                    Please run Skill Gap Analysis first.
+                    <a href="/SkillGap" class="text-primary ml-2">Go to Analysis →</a>
+                `;
+                emptyMessage.style.display = 'block';
+            }
+        }
+
+        // Start mock interview
+        async function startMockInterview() {
+            const targetJobId = document.getElementById("targetJobSelect").value;
+            const skillGapAnalysisId = document.getElementById("skillGapSelect").value;
+
+            if (!targetJobId) {
+                showToast("Please select a target job.", "error");
+                return;
+            }
+
+            if (!skillGapAnalysisId) {
+                showToast("Please select a skill gap analysis.", "error");
+                return;
+            }
+
+            hideAllViews();
+            showView('loading');
+            setButtonLoading(true);
+
+            const token = localStorage.getItem("token");
+
+            try {
+                const response = await axios.post(
+                    `${API_BASE_URL}/MockInterviews/generate`,
+                    {
+                        targetJobId: parseInt(targetJobId),
+                        skillGapAnalysisId: parseInt(skillGapAnalysisId)
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+                );
+
+                displayResults(response.data);
+            } catch (error) {
+                console.error('Interview generation failed:', error);
+                showError(error);
+            } finally {
+                setButtonLoading(false);
+            }
+        }
+
+        // Display results
+        function displayResults(data) {
+            hideAllViews();
+            showView('results');
+
+            InterviewPageState.setSession(data.sessionId, data.questions);
+
+            document.getElementById("sessionBadge").textContent = `Session #${data.sessionId}`;
+            document.getElementById("summaryJobTitle").textContent = data.targetJob?.title || "N/A";
+            document.getElementById("summarySessionId").textContent = data.sessionId;
+
+            const fallbackBadge = document.getElementById("fallbackBadge");
+            fallbackBadge.style.display = data.isFallback ? "inline-block" : "none";
+
+            document.getElementById("statTotal").textContent = data.questions?.length || 0;
+
+            const grouped = {
+                Technical: [],
+                Behavioral: [],
+                Communication: []
+            };
+
+            data.questions.forEach(q => {
+                const category = q.category || "Technical";
+                if (grouped[category]) {
+                    grouped[category].push(q);
+                } else {
+                    grouped.Technical.push(q);
+                }
+            });
+
+            document.getElementById("statTechnical").textContent = grouped.Technical.length;
+            document.getElementById("statBehavioral").textContent = grouped.Behavioral.length;
+            document.getElementById("statCommunication").textContent = grouped.Communication.length;
+
+            renderCategorySection("technical", "Technical", grouped.Technical);
+            renderCategorySection("behavioral", "Behavioral", grouped.Behavioral);
+            renderCategorySection("communication", "Communication", grouped.Communication);
+        }
+
+        // Show answer form
+        function showAnswerForm() {
+            hideAllViews();
+            showView('answer');
+            renderAnswerQuestions();
+            updateAnswerProgress();
+        }
+
+        // Render answer questions
+        function renderAnswerQuestions() {
+            const container = document.getElementById("answerQuestionsContainer");
+            container.innerHTML = '';
+
+            InterviewPageState.questions.forEach((q, index) => {
+                const answerCard = createAnswerCard(q, index + 1);
+                container.appendChild(answerCard);
+            });
+        }
+
+        // Create answer card
+        function createAnswerCard(question, index) {
+            const card = document.createElement("div");
+            card.className = "answer-card mb-4";
+            card.dataset.questionId = question.questionId;
+
+            const categoryColor = getCategoryColor(question.category);
+            const existingAnswer = InterviewPageState.answers.get(question.questionId);
+
+            card.innerHTML = `
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header" style="background: rgba(${categoryColor}, 0.15); border-color: rgba(${categoryColor}, 0.3);">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge" style="background: rgba(${categoryColor}, 0.3); color: rgb(${categoryColor});">
+                                    ${question.category}
+                                </span>
+                                <span class="text-muted small">Question #${question.questionId}</span>
+                            </div>
+                            <span class="answer-status" id="status-${question.questionId}">
+                                ${existingAnswer?.answerText?.trim() ? 
+                                    '<i class="fas fa-check-circle text-success"></i>' : 
+                                    '<i class="fas fa-clock text-muted"></i>'}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="question-text mb-3">
+                            <h6 class="text-white mb-2">Question ${index}</h6>
+                            <p class="text-light mb-0">${question.questionContent}</p>
+                        </div>
+                        
+                        ${question.skillArea ? `
+                            <div class="mb-3">
+                                <span class="badge badge-info">
+                                    <i class="fas fa-star mr-1"></i>
+                                    Skill Focus: ${question.skillArea}
+                                </span>
+                            </div>
+                        ` : ''}
+
+                        <div class="answer-input-group">
+                            <label class="text-white font-weight-600 mb-2">Your Answer</label>
+                            <textarea 
+                                id="answer-${question.questionId}"
+                                class="form-control answer-textarea"
+                                rows="5"
+                                placeholder="Type your answer here... (minimum 10 characters)"
+                                oninput="handleAnswerInput(${question.questionId}, this.value)"
+                            >${existingAnswer?.answerText || ''}</textarea>
+                            <div class="char-count mt-1">
+                                <span id="chars-${question.questionId}">${existingAnswer?.answerText?.length || 0}</span> characters
+                                ${existingAnswer?.isValid ? 
+                                    '<span class="text-success ml-2"><i class="fas fa-check"></i> Valid</span>' : 
+                                    '<span class="text-muted ml-2">Minimum 10 characters</span>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Handle answer input
+        function handleAnswerInput(questionId, value) {
+            InterviewPageState.updateAnswer(questionId, value);
+
+            const charsSpan = document.getElementById(`chars-${questionId}`);
+            const statusSpan = document.getElementById(`status-${questionId}`);
+            const answer = InterviewPageState.answers.get(questionId);
+
+            if (charsSpan) charsSpan.textContent = value.length;
+
+            if (statusSpan) {
+                if (value.trim().length > 0) {
+                    statusSpan.innerHTML = '<i class="fas fa-check-circle text-success"></i>';
+                } else {
+                    statusSpan.innerHTML = '<i class="fas fa-clock text-muted"></i>';
+                }
+            }
+
+            updateAnswerProgress();
+        }
+
+        // Update answer progress
+        function updateAnswerProgress() {
+            const total = InterviewPageState.questions.length;
+            const answered = InterviewPageState.getAnsweredCount();
+            const progressEl = document.getElementById("answerProgress");
+            if (progressEl) {
+                progressEl.textContent = `${answered}/${total} Answered`;
+            }
+        }
+
+        // Submit all answers
+        async function submitAllAnswers() {
+            const answers = InterviewPageState.getAllAnswers();
+            const total = InterviewPageState.questions.length;
+            const answered = InterviewPageState.getAnsweredCount();
+
+            if (answered === 0) {
+                showValidationMessage("Please answer at least one question before submitting.");
+                return;
+            }
+
+            const unanswered = total - answered;
+            if (unanswered > 0) {
+                const confirmSubmit = confirm(
+                    `You have ${unanswered} unanswered question${unanswered > 1 ? 's' : ''}. ` +
+                    `Do you want to submit only the ${answered} answered question${answered > 1 ? 's' : ''}?`
+                );
+                if (!confirmSubmit) return;
+            }
+
+            hideValidationMessage();
+            setSubmitButtonLoading(true);
+
+            const token = localStorage.getItem("token");
+            const sessionId = InterviewPageState.currentSessionId;
+
+            try {
+                const submittedAnswers = answers.filter(a => a.answerText.trim().length > 0);
+                
+                for (const answer of submittedAnswers) {
+                    await axios.post(
+                        `${API_BASE_URL}/interviews/${sessionId}/answers`,
+                        {
+                            interviewQuestionId: answer.interviewQuestionId,
+                            answerText: answer.answerText
+                        },
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`
+                            }
+                        }
+                    );
+                }
+
+                showSuccess(submittedAnswers.length);
+            } catch (error) {
+                console.error('Failed to submit answers:', error);
+                showToast("Failed to submit answers. Please try again.", "error");
+            } finally {
+                setSubmitButtonLoading(false);
+            }
+        }
+
+        // Show validation message
+        function showValidationMessage(message) {
+            const el = document.getElementById("validationMessage");
+            const text = document.getElementById("validationText");
+            if (el && text) {
+                text.textContent = message;
+                el.style.display = 'block';
+            }
+        }
+
+        // Hide validation message
+        function hideValidationMessage() {
+            const el = document.getElementById("validationMessage");
+            if (el) el.style.display = 'none';
+        }
+
+        // Show success
+        function showSuccess(answerCount) {
+            hideAllViews();
+            showView('success');
+
+            const feedbackBtn = document.getElementById("viewFeedbackBtn");
+            if (feedbackBtn) {
+                feedbackBtn.href = `/Feedback?sessionId=${InterviewPageState.currentSessionId}`;
+            }
+        }
+
+        // View management
+        function hideAllViews() {
+            document.getElementById("selectionCard").style.display = "none";
+            document.getElementById("loadingState").style.display = "none";
+            document.getElementById("resultsContainer").style.display = "none";
+            document.getElementById("answerFormSection").style.display = "none";
+            document.getElementById("errorState").style.display = "none";
+            document.getElementById("successState").style.display = "none";
+        }
+
+        function showView(view) {
+            InterviewPageState.currentView = view;
+            switch (view) {
+                case 'selection':
+                    document.getElementById("selectionCard").style.display = "block";
+                    break;
+                case 'loading':
+                    document.getElementById("loadingState").style.display = "block";
+                    break;
+                case 'results':
+                    document.getElementById("resultsContainer").style.display = "block";
+                    break;
+                case 'answer':
+                    document.getElementById("answerFormSection").style.display = "block";
+                    break;
+                case 'error':
+                    document.getElementById("errorState").style.display = "block";
+                    break;
+                case 'success':
+                    document.getElementById("successState").style.display = "block";
+                    break;
+            }
+        }
+
+        // Render category section
+        function renderCategorySection(sectionId, categoryName, questions) {
+            const section = document.getElementById(`${sectionId}Section`);
+            const container = document.getElementById(`${sectionId}Cards`);
+            const countBadge = document.getElementById(`${sectionId}Count`);
+
+            if (questions.length === 0) {
+                section.style.display = "none";
+                return;
+            }
+
+            section.style.display = "block";
+            countBadge.textContent = questions.length;
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const card = createQuestionCard(q, index + 1, categoryName);
+                container.appendChild(card);
+            });
+        }
+
+        // Create question card
+        function createQuestionCard(question, index, category) {
+            const col = document.createElement("div");
+            col.className = "col-lg-6 col-md-12 mb-4";
+
+            const card = document.createElement("div");
+            card.className = "card h-100 question-card";
+            card.dataset.questionId = question.questionId;
+            card.dataset.category = category;
+            card.dataset.skillFocus = question.skillArea || '';
+
+            const categoryColor = getCategoryColor(category);
+
+            card.innerHTML = `
+                <div class="card-header" style="background: rgba(${categoryColor}, 0.15); border-color: rgba(${categoryColor}, 0.3);">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge" style="background: rgba(${categoryColor}, 0.3); color: rgb(${categoryColor});">
+                            ${category}
+                        </span>
+                        <span class="text-muted small">#${question.questionId}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title text-white mb-3">Question ${index}</h6>
+                    <p class="card-text text-light">${question.questionContent}</p>
+                    ${question.skillArea ? `
+                        <div class="mt-3">
+                            <span class="badge badge-info">
+                                <i class="fas fa-star mr-1"></i>
+                                Skill Focus: ${question.skillArea}
+                            </span>
+                        </div>
+                    ` : ''}
+                    ${question.difficulty ? `
+                        <div class="mt-2">
+                            <span class="badge ${getDifficultyBadgeClass(question.difficulty)}">
+                                ${question.difficulty}
+                            </span>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            col.appendChild(card);
+            return col;
+        }
+
+        // Show error
+        function showError(error) {
+            hideAllViews();
+            showView('error');
+
+            let message = "An unexpected error occurred.";
+            if (error.response?.data?.detail) {
+                message = error.response.data.detail;
+            } else if (error.message) {
+                message = error.message;
+            }
+
+            document.getElementById("errorMessage").textContent = message;
+        }
+
+        // Reset to selection
+        function resetToSelection() {
+            hideAllViews();
+            InterviewPageState.clear();
+            showView('selection');
+            document.getElementById("targetJobSelect").value = "";
+            document.getElementById("skillGapSelect").value = "";
+            loadTargetJobs();
+            loadSkillGapAnalyses();
+        }
+
+        // Set button loading
+        function setButtonLoading(loading) {
+            const btn = document.getElementById("startInterviewBtn");
+            if (loading) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Generating...';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-play mr-2"></i>Start Mock Interview';
+            }
+        }
+
+        // Set submit button loading
+        function setSubmitButtonLoading(loading) {
+            const btn = document.getElementById("submitAnswersBtn");
+            if (loading) {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Submitting...';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit All Answers';
+            }
+        }
+
+        // Utility functions
+        function getCategoryColor(category) {
+            const colors = {
+                Technical: "64, 201, 255",
+                Behavioral: "255, 193, 7",
+                Communication: "76, 175, 80"
+            };
+            return colors[category] || colors.Technical;
+        }
+
+        function getDifficultyBadgeClass(difficulty) {
+            const lower = difficulty?.toLowerCase() || "";
+            if (lower.includes("beginner") || lower.includes("easy")) return "badge-success";
+            if (lower.includes("advanced") || lower.includes("hard")) return "badge-danger";
+            return "badge-warning";
+        }
     </script>
-
+    <style>
+        .question-card, .answer-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .question-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .font-weight-600 { font-weight: 600; }
+        .empty-state-message {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+        .stat-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #fff; line-height: 1; }
+        .stat-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .answer-textarea {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #fff !important;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+        .answer-textarea:focus {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: #ff6ec4 !important;
+            box-shadow: 0 0 20px rgba(255, 110, 196, 0.2) !important;
+            outline: none;
+        }
+        .answer-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+        .char-count {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: right;
+        }
+        .success-icon {
+            animation: pulse 2s infinite;
+        }
+        @@keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @@media (max-width: 768px) {
+            .question-card, .answer-card { margin-bottom: 1rem; }
+            .stat-card { padding: 15px; }
+            .stat-value { font-size: 1.5rem; }
+            .answer-textarea { min-height: 100px; }
+        }
+    </style>
 }

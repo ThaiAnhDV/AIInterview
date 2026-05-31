@@ -75,6 +75,8 @@ namespace AIInterviewPlatform.Application.Interfaces.Repositories
 
         IGenericRepository<SystemLog> SystemLogs { get; }
 
+        IInterviewSessionRepository InterviewSessionRepository { get; }
+
         IDashboardRepository DashboardRepository { get; }
 
         Task<int> SaveChangesAsync();

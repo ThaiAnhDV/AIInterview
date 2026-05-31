@@ -61,7 +61,10 @@ builder.Services.AddScoped<ISkillGapAnalysisOrchestratorService, SkillGapAnalysi
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IMilestoneGeneratorService, MilestoneGeneratorService>();
 builder.Services.AddHttpClient<IActivityDescriptionService, ActivityDescriptionService>();
+builder.Services.AddHttpClient<IInterviewQuestionGeneratorService, InterviewQuestionGeneratorService>();
 builder.Services.AddScoped<IRoadmapApplicationService, RoadmapApplicationService>();
+builder.Services.AddScoped<IInterviewSessionRepository, InterviewSessionRepository>();
+builder.Services.AddScoped<IMockInterviewApplicationService, MockInterviewApplicationService>();
 
 // =======================
 // Controllers

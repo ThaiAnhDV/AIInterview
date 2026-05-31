@@ -38,6 +38,7 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
             InterviewQuestions = new GenericRepository<InterviewQuestion>(_context);
             InterviewAnswers = new GenericRepository<InterviewAnswer>(_context);
             AnswerEvaluations = new GenericRepository<AnswerEvaluation>(_context);
+            InterviewSessionRepository = new InterviewSessionRepository(_context, null!);
 
             Feedbacks = new GenericRepository<Feedback>(_context);
             ImprovementSuggestions = new GenericRepository<ImprovementSuggestion>(_context);
@@ -80,6 +81,7 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
         public IGenericRepository<InterviewQuestion> InterviewQuestions { get; }
         public IGenericRepository<InterviewAnswer> InterviewAnswers { get; }
         public IGenericRepository<AnswerEvaluation> AnswerEvaluations { get; }
+        public IInterviewSessionRepository InterviewSessionRepository { get; }
 
         public IGenericRepository<Feedback> Feedbacks { get; }
         public IGenericRepository<ImprovementSuggestion> ImprovementSuggestions { get; }
