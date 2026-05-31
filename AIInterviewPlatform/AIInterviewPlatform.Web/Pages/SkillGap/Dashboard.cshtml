@@ -1,0 +1,485 @@
+@page
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Skill Gap Dashboard";
+}
+
+<style>
+    .dashboard-container {
+        padding: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-title {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-subtitle {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+    }
+
+    .stat-card {
+        background: rgba(25, 25, 50, 0.9);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 25px;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 110, 196, 0.3);
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .stat-icon.readiness {
+        background: linear-gradient(135deg, rgba(120, 115, 245, 0.2), rgba(255, 110, 196, 0.2));
+        color: #7873f5;
+    }
+
+    .stat-icon.matched {
+        background: linear-gradient(135deg, rgba(40, 199, 111, 0.2), rgba(32, 201, 151, 0.2));
+        color: #28c76f;
+    }
+
+    .stat-icon.missing {
+        background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 71, 87, 0.2));
+        color: #ff6b6b;
+    }
+
+    .stat-icon.trend {
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 159, 67, 0.2));
+        color: #ffc107;
+    }
+
+    .stat-label {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .stat-subtext {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+        margin-top: 8px;
+    }
+
+    .trend-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .trend-indicator.improving {
+        background: rgba(40, 199, 111, 0.15);
+        color: #28c76f;
+    }
+
+    .trend-indicator.declining {
+        background: rgba(255, 107, 107, 0.15);
+        color: #ff6b6b;
+    }
+
+    .trend-indicator.stable {
+        background: rgba(255, 193, 7, 0.15);
+        color: #ffc107;
+    }
+
+    .section-card {
+        background: rgba(25, 25, 50, 0.9);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-title {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-title i {
+        color: #ff6ec4;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+
+    .skill-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .skill-tag.matched {
+        background: linear-gradient(135deg, rgba(40, 199, 111, 0.15), rgba(32, 201, 151, 0.15));
+        color: #28c76f;
+        border: 1px solid rgba(40, 199, 111, 0.3);
+    }
+
+    .skill-tag.missing {
+        background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 71, 87, 0.15));
+        color: #ff6b6b;
+        border: 1px solid rgba(255, 107, 107, 0.3);
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+        padding: 10px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: rgba(255, 110, 196, 0.5);
+    }
+
+    .empty-state h5 {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 10px;
+    }
+
+    .history-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .history-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    .history-score {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+    .history-score.high {
+        background: linear-gradient(135deg, rgba(40, 199, 111, 0.2), rgba(32, 201, 151, 0.2));
+        color: #28c76f;
+        border: 2px solid rgba(40, 199, 111, 0.4);
+    }
+
+    .history-score.medium {
+        background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 159, 67, 0.2));
+        color: #ffc107;
+        border: 2px solid rgba(255, 193, 7, 0.4);
+    }
+
+    .history-score.low {
+        background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 71, 87, 0.2));
+        color: #ff6b6b;
+        border: 2px solid rgba(255, 107, 107, 0.4);
+    }
+
+    .history-details {
+        flex: 1;
+    }
+
+    .history-date {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+    }
+
+    .history-meta {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.8rem;
+        margin-top: 4px;
+    }
+
+    .refresh-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85rem;
+    }
+
+    .refresh-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .improvement-badge {
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .improvement-badge.positive {
+        background: rgba(40, 199, 111, 0.15);
+        color: #28c76f;
+    }
+
+    .improvement-badge.negative {
+        background: rgba(255, 107, 107, 0.15);
+        color: #ff6b6b;
+    }
+
+    .improvement-badge.neutral {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    @@media (max-width: 768px) {
+        .dashboard-container {
+            padding: 20px 15px;
+        }
+
+        .stat-card {
+            margin-bottom: 20px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+        }
+
+        .skills-grid {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        }
+
+        .history-item {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .history-score {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Skill Gap Dashboard</h1>
+        <p class="dashboard-subtitle">Track your interview readiness and skill development</p>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12 text-end">
+            <button class="refresh-btn" onclick="loadAllDashboardData()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <div class="row" id="statsRow">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="stat-icon readiness">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-label">Readiness Score</div>
+                <div class="stat-value" id="latestScore">--</div>
+                <div class="stat-subtext" id="latestScoreDate">Loading...</div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="stat-icon matched">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-label">Matched Skills</div>
+                <div class="stat-value" id="matchedCount">--</div>
+                <div class="stat-subtext">From latest analysis</div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="stat-icon missing">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="stat-label">Missing Skills</div>
+                <div class="stat-value" id="missingCount">--</div>
+                <div class="stat-subtext">Skills to develop</div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stat-card">
+                <div class="stat-icon trend">
+                    <i class="fas fa-arrow-trend-up"></i>
+                </div>
+                <div class="stat-label">Trend</div>
+                <div class="stat-value" id="trendValue">--</div>
+                <div class="stat-subtext" id="improvementText">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-chart-area"></i>
+                        Readiness Score Trend
+                    </h3>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="section-card" style="height: 100%;">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-history"></i>
+                        Recent Analyses
+                    </h3>
+                </div>
+                <div id="recentAnalysesList" style="max-height: 320px; overflow-y: auto;">
+                    <div class="empty-state">
+                        <i class="fas fa-chart-bar"></i>
+                        <h5>No Data Yet</h5>
+                        <p>Complete a skill gap analysis to see your history</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-check-double"></i>
+                        Matched Skills
+                    </h3>
+                    <span class="badge bg-success" id="matchedBadge">0</span>
+                </div>
+                <div id="matchedSkillsContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <h5>No Matched Skills</h5>
+                        <p>Complete an analysis to see your matched skills</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3 class="section-title">
+                        <i class="fas fa-times-circle"></i>
+                        Missing Skills (Gaps)
+                    </h3>
+                    <span class="badge bg-danger" id="missingBadge">0</span>
+                </div>
+                <div id="missingSkillsContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h5>No Missing Skills</h5>
+                        <p>Complete an analysis to see skill gaps</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/api.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/auth.js"></script>
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/dashboard.js"></script>
+    
+    <script>
+        if (requireLogin()) {
+            loadAllDashboardData();
+        }
+    </script>
+}

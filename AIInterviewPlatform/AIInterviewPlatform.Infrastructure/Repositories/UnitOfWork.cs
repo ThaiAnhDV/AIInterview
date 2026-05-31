@@ -56,6 +56,7 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
             Notifications = new GenericRepository<Notification>(_context);
             UsageStatistics = new GenericRepository<UsageStatistic>(_context);
             SystemLogs = new GenericRepository<SystemLog>(_context);
+            DashboardRepository = new DashboardRepository(_context);
         }
 
         public IGenericRepository<User> Users { get; }
@@ -97,6 +98,8 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
         public IGenericRepository<Notification> Notifications { get; }
         public IGenericRepository<UsageStatistic> UsageStatistics { get; }
         public IGenericRepository<SystemLog> SystemLogs { get; }
+
+        public IDashboardRepository DashboardRepository { get; }
 
         public async Task<int> SaveChangesAsync()
         {
