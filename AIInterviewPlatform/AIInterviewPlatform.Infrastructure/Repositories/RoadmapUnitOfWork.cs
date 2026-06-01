@@ -150,6 +150,7 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
                 if (roadmap != null)
                 {
                     await UpdateRoadmapProgressAsync(roadmap);
+                    await SaveChangesAsync();
                 }
             }
 

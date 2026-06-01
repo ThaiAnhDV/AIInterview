@@ -2,9 +2,11 @@
 using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Application.Services;
+using AIInterviewPlatform.Application.Common.Validators;
 using AIInterviewPlatform.Infrastructure.Data;
 using AIInterviewPlatform.Infrastructure.Repositories;
 using AIInterviewPlatform.Infrastructure.Services;
+using AIInterviewPlatform.Infrastructure.Validators;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -59,9 +61,13 @@ builder.Services.AddHttpClient<IJobDescriptionSkillExtractionService, JobDescrip
 builder.Services.AddScoped<ISkillMatchingService, SkillMatchingService>();
 builder.Services.AddScoped<ISkillGapAnalysisOrchestratorService, SkillGapAnalysisOrchestratorService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IDashboardQueryService, DashboardQueryService>();
+builder.Services.AddScoped<IDashboardQueryValidator, DashboardQueryValidator>();
 builder.Services.AddScoped<IMilestoneGeneratorService, MilestoneGeneratorService>();
 builder.Services.AddHttpClient<IActivityDescriptionService, ActivityDescriptionService>();
 builder.Services.AddHttpClient<IInterviewQuestionGeneratorService, InterviewQuestionGeneratorService>();
+builder.Services.AddHttpClient<IInterviewEvaluationService, InterviewEvaluationService>();
+builder.Services.AddScoped<IInterviewEvaluationApplicationService, InterviewEvaluationApplicationService>();
 builder.Services.AddScoped<IRoadmapApplicationService, RoadmapApplicationService>();
 builder.Services.AddScoped<IInterviewSessionRepository, InterviewSessionRepository>();
 builder.Services.AddScoped<IMockInterviewApplicationService, MockInterviewApplicationService>();

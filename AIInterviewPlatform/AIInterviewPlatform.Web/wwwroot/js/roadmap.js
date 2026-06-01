@@ -430,7 +430,7 @@ async function completeActivity(activityId) {
 
     try {
         const response = await fetch(
-            `${API_BASE_URL}/Roadmaps/complete-activity/${activityId}`,
+            `${API_BASE_URL}/Roadmap/complete-activity/${activityId}`,
             {
                 method: "POST",
                 headers: {

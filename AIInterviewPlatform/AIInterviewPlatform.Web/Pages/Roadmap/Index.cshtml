@@ -861,7 +861,7 @@
 @section Scripts {
     @* Scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
     <script src="~/js/guard.js"></script>
-    <script src="~/js/roadmap.js"></script>
+    <script src="~/js/roadmap.js?v=@DateTime.UtcNow.Ticks"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
