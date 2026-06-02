@@ -1,679 +1,475 @@
 ﻿@page
 @{
-    Layout = null;
     ViewData["Title"] = "Profile";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+    /* Profile Page Specific Styles */
+    
+    /* Avatar Section */
+    .profile-avatar-section {
+        text-align: center;
+        padding: var(--ai-space-8) 0;
+        margin-bottom: var(--ai-space-6);
+        background: linear-gradient(135deg, rgba(255, 110, 196, 0.08), rgba(120, 115, 245, 0.08));
+        border-radius: var(--ai-radius-2xl);
+        position: relative;
+        overflow: hidden;
+    }
 
-    <title>Profile - AI Interview Platform</title>
+    .profile-avatar-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 110, 196, 0.1) 0%, transparent 50%);
+        animation: pulse 4s ease-in-out infinite;
+    }
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    @@keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
 
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
-    <link href="/css/site.css" rel="stylesheet" />
+    .profile-avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: var(--ai-space-4);
+    }
 
-    <style>
-        * {
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--ai-radius-circle);
+        object-fit: cover;
+        border: 4px solid var(--ai-pink);
+        box-shadow: 0 0 30px rgba(255, 110, 196, 0.4);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-avatar-initials {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--ai-radius-circle);
+        background: var(--ai-primary-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-4xl);
+        font-weight: var(--ai-font-weight-bold);
+        color: var(--ai-text-primary);
+        border: 4px solid var(--ai-pink);
+        box-shadow: 0 0 30px rgba(255, 110, 196, 0.4);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-avatar-badge {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 32px;
+        height: 32px;
+        background: var(--ai-success);
+        border-radius: var(--ai-radius-circle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid var(--ai-bg-base);
+        z-index: 2;
+    }
+
+    .profile-avatar-badge i {
+        color: white;
+        font-size: var(--ai-font-size-sm);
+    }
+
+    .profile-name {
+        color: var(--ai-text-primary);
+        font-size: var(--ai-font-size-3xl);
+        font-weight: var(--ai-font-weight-bold);
+        margin-bottom: var(--ai-space-2);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-email {
+        color: var(--ai-text-secondary);
+        font-size: var(--ai-font-size-md);
+        margin-bottom: var(--ai-space-2);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-education {
+        color: var(--ai-pink);
+        font-size: var(--ai-font-size-sm);
+        font-weight: var(--ai-font-weight-medium);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Stats Grid */
+    .profile-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--ai-space-4);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .profile-stat-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-5);
+        text-align: center;
+        transition: all var(--ai-transition-normal);
+    }
+
+    .profile-stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--ai-border-primary);
+        box-shadow: var(--ai-shadow-md);
+    }
+
+    .profile-stat-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto var(--ai-space-3);
+        border-radius: var(--ai-radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .profile-stat-icon.pink {
+        background: rgba(255, 110, 196, 0.15);
+        color: var(--ai-pink);
+    }
+
+    .profile-stat-icon.purple {
+        background: rgba(120, 115, 245, 0.15);
+        color: var(--ai-purple);
+    }
+
+    .profile-stat-icon.green {
+        background: var(--ai-success-bg);
+        color: var(--ai-success);
+    }
+
+    .profile-stat-value {
+        font-size: var(--ai-font-size-3xl);
+        font-weight: var(--ai-font-weight-bold);
+        background: var(--ai-primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--ai-space-1);
+    }
+
+    .profile-stat-label {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+    }
+
+    /* Form Section */
+    .profile-form-section {
+        background: var(--ai-card-bg-light);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-6);
+    }
+
+    .profile-form-header {
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-3);
+        margin-bottom: var(--ai-space-6);
+        padding-bottom: var(--ai-space-4);
+        border-bottom: 1px solid var(--ai-border);
+    }
+
+    .profile-form-header i {
+        color: var(--ai-pink);
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .profile-form-header h4 {
+        color: var(--ai-text-primary);
+        margin: 0;
+        font-size: var(--ai-font-size-lg);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    .profile-form-description {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .profile-form-actions {
+        display: flex;
+        gap: var(--ai-space-4);
+        margin-top: var(--ai-space-6);
+        padding-top: var(--ai-space-5);
+        border-top: 1px solid var(--ai-border);
+    }
+
+    /* Quick Links */
+    .profile-quick-links {
+        display: flex;
+        gap: var(--ai-space-4);
+        justify-content: center;
+        margin-top: var(--ai-space-5);
+    }
+
+    .quick-link-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-5);
+        text-align: center;
+        flex: 1;
+        max-width: 200px;
+        transition: all var(--ai-transition-normal);
+        text-decoration: none;
+        display: block;
+    }
+
+    .quick-link-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--ai-pink);
+        box-shadow: var(--ai-shadow-primary);
+    }
+
+    .quick-link-card i {
+        font-size: var(--ai-font-size-2xl);
+        color: var(--ai-pink);
+        margin-bottom: var(--ai-space-3);
+    }
+
+    .quick-link-card span {
+        color: var(--ai-text-secondary);
+        font-size: var(--ai-font-size-sm);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .profile-stats-grid {
+            grid-template-columns: 1fr;
+            gap: var(--ai-space-3);
+        }
+
+        .profile-stat-card {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            padding: var(--ai-space-4);
+        }
+
+        .profile-stat-icon {
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            overflow-x: hidden;
-            background: #0a0a1a;
-            min-height: 100vh;
-        }
-
-        .video-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .video-bg video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 26, 0.75);
-            backdrop-filter: blur(5px);
-        }
-
-        /* Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 12px 0;
-            background: rgba(10, 10, 26, 0.9);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
+            margin-right: var(--ai-space-4);
+            width: 40px;
+            height: 40px;
             flex-shrink: 0;
-            text-decoration: none;
         }
 
-        .navbar-brand img {
-            height: 50px;
-            width: auto;
-        }
-
-        .navbar-brand .brand-text {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-left: 10px;
-            color: #fff;
-        }
-
-        .navbar-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            gap: 20px;
-        }
-
-        .navbar-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .profile-stat-content {
             flex: 1;
         }
 
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-shrink: 0;
+        .profile-stat-value {
+            font-size: var(--ai-font-size-2xl);
+            margin-bottom: 0;
         }
 
-        .nav-pills {
-            display: flex;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px;
-            border-radius: 50px;
+        .profile-stat-label {
+            font-size: var(--ai-font-size-xs);
         }
 
-        .nav-pills .nav-item {
-            list-style: none;
+        .profile-form-actions {
+            flex-direction: column;
         }
 
-        .nav-pills .nav-link {
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .nav-pills .nav-link:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-pills .nav-link.active {
-            background: linear-gradient(135deg, #ff6ec4, #7873f5);
-            color: #fff;
-        }
-
-        /* User Dropdown */
-        .user-dropdown {
-            position: relative;
-        }
-
-        .user-dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .user-dropdown-toggle:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 110, 196, 0.5);
-        }
-
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff6ec4, #7873f5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .user-avatar img {
+        .profile-form-actions .btn {
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-name-nav {
-            color: #fff;
-            font-weight: 600;
-            font-size: 14px;
-            max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .user-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 10px;
-            min-width: 200px;
-            background: rgba(20, 20, 40, 0.98);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 10px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .user-dropdown:hover .user-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
-        .dropdown-item i {
-            width: 20px;
-            text-align: center;
-            color: #ff6ec4;
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 8px 0;
-        }
-
-        .dropdown-item.text-danger:hover {
-            background: rgba(244, 67, 54, 0.2);
-            color: #f44336;
-        }
-
-        .dropdown-item.text-danger i {
-            color: #f44336;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        /* Profile Content */
-        .profile-content {
-            padding-top: 120px;
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
-        }
-
-        .profile-card {
-            background: rgba(20, 20, 40, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid rgba(255, 110, 196, 0.5);
-            margin-bottom: 20px;
-            box-shadow: 0 0 30px rgba(255, 110, 196, 0.3);
-        }
-
-        .profile-name {
-            color: #fff;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .profile-email {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        .profile-role {
-            color: #ff6ec4;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .profile-stats {
-            display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
-            padding: 20px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .stat-item {
-            text-align: center;
+        .profile-quick-links {
+            flex-direction: column;
+            align-items: center;
         }
 
-        .stat-value {
-            color: #fff;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff6ec4, #7873f5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            margin-top: 5px;
-        }
-
-        .form-section {
-            background: rgba(30, 30, 60, 0.5);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-        }
-
-        .form-section h4 {
-            color: #fff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .form-group input,
-        .form-group textarea {
+        .quick-link-card {
+            max-width: 100%;
             width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ff6ec4;
-            box-shadow: 0 0 20px rgba(255, 110, 196, 0.2);
+        .profile-avatar,
+        .profile-avatar-initials {
+            width: 100px;
+            height: 100px;
+            font-size: var(--ai-font-size-3xl);
         }
+    }
+</style>
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .form-group input[readonly] {
-            background: rgba(255, 255, 255, 0.02);
-            cursor: not-allowed;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .btn-primary-custom {
-            padding: 15px 35px;
-            background: linear-gradient(135deg, #ff6ec4, #7873f5);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary-custom:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 110, 196, 0.4);
-        }
-
-        .btn-secondary-custom {
-            padding: 15px 35px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-secondary-custom:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-        }
-
-        footer {
-            background: rgba(10, 10, 26, 0.95);
-            padding: 30px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .footer-copyright {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ff6ec4;
-        }
-
-        @@media (max-width: 768px) {
-            .navbar-center {
-                display: none;
-            }
-
-            .nav-pills {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .profile-stats {
-                flex-wrap: wrap;
-                gap: 20px;
-            }
-
-            .btn-group {
-                flex-direction: column;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="video-bg">
-        <video autoplay muted loop playsinline>
-            <source src="/videos/videoBackGoundHome.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
+<div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-user"></i>
+            My Profile
+        </h2>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-container">
-                <a class="navbar-brand" href="/">
-                    <img src="/img/logo.png" alt="Logo">
-                    <span class="brand-text">AI INTERVIEW</span>
-                </a>
-
-                <div class="navbar-center">
-                    <ul class="nav-pills">
-                        <li class="nav-item">
-                            <a href="/" class="nav-link">
-                                <i class="fas fa-home mr-2"></i>Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/TargetJob" class="nav-link">
-                                <i class="fas fa-bullseye mr-2"></i>Target Jobs
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Resume" class="nav-link">
-                                <i class="fas fa-file-alt mr-2"></i>Resume
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/SkillGap" class="nav-link">
-                                <i class="fas fa-chart-line mr-2"></i>Skill Analysis
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Interview" class="nav-link">
-                                <i class="fas fa-comments mr-2"></i>Mock Interview
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/Roadmap" class="nav-link">
-                                <i class="fas fa-map mr-2"></i>Roadmap
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="navbar-right">
-                    <div class="user-dropdown" id="userDropdown">
-                        <a href="#" class="user-dropdown-toggle">
-                            <div class="user-avatar" id="userAvatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <span class="user-name-nav" id="userNameNav">User</span>
-                            <i class="fas fa-chevron-down" style="color: rgba(255,255,255,0.6); font-size: 12px;"></i>
-                        </a>
-                        <div class="user-dropdown-menu">
-                            <a href="/Profile" class="dropdown-item active">
-                                <i class="fas fa-user"></i> Profile
-                            </a>
-                            <a href="/Resume" class="dropdown-item">
-                                <i class="fas fa-file-alt"></i> My Resume
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" onclick="logout(); return false;" class="dropdown-item text-danger">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Profile Card -->
+        <div class="card-ai">
+            <div class="card-ai-body">
+                <!-- Avatar Section -->
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-wrapper">
+                        <div class="profile-avatar-initials" id="profileAvatarInitials">U</div>
+                        <img src="/img/logo.png" alt="Profile" class="profile-avatar" id="profileAvatarImg" style="display: none;">
+                        <div class="profile-avatar-badge">
+                            <i class="fas fa-check"></i>
                         </div>
                     </div>
+                    <h2 id="profileDisplayName" class="profile-name">Loading...</h2>
+                    <p id="profileDisplayEmail" class="profile-email">Loading...</p>
+                    <p id="profileDisplayEducation" class="profile-education">Preparing for better interviews</p>
+                </div>
 
-                    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
-                        <i class="fas fa-bars"></i>
-                    </button>
+                <!-- Stats Grid -->
+                <div class="profile-stats-grid">
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon pink">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <div class="profile-stat-value" id="statSessions">0</div>
+                            <div class="profile-stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon purple">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <div class="profile-stat-value" id="statRoadmaps">0</div>
+                            <div class="profile-stat-label">Roadmaps</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon green">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <div class="profile-stat-value" id="statReadiness">0%</div>
+                            <div class="profile-stat-label">Readiness</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="profile-quick-links">
+                    <a href="/Dashboard" class="quick-link-card">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="/Resume" class="quick-link-card">
+                        <i class="fas fa-file-alt"></i>
+                        <span>My Resume</span>
+                    </a>
+                    <a href="/SkillGap" class="quick-link-card">
+                        <i class="fas fa-search"></i>
+                        <span>Skill Gap</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Profile Content -->
-    <div class="profile-content">
-        <div class="container">
-            <div class="profile-card">
-                <div class="profile-header">
-                    <img src="/img/logo.png" alt="Profile" class="profile-avatar">
-                    <h2 id="profileDisplayName" class="profile-name">Loading...</h2>
-                    <p id="profileDisplayEmail" class="profile-email">Loading...</p>
-                    <p id="profileDisplayEducation" class="profile-role">Preparing for better interviews</p>
-                    <p class="profile-role">AI Interview Platform User</p>
-                </div>
+        <!-- Edit Profile Card -->
+        <div class="card-ai mt-6">
+            <div class="card-ai-body">
+                <div class="profile-form-section">
+                    <div class="profile-form-header">
+                        <i class="fas fa-user-edit"></i>
+                        <h4>Edit Profile</h4>
+                    </div>
 
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="statSessions">0</div>
-                        <div class="stat-label">Sessions</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="statRoadmaps">0</div>
-                        <div class="stat-label">Roadmaps</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="statReadiness">0%</div>
-                        <div class="stat-label">Readiness</div>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h4><i class="fas fa-user-edit mr-2"></i>Edit Profile</h4>
-                    <p class="text-center text-muted mb-4">Update your personal interview preparation information.</p>
+                    <p class="profile-form-description">
+                        Update your personal interview preparation information. This helps us provide better recommendations.
+                    </p>
 
                     <form onsubmit="event.preventDefault(); updateProfile();">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input id="profileFullName"
-                                   type="text"
-                                   placeholder="Full Name">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Full Name</label>
+                                    <input id="profileFullName"
+                                           type="text"
+                                           class="form-control-ai"
+                                           placeholder="Enter your full name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Email</label>
+                                    <input id="profileEmail"
+                                           type="email"
+                                           class="form-control-ai form-control-ai-readonly"
+                                           readonly
+                                           placeholder="Email address">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input id="profileEmail"
-                                   type="email"
-                                   readonly>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Phone</label>
+                                    <input id="profilePhone"
+                                           type="text"
+                                           class="form-control-ai"
+                                           placeholder="Phone number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Education Level</label>
+                                    <input id="profileEducationLevel"
+                                           type="text"
+                                           class="form-control-ai"
+                                           placeholder="University, College, High School...">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input id="profilePhone"
-                                   type="text"
-                                   placeholder="Phone number">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Education Level</label>
-                            <input id="profileEducationLevel"
-                                   type="text"
-                                   placeholder="University, College, High School...">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Career Goal</label>
+                        <div class="form-group-ai">
+                            <label class="form-label-ai">Career Goal</label>
                             <textarea id="profileCareerGoal"
+                                      class="form-control-ai"
                                       rows="4"
-                                      placeholder="Example: Become a Backend Developer"></textarea>
+                                      placeholder="Example: Become a Backend Developer specializing in cloud technologies"></textarea>
                         </div>
 
-                        <div class="btn-group">
-                            <button type="submit" class="btn-primary-custom">
-                                <i class="fas fa-save mr-2"></i>Save Profile
+                        <div class="profile-form-actions">
+                            <button type="submit" class="btn-primary-ai">
+                                <i class="fas fa-save mr-2"></i>
+                                Save Changes
                             </button>
-                            <a href="/" class="btn-secondary-custom">
-                                <i class="fas fa-home mr-2"></i>Back to Home
+                            <a href="/Dashboard" class="btn-secondary-ai">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Back to Dashboard
                             </a>
                         </div>
                     </form>
@@ -681,69 +477,17 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-copyright">
-                &copy; 2026 AI Interview Platform
-            </div>
-            <div class="footer-links">
-                <a href="/">Dashboard</a>
-                <a href="/Profile">Profile</a>
-                <a href="/Resume">Resume</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="/assets/js/core/jquery.min.js"></script>
-    <script src="/assets/js/core/popper.min.js"></script>
-    <script src="/assets/js/core/bootstrap.min.js"></script>
-    <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/assets/js/argon-design-system.min.js?v=1.2.2"></script>
-
-    <script src="/js/api.js"></script>
-    <script src="/js/site.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/guard.js"></script>
-    <script src="/js/profile.js"></script>
+@section Scripts {
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/profile.js"></script>
 
     <script>
-        (function() {
-            const token = localStorage.getItem("token");
-            const user = localStorage.getItem("user");
-            
-            if (!token) {
-                window.location.href = "/Auth/Login";
-                return;
-            }
-            
-            // Update user dropdown
-            const userNameNav = document.getElementById('userNameNav');
-            const userAvatar = document.getElementById('userAvatar');
-            
-            if (user) {
-                try {
-                    const userData = JSON.parse(user);
-                    const displayName = userData.fullName || userData.email || 'User';
-                    userNameNav.textContent = displayName;
-                    
-                    const initials = displayName.split(' ')
-                        .map(n => n[0])
-                        .join('')
-                        .substring(0, 2)
-                        .toUpperCase();
-                    userAvatar.innerHTML = initials;
-                } catch (e) {
-                    userNameNav.textContent = 'User';
-                }
-            }
-            
+        if (requireLogin()) {
             if (typeof loadProfile === 'function') {
                 loadProfile();
             }
-        })();
+        }
     </script>
-
-</body>
-</html>
+}

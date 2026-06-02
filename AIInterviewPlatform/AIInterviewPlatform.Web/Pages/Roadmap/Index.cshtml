@@ -736,37 +736,52 @@
             justify-content: flex-end;
         }
     }
+
+    @@media (max-width: 480px) {
+        .roadmaps-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .generate-form .form-group {
+            min-width: 100%;
+        }
+    }
 </style>
 
-<div class="roadmap-page">
+<div class="page-container">
     <!-- Page Header -->
-    <div class="roadmap-header">
-        <h1>
-            <i class="fas fa-map-marked-alt"></i>
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-map"></i>
             Learning Roadmap
-        </h1>
+        </h2>
     </div>
 
-    <!-- Generate Section -->
-    <div class="generate-section">
-        <h3>
-            <i class="fas fa-magic"></i>
-            Generate New Roadmap
-        </h3>
-        <div class="generate-form">
-            <div class="form-group">
-                <label for="skillGapAnalysisId">Skill Gap Analysis ID</label>
-                <input type="number" 
-                       id="skillGapAnalysisId" 
-                       class="form-control" 
-                       placeholder="Enter your Skill Gap Analysis ID">
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Generate Section -->
+        <div class="card-ai mb-5">
+            <div class="card-ai-header">
+                <h4><i class="fas fa-magic mr-2"></i>Generate New Roadmap</h4>
             </div>
-            <button class="btn btn-success" onclick="generateRoadmap()">
-                <i class="fas fa-plus mr-2"></i>
-                Generate Roadmap
-            </button>
+            <div class="card-ai-body">
+                <div class="row align-items-end">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <label class="form-label-ai">Skill Gap Analysis ID</label>
+                        <input type="number"
+                               id="skillGapAnalysisId"
+                               class="form-control-ai"
+                               placeholder="Enter your Skill Gap Analysis ID">
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn-primary-ai" onclick="generateRoadmap()">
+                            <i class="fas fa-plus mr-2"></i>
+                            Generate Roadmap
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
     <!-- Roadmaps Grid -->
     <div id="roadmapsContainer">
@@ -801,8 +816,10 @@
         <!-- Roadmaps List -->
         <div id="roadmapsList" class="roadmaps-grid" style="display: none;"></div>
     </div>
+</div>
 
-    <!-- Roadmap Detail -->
+<!-- Roadmap Detail -->
+<div class="page-container">
     <div id="roadmapDetail" class="roadmap-detail">
         <div class="roadmap-detail-header">
             <div>
@@ -846,9 +863,9 @@
         <!-- Milestones -->
         <div id="milestoneContainer" class="roadmap-detail-body milestones-timeline"></div>
     </div>
-</div>
 
-<!-- SVG Definitions -->
+    <!-- Roadmap Detail -->
+    <div id="roadmapDetail" class="roadmap-detail">
 <svg width="0" height="0">
     <defs>
         <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">

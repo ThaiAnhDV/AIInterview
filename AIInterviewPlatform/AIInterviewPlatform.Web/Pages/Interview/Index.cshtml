@@ -5,256 +5,707 @@
     ViewData["Title"] = "Mock Interview";
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2 class="text-white mb-3">
-                <i class="fas fa-microphone-alt text-primary mr-2"></i>
-                Mock Interview Generator
-            </h2>
-            <p class="text-muted">Generate personalized interview questions based on your target job and skill gap analysis.</p>
-        </div>
+<style>
+    /* Interview Page Specific Styles */
+    
+    /* Selection Card */
+    .interview-selection-card {
+        background: linear-gradient(135deg, rgba(255, 110, 196, 0.08), rgba(120, 115, 245, 0.08));
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-2xl);
+        padding: var(--ai-space-8);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .interview-selection-header {
+        text-align: center;
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .interview-selection-header h3 {
+        color: var(--ai-text-primary);
+        margin-bottom: var(--ai-space-2);
+    }
+
+    .interview-selection-header p {
+        color: var(--ai-text-muted);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .interview-form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--ai-space-6);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .empty-state-inline {
+        background: var(--ai-warning-bg);
+        border: 1px solid var(--ai-warning-border);
+        border-radius: var(--ai-radius-lg);
+        padding: var(--ai-space-4);
+        margin-top: var(--ai-space-3);
+        color: var(--ai-warning);
+        font-size: var(--ai-font-size-sm);
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-2);
+    }
+
+    /* Stats Grid */
+    .interview-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--ai-space-4);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .interview-stat-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-5);
+        text-align: center;
+        transition: all var(--ai-transition-normal);
+    }
+
+    .interview-stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--ai-border-primary);
+        box-shadow: var(--ai-shadow-md);
+    }
+
+    .interview-stat-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto var(--ai-space-3);
+        border-radius: var(--ai-radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .interview-stat-icon.pink { background: rgba(255, 110, 196, 0.15); color: var(--ai-pink); }
+    .interview-stat-icon.blue { background: var(--ai-info-bg); color: var(--ai-info); }
+    .interview-stat-icon.warning { background: var(--ai-warning-bg); color: var(--ai-warning); }
+    .interview-stat-icon.green { background: var(--ai-success-bg); color: var(--ai-success); }
+
+    .interview-stat-value {
+        font-size: var(--ai-font-size-3xl);
+        font-weight: var(--ai-font-weight-bold);
+        color: var(--ai-text-primary);
+        margin-bottom: var(--ai-space-1);
+    }
+
+    .interview-stat-label {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Category Section */
+    .category-section {
+        margin-bottom: var(--ai-space-8);
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--ai-space-5);
+        padding-bottom: var(--ai-space-4);
+        border-bottom: 1px solid var(--ai-border);
+    }
+
+    .category-title {
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-3);
+        margin: 0;
+    }
+
+    .category-title i {
+        font-size: var(--ai-font-size-xl);
+    }
+
+    /* Question Cards */
+    .question-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--ai-space-5);
+    }
+
+    .question-card-ai {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        overflow: hidden;
+        transition: all var(--ai-transition-normal);
+    }
+
+    .question-card-ai:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--ai-shadow-lg);
+        border-color: var(--ai-border-primary);
+    }
+
+    .question-card-header {
+        padding: var(--ai-space-4) var(--ai-space-5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--ai-border);
+    }
+
+    .question-card-header.technical {
+        background: rgba(64, 201, 255, 0.08);
+        border-bottom-color: rgba(64, 201, 255, 0.2);
+    }
+
+    .question-card-header.behavioral {
+        background: rgba(255, 193, 7, 0.08);
+        border-bottom-color: rgba(255, 193, 7, 0.2);
+    }
+
+    .question-card-header.communication {
+        background: rgba(76, 175, 80, 0.08);
+        border-bottom-color: rgba(76, 175, 80, 0.2);
+    }
+
+    .question-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--ai-space-2);
+        padding: var(--ai-space-1) var(--ai-space-3);
+        border-radius: var(--ai-radius-full);
+        font-size: var(--ai-font-size-xs);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    .question-badge.technical {
+        background: rgba(64, 201, 255, 0.2);
+        color: var(--ai-info);
+    }
+
+    .question-badge.behavioral {
+        background: rgba(255, 193, 7, 0.2);
+        color: var(--ai-warning);
+    }
+
+    .question-badge.communication {
+        background: rgba(76, 175, 80, 0.2);
+        color: var(--ai-success);
+    }
+
+    .question-number {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+    }
+
+    .question-card-body {
+        padding: var(--ai-space-5);
+    }
+
+    .question-content {
+        color: var(--ai-text-primary);
+        font-size: var(--ai-font-size-md);
+        line-height: var(--ai-line-height-relaxed);
+        margin-bottom: var(--ai-space-4);
+    }
+
+    .question-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--ai-space-3);
+    }
+
+    /* Answer Cards */
+    .answer-card-ai {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        overflow: hidden;
+        margin-bottom: var(--ai-space-5);
+    }
+
+    .answer-card-ai:last-child {
+        margin-bottom: 0;
+    }
+
+    .answer-card-header {
+        padding: var(--ai-space-4) var(--ai-space-5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--ai-space-3);
+    }
+
+    .answer-card-header.technical {
+        background: rgba(64, 201, 255, 0.08);
+        border-bottom: 1px solid rgba(64, 201, 255, 0.2);
+    }
+
+    .answer-card-header.behavioral {
+        background: rgba(255, 193, 7, 0.08);
+        border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+    }
+
+    .answer-card-header.communication {
+        background: rgba(76, 175, 80, 0.08);
+        border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+    }
+
+    .answer-status-indicator {
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-2);
+        font-size: var(--ai-font-size-sm);
+    }
+
+    .answer-status-indicator.answered {
+        color: var(--ai-success);
+    }
+
+    .answer-status-indicator.pending {
+        color: var(--ai-text-muted);
+    }
+
+    .answer-card-body {
+        padding: var(--ai-space-5);
+    }
+
+    .answer-question-text {
+        color: var(--ai-text-secondary);
+        font-size: var(--ai-font-size-sm);
+        margin-bottom: var(--ai-space-4);
+        padding: var(--ai-space-3);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: var(--ai-radius-md);
+        border-left: 3px solid var(--ai-pink);
+    }
+
+    .answer-textarea-wrapper {
+        position: relative;
+    }
+
+    .answer-textarea-ai {
+        width: 100%;
+        min-height: 140px;
+        padding: var(--ai-space-4);
+        background: var(--ai-input-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-lg);
+        color: var(--ai-text-primary);
+        font-size: var(--ai-font-size-md);
+        line-height: var(--ai-line-height-relaxed);
+        resize: vertical;
+        transition: all var(--ai-transition-fast);
+    }
+
+    .answer-textarea-ai:focus {
+        outline: none;
+        border-color: var(--ai-pink);
+        box-shadow: 0 0 0 3px rgba(255, 110, 196, 0.15);
+        background: var(--ai-input-bg-focus);
+    }
+
+    .answer-textarea-ai::placeholder {
+        color: var(--ai-text-disabled);
+    }
+
+    .answer-char-counter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: var(--ai-space-2);
+        font-size: var(--ai-font-size-sm);
+    }
+
+    .char-count-text {
+        color: var(--ai-text-muted);
+    }
+
+    .char-validation {
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-1);
+    }
+
+    .char-validation.valid {
+        color: var(--ai-success);
+    }
+
+    .char-validation.invalid {
+        color: var(--ai-text-muted);
+    }
+
+    /* Evaluation Result */
+    .evaluation-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        overflow: hidden;
+        margin-bottom: var(--ai-space-5);
+    }
+
+    .evaluation-header {
+        background: linear-gradient(135deg, rgba(255, 110, 196, 0.1), rgba(120, 115, 245, 0.1));
+        padding: var(--ai-space-5);
+        border-bottom: 1px solid var(--ai-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .evaluation-score-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-2xl);
+        font-weight: var(--ai-font-weight-bold);
+    }
+
+    .evaluation-score-circle.excellent {
+        background: var(--ai-success-bg);
+        color: var(--ai-success);
+        border: 3px solid var(--ai-success);
+    }
+
+    .evaluation-score-circle.good {
+        background: var(--ai-info-bg);
+        color: var(--ai-info);
+        border: 3px solid var(--ai-info);
+    }
+
+    .evaluation-score-circle.fair {
+        background: var(--ai-warning-bg);
+        color: var(--ai-warning);
+        border: 3px solid var(--ai-warning);
+    }
+
+    .evaluation-score-circle.poor {
+        background: var(--ai-danger-bg);
+        color: var(--ai-danger);
+        border: 3px solid var(--ai-danger);
+    }
+
+    /* Progress Badge */
+    .progress-badge {
+        background: var(--ai-primary-gradient);
+        padding: var(--ai-space-2) var(--ai-space-4);
+        border-radius: var(--ai-radius-full);
+        font-size: var(--ai-font-size-sm);
+        font-weight: var(--ai-font-weight-medium);
+        color: var(--ai-text-primary);
+    }
+
+    /* Action Buttons */
+    .interview-actions {
+        display: flex;
+        gap: var(--ai-space-4);
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @@media (max-width: 1024px) {
+        .question-cards-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .interview-stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .interview-form-row {
+            grid-template-columns: 1fr;
+            gap: var(--ai-space-4);
+        }
+
+        .interview-stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .interview-stat-card {
+            padding: var(--ai-space-4);
+        }
+
+        .interview-stat-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .interview-stat-value {
+            font-size: var(--ai-font-size-2xl);
+        }
+
+        .category-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--ai-space-3);
+        }
+
+        .question-card-header,
+        .answer-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .interview-actions {
+            flex-direction: column;
+        }
+
+        .interview-actions .btn {
+            width: 100%;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .interview-stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-comments"></i>
+            Mock Interview
+        </h2>
     </div>
 
-    <!-- Selection Card -->
-    <div class="card shadow border-0 mb-4" id="selectionCard">
-        <div class="card-header bg-dark">
-            <h5 class="mb-0 text-white">
-                <i class="fas fa-cog mr-2"></i>
-                Configure Interview
-            </h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="text-white font-weight-600">Target Job</label>
-                    <select id="targetJobSelect" class="form-control">
-                        <option value="">-- Select Target Job --</option>
-                    </select>
-                    <div id="noTargetJobsMessage" class="empty-state-message" style="display: none;">
-                        <i class="fas fa-info-circle mr-2"></i>
-                        Create a Target Job first.
-                        <a href="/TargetJob" class="text-primary ml-2">Go to Target Jobs →</a>
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Selection Card -->
+        <div class="card-ai" id="selectionCard">
+            <div class="card-ai-header">
+                <h4><i class="fas fa-cog mr-2"></i>Configure Interview</h4>
+            </div>
+            <div class="card-ai-body">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label-ai">Target Job</label>
+                        <select id="targetJobSelect" class="form-select-ai">
+                            <option value="">-- Select Target Job --</option>
+                        </select>
+                        <div id="noTargetJobsMessage" class="empty-state-inline" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            Create a Target Job first.
+                            <a href="/TargetJob" class="text-ai-primary ml-2">Go to Target Jobs →</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label-ai">Skill Gap Analysis</label>
+                        <select id="skillGapSelect" class="form-select-ai">
+                            <option value="">-- Select Analysis --</option>
+                        </select>
+                        <div id="noAnalysesMessage" class="empty-state-inline" style="display: none;">
+                            <i class="fas fa-info-circle"></i>
+                            Run Skill Gap Analysis first.
+                            <a href="/SkillGap" class="text-ai-primary ml-2">Go to Analysis →</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label class="text-white font-weight-600">Skill Gap Analysis</label>
-                    <select id="skillGapSelect" class="form-control">
-                        <option value="">-- Select Analysis --</option>
-                    </select>
-                    <div id="noAnalysesMessage" class="empty-state-message" style="display: none;">
-                        <i class="fas fa-info-circle mr-2"></i>
-                        Run Skill Gap Analysis first.
-                        <a href="/SkillGap" class="text-primary ml-2">Go to Analysis →</a>
-                    </div>
+                <div class="mt-4 text-center">
+                    <button id="startInterviewBtn" class="btn-primary-ai btn-lg" onclick="startMockInterview()">
+                        <i class="fas fa-play mr-2"></i>
+                        Start Mock Interview
+                    </button>
                 </div>
             </div>
-            <div class="mt-3">
-                <button id="startInterviewBtn" class="btn btn-success btn-lg" onclick="startMockInterview()">
-                    <i class="fas fa-play mr-2"></i>
-                    Start Mock Interview
-                </button>
-            </div>
         </div>
-    </div>
 
-    <!-- Loading State -->
-    <div id="loadingState" class="card shadow border-0" style="display: none;">
-        <div class="card-body text-center py-5">
-            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
-                <span class="sr-only">Loading...</span>
+        <!-- Loading State -->
+        <div id="loadingState" class="card-ai" style="display: none;">
+            <div class="card-ai-body text-center py-5">
+                <div class="loading-spinner-ai loading-spinner-ai-lg mx-auto mb-4"></div>
+                <h5 class="text-ai-primary mb-2">Generating Interview Questions...</h5>
+                <p class="text-ai-muted">Our AI is crafting personalized questions based on your profile.</p>
             </div>
-            <h5 class="text-white">Generating Interview Questions...</h5>
-            <p class="text-muted">Our AI is crafting personalized questions based on your profile.</p>
         </div>
-    </div>
 
-    <!-- Results Container -->
-    <div id="resultsContainer" style="display: none;">
-        <!-- Summary Card -->
-        <div class="card shadow border-0 mb-4">
-            <div class="card-header bg-dark">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <h5 class="mb-0 text-white">
-                        <i class="fas fa-clipboard-check mr-2"></i>
-                        Interview Summary
-                    </h5>
-                    <div class="d-flex align-items-center gap-2">
-                        <span id="fallbackBadge" class="badge badge-warning" style="display: none;">
-                            <i class="fas fa-exclamation-triangle mr-1"></i>
-                            Fallback Questions Generated
-                        </span>
-                        <span id="sessionBadge" class="badge badge-info">Session #0</span>
+        <!-- Results Container -->
+        <div id="resultsContainer" style="display: none;">
+            <!-- Summary Card -->
+            <div class="card-ai mb-6">
+                <div class="card-ai-header">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h4><i class="fas fa-clipboard-check mr-2"></i>Interview Summary</h4>
+                        <div class="d-flex align-items-center gap-3">
+                            <span id="fallbackBadge" class="badge-ai badge-ai-warning" style="display: none;">
+                                <i class="fas fa-exclamation-triangle mr-1"></i>
+                                Fallback Questions
+                            </span>
+                            <span id="sessionBadge" class="badge-ai badge-ai-info">Session #0</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <!-- Stats Grid -->
-                <div class="row mb-4">
-                    <div class="col-6 col-md-3 mb-3">
-                        <div class="stat-card">
-                            <div class="stat-icon text-info">
+                <div class="card-ai-body">
+                    <!-- Stats Grid -->
+                    <div class="interview-stats-grid">
+                        <div class="interview-stat-card">
+                            <div class="interview-stat-icon pink">
                                 <i class="fas fa-question-circle"></i>
                             </div>
-                            <div class="stat-value" id="statTotal">0</div>
-                            <div class="stat-label">Total Questions</div>
+                            <div class="interview-stat-value" id="statTotal">0</div>
+                            <div class="interview-stat-label">Total</div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-3 mb-3">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="color: #40c9ff;">
+                        <div class="interview-stat-card">
+                            <div class="interview-stat-icon blue">
                                 <i class="fas fa-laptop-code"></i>
                             </div>
-                            <div class="stat-value" id="statTechnical">0</div>
-                            <div class="stat-label">Technical</div>
+                            <div class="interview-stat-value" id="statTechnical">0</div>
+                            <div class="interview-stat-label">Technical</div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-3 mb-3">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="color: #ffc107;">
+                        <div class="interview-stat-card">
+                            <div class="interview-stat-icon warning">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <div class="stat-value" id="statBehavioral">0</div>
-                            <div class="stat-label">Behavioral</div>
+                            <div class="interview-stat-value" id="statBehavioral">0</div>
+                            <div class="interview-stat-label">Behavioral</div>
                         </div>
-                    </div>
-                    <div class="col-6 col-md-3 mb-3">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="color: #4caf50;">
+                        <div class="interview-stat-card">
+                            <div class="interview-stat-icon green">
                                 <i class="fas fa-comments"></i>
                             </div>
-                            <div class="stat-value" id="statCommunication">0</div>
-                            <div class="stat-label">Communication</div>
+                            <div class="interview-stat-value" id="statCommunication">0</div>
+                            <div class="interview-stat-label">Communication</div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Job Info -->
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <div class="text-muted small">Job Position</div>
-                        <div id="summaryJobTitle" class="text-white font-weight-600">-</div>
+                    <!-- Job Info -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="text-ai-muted small mb-1">Job Position</div>
+                            <div id="summaryJobTitle" class="text-ai-primary font-weight-bold">-</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="text-ai-muted small mb-1">Session ID</div>
+                            <div id="summarySessionId" class="text-ai-primary font-weight-bold">-</div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="text-muted small">Session ID</div>
-                        <div id="summarySessionId" class="text-white font-weight-600">-</div>
-                    </div>
-                </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-success" onclick="showAnswerForm()">
-                        <i class="fas fa-edit mr-2"></i>
-                        Answer Questions
-                    </button>
-                    <button class="btn btn-secondary ml-2" onclick="resetToSelection()">
-                        <i class="fas fa-plus mr-2"></i>
-                        New Interview
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Technical Questions -->
-        <div id="technicalSection" class="category-section mb-4" style="display: none;">
-            <div class="category-header mb-3">
-                <h4 class="text-white">
-                    <i class="fas fa-laptop-code text-info mr-2"></i>
-                    Technical Questions
-                </h4>
-                <span id="technicalCount" class="badge badge-info">0</span>
-            </div>
-            <div id="technicalCards" class="row"></div>
-        </div>
-
-        <!-- Behavioral Questions -->
-        <div id="behavioralSection" class="category-section mb-4" style="display: none;">
-            <div class="category-header mb-3">
-                <h4 class="text-white">
-                    <i class="fas fa-users text-warning mr-2"></i>
-                    Behavioral Questions
-                </h4>
-                <span id="behavioralCount" class="badge badge-warning">0</span>
-            </div>
-            <div id="behavioralCards" class="row"></div>
-        </div>
-
-        <!-- Communication Questions -->
-        <div id="communicationSection" class="category-section mb-4" style="display: none;">
-            <div class="category-header mb-3">
-                <h4 class="text-white">
-                    <i class="fas fa-comments text-success mr-2"></i>
-                    Communication Questions
-                </h4>
-                <span id="communicationCount" class="badge badge-success">0</span>
-            </div>
-            <div id="communicationCards" class="row"></div>
-        </div>
-    </div>
-
-    <!-- Answer Form Section -->
-    <div id="answerFormSection" style="display: none;">
-        <div class="card shadow border-0 mb-4">
-            <div class="card-header bg-dark">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 text-white">
-                        <i class="fas fa-edit mr-2"></i>
-                        Answer Questions
-                    </h5>
-                    <div>
-                        <span id="answerProgress" class="badge badge-info">0/0 Answered</span>
+                    <div class="interview-actions mt-5">
+                        <button class="btn-primary-ai btn-lg" onclick="showAnswerForm()">
+                            <i class="fas fa-edit mr-2"></i>
+                            Answer Questions
+                        </button>
+                        <button class="btn-secondary-ai btn-lg" onclick="resetToSelection()">
+                            <i class="fas fa-plus mr-2"></i>
+                            New Interview
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div id="answerQuestionsContainer"></div>
-                
-                <!-- Validation Messages -->
-                <div id="validationMessage" class="alert alert-warning mt-3" style="display: none;">
-                    <i class="fas fa-exclamation-triangle mr-2"></i>
-                    <span id="validationText"></span>
-                </div>
 
-                <!-- Submit Button -->
-                <div class="mt-4 text-center">
-                    <button id="submitAnswersBtn" class="btn btn-success btn-lg" onclick="submitAllAnswers()">
-                        <i class="fas fa-paper-plane mr-2"></i>
-                        Submit All Answers
-                    </button>
+            <!-- Technical Questions -->
+            <div id="technicalSection" class="category-section" style="display: none;">
+                <div class="category-header">
+                    <h4 class="category-title text-ai-info">
+                        <i class="fas fa-laptop-code"></i>
+                        Technical Questions
+                    </h4>
+                    <span id="technicalCount" class="badge-ai badge-ai-info">0</span>
+                </div>
+                <div id="technicalCards" class="question-cards-grid"></div>
+            </div>
+
+            <!-- Behavioral Questions -->
+            <div id="behavioralSection" class="category-section" style="display: none;">
+                <div class="category-header">
+                    <h4 class="category-title text-ai-warning">
+                        <i class="fas fa-users"></i>
+                        Behavioral Questions
+                    </h4>
+                    <span id="behavioralCount" class="badge-ai badge-ai-warning">0</span>
+                </div>
+                <div id="behavioralCards" class="question-cards-grid"></div>
+            </div>
+
+            <!-- Communication Questions -->
+            <div id="communicationSection" class="category-section" style="display: none;">
+                <div class="category-header">
+                    <h4 class="category-title text-ai-success">
+                        <i class="fas fa-comments"></i>
+                        Communication Questions
+                    </h4>
+                    <span id="communicationCount" class="badge-ai badge-ai-success">0</span>
+                </div>
+                <div id="communicationCards" class="question-cards-grid"></div>
+            </div>
+        </div>
+
+        <!-- Answer Form Section -->
+        <div id="answerFormSection" style="display: none;">
+            <div class="card-ai mb-6">
+                <div class="card-ai-header">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h4><i class="fas fa-edit mr-2"></i>Answer Questions</h4>
+                        <span id="answerProgress" class="progress-badge">0/0 Answered</span>
+                    </div>
+                </div>
+                <div class="card-ai-body">
+                    <div id="answerQuestionsContainer"></div>
+
+                    <!-- Validation Messages -->
+                    <div id="validationMessage" class="alert-ai alert-ai-warning mt-5" style="display: none;">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        <span id="validationText"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-5 text-center">
+                        <button id="submitAnswersBtn" class="btn-primary-ai btn-lg" onclick="submitAllAnswers()">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Submit All Answers
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Error State -->
-    <div id="errorState" class="card shadow border-0" style="display: none;">
-        <div class="card-body text-center py-5">
-            <i class="fas fa-exclamation-triangle text-danger mb-3" style="font-size: 3rem;"></i>
-            <h5 class="text-white">Something went wrong</h5>
-            <p id="errorMessage" class="text-muted">-</p>
-            <button class="btn btn-secondary" onclick="resetToSelection()">
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <div class="error-state-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h4 class="error-state-title">Something went wrong</h4>
+            <p id="errorMessage" class="error-state-description">-</p>
+            <button class="btn-secondary-ai" onclick="resetToSelection()">
                 <i class="fas fa-redo mr-2"></i>
                 Try Again
             </button>
         </div>
-    </div>
 
-    <!-- Success State -->
-    <div id="successState" class="card shadow border-0" style="display: none;">
-        <div class="card-body text-center py-5">
-            <div class="success-icon mb-3">
-                <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-            </div>
-            <h4 class="text-white mb-3">Answers Submitted Successfully!</h4>
-            <p class="text-muted mb-4">Your interview answers have been recorded.</p>
-            <div>
-                <a id="viewFeedbackBtn" href="#" class="btn btn-success">
-                    <i class="fas fa-star mr-2"></i>
-                    View Feedback
-                </a>
-                <button class="btn btn-secondary ml-2" onclick="resetToSelection()">
-                    <i class="fas fa-plus mr-2"></i>
-                    Start New Interview
-                </button>
+        <!-- Success State -->
+        <div id="successState" class="card-ai text-center py-5" style="display: none;">
+            <div class="card-ai-body">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle text-ai-success" style="font-size: 5rem;"></i>
+                </div>
+                <h3 class="text-ai-primary mb-3">Answers Submitted Successfully!</h3>
+                <p class="text-ai-muted mb-5">Your interview answers have been recorded. View feedback to improve.</p>
+                <div class="interview-actions">
+                    <a id="viewFeedbackBtn" href="#" class="btn-primary-ai btn-lg">
+                        <i class="fas fa-star mr-2"></i>
+                        View Feedback
+                    </a>
+                    <button class="btn-secondary-ai btn-lg" onclick="resetToSelection()">
+                        <i class="fas fa-plus mr-2"></i>
+                        Start New Interview
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -271,7 +722,7 @@
             currentSessionId: null,
             questions: [],
             answers: new Map(),
-            currentView: 'selection', // selection | results | answer | success | error
+            currentView: 'selection',
 
             setSession(sessionId, questions) {
                 this.currentSessionId = sessionId;
@@ -380,7 +831,7 @@
                 } else {
                     select.innerHTML = '<option value="">No target jobs available</option>';
                     select.style.display = 'none';
-                    emptyMessage.style.display = 'block';
+                    emptyMessage.style.display = 'flex';
                 }
             } catch (error) {
                 console.error('Failed to load target jobs:', error);
@@ -394,21 +845,16 @@
             const select = document.getElementById("skillGapSelect");
             const emptyMessage = document.getElementById("noAnalysesMessage");
 
-            console.log("Loading Skill Gap Analyses");
-
             try {
                 const response = await axios.get(`${API_BASE_URL}/SkillGapAnalysis/my-analyses`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
-
-                console.log("Skill Gap Analyses Response:", response.data);
 
                 select.innerHTML = '<option value="">-- Select Analysis --</option>';
 
                 if (response.data && response.data.length > 0) {
                     response.data.forEach(analysis => {
                         const option = document.createElement('option');
-                        // Use correct property names from API response
                         option.value = analysis.id;
                         const readinessScore = analysis.readinessScore ?? 0;
                         const date = analysis.createdAt 
@@ -423,25 +869,24 @@
                     select.innerHTML = '<option value="">-- Select Analysis --</option>';
                     select.style.display = 'none';
                     emptyMessage.innerHTML = `
-                        <i class="fas fa-info-circle mr-2"></i>
+                        <i class="fas fa-info-circle"></i>
                         No Skill Gap Analysis found.
                         Please run Skill Gap Analysis first.
-                        <a href="/SkillGap" class="text-primary ml-2">Go to Analysis →</a>
+                        <a href="/SkillGap" class="text-ai-primary ml-2">Go to Analysis →</a>
                     `;
-                    emptyMessage.style.display = 'block';
+                    emptyMessage.style.display = 'flex';
                 }
             } catch (error) {
                 console.error('Failed to load analyses:', error);
-                // Show friendly empty state instead of error toast
                 select.innerHTML = '<option value="">-- Select Analysis --</option>';
                 select.style.display = 'none';
                 emptyMessage.innerHTML = `
-                    <i class="fas fa-info-circle mr-2"></i>
+                    <i class="fas fa-info-circle"></i>
                     No Skill Gap Analysis found.
                     Please run Skill Gap Analysis first.
-                    <a href="/SkillGap" class="text-primary ml-2">Go to Analysis →</a>
+                    <a href="/SkillGap" class="text-ai-primary ml-2">Go to Analysis →</a>
                 `;
-                emptyMessage.style.display = 'block';
+                emptyMessage.style.display = 'flex';
             }
         }
 
@@ -502,7 +947,7 @@
             document.getElementById("summarySessionId").textContent = data.sessionId;
 
             const fallbackBadge = document.getElementById("fallbackBadge");
-            fallbackBadge.style.display = data.isFallback ? "inline-block" : "none";
+            fallbackBadge.style.display = data.isFallback ? "inline-flex" : "none";
 
             document.getElementById("statTotal").textContent = data.questions?.length || 0;
 
@@ -552,59 +997,58 @@
         // Create answer card
         function createAnswerCard(question, index) {
             const card = document.createElement("div");
-            card.className = "answer-card mb-4";
+            card.className = "answer-card-ai";
             card.dataset.questionId = question.questionId;
 
-            const categoryColor = getCategoryColor(question.category);
+            const category = question.category?.toLowerCase() || "technical";
             const existingAnswer = InterviewPageState.answers.get(question.questionId);
+            const isAnswered = existingAnswer?.answerText?.trim()?.length > 0;
 
             card.innerHTML = `
-                <div class="card shadow-sm mb-3">
-                    <div class="card-header" style="background: rgba(${categoryColor}, 0.15); border-color: rgba(${categoryColor}, 0.3);">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="badge" style="background: rgba(${categoryColor}, 0.3); color: rgb(${categoryColor});">
-                                    ${question.category}
-                                </span>
-                                <span class="text-muted small">Question #${question.questionId}</span>
-                            </div>
-                            <span class="answer-status" id="status-${question.questionId}">
-                                ${existingAnswer?.answerText?.trim() ? 
-                                    '<i class="fas fa-check-circle text-success"></i>' : 
-                                    '<i class="fas fa-clock text-muted"></i>'}
+                <div class="answer-card-header ${category}">
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="question-badge ${category}">
+                            ${question.category || 'Technical'}
+                        </span>
+                        <span class="question-number">Question #${question.questionId}</span>
+                    </div>
+                    <div class="answer-status-indicator ${isAnswered ? 'answered' : 'pending'}">
+                        ${isAnswered 
+                            ? '<i class="fas fa-check-circle"></i> Answered' 
+                            : '<i class="fas fa-clock"></i> Pending'}
+                    </div>
+                </div>
+                <div class="answer-card-body">
+                    <div class="answer-question-text">
+                        <strong>Q${index}:</strong> ${question.questionContent}
+                    </div>
+                    
+                    ${question.skillArea ? `
+                        <div class="mb-4">
+                            <span class="badge-ai badge-ai-info badge-ai-sm">
+                                <i class="fas fa-star mr-1"></i>
+                                Skill Focus: ${question.skillArea}
                             </span>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="question-text mb-3">
-                            <h6 class="text-white mb-2">Question ${index}</h6>
-                            <p class="text-light mb-0">${question.questionContent}</p>
-                        </div>
-                        
-                        ${question.skillArea ? `
-                            <div class="mb-3">
-                                <span class="badge badge-info">
-                                    <i class="fas fa-star mr-1"></i>
-                                    Skill Focus: ${question.skillArea}
-                                </span>
-                            </div>
-                        ` : ''}
+                    ` : ''}
 
-                        <div class="answer-input-group">
-                            <label class="text-white font-weight-600 mb-2">Your Answer</label>
-                            <textarea 
-                                id="answer-${question.questionId}"
-                                class="form-control answer-textarea"
-                                rows="5"
-                                placeholder="Type your answer here... (minimum 10 characters)"
-                                oninput="handleAnswerInput(${question.questionId}, this.value)"
-                            >${existingAnswer?.answerText || ''}</textarea>
-                            <div class="char-count mt-1">
+                    <div class="answer-textarea-wrapper">
+                        <textarea 
+                            id="answer-${question.questionId}"
+                            class="answer-textarea-ai"
+                            rows="5"
+                            placeholder="Type your answer here... (minimum 10 characters for best results)"
+                            oninput="handleAnswerInput(${question.questionId}, this.value)"
+                        >${existingAnswer?.answerText || ''}</textarea>
+                        <div class="answer-char-counter">
+                            <span class="char-count-text">
                                 <span id="chars-${question.questionId}">${existingAnswer?.answerText?.length || 0}</span> characters
-                                ${existingAnswer?.isValid ? 
-                                    '<span class="text-success ml-2"><i class="fas fa-check"></i> Valid</span>' : 
-                                    '<span class="text-muted ml-2">Minimum 10 characters</span>'}
-                            </div>
+                            </span>
+                            <span id="validation-${question.questionId}" class="char-validation ${existingAnswer?.isValid ? 'valid' : 'invalid'}">
+                                ${existingAnswer?.isValid 
+                                    ? '<i class="fas fa-check"></i> Valid' 
+                                    : '<i class="fas fa-info-circle"></i> Min 10 chars'}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -618,16 +1062,29 @@
             InterviewPageState.updateAnswer(questionId, value);
 
             const charsSpan = document.getElementById(`chars-${questionId}`);
-            const statusSpan = document.getElementById(`status-${questionId}`);
+            const validationSpan = document.getElementById(`validation-${questionId}`);
+            const statusIndicator = document.querySelector(`[data-question-id="${questionId}"] .answer-status-indicator`);
             const answer = InterviewPageState.answers.get(questionId);
 
             if (charsSpan) charsSpan.textContent = value.length;
 
-            if (statusSpan) {
-                if (value.trim().length > 0) {
-                    statusSpan.innerHTML = '<i class="fas fa-check-circle text-success"></i>';
+            if (validationSpan) {
+                if (value.trim().length >= 10) {
+                    validationSpan.className = 'char-validation valid';
+                    validationSpan.innerHTML = '<i class="fas fa-check"></i> Valid';
                 } else {
-                    statusSpan.innerHTML = '<i class="fas fa-clock text-muted"></i>';
+                    validationSpan.className = 'char-validation invalid';
+                    validationSpan.innerHTML = `<i class="fas fa-info-circle"></i> ${10 - value.trim().length > 0 ? (10 - value.trim().length) + ' more needed' : 'Min 10 chars'}`;
+                }
+            }
+
+            if (statusIndicator) {
+                if (value.trim().length > 0) {
+                    statusIndicator.className = 'answer-status-indicator answered';
+                    statusIndicator.innerHTML = '<i class="fas fa-check-circle"></i> Answered';
+                } else {
+                    statusIndicator.className = 'answer-status-indicator pending';
+                    statusIndicator.innerHTML = '<i class="fas fa-clock"></i> Pending';
                 }
             }
 
@@ -704,7 +1161,7 @@
             const text = document.getElementById("validationText");
             if (el && text) {
                 text.textContent = message;
-                el.style.display = 'block';
+                el.style.display = 'flex';
             }
         }
 
@@ -751,7 +1208,7 @@
                     document.getElementById("answerFormSection").style.display = "block";
                     break;
                 case 'error':
-                    document.getElementById("errorState").style.display = "block";
+                    document.getElementById("errorState").style.display = "flex";
                     break;
                 case 'success':
                     document.getElementById("successState").style.display = "block";
@@ -782,49 +1239,49 @@
 
         // Create question card
         function createQuestionCard(question, index, category) {
-            const col = document.createElement("div");
-            col.className = "col-lg-6 col-md-12 mb-4";
+            const categoryLower = category.toLowerCase();
 
             const card = document.createElement("div");
-            card.className = "card h-100 question-card";
+            card.className = "question-card-ai";
             card.dataset.questionId = question.questionId;
             card.dataset.category = category;
             card.dataset.skillFocus = question.skillArea || '';
 
-            const categoryColor = getCategoryColor(category);
-
             card.innerHTML = `
-                <div class="card-header" style="background: rgba(${categoryColor}, 0.15); border-color: rgba(${categoryColor}, 0.3);">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="badge" style="background: rgba(${categoryColor}, 0.3); color: rgb(${categoryColor});">
-                            ${category}
-                        </span>
-                        <span class="text-muted small">#${question.questionId}</span>
-                    </div>
+                <div class="question-card-header ${categoryLower}">
+                    <span class="question-badge ${categoryLower}">
+                        ${category}
+                    </span>
+                    <span class="question-number">#${question.questionId}</span>
                 </div>
-                <div class="card-body">
-                    <h6 class="card-title text-white mb-3">Question ${index}</h6>
-                    <p class="card-text text-light">${question.questionContent}</p>
-                    ${question.skillArea ? `
-                        <div class="mt-3">
-                            <span class="badge badge-info">
+                <div class="question-card-body">
+                    <h5 class="question-content">
+                        <span class="text-ai-muted">Q${index}:</span> ${question.questionContent}
+                    </h5>
+                    <div class="question-meta">
+                        ${question.skillArea ? `
+                            <span class="badge-ai badge-ai-info badge-ai-sm">
                                 <i class="fas fa-star mr-1"></i>
-                                Skill Focus: ${question.skillArea}
+                                ${question.skillArea}
                             </span>
-                        </div>
-                    ` : ''}
-                    ${question.difficulty ? `
-                        <div class="mt-2">
-                            <span class="badge ${getDifficultyBadgeClass(question.difficulty)}">
+                        ` : ''}
+                        ${question.difficulty ? `
+                            <span class="badge-ai badge-ai-${getDifficultyColor(question.difficulty)} badge-ai-sm">
                                 ${question.difficulty}
                             </span>
-                        </div>
-                    ` : ''}
+                        ` : ''}
+                    </div>
                 </div>
             `;
 
-            col.appendChild(card);
-            return col;
+            return card;
+        }
+
+        function getDifficultyColor(difficulty) {
+            const lower = difficulty?.toLowerCase() || "";
+            if (lower.includes("beginner") || lower.includes("easy")) return "success";
+            if (lower.includes("advanced") || lower.includes("hard")) return "danger";
+            return "warning";
         }
 
         // Show error
@@ -858,7 +1315,7 @@
             const btn = document.getElementById("startInterviewBtn");
             if (loading) {
                 btn.disabled = true;
-                btn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Generating...';
+                btn.innerHTML = '<span class="loading-spinner-ai loading-spinner-ai-sm mr-2"></span>Generating...';
             } else {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-play mr-2"></i>Start Mock Interview';
@@ -870,105 +1327,11 @@
             const btn = document.getElementById("submitAnswersBtn");
             if (loading) {
                 btn.disabled = true;
-                btn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>Submitting...';
+                btn.innerHTML = '<span class="loading-spinner-ai loading-spinner-ai-sm mr-2"></span>Submitting...';
             } else {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Submit All Answers';
             }
         }
-
-        // Utility functions
-        function getCategoryColor(category) {
-            const colors = {
-                Technical: "64, 201, 255",
-                Behavioral: "255, 193, 7",
-                Communication: "76, 175, 80"
-            };
-            return colors[category] || colors.Technical;
-        }
-
-        function getDifficultyBadgeClass(difficulty) {
-            const lower = difficulty?.toLowerCase() || "";
-            if (lower.includes("beginner") || lower.includes("easy")) return "badge-success";
-            if (lower.includes("advanced") || lower.includes("hard")) return "badge-danger";
-            return "badge-warning";
-        }
     </script>
-    <style>
-        .question-card, .answer-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .question-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .font-weight-600 { font-weight: 600; }
-        .empty-state-message {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
-            color: #ffc107;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        .stat-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
-        }
-        .stat-icon { font-size: 1.5rem; margin-bottom: 8px; }
-        .stat-value { font-size: 2rem; font-weight: 700; color: #fff; line-height: 1; }
-        .stat-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .answer-textarea {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            color: #fff !important;
-            border-radius: 10px;
-            padding: 14px 16px;
-            font-size: 0.95rem;
-            resize: vertical;
-            min-height: 120px;
-        }
-        .answer-textarea:focus {
-            background: rgba(255, 255, 255, 0.08) !important;
-            border-color: #ff6ec4 !important;
-            box-shadow: 0 0 20px rgba(255, 110, 196, 0.2) !important;
-            outline: none;
-        }
-        .answer-textarea::placeholder {
-            color: rgba(255, 255, 255, 0.35);
-        }
-        .char-count {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-align: right;
-        }
-        .success-icon {
-            animation: pulse 2s infinite;
-        }
-        @@keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        @@media (max-width: 768px) {
-            .question-card, .answer-card { margin-bottom: 1rem; }
-            .stat-card { padding: 15px; }
-            .stat-value { font-size: 1.5rem; }
-            .answer-textarea { min-height: 100px; }
-        }
-    </style>
 }

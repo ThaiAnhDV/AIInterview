@@ -4,63 +4,79 @@
     ViewData["Title"] = "Resume";
 }
 
+<!-- Page Header -->
+<div class="page-header">
+    <h2>
+        <i class="fas fa-file-alt"></i>
+        My Resumes
+    </h2>
+    <p class="page-subtitle">Upload and manage your resumes for interview analysis.</p>
+</div>
+
+<!-- Page Content -->
+<div class="page-content">
+    <div class="card-ai">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-cloud-upload-alt mr-2"></i>Upload New Resume</h4>
+        </div>
+        <div class="card-ai-body">
+            <div class="upload-row mb-4" style="flex-wrap: wrap; gap: 12px;">
+                <input id="resumeFile"
+                       type="file"
+                       class="form-control-ai"
+                       accept=".pdf,.doc,.docx"
+                       style="flex: 1 1 200px; min-width: 0;">
+                <button onclick="uploadResume()" class="btn-primary-ai">
+                    <i class="fas fa-upload mr-2"></i>Upload Resume
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-ai mt-5">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-list mr-2"></i>Your Resumes</h4>
+        </div>
+        <div class="card-ai-body">
+            <div class="table-responsive">
+                <table class="table-ai">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Status</th>
+                            <th>Uploaded At</th>
+                            <th>View</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resumeTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center text-ai-muted" style="padding: 40px;">
+                                Loading resumes...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-5 pt-4" style="border-top: 1px solid var(--ai-border);">
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/Dashboard" class="btn-secondary-ai">
+                        <i class="fas fa-home mr-2"></i>Back to Dashboard
+                    </a>
+                    <a href="/Profile" class="btn-secondary-ai">
+                        <i class="fas fa-user mr-2"></i>Go to Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-    .resume-container {
-        padding: 30px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .resume-card {
-        background: rgba(25, 25, 50, 0.9);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 16px;
-        padding: 30px;
-        margin-bottom: 30px;
-    }
-
-    .resume-header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .resume-title {
-        color: #fff;
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    .resume-subtitle {
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 1rem;
-    }
-
-    .upload-section {
-        background: rgba(30, 30, 60, 0.5);
-        border-radius: 12px;
-        padding: 24px;
-        margin-bottom: 24px;
-    }
-
-    .upload-section h4 {
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .upload-section h4 i {
-        color: #ff6ec4;
-    }
-
     .upload-row {
         display: flex;
-        gap: 15px;
+        gap: var(--ai-space-4);
         align-items: center;
         flex-wrap: wrap;
     }
@@ -68,208 +84,14 @@
     .upload-row input[type="file"] {
         flex: 1;
         min-width: 200px;
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px dashed rgba(255, 110, 196, 0.4);
-        border-radius: 10px;
-        color: #fff;
-        font-size: 0.9rem;
-    }
-
-    .upload-row input[type="file"]::file-selector-button {
-        background: linear-gradient(135deg, #ff6ec4, #7873f5);
-        border: none;
-        padding: 8px 16px;
-        border-radius: 8px;
-        color: #fff;
-        cursor: pointer;
-        font-weight: 600;
-        margin-right: 12px;
-    }
-
-    .btn-upload {
-        padding: 12px 28px;
-        background: linear-gradient(135deg, #ff6ec4, #7873f5);
-        border: none;
-        border-radius: 50px;
-        color: #fff;
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .btn-upload:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(255, 110, 196, 0.35);
-    }
-
-    .section-title {
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .section-title i {
-        color: #ff6ec4;
-    }
-
-    .resume-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 16px;
-    }
-
-    .resume-table th {
-        color: rgba(255, 255, 255, 0.7);
-        font-weight: 600;
-        text-align: left;
-        padding: 14px 16px;
-        border-bottom: 2px solid rgba(255, 110, 196, 0.25);
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .resume-table td {
-        color: rgba(255, 255, 255, 0.8);
-        padding: 14px 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        font-size: 0.9rem;
-    }
-
-    .resume-table tr:hover {
-        background: rgba(255, 255, 255, 0.04);
-    }
-
-    .btn-group {
-        display: flex;
-        gap: 12px;
-        justify-content: center;
-        margin-top: 24px;
-        flex-wrap: wrap;
-    }
-
-    .btn-secondary-custom {
-        padding: 12px 28px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 50px;
-        color: #fff;
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .btn-secondary-custom:hover {
-        background: rgba(255, 255, 255, 0.12);
-        transform: translateY(-2px);
-        color: #fff;
-    }
-
-    @@media (max-width: 768px) {
-        .resume-container {
-            padding: 20px 15px;
-        }
-
-        .upload-row {
-            flex-direction: column;
-        }
-
-        .upload-row input[type="file"],
-        .btn-upload {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn-group {
-            flex-direction: column;
-        }
-
-        .resume-table {
-            font-size: 0.85rem;
-        }
-
-        .resume-table th,
-        .resume-table td {
-            padding: 10px 12px;
-        }
     }
 </style>
-
-<div class="resume-container">
-    <div class="resume-card">
-        <div class="resume-header">
-            <h1 class="resume-title">Resume Management</h1>
-            <p class="resume-subtitle">Upload and manage your CV/resume for interview analysis.</p>
-        </div>
-
-        <div class="upload-section">
-            <h4><i class="fas fa-cloud-upload-alt"></i> Upload New Resume</h4>
-            <div class="upload-row">
-                <input id="resumeFile"
-                       type="file"
-                       accept=".pdf,.doc,.docx">
-                <button onclick="uploadResume()" class="btn-upload">
-                    <i class="fas fa-upload"></i> Upload Resume
-                </button>
-            </div>
-        </div>
-
-        <h4 class="section-title">
-            <i class="fas fa-list"></i> Your Resumes
-        </h4>
-        
-        <div id="resumeListContainer">
-            <table class="resume-table">
-                <thead>
-                    <tr>
-                        <th>File Name</th>
-                        <th>Status</th>
-                        <th>Uploaded At</th>
-                        <th>View</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="resumeTableBody">
-                    <tr>
-                        <td colspan="5" class="text-center text-muted" style="padding: 40px;">
-                            Loading resumes...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="btn-group">
-            <a href="/" class="btn-secondary-custom">
-                <i class="fas fa-home"></i> Back to Dashboard
-            </a>
-            <a href="/Profile" class="btn-secondary-custom">
-                <i class="fas fa-user"></i> Go to Profile
-            </a>
-        </div>
-    </div>
-</div>
 
 @section Scripts {
     @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
     <script src="~/js/guard.js"></script>
     <script src="~/js/resume.js"></script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (requireLogin()) {

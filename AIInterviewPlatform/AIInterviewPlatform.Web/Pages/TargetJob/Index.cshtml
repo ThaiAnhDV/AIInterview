@@ -4,86 +4,542 @@
     ViewData["Title"] = "Target Jobs";
 }
 
-<div class="container mt-4">
+<style>
+    /* Target Job Page Specific Styles */
+    
+    /* Stats Overview */
+    .target-job-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--ai-space-4);
+        margin-bottom: var(--ai-space-6);
+    }
 
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Target Job Management</h4>
+    .target-job-stat-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-5);
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-4);
+        transition: all var(--ai-transition-normal);
+    }
+
+    .target-job-stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--ai-border-primary);
+        box-shadow: var(--ai-shadow-md);
+    }
+
+    .target-job-stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--ai-radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-xl);
+        flex-shrink: 0;
+    }
+
+    .target-job-stat-icon.pink {
+        background: rgba(255, 110, 196, 0.15);
+        color: var(--ai-pink);
+    }
+
+    .target-job-stat-icon.green {
+        background: var(--ai-success-bg);
+        color: var(--ai-success);
+    }
+
+    .target-job-stat-icon.blue {
+        background: var(--ai-info-bg);
+        color: var(--ai-info);
+    }
+
+    .target-job-stat-content {
+        flex: 1;
+    }
+
+    .target-job-stat-value {
+        font-size: var(--ai-font-size-2xl);
+        font-weight: var(--ai-font-weight-bold);
+        color: var(--ai-text-primary);
+        line-height: 1.2;
+    }
+
+    .target-job-stat-label {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+    }
+
+    /* Form Card */
+    .target-job-form-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-2xl);
+        overflow: hidden;
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .target-job-form-header {
+        background: linear-gradient(135deg, rgba(255, 110, 196, 0.1), rgba(120, 115, 245, 0.1));
+        padding: var(--ai-space-5) var(--ai-space-6);
+        border-bottom: 1px solid var(--ai-border);
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-3);
+    }
+
+    .target-job-form-header i {
+        color: var(--ai-pink);
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .target-job-form-header h4 {
+        color: var(--ai-text-primary);
+        margin: 0;
+        font-size: var(--ai-font-size-lg);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    .target-job-form-body {
+        padding: var(--ai-space-6);
+    }
+
+    .form-hint {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+        margin-top: var(--ai-space-2);
+    }
+
+    /* Table Card */
+    .target-job-table-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-2xl);
+        overflow: hidden;
+    }
+
+    .target-job-table-header {
+        padding: var(--ai-space-5) var(--ai-space-6);
+        border-bottom: 1px solid var(--ai-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--ai-space-3);
+    }
+
+    .target-job-table-header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-3);
+    }
+
+    .target-job-table-header-left i {
+        color: var(--ai-pink);
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .target-job-table-header h4 {
+        color: var(--ai-text-primary);
+        margin: 0;
+        font-size: var(--ai-font-size-lg);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    .target-job-count-badge {
+        background: var(--ai-primary-gradient);
+        color: var(--ai-text-primary);
+        padding: var(--ai-space-1) var(--ai-space-3);
+        border-radius: var(--ai-radius-full);
+        font-size: var(--ai-font-size-sm);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    .target-job-table-body {
+        padding: var(--ai-space-4);
+    }
+
+    /* Job Row */
+    .job-row {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: var(--ai-radius-lg);
+        padding: var(--ai-space-4);
+        margin-bottom: var(--ai-space-3);
+        transition: all var(--ai-transition-fast);
+        border: 1px solid transparent;
+    }
+
+    .job-row:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--ai-border);
+    }
+
+    .job-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .job-row-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: var(--ai-space-4);
+    }
+
+    .job-row-info {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .job-row-title {
+        color: var(--ai-text-primary);
+        font-size: var(--ai-font-size-md);
+        font-weight: var(--ai-font-weight-semibold);
+        margin-bottom: var(--ai-space-2);
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-2);
+    }
+
+    .job-row-title i {
+        color: var(--ai-pink);
+    }
+
+    .job-row-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--ai-space-4);
+    }
+
+    .job-meta-item {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-1);
+    }
+
+    .job-meta-item i {
+        color: var(--ai-text-disabled);
+        font-size: var(--ai-font-size-xs);
+    }
+
+    .job-row-actions {
+        display: flex;
+        gap: var(--ai-space-2);
+    }
+
+    /* Empty State */
+    .target-job-empty {
+        text-align: center;
+        padding: var(--ai-space-10) var(--ai-space-6);
+    }
+
+    .target-job-empty-icon {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 110, 196, 0.1);
+        border-radius: var(--ai-radius-circle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto var(--ai-space-5);
+    }
+
+    .target-job-empty-icon i {
+        font-size: var(--ai-font-size-3xl);
+        color: var(--ai-pink);
+    }
+
+    .target-job-empty h5 {
+        color: var(--ai-text-primary);
+        margin-bottom: var(--ai-space-2);
+    }
+
+    .target-job-empty p {
+        color: var(--ai-text-muted);
+        margin-bottom: var(--ai-space-4);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Validation */
+    .form-validation {
+        border-color: var(--ai-danger) !important;
+    }
+
+    .form-validation:focus {
+        border-color: var(--ai-danger) !important;
+        box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.2) !important;
+    }
+
+    .validation-message {
+        color: var(--ai-danger);
+        font-size: var(--ai-font-size-sm);
+        margin-top: var(--ai-space-1);
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-1);
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .target-job-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .job-row-content {
+            flex-direction: column;
+        }
+
+        .job-row-actions {
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .job-row-actions .btn {
+            flex: 1;
+        }
+
+        .target-job-table-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .job-actions {
+            min-width: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .job-actions .btn {
+            width: 100%;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .job-row-actions {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .job-row-actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-bullseye"></i>
+            Target Jobs
+        </h2>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Stats Overview -->
+        <div class="target-job-stats" id="targetJobStats">
+            <div class="target-job-stat-card">
+                <div class="target-job-stat-icon pink">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="target-job-stat-content">
+                    <div class="target-job-stat-value" id="statTotalJobs">0</div>
+                    <div class="target-job-stat-label">Total Jobs</div>
+                </div>
+            </div>
+            <div class="target-job-stat-card">
+                <div class="target-job-stat-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="target-job-stat-content">
+                    <div class="target-job-stat-value" id="statWithJD">0</div>
+                    <div class="target-job-stat-label">With JD</div>
+                </div>
+            </div>
+            <div class="target-job-stat-card">
+                <div class="target-job-stat-icon blue">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="target-job-stat-content">
+                    <div class="target-job-stat-value" id="statPending">0</div>
+                    <div class="target-job-stat-label">Pending JD</div>
+                </div>
+            </div>
         </div>
 
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <label>Job Title</label>
-                    <input id="jobTitle" class="form-control" placeholder="Backend Developer" />
-                </div>
+        <!-- Create Form Card -->
+        <div class="target-job-form-card">
+            <div class="target-job-form-header">
+                <i class="fas fa-plus-circle"></i>
+                <h4>Create Target Job</h4>
+            </div>
+            <div class="target-job-form-body">
+                <form id="createJobForm" onsubmit="event.preventDefault(); createTargetJob();">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label-ai" for="jobTitle">
+                                Job Title <span class="text-ai-danger">*</span>
+                            </label>
+                            <input type="text" 
+                                   id="jobTitle" 
+                                   class="form-control-ai" 
+                                   placeholder="e.g., Backend Developer"
+                                   required
+                                   maxlength="100">
+                            <div class="form-hint">Enter the job position you're targeting</div>
+                        </div>
 
-                <div class="col-md-4 mb-3">
-                    <label>Industry</label>
-                    <input id="industry" class="form-control" placeholder="Software" />
-                </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label-ai" for="industry">
+                                Industry
+                            </label>
+                            <input type="text" 
+                                   id="industry" 
+                                   class="form-control-ai" 
+                                   placeholder="e.g., Software, Finance"
+                                   maxlength="50">
+                            <div class="form-hint">Optional industry specification</div>
+                        </div>
 
-                <div class="col-md-4 mb-3">
-                    <label>Experience Level</label>
-                    <input id="experienceLevel" class="form-control" placeholder="Junior / Senior" />
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label-ai" for="experienceLevel">
+                                Experience Level
+                            </label>
+                            <select id="experienceLevel" class="form-select-ai">
+                                <option value="">Select level...</option>
+                                <option value="Entry Level">Entry Level</option>
+                                <option value="Junior">Junior</option>
+                                <option value="Mid-Level">Mid-Level</option>
+                                <option value="Senior">Senior</option>
+                                <option value="Lead">Lead</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                            <div class="form-hint">Years of experience required</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn-primary-ai" id="createJobBtn">
+                            <i class="fas fa-plus mr-2"></i>
+                            Create Target Job
+                        </button>
+                        <button type="button" class="btn-secondary-ai ml-3" onclick="resetJobForm()">
+                            <i class="fas fa-undo mr-2"></i>
+                            Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Jobs List Card -->
+        <div class="target-job-table-card">
+            <div class="target-job-table-header">
+                <div class="target-job-table-header-left">
+                    <i class="fas fa-list"></i>
+                    <h4>My Target Jobs</h4>
+                    <span class="target-job-count-badge" id="jobCountBadge">0</span>
                 </div>
             </div>
 
-            <button class="btn btn-success" onclick="createTargetJob()">
-                Create Target Job
-            </button>
-        </div>
-    </div>
+            <div class="target-job-table-body">
+                <!-- Loading State -->
+                <div id="loadingState" class="text-center py-5">
+                    <div class="loading-spinner-ai loading-spinner-ai-lg mx-auto mb-4"></div>
+                    <p class="text-ai-muted">Loading target jobs...</p>
+                </div>
 
-    <div class="card shadow-sm border-0 mt-4">
-        <div class="card-header bg-dark text-white">
-            <h5 class="mb-0">My Target Jobs</h5>
-        </div>
+                <!-- Empty State -->
+                <div id="emptyState" class="target-job-empty" style="display: none;">
+                    <div class="target-job-empty-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h5>No Target Jobs Yet</h5>
+                    <p>Create your first target job above to start analyzing skills and preparing for interviews.</p>
+                    <button class="btn-primary-ai" onclick="document.getElementById('jobTitle').focus();">
+                        <i class="fas fa-plus mr-2"></i>
+                        Create Your First Job
+                    </button>
+                </div>
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Job Title</th>
-                            <th>Industry</th>
-                            <th>Experience Level</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="targetJobTableBody"></tbody>
-                </table>
+                <!-- Jobs List -->
+                <div id="jobsList" style="display: none;"></div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="jdModal" class="jd-modal">
-    <div class="jd-modal-content">
-
-        <div class="jd-modal-header">
-            <h4>Target Job Description</h4>
-            <button onclick="closeJdModal()" class="jd-close-btn">×</button>
+<!-- Job Description Modal -->
+<div id="jdModal" class="modal-ai" tabindex="-1">
+    <div class="modal-ai-content">
+        <div class="modal-ai-header">
+            <h4><i class="fas fa-file-alt mr-2"></i>Job Description</h4>
+            <button onclick="closeJdModal()" class="modal-ai-close" aria-label="Close">&times;</button>
         </div>
-
-        <div class="jd-modal-body">
-            <p class="text-muted">
-                Enter JD for this target job.
+        <div class="modal-ai-body">
+            <div class="mb-4">
+                <span class="badge-ai badge-ai-info" id="jdJobTitle">-</span>
+            </div>
+            <p class="text-ai-muted mb-4">
+                Enter the job description with required skills, responsibilities, and qualifications. 
+                This will be used for skill gap analysis.
             </p>
-
-            <textarea id="jobDescriptionContent"
-                      class="form-control"
-                      rows="10"
-                      placeholder="Required skills: C#, ASP.NET Core, SQL Server, REST API, JWT, Git..."></textarea>
+            <div class="form-group-ai">
+                <label class="form-label-ai" for="jobDescriptionContent">Job Description</label>
+                <textarea id="jobDescriptionContent"
+                          class="form-textarea-ai"
+                          rows="10"
+                          placeholder="Required Skills:&#10;• C# / .NET Core&#10;• SQL Server&#10;• REST API Design&#10;• Docker / Kubernetes&#10;&#10;Responsibilities:&#10;• Design and implement APIs&#10;• Write clean, maintainable code&#10;• Collaborate with cross-functional teams"></textarea>
+            </div>
         </div>
-
-        <div class="jd-modal-footer">
-            <button class="btn btn-secondary" onclick="closeJdModal()">Close</button>
-            <button class="btn btn-success" onclick="saveJobDescription()">Save JD</button>
+        <div class="modal-ai-footer">
+            <button class="btn-secondary-ai" onclick="closeJdModal()">
+                <i class="fas fa-times mr-2"></i>
+                Cancel
+            </button>
+            <button class="btn-primary-ai" onclick="saveJobDescription()">
+                <i class="fas fa-save mr-2"></i>
+                Save Job Description
+            </button>
         </div>
+    </div>
+</div>
 
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal-ai" tabindex="-1">
+    <div class="modal-ai-content modal-ai-sm">
+        <div class="modal-ai-header">
+            <h4><i class="fas fa-exclamation-triangle mr-2 text-ai-danger"></i>Confirm Delete</h4>
+            <button onclick="closeDeleteModal()" class="modal-ai-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-ai-body">
+            <p class="text-ai-secondary">
+                Are you sure you want to delete <strong id="deleteJobName">this target job</strong>? 
+                This action cannot be undone and will also remove associated skill gap analyses.
+            </p>
+        </div>
+        <div class="modal-ai-footer">
+            <button class="btn-secondary-ai" onclick="closeDeleteModal()">
+                <i class="fas fa-times mr-2"></i>
+                Cancel
+            </button>
+            <button class="btn-danger-ai" id="confirmDeleteBtn" onclick="confirmDelete()">
+                <i class="fas fa-trash mr-2"></i>
+                Delete
+            </button>
+        </div>
     </div>
 </div>
 
@@ -91,10 +547,4 @@
     @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
     <script src="~/js/guard.js"></script>
     <script src="~/js/target-job.js"></script>
-
-    <script>
-        if (requireLogin()) {
-            loadTargetJobs();
-        }
-    </script>
 }

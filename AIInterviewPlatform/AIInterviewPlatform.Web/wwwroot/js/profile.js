@@ -1,12 +1,12 @@
 ﻿async function loadProfile() {
     const token = localStorage.getItem("token");
     
-    console.log("=== DEBUG Profile ===");
-    console.log("Token:", token ? "EXISTS" : "NULL/MISSING");
-    console.log("API_BASE_URL:", API_BASE_URL);
+    console.log("[Profile] Loading profile data...");
+    console.log("[Profile] Token:", token ? "EXISTS" : "NULL/MISSING");
+    console.log("[Profile] API_BASE_URL:", API_BASE_URL);
 
     if (!token) {
-        console.log("NO TOKEN - Redirecting to login");
+        console.log("[Profile] NO TOKEN - Redirecting to login");
         showToast("Please login again!", "error");
         setTimeout(() => {
             logout();
@@ -14,8 +14,6 @@
         return;
     }
 
-    console.log("Calling API...");
-    
     try {
         const response = await fetch(`${API_BASE_URL}/Profile/me`, {
             method: "GET",
@@ -24,37 +22,47 @@
             }
         });
 
-        console.log("Response Status:", response.status);
-        console.log("Response OK:", response.ok);
+        console.log("[Profile] Response Status:", response.status);
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.log("Error Response:", errorText);
+            console.log("[Profile] Error Response:", errorText);
             
             showToast("Please login again!", "error");
-
             setTimeout(() => {
                 logout();
             }, 1000);
-
             return;
         }
 
         const profile = await response.json();
-        console.log("Profile Data:", profile);
+        console.log("[Profile] Profile Data:", profile);
 
-        document.getElementById("profileDisplayName").innerText =
+        // Update display fields
+        document.getElementById("profileDisplayName").textContent =
             profile.fullName || "Unknown User";
 
-        document.getElementById("profileDisplayEmail").innerText =
+        document.getElementById("profileDisplayEmail").textContent =
             profile.email || "";
 
-        document.getElementById("profileDisplayEducation").innerText =
+        document.getElementById("profileDisplayEducation").textContent =
             profile.educationLevel || "Preparing for better interviews";
 
-        document.getElementById("navbarUserName").innerText =
-            profile.fullName || profile.email || "";
+        // Update avatar initials
+        const displayName = profile.fullName || profile.email || "U";
+        const initials = displayName
+            .split(" ")
+            .map(n => n[0])
+            .join("")
+            .substring(0, 2)
+            .toUpperCase();
+        
+        const initialsElement = document.getElementById("profileAvatarInitials");
+        if (initialsElement) {
+            initialsElement.textContent = initials;
+        }
 
+        // Update form fields
         document.getElementById("profileFullName").value =
             profile.fullName || "";
 
@@ -69,8 +77,10 @@
 
         document.getElementById("profileCareerGoal").value =
             profile.careerGoal || "";
+            
+        console.log("[Profile] Profile loaded successfully");
     } catch (error) {
-        console.error("Error loading profile:", error);
+        console.error("[Profile] Error loading profile:", error);
         showToast("Cannot load profile!", "error");
     }
 }
@@ -84,6 +94,8 @@ async function updateProfile() {
         educationLevel: document.getElementById("profileEducationLevel").value,
         careerGoal: document.getElementById("profileCareerGoal").value
     };
+
+    console.log("[Profile] Updating profile:", data);
 
     try {
         const response = await fetch(`${API_BASE_URL}/Profile/me`, {
@@ -102,6 +114,7 @@ async function updateProfile() {
             showToast("Update profile failed!", "error");
         }
     } catch (error) {
+        console.error("[Profile] Error updating profile:", error);
         showToast("Cannot connect to server!", "error");
     }
 }

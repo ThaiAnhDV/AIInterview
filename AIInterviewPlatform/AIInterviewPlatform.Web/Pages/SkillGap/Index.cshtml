@@ -5,62 +5,72 @@
     ViewData["Title"] = "Skill Gap Analysis";
 }
 
-<div class="container mt-4">
+<!-- Page Header -->
+<div class="page-header">
+    <h2>
+        <i class="fas fa-chart-line"></i>
+        Skill Gap Analysis
+    </h2>
+</div>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Skill Gap Analysis</h4>
+<!-- Loading State -->
+<div id="skillGapLoading" class="card-ai" style="display: none;">
+    <div class="card-ai-body text-center py-5">
+        <div class="loading-spinner-ai loading-spinner-ai-lg mx-auto mb-4"></div>
+        <p class="text-ai-muted">Loading your data...</p>
+    </div>
+</div>
+
+<!-- Page Content -->
+<div class="page-content">
+    <div class="card-ai">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-search mr-2"></i>Analyze Your Skills</h4>
         </div>
-
-        <div class="card-body">
+        <div class="card-ai-body">
 
             <div class="row">
-
-                <div class="col-md-6 mb-3">
-                    <label>Resume</label>
-                    <select id="resumeSelect" class="form-control"></select>
+                <div class="col-md-6 mb-4">
+                    <label class="form-label-ai">Resume</label>
+                    <select id="resumeSelect" class="form-select-ai"></select>
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label>Target Job</label>
-                    <select id="targetJobSelect" class="form-control"
+                <div class="col-md-6 mb-4">
+                    <label class="form-label-ai">Target Job</label>
+                    <select id="targetJobSelect" class="form-select-ai"
                             onchange="loadJobDescriptionForSelectedJob()"></select>
                 </div>
-
             </div>
 
             <input type="hidden" id="jobDescriptionId" />
 
-            <button class="btn btn-success" onclick="runSkillGapAnalysis()">
-                Analyze Skill Gap
+            <button class="btn-primary-ai" onclick="runSkillGapAnalysis()">
+                <i class="fas fa-play mr-2"></i>Analyze Skill Gap
             </button>
-
         </div>
     </div>
 
-    <div id="analysisResult" class="card shadow-sm border-0 mt-4" style="display:none;">
-        <div class="card-header bg-dark text-white">
-            <h5 class="mb-0">Analysis Result</h5>
+    <div id="analysisResult" class="card-ai mt-6" style="display:none;">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-clipboard-check mr-2"></i>Analysis Result</h4>
         </div>
+        <div class="card-ai-body">
+            <div class="mb-5">
+                <h5 class="mb-3">Readiness Score: <span id="readinessScore" class="text-ai-primary">0</span>%</h5>
+                <div class="progress-ai progress-ai-lg">
+                    <div id="readinessProgress" class="progress-ai-bar" style="width: 0%;"></div>
+                </div>
+            </div>
 
-        <div class="card-body">
+            <hr class="my-5" />
 
-            <h3>
-                Readiness Score:
-                <span id="readinessScore" class="text-primary"></span>%
-            </h3>
+            <h5 class="mb-4"><i class="fas fa-check-circle text-ai-success mr-2"></i>Matched Skills</h5>
+            <div id="matchedSkillsContainer" class="mb-5"></div>
 
-            <hr />
-
-            <h5>Matched Skills</h5>
-            <div id="matchedSkillsContainer" class="mb-4"></div>
-
-            <h5>Missing Skills</h5>
+            <h5 class="mb-4"><i class="fas fa-times-circle text-ai-danger mr-2"></i>Missing Skills</h5>
             <div id="missingSkillsContainer"></div>
-
         </div>
     </div>
-
 </div>
 
 @section Scripts {
@@ -70,7 +80,26 @@
 
     <script>
         if (requireLogin()) {
-            loadSkillGapPage();
+            showSkillGapLoading();
+            loadSkillGapPage().then(() => {
+                hideSkillGapLoading();
+            }).catch(() => {
+                hideSkillGapLoading();
+            });
+        }
+
+        function showSkillGapLoading() {
+            const loading = document.getElementById('skillGapLoading');
+            const content = document.querySelector('.page-content');
+            if (loading) loading.style.display = 'block';
+            if (content) content.style.display = 'none';
+        }
+
+        function hideSkillGapLoading() {
+            const loading = document.getElementById('skillGapLoading');
+            const content = document.querySelector('.page-content');
+            if (loading) loading.style.display = 'none';
+            if (content) content.style.display = 'block';
         }
     </script>
 }

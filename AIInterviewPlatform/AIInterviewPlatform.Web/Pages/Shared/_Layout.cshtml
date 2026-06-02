@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link type="text/css" href="~/assets/css/argon-design-system.min.css" rel="stylesheet" />
+    <link href="~/css/design-system.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 
     <style>
@@ -641,46 +642,6 @@
             border: 1px solid rgba(244, 67, 54, 0.25);
         }
 
-        /* Footer */
-        footer {
-            background: rgba(10, 10, 26, 0.95);
-            padding: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .footer-copyright {
-            color: rgba(255, 255, 255, 0.45);
-            font-size: 0.85rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.45);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ff6ec4;
-        }
-
         /* Responsive */
         @@media (max-width: 1024px) {
             .navbar-menu {
@@ -691,10 +652,6 @@
             }
             .navbar-toggle {
                 display: block;
-            }
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
             }
         }
     </style>
@@ -710,47 +667,51 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="ai-navbar">
+    <nav class="ai-navbar" id="mainNavbar">
         <div class="navbar-container">
             <!-- Logo -->
             <a class="navbar-brand" href="/">
-                <img src="~/img/logo.png" alt="AI Interview">
+                <img src="~/img/logo.png" alt="AI Interview Platform">
             </a>
 
             <!-- Navigation Menu -->
-            <div class="navbar-menu">
-                <a href="/Dashboard" class="nav-link" id="nav-dashboard">
+            <div class="navbar-menu" id="navbarMenu">
+                <a href="/Dashboard" class="nav-link" data-page="dashboard">
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="/Resume" class="nav-link" id="nav-resume">
+                <a href="/Resume" class="nav-link" data-page="resume">
                     <i class="fas fa-file-alt"></i>
                     <span>Resume</span>
                 </a>
-                <a href="/TargetJobs" class="nav-link" id="nav-targetjob">
+                <a href="/TargetJob" class="nav-link" data-page="targetjob">
                     <i class="fas fa-bullseye"></i>
                     <span>Target Jobs</span>
                 </a>
-                <a href="/Interview" class="nav-link" id="nav-interview">
+                <a href="/Interview" class="nav-link" data-page="interview">
                     <i class="fas fa-comments"></i>
                     <span>Interview</span>
                 </a>
-                <a href="/Roadmap" class="nav-link" id="nav-roadmap">
+                <a href="/SkillGap" class="nav-link" data-page="skillgap">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Skill Analysis</span>
+                </a>
+                <a href="/Roadmap" class="nav-link" data-page="roadmap">
                     <i class="fas fa-map"></i>
                     <span>Roadmap</span>
                 </a>
             </div>
 
             <!-- User Section -->
-            <div class="navbar-user">
+            <div class="navbar-user" id="navbarUser">
                 <div class="user-dropdown" id="userDropdown" style="display: none;">
-                    <a href="#" class="user-dropdown-toggle">
+                    <a href="#" class="user-dropdown-toggle" id="userDropdownToggle">
                         <div class="user-avatar" id="userAvatar">U</div>
                         <span class="user-name" id="userName">User</span>
                         <i class="fas fa-chevron-down user-chevron"></i>
                     </a>
-                    <div class="user-dropdown-menu">
-                        <a href="/Profile" class="dropdown-item">
+                    <div class="user-dropdown-menu" id="userDropdownMenu">
+                        <a href="/Profile" class="dropdown-item" data-page="profile">
                             <i class="fas fa-user"></i> Profile
                         </a>
                         <a href="/Resume" class="dropdown-item">
@@ -769,39 +730,42 @@
                 </div>
             </div>
 
-            <!-- Mobile Toggle (always visible) -->
-            <button class="navbar-toggle" onclick="toggleMobileMenu()">
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="/Dashboard" class="mobile-nav-link" id="mobile-nav-dashboard">
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <a href="/Dashboard" class="mobile-nav-link" data-page="dashboard">
             <i class="fas fa-home"></i> Dashboard
         </a>
-        <a href="/Resume" class="mobile-nav-link" id="mobile-nav-resume">
+        <a href="/Resume" class="mobile-nav-link" data-page="resume">
             <i class="fas fa-file-alt"></i> Resume
         </a>
-        <a href="/TargetJobs" class="mobile-nav-link" id="mobile-nav-targetjob">
+        <a href="/TargetJob" class="mobile-nav-link" data-page="targetjob">
             <i class="fas fa-bullseye"></i> Target Jobs
         </a>
-        <a href="/Interview" class="mobile-nav-link" id="mobile-nav-interview">
+        <a href="/Interview" class="mobile-nav-link" data-page="interview">
             <i class="fas fa-comments"></i> Interview
         </a>
-        <a href="/Roadmap" class="mobile-nav-link" id="mobile-nav-roadmap">
+        <a href="/SkillGap" class="mobile-nav-link" data-page="skillgap">
+            <i class="fas fa-chart-line"></i> Skill Analysis
+        </a>
+        <a href="/Roadmap" class="mobile-nav-link" data-page="roadmap">
             <i class="fas fa-map"></i> Roadmap
         </a>
-        
+
         <div class="mobile-auth-section" id="mobileAuthSection">
-            <a href="/Auth/Login" class="mobile-nav-link">
+            <a href="/Auth/Login" class="mobile-nav-link" data-mobile-auth="login">
                 <i class="fas fa-sign-in-alt"></i> Login
             </a>
-            <a href="/Auth/Register" class="mobile-nav-link">
+            <a href="/Auth/Register" class="mobile-nav-link" data-mobile-auth="register">
                 <i class="fas fa-user-plus"></i> Register
             </a>
-            <a href="#" onclick="logout(); return false;" class="mobile-nav-link" style="display: none;" id="mobileLogoutBtn">
+            <a href="#" onclick="logout(); return false;" class="mobile-nav-link" id="mobileLogoutBtn" style="display: none;">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -815,17 +779,41 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer-ai">
         <div class="footer-content">
-            <div class="footer-copyright">
-                &copy; 2026 AI Interview Platform
+            <div class="footer-brand">
+                <a href="/" class="footer-brand-logo">
+                    <img src="~/img/logo.png" alt="AI Interview Platform">
+                    <span class="footer-brand-name">AI Interview Platform</span>
+                </a>
+                <span class="footer-copyright">&copy; @DateTime.Now.Year AI Interview Platform. All rights reserved.</span>
             </div>
+            
             <div class="footer-links">
-                <a href="/">Dashboard</a>
-                <a href="/Profile">Profile</a>
-                <a href="/Resume">Resume</a>
-                <a href="/Interview">Interview</a>
+                <a href="/Dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/Profile"><i class="fas fa-user"></i> Profile</a>
+                <a href="/Resume"><i class="fas fa-file-alt"></i> Resume</a>
+                <a href="/SkillGap"><i class="fas fa-chart-line"></i> Skill Analysis</a>
+                <a href="/Interview"><i class="fas fa-comments"></i> Interview</a>
+                <a href="/Roadmap"><i class="fas fa-map"></i> Roadmap</a>
             </div>
+            
+            <div class="footer-social">
+                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-divider"></div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+            <span class="footer-version">Version 1.0.0</span>
         </div>
     </footer>
 
@@ -839,16 +827,30 @@
     <script src="~/js/site.js"></script>
 
     <script>
-        // Initialize AuthManager first
+        // ============================================
+        // NAVBAR INITIALIZATION
+        // ============================================
+        
+        // Page route mapping for active state detection
+        const pageRoutes = {
+            '/Dashboard': 'dashboard',
+            '/Resume': 'resume',
+            '/TargetJob': 'targetjob',
+            '/Interview': 'interview',
+            '/SkillGap': 'skillgap',
+            '/Roadmap': 'roadmap',
+            '/Profile': 'profile'
+        };
+
+        // ============================================
+        // AUTHENTICATION
+        // ============================================
+        
         (async function initializeAuth() {
-            // Wait for auth to be validated with backend
             await AuthManager.init();
-            
-            // Now update UI based on validated auth state
             updateNavbarUI();
         })();
 
-        // Update navbar UI based on validated auth state
         function updateNavbarUI() {
             const state = AuthManager.getState();
             
@@ -874,9 +876,9 @@
                     .toUpperCase();
                 userAvatar.textContent = initials;
                 
-                // Mobile auth
+                // Mobile auth - hide login/register, show logout
                 if (mobileAuthSection) {
-                    mobileAuthSection.querySelectorAll('a[href="/Auth/Login"], a[href="/Auth/Register"]').forEach(function(a) {
+                    mobileAuthSection.querySelectorAll('a[data-mobile-auth]').forEach(function(a) {
                         a.style.display = 'none';
                     });
                 }
@@ -885,9 +887,9 @@
                 userDropdown.style.display = 'none';
                 authButtons.style.display = 'flex';
                 
-                // Mobile auth
+                // Mobile auth - show login/register, hide logout
                 if (mobileAuthSection) {
-                    mobileAuthSection.querySelectorAll('a[href="/Auth/Login"], a[href="/Auth/Register"]').forEach(function(a) {
+                    mobileAuthSection.querySelectorAll('a[data-mobile-auth]').forEach(function(a) {
                         a.style.display = 'flex';
                     });
                 }
@@ -895,55 +897,132 @@
             }
         }
 
-        // Subscribe to auth state changes
         AuthManager.onAuthChange(function(state) {
             updateNavbarUI();
         });
 
-        // Set active nav item
-        document.addEventListener('DOMContentLoaded', function() {
-            const path = window.location.pathname;
+        // ============================================
+        // ACTIVE PAGE DETECTION
+        // ============================================
+        
+        function setActiveNavItem() {
+            const currentPath = window.location.pathname;
+            const normalizedPath = '/' + currentPath.split('/').filter(Boolean).slice(0, 2).join('/');
             
-            // Desktop nav
-            document.querySelectorAll('.nav-link').forEach(function(link) {
-                link.classList.remove('active');
-            });
+            // Get page key from route mapping
+            let pageKey = null;
             
-            // Mobile nav
-            document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
-                link.classList.remove('active');
-            });
-            
-            if (path.startsWith('/Dashboard')) {
-                document.getElementById('nav-dashboard')?.classList.add('active');
-                document.getElementById('mobile-nav-dashboard')?.classList.add('active');
-            } else if (path.startsWith('/Resume')) {
-                document.getElementById('nav-resume')?.classList.add('active');
-                document.getElementById('mobile-nav-resume')?.classList.add('active');
-            } else if (path.startsWith('/TargetJobs')) {
-                document.getElementById('nav-targetjob')?.classList.add('active');
-                document.getElementById('mobile-nav-targetjob')?.classList.add('active');
-            } else if (path.startsWith('/Interview')) {
-                document.getElementById('nav-interview')?.classList.add('active');
-                document.getElementById('mobile-nav-interview')?.classList.add('active');
-            } else if (path.startsWith('/Roadmap')) {
-                document.getElementById('nav-roadmap')?.classList.add('active');
-                document.getElementById('mobile-nav-roadmap')?.classList.add('active');
+            // Try exact match first
+            if (pageRoutes[normalizedPath]) {
+                pageKey = pageRoutes[normalizedPath];
+            } else {
+                // Try partial match for sub-pages
+                for (const [route, key] of Object.entries(pageRoutes)) {
+                    if (currentPath.startsWith(route)) {
+                        pageKey = key;
+                        break;
+                    }
+                }
             }
-        });
 
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('show');
+            // Remove all active classes
+            document.querySelectorAll('.nav-link.active, .mobile-nav-link.active').forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // Add active class to matching nav items
+            if (pageKey) {
+                const desktopLink = document.querySelector(`.navbar-menu .nav-link[data-page="${pageKey}"]`);
+                const mobileLink = document.querySelector(`.mobile-menu .mobile-nav-link[data-page="${pageKey}"]`);
+                
+                if (desktopLink) desktopLink.classList.add('active');
+                if (mobileLink) mobileLink.classList.add('active');
+            }
         }
 
-        // Close mobile menu on link click
-        document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
-            link.addEventListener('click', function() {
-                document.getElementById('mobileMenu').classList.remove('show');
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('navbarToggle');
+            const isOpen = mobileMenu.classList.contains('show');
+            
+            if (isOpen) {
+                mobileMenu.classList.remove('show');
+                toggle.setAttribute('aria-expanded', 'false');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                toggle.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = '';
+            } else {
+                mobileMenu.classList.add('show');
+                toggle.setAttribute('aria-expanded', 'true');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+                toggle.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const toggle = document.getElementById('navbarToggle');
+            
+            mobileMenu.classList.remove('show');
+            toggle.setAttribute('aria-expanded', 'false');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            toggle.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = '';
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set active nav item based on current page
+            setActiveNavItem();
+            
+            // Mobile toggle button
+            const navbarToggle = document.getElementById('navbarToggle');
+            if (navbarToggle) {
+                navbarToggle.addEventListener('click', toggleMobileMenu);
+            }
+            
+            // Close mobile menu when clicking nav links
+            document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    // Only close if not logout link
+                    if (!this.onclick || !this.getAttribute('onclick')?.includes('logout')) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+            
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const navbarToggle = document.getElementById('navbarToggle');
+                
+                if (mobileMenu && navbarToggle) {
+                    if (!mobileMenu.contains(e.target) && !navbarToggle.contains(e.target)) {
+                        if (mobileMenu.classList.contains('show')) {
+                            closeMobileMenu();
+                        }
+                    }
+                }
             });
         });
+
+        // Update active state on navigation (for SPA-like behavior)
+        window.addEventListener('popstate', setActiveNavItem);
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
