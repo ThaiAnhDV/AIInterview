@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using System.Text;
+using AIInterviewPlatform.Infrastructure.Services.TextExtractors;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,9 @@ builder.Services.AddScoped<IRoadmapUnitOfWork, RoadmapUnitOfWork>();
 // =======================
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IPdfTextExtractor, PdfTextExtractor>();
+builder.Services.AddScoped<IDocxTextExtractor, DocxTextExtractor>();
+builder.Services.AddScoped<IResumeParserService, ResumeParserService>();
 builder.Services.AddScoped<IResumeService, ResumeService>();
 builder.Services.AddScoped<ITargetJobService, TargetJobService>();
 builder.Services.AddScoped<

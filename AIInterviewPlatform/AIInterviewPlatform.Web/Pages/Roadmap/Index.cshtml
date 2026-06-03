@@ -767,11 +767,11 @@
             <div class="card-ai-body">
                 <div class="row align-items-end">
                     <div class="col-md-6 mb-4 mb-md-0">
-                        <label class="form-label-ai">Skill Gap Analysis ID</label>
-                        <input type="number"
-                               id="skillGapAnalysisId"
-                               class="form-control-ai"
-                               placeholder="Enter your Skill Gap Analysis ID">
+                        <label class="form-label-ai">Skill Gap Analysis</label>
+                        <select id="skillGapAnalysisId"
+                                class="form-control-ai">
+                            <option value="">Loading analyses...</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <button class="btn-primary-ai" onclick="generateRoadmap()">
@@ -820,7 +820,7 @@
 
 <!-- Roadmap Detail -->
 <div class="page-container">
-    <div id="roadmapDetail" class="roadmap-detail">
+    <div id="roadmapDetailPanel" class="roadmap-detail">
         <div class="roadmap-detail-header">
             <div>
                 <h2 id="roadmapDetailTitle" class="roadmap-detail-title">Roadmap Title</h2>
@@ -865,7 +865,7 @@
     </div>
 
     <!-- Roadmap Detail -->
-    <div id="roadmapDetail" class="roadmap-detail">
+    <div id="roadmapDetailPanel" class="roadmap-detail">
 <svg width="0" height="0">
     <defs>
         <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">

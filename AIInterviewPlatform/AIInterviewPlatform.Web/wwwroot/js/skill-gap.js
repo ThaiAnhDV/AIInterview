@@ -97,7 +97,7 @@ async function runSkillGapAnalysis() {
     }
 
     try {
-        const response = await fetch(`${API_BASE_URL}/SkillGapAnalysis/analyze`, {
+        const response = await fetch(`${API_BASE_URL}/SkillGapAnalysis/analyze-detailed`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -134,41 +134,42 @@ function renderAnalysisResult(result) {
     document.getElementById("readinessScore").innerText =
         result.readinessScore.toFixed(2);
 
-    const matchedContainer =
-        document.getElementById("matchedSkillsContainer");
+    const resumeSkillsContainer = document.getElementById("resumeSkillsContainer");
+    const requiredSkillsContainer = document.getElementById("requiredSkillsContainer");
+    const matchedContainer = document.getElementById("matchedSkillsContainer");
+    const missingContainer = document.getElementById("missingSkillsContainer");
 
-    matchedContainer.innerHTML = "";
+    const renderTextList = (items, emptyMessage, isMissing = false) => {
+        if (!items || items.length === 0) {
+            return `<span class="text-muted">${emptyMessage}</span>`;
+        }
 
-    if (!result.matchedSkills || result.matchedSkills.length === 0) {
-        matchedContainer.innerHTML =
-            `<span class="text-muted">No matched skills.</span>`;
-    } else {
-        result.matchedSkills.forEach(skill => {
-            matchedContainer.innerHTML += `
-                <span class="badge badge-success mr-2 mb-2 p-2">
-                    ${skill}
-                </span>
-            `;
-        });
-    }
+        return items.map(item => {
+            const skillName = typeof item === "string" ? item : (item.skillName || "");
+            const icon = isMissing ? "✗" : "✓";
+            const itemClass = isMissing ? "text-danger" : "text-success";
 
-    const missingContainer =
-        document.getElementById("missingSkillsContainer");
-
-    missingContainer.innerHTML = "";
-
-    if (!result.missingSkills || result.missingSkills.length === 0) {
-        missingContainer.innerHTML =
-            `<span class="text-success">No missing skills. Great!</span>`;
-    } else {
-        result.missingSkills.forEach(item => {
-            missingContainer.innerHTML += `
-                <div class="alert alert-warning">
-                    <strong>${item.skillName}</strong>
-                    <br />
-                    ${item.gapDescription ?? ""}
+            return `
+                <div class="mb-2 ${itemClass}">
+                    <span class="mr-2">${icon}</span>${escapeHtml(skillName)}
                 </div>
             `;
-        });
+        }).join("");
+    };
+
+    if (resumeSkillsContainer) {
+        resumeSkillsContainer.innerHTML = renderTextList(result.resumeSkills, "No resume skills found.");
+    }
+
+    if (requiredSkillsContainer) {
+        requiredSkillsContainer.innerHTML = renderTextList(result.requiredSkills, "No required skills found.");
+    }
+
+    if (matchedContainer) {
+        matchedContainer.innerHTML = renderTextList(result.matchedSkills, "No matched skills.");
+    }
+
+    if (missingContainer) {
+        missingContainer.innerHTML = renderTextList(result.missingSkills, "No missing skills. Great!", true);
     }
 }

@@ -34,6 +34,18 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         _apiKey = configuration["GeminiSettings:ApiKey"] ?? string.Empty;
         _logger = logger;
 
+        _logger.LogInformation(
+            "[Interview] API_KEY_LOADED={Loaded}",
+            !string.IsNullOrEmpty(_apiKey));
+
+        _logger.LogInformation(
+            "[Interview] API_KEY_LENGTH={Length}",
+            _apiKey?.Length ?? 0);
+
+        _logger.LogInformation(
+            "[Interview] GEMINI_ENDPOINT={Endpoint}",
+            GeminiApiUrl);
+
         if (string.IsNullOrEmpty(_apiKey))
         {
             _logger.LogWarning("Gemini API key is not configured - will use default questions");
@@ -44,39 +56,81 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         GeminiInterviewQuestionRequest request,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogWarning("[Interview] ENTER GenerateQuestionsAsync");
+
         try
         {
             ValidateRequest(request);
         }
         catch (ArgumentException ex)
         {
+            _logger.LogWarning("[Interview] FALLBACK_REASON=VALIDATION_EXCEPTION");
+            _logger.LogWarning("[Interview] PARSE_FAILED");
             _logger.LogWarning(ex, "Invalid request - returning empty result");
-            return CreateEmptyResult(request);
+            return GetDefaultQuestions(request);
         }
+
+        _logger.LogWarning(
+            "[Interview] API_KEY_EXISTS={Exists}",
+            !string.IsNullOrEmpty(_apiKey));
+        _logger.LogWarning(
+            "[Interview] API_KEY_LENGTH={Length}",
+            _apiKey?.Length ?? 0);
 
         if (string.IsNullOrEmpty(_apiKey))
         {
+            _logger.LogWarning("[Interview] FALLBACK_REASON=API_KEY_MISSING");
+            _logger.LogWarning("[Interview] API_KEY_MISSING");
+            _logger.LogWarning("Gemini API Key Missing");
             _logger.LogWarning("Gemini API key not configured - using fallback questions");
             return GetDefaultQuestions(request);
         }
 
         var prompt = BuildGeminiPrompt(request);
+
+        _logger.LogWarning("[Interview] GEMINI_REQUEST_START");
+
+        var fullUrl = $"{GeminiApiUrl}?key={_apiKey[..Math.Min(8, _apiKey.Length)]}...";
+        _logger.LogWarning("[Interview] GEMINI_URL={Url}", fullUrl);
+
         var responseJson = await SendGeminiRequestAsync(prompt, cancellationToken);
 
         if (responseJson == null)
         {
+            _logger.LogWarning("[Interview] FALLBACK_REASON=HTTP_REQUEST_FAILED");
+            _logger.LogWarning("[Interview] HTTP_REQUEST_FAILED");
+            _logger.LogWarning("Fallback Interview Questions Activated");
             _logger.LogWarning("Gemini unavailable. Using fallback interview questions.");
             return GetDefaultQuestions(request);
         }
 
+        _logger.LogWarning(
+            "[Interview] RAW_RESPONSE={Body}",
+            responseJson.Length > 500 ? responseJson[..500] + "..." : responseJson);
+
         var geminiResponse = ParseGeminiResponse(responseJson);
 
-        if (geminiResponse == null || geminiResponse.Questions.Count == 0)
+        if (geminiResponse == null)
         {
+            _logger.LogWarning("[Interview] FALLBACK_REASON=PARSE_FAILED_NULL");
+            _logger.LogWarning("[Interview] PARSE_FAILED");
+            _logger.LogWarning("Fallback Interview Questions Activated");
             _logger.LogWarning("Failed to parse Gemini response. Using fallback questions.");
             return GetDefaultQuestions(request);
         }
 
+        if (geminiResponse.Questions.Count == 0)
+        {
+            _logger.LogWarning("[Interview] FALLBACK_REASON=EMPTY_QUESTION_LIST");
+            _logger.LogWarning("[Interview] EMPTY_QUESTION_LIST");
+            _logger.LogWarning("Fallback Interview Questions Activated");
+            _logger.LogWarning("Failed to parse Gemini response. Using fallback questions.");
+            return GetDefaultQuestions(request);
+        }
+
+        _logger.LogWarning("[Interview] FALLBACK_REASON=AI_GENERATION_SUCCESS");
+        _logger.LogWarning("AI_GENERATION_SUCCESS");
+        _logger.LogInformation("AI Interview Questions Generated Successfully");
         return ConvertToResult(request, geminiResponse, isFallback: false);
     }
 
@@ -87,6 +141,8 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         List<string> missingSkills,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogWarning("ENTER GenerateQuestionsFromJobAsync");
+
         var request = new GeminiInterviewQuestionRequest
         {
             TargetJob = new TargetJobInfo
@@ -113,25 +169,6 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
             throw new ArgumentException("At least one required skill is needed");
     }
 
-    private InterviewQuestionGenerationResult CreateEmptyResult(GeminiInterviewQuestionRequest request)
-    {
-        return new InterviewQuestionGenerationResult
-        {
-            TargetJob = new TargetJobSummary
-            {
-                Title = request.TargetJob?.Title ?? "Unknown",
-                Company = request.TargetJob?.Company
-            },
-            Summary = new GenerationSummary
-            {
-                TotalQuestionsGenerated = 0,
-                ByType = new QuestionCountByType()
-            },
-            Questions = [],
-            Status = GenerationStatusEnum.Completed,
-            IsFallback = true
-        };
-    }
 
     private string BuildGeminiPrompt(GeminiInterviewQuestionRequest request)
     {
@@ -179,7 +216,10 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         var jsonContent = JsonSerializer.Serialize(requestBody);
         var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
+        var fullUrl = $"{GeminiApiUrl}?key={_apiKey[..Math.Min(8, _apiKey.Length)]}...";
+        _logger.LogWarning("[Interview] GEMINI_URL={Url}", fullUrl);
         _logger.LogDebug("Sending request to Gemini API for interview questions");
+        _logger.LogWarning("[Interview] BEFORE GEMINI REQUEST");
 
         try
         {
@@ -188,8 +228,15 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
                 httpContent,
                 cancellationToken);
 
+            _logger.LogWarning("[Interview] AFTER GEMINI RESPONSE");
+            _logger.LogWarning("[Interview] HTTP_STATUS={Status}", response.StatusCode);
+
             if (!response.IsSuccessStatusCode)
             {
+                var errorBody = await response.Content.ReadAsStringAsync(cancellationToken);
+                _logger.LogWarning("[Interview] EXCEPTION=HTTP_ERROR Status={Status} Body={Body}",
+                    response.StatusCode, errorBody.Length > 200 ? errorBody[..200] : errorBody);
+                _logger.LogWarning("Gemini HTTP Error: {StatusCode}", response.StatusCode);
                 _logger.LogWarning(
                     "Gemini returned {StatusCode}. Using fallback questions.",
                     response.StatusCode);
@@ -201,12 +248,23 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         }
         catch (HttpRequestException ex)
         {
+            _logger.LogWarning("[Interview] AFTER GEMINI RESPONSE");
+            _logger.LogWarning("[Interview] EXCEPTION={Exception}", ex.Message);
             _logger.LogWarning(ex, "Network error calling Gemini API. Using fallback questions.");
             return null;
         }
         catch (TaskCanceledException ex) when (ex.CancellationToken != cancellationToken)
         {
+            _logger.LogWarning("[Interview] AFTER GEMINI RESPONSE");
+            _logger.LogWarning("[Interview] EXCEPTION={Exception}", ex.Message);
             _logger.LogWarning(ex, "Gemini API request timed out. Using fallback questions.");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning("[Interview] AFTER GEMINI RESPONSE");
+            _logger.LogWarning("[Interview] EXCEPTION={Exception}", ex.Message);
+            _logger.LogWarning(ex, "Unexpected error calling Gemini API. Using fallback questions.");
             return null;
         }
     }
@@ -231,6 +289,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
                 var response = JsonSerializer.Deserialize<GeminiInterviewQuestionResponse>(cleanedText, JsonOptions);
                 if (response == null || response.Questions.Count == 0)
                 {
+                    _logger.LogWarning("Gemini response parsed as NULL or empty");
                     var manualResult = TryExtractQuestionsManually(cleanedText);
                     if (manualResult.Questions.Count == 0)
                     {
@@ -246,6 +305,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
                 var result = TryExtractQuestionsManually(cleanedText);
                 if (result.Questions.Count == 0)
                 {
+                    _logger.LogWarning("Gemini response parsed as NULL or empty");
                     _logger.LogWarning("Failed to parse Gemini response JSON");
                     return null;
                 }

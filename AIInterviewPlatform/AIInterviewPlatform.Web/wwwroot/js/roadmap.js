@@ -1,4 +1,6 @@
 ﻿// ===== ROADMAP MODULE =====
+console.log("Roadmap script loaded");
+
 let currentRoadmapId = null;
 
 // DOM Element Cache
@@ -11,6 +13,15 @@ const Elements = {
         return el;
     }
 };
+
+document.addEventListener("DOMContentLoaded", async () => {
+    console.log("DOMContentLoaded fired");
+    try {
+        await loadSkillGapAnalyses();
+    } catch (error) {
+        console.error("loadSkillGapAnalyses failed:", error);
+    }
+});
 
 // ===== ROADMAP LIST =====
 async function loadRoadmaps() {
@@ -105,7 +116,7 @@ function createRoadmapCard(roadmap) {
     const statusBadge = getStatusBadge(roadmap.roadmapStatus);
 
     return `
-        <div class="roadmap-card" onclick="loadRoadmapDetail(${roadmap.id})">
+        <div class="roadmap-card" onclick="console.log('roadmap card clicked', ${roadmap.id}); loadRoadmapDetail(${roadmap.id})">
             <div class="roadmap-card-header">
                 <div>
                     <h3 class="roadmap-card-title">${escapeHtml(roadmap.roadmapTitle || 'Untitled Roadmap')}</h3>
@@ -188,22 +199,23 @@ function hideMilestoneLoading() {
 }
 
 function showRoadmapDetail() {
-    const detailEl = Elements.get("roadmapDetail");
-    
-    if (!detailEl) {
-        console.error("Roadmap detail element not found");
+    const detailPanel = document.getElementById("roadmapDetailPanel");
+    console.log("detail panel found", !!detailPanel);
+
+    if (!detailPanel) {
+        console.error("roadmapDetailPanel not found");
         return;
     }
-    
-    detailEl.classList.add("active");
-    detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    detailPanel.classList.add("active");
+    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function closeRoadmapDetail() {
-    const detailEl = Elements.get("roadmapDetail");
-    
-    if (detailEl) {
-        detailEl.classList.remove("active");
+    const detailPanel = document.getElementById("roadmapDetailPanel");
+
+    if (detailPanel) {
+        detailPanel.classList.remove("active");
     }
     currentRoadmapId = null;
 }
@@ -221,15 +233,16 @@ function renderRoadmapDetail(roadmap) {
 
     hideMilestoneLoading();
 
-    const container = Elements.get("milestoneContainer");
-    
-    if (!container) {
-        console.error("Milestone container element not found");
+    const detailPanel = document.getElementById("roadmapDetailPanel");
+    console.log("detail panel found", !!detailPanel);
+
+    if (!detailPanel) {
+        console.error("roadmapDetailPanel not found");
         return;
     }
-    
+
     if (!roadmap.milestones || roadmap.milestones.length === 0) {
-        container.innerHTML = `
+        detailPanel.innerHTML = `
             <div class="empty-state">
                 <div class="empty-state-icon">
                     <i class="fas fa-flag"></i>
@@ -238,13 +251,16 @@ function renderRoadmapDetail(roadmap) {
                 <p>This roadmap doesn't have any milestones yet.</p>
             </div>
         `;
+        console.log("detail rendered");
         return;
     }
 
-    container.innerHTML = roadmap.milestones
+    detailPanel.innerHTML = roadmap.milestones
         .sort((a, b) => a.milestoneOrder - b.milestoneOrder)
         .map(milestone => createMilestoneCard(milestone))
         .join('');
+
+    console.log("detail rendered");
 }
 
 function createMilestoneCard(milestone) {
@@ -359,6 +375,76 @@ function getActivityActionButton(activity) {
 }
 
 // ===== ACTIONS =====
+async function loadSkillGapAnalyses() {
+    console.log("loadSkillGapAnalyses started");
+
+    const token = localStorage.getItem("token");
+    console.log("Authorization token exists:", !!token);
+
+    const selectEl = Elements.get("skillGapAnalysisId");
+    console.log("Dropdown found:", !!selectEl, selectEl);
+
+    if (!selectEl) {
+        return;
+    }
+
+    const duplicateCount = document.querySelectorAll("#skillGapAnalysisId").length;
+    console.log("skillGapAnalysisId duplicate count:", duplicateCount);
+
+    try {
+        const url = `${API_BASE_URL}/SkillGapAnalysis/my-analyses`;
+        console.log("Fetch started:", url);
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        console.log("Fetch completed:", response.status, response.statusText);
+
+        if (!response.ok) {
+            showToast("Cannot load skill gap analyses.", "error");
+            selectEl.innerHTML = '<option value="">No analyses available</option>';
+            return;
+        }
+
+        const analyses = await response.json();
+        console.log("Response payload:", analyses);
+
+        const items = Array.isArray(analyses)
+            ? analyses
+            : (analyses?.data || analyses?.result || analyses?.items || analyses?.value || []);
+
+        console.log("Parsed items count:", items.length);
+
+        selectEl.innerHTML = '<option value="">Select a skill gap analysis</option>';
+        let addedCount = 0;
+
+        items.forEach(analysis => {
+            const readinessScore = analysis.readinessScore ?? analysis.ReadinessScore ?? 0;
+            const analysisId = analysis.id ?? analysis.Id;
+
+            if (analysisId == null) {
+                return;
+            }
+
+            const option = document.createElement("option");
+            option.value = analysisId;
+            option.textContent = `Analysis #${analysisId} - Score ${readinessScore}%`;
+            selectEl.appendChild(option);
+            addedCount++;
+        });
+
+        console.log("Options added:", addedCount);
+    } catch (error) {
+        console.error(error);
+        showToast("Cannot connect to server.", "error");
+        selectEl.innerHTML = '<option value="">No analyses available</option>';
+    }
+}
+
 async function generateRoadmap() {
     const token = localStorage.getItem("token");
     const inputEl = Elements.get("skillGapAnalysisId");
@@ -371,7 +457,7 @@ async function generateRoadmap() {
     const skillGapAnalysisId = inputEl.value;
 
     if (!skillGapAnalysisId) {
-        showToast("Please enter Skill Gap Analysis Id.", "error");
+        showToast("Please select a Skill Gap Analysis.", "error");
         return;
     }
 

@@ -86,6 +86,8 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             ResumeId = request.ResumeId,
             JobDescriptionId = request.JobDescriptionId,
             ReadinessScore = (decimal)matchResult.ReadinessScore,
+            ResumeSkills = resumeSkillsResult.Skills,
+            RequiredSkills = jdSkillsResult.RequiredSkills,
             MatchedSkills = matchResult.MatchedSkills,
             MissingSkills = matchResult.MissingSkills
                 .Select(s => new SkillGapItemResponse

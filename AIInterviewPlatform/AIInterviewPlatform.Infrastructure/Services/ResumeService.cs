@@ -2,7 +2,6 @@
 using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Domain.Enities;
-using AIInterviewPlatform.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 
 namespace AIInterviewPlatform.Infrastructure.Services
@@ -10,14 +9,17 @@ namespace AIInterviewPlatform.Infrastructure.Services
     public class ResumeService : IResumeService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IResumeParserService _resumeParserService;
 
-        public ResumeService(IUnitOfWork unitOfWork)
+        public ResumeService(
+            IUnitOfWork unitOfWork,
+            IResumeParserService resumeParserService)
         {
             _unitOfWork = unitOfWork;
+            _resumeParserService = resumeParserService;
         }
-        public async Task<ResumeResponse> UploadResumeAsync(
-    long userId,
-    IFormFile file)
+
+        public async Task<ResumeResponse> UploadResumeAsync(long userId, IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -25,7 +27,6 @@ namespace AIInterviewPlatform.Infrastructure.Services
             }
 
             var allowedExtensions = new[] { ".pdf", ".doc", ".docx" };
-
             var extension = Path.GetExtension(file.FileName).ToLower();
 
             if (!allowedExtensions.Contains(extension))
@@ -44,16 +45,23 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            var uniqueFileName =
-                $"{Guid.NewGuid()}{extension}";
-
-            var filePath = Path.Combine(
-                uploadsFolder,
-                uniqueFileName);
+            var uniqueFileName = $"{Guid.NewGuid()}{extension}";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
+            }
+
+            string? parsedContent = null;
+
+            try
+            {
+                parsedContent = await _resumeParserService.ExtractTextAsync(filePath, file.FileName);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Resume parsing failed for user {userId}, file '{file.FileName}': {ex.Message}");
             }
 
             var resume = new Resume
@@ -62,11 +70,11 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 FileName = file.FileName,
                 FileUrl = $"/uploads/resumes/{uniqueFileName}",
                 UploadedAt = DateTime.UtcNow,
-                IsActive = false
+                IsActive = false,
+                ParsedContent = parsedContent
             };
 
             await _unitOfWork.Resumes.AddAsync(resume);
-
             await _unitOfWork.SaveChangesAsync();
 
             return new ResumeResponse
@@ -78,6 +86,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 UploadedAt = resume.UploadedAt
             };
         }
+
         public async Task<List<ResumeResponse>> GetMyResumesAsync(long userId)
         {
             var resumes = await _unitOfWork.Resumes.FindAsync(x => x.UserId == userId);
@@ -98,7 +107,6 @@ namespace AIInterviewPlatform.Infrastructure.Services
         public async Task<bool> SetActiveResumeAsync(long userId, long resumeId)
         {
             var resumes = await _unitOfWork.Resumes.FindAsync(x => x.UserId == userId);
-
             var selectedResume = resumes.FirstOrDefault(x => x.Id == resumeId);
 
             if (selectedResume == null)
@@ -113,7 +121,6 @@ namespace AIInterviewPlatform.Infrastructure.Services
             }
 
             await _unitOfWork.SaveChangesAsync();
-
             return true;
         }
 

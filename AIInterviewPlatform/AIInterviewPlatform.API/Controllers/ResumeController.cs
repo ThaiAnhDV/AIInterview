@@ -65,6 +65,38 @@ namespace AIInterviewPlatform.API.Controllers
             return Ok(new { message = "Resume deleted successfully" });
         }
 
+        [HttpGet("view/{resumeId}")]
+        public async Task<IActionResult> ViewResume(long resumeId)
+        {
+            var userId = GetUserId();
+
+            var resumes = await _resumeService.GetMyResumesAsync(userId);
+            var resume = resumes.FirstOrDefault(x => x.Id == resumeId);
+
+            if (resume == null)
+            {
+                return NotFound(new { message = "Resume not found." });
+            }
+
+            var physicalPath = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                resume.FileUrl.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString())
+            );
+
+            if (!System.IO.File.Exists(physicalPath))
+            {
+                return NotFound(new
+                {
+                    message = "Physical file not found.",
+                    path = physicalPath
+                });
+            }
+
+            var contentType = GetResumeContentType(resume.FileName);
+            return PhysicalFile(physicalPath, contentType);
+        }
+
         [HttpGet("download/{resumeId}")]
         public async Task<IActionResult> DownloadResume(long resumeId)
         {
@@ -96,6 +128,19 @@ namespace AIInterviewPlatform.API.Controllers
             var bytes = await System.IO.File.ReadAllBytesAsync(physicalPath);
 
             return File(bytes, "application/octet-stream", resume.FileName);
+        }
+
+        private static string GetResumeContentType(string fileName)
+        {
+            var extension = Path.GetExtension(fileName).ToLowerInvariant();
+
+            return extension switch
+            {
+                ".pdf" => "application/pdf",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                ".doc" => "application/msword",
+                _ => "application/octet-stream"
+            };
         }
 
         private long GetUserId()
