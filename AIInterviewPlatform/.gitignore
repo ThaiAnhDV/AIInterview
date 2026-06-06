@@ -1,0 +1,12 @@
+.vs/
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.nupkg
+frontend/node_modules/
+frontend/dist/
+AIInterviewPlatform.API/wwwroot/uploads/
+appsettings.Local.json

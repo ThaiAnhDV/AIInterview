@@ -5529,11 +5529,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj",
+      "projectUniqueName": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj",
       "projectName": "AIInterviewPlatform.Infrastructure",
-      "projectPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj",
+      "projectPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\obj\\",
+      "outputPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5554,11 +5554,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj": {
-              "projectPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj"
+            "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj": {
+              "projectPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj"
             },
-            "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj": {
-              "projectPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj"
+            "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj": {
+              "projectPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj"
             }
           }
         }

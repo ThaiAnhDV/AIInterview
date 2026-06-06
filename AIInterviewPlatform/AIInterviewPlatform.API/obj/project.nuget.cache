@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "usy6bZ5y4K0=",
+  "dgSpecHash": "l7cT+957ZqU=",
   "success": true,
-  "projectFilePath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj",
+  "projectFilePath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hoang\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

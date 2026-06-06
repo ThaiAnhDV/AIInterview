@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BXpbqI3hpiY=",
+  "dgSpecHash": "QROA+ddiFWQ=",
   "success": true,
-  "projectFilePath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj",
+  "projectFilePath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hoang\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
