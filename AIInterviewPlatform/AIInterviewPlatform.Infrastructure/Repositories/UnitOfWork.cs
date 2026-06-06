@@ -38,16 +38,17 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
             InterviewQuestions = new GenericRepository<InterviewQuestion>(_context);
             InterviewAnswers = new GenericRepository<InterviewAnswer>(_context);
             AnswerEvaluations = new GenericRepository<AnswerEvaluation>(_context);
+            InterviewSessionRepository = new InterviewSessionRepository(_context, null!);
 
             Feedbacks = new GenericRepository<Feedback>(_context);
             ImprovementSuggestions = new GenericRepository<ImprovementSuggestion>(_context);
             WeakCommunicationPatterns = new GenericRepository<WeakCommunicationPattern>(_context);
             Recommendations = new GenericRepository<Recommendation>(_context);
 
-            LearningRoadmaps = new GenericRepository<LearningRoadmap>(_context);
-            RoadmapMilestones = new GenericRepository<RoadmapMilestone>(_context);
-            LearningActivities = new GenericRepository<LearningActivity>(_context);
-            RoadmapProgresses = new GenericRepository<RoadmapProgress>(_context);
+            LearningRoadmaps = new RoadmapRepository(_context);
+            RoadmapMilestones = new MilestoneRepository(_context);
+            LearningActivities = new ActivityRepository(_context);
+            RoadmapProgresses = new ProgressRepository(_context);
             RoadmapRecommendations = new GenericRepository<RoadmapRecommendation>(_context);
 
             PracticeHistories = new GenericRepository<PracticeHistory>(_context);
@@ -56,6 +57,7 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
             Notifications = new GenericRepository<Notification>(_context);
             UsageStatistics = new GenericRepository<UsageStatistic>(_context);
             SystemLogs = new GenericRepository<SystemLog>(_context);
+            DashboardRepository = new DashboardRepository(_context);
         }
 
         public IGenericRepository<User> Users { get; }
@@ -79,6 +81,7 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
         public IGenericRepository<InterviewQuestion> InterviewQuestions { get; }
         public IGenericRepository<InterviewAnswer> InterviewAnswers { get; }
         public IGenericRepository<AnswerEvaluation> AnswerEvaluations { get; }
+        public IInterviewSessionRepository InterviewSessionRepository { get; }
 
         public IGenericRepository<Feedback> Feedbacks { get; }
         public IGenericRepository<ImprovementSuggestion> ImprovementSuggestions { get; }
@@ -97,6 +100,8 @@ namespace AIInterviewPlatform.Infrastructure.Repositories
         public IGenericRepository<Notification> Notifications { get; }
         public IGenericRepository<UsageStatistic> UsageStatistics { get; }
         public IGenericRepository<SystemLog> SystemLogs { get; }
+
+        public IDashboardRepository DashboardRepository { get; }
 
         public async Task<int> SaveChangesAsync()
         {

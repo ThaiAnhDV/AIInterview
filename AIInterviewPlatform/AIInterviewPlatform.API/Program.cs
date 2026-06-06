@@ -2,9 +2,11 @@
 using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Application.Services;
+using AIInterviewPlatform.Application.Common.Validators;
 using AIInterviewPlatform.Infrastructure.Data;
 using AIInterviewPlatform.Infrastructure.Repositories;
 using AIInterviewPlatform.Infrastructure.Services;
+using AIInterviewPlatform.Infrastructure.Validators;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using System.Text;
+using AIInterviewPlatform.Infrastructure.Services.TextExtractors;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,12 +32,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // =======================
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
+builder.Services.AddScoped<IRoadmapUnitOfWork, RoadmapUnitOfWork>();
 
 // =======================
 // Services
 // =======================
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IPdfTextExtractor, PdfTextExtractor>();
+builder.Services.AddScoped<IDocxTextExtractor, DocxTextExtractor>();
+builder.Services.AddScoped<IResumeParserService, ResumeParserService>();
 builder.Services.AddScoped<IResumeService, ResumeService>();
 builder.Services.AddScoped<ITargetJobService, TargetJobService>();
 builder.Services.AddScoped<
@@ -52,6 +61,23 @@ builder.Services.AddScoped<
     IAnswerEvaluationService,
     AnswerEvaluationService>();
 builder.Services.AddScoped<ILearningRoadmapService, LearningRoadmapService>();
+builder.Services.AddHttpClient<ISkillExtractionService, SkillExtractionService>();
+builder.Services.AddHttpClient<IJobDescriptionSkillExtractionService, JobDescriptionSkillExtractionService>();
+builder.Services.AddScoped<ISkillMatchingService, SkillMatchingService>();
+builder.Services.AddScoped<ISkillGapAnalysisOrchestratorService, SkillGapAnalysisOrchestratorService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IDashboardQueryService, DashboardQueryService>();
+builder.Services.AddScoped<IDashboardQueryValidator, DashboardQueryValidator>();
+builder.Services.AddScoped<IMilestoneGeneratorService, MilestoneGeneratorService>();
+builder.Services.AddHttpClient<IActivityDescriptionService, ActivityDescriptionService>();
+builder.Services.AddHttpClient<IInterviewQuestionGeneratorService, InterviewQuestionGeneratorService>();
+builder.Services.AddHttpClient<IInterviewEvaluationService, InterviewEvaluationService>();
+builder.Services.AddScoped<IInterviewEvaluationApplicationService, InterviewEvaluationApplicationService>();
+builder.Services.AddScoped<IRoadmapApplicationService, RoadmapApplicationService>();
+builder.Services.AddScoped<IInterviewSessionRepository, InterviewSessionRepository>();
+builder.Services.AddScoped<IMockInterviewApplicationService, MockInterviewApplicationService>();
+builder.Services.AddHttpClient<IAIConnectionTestService, AIConnectionTestService>();
+builder.Services.AddScoped<IAIFunctionValidationService, AIFunctionValidationService>();
 
 // =======================
 // Controllers

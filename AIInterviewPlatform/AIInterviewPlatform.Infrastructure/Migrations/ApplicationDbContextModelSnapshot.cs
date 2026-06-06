@@ -280,6 +280,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("question_template_id");
 
+                    b.Property<string>("SkillFocus")
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("skill_focus")
+                        .HasMaxLength(255);
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId")

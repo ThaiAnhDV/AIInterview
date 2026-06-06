@@ -12,11 +12,14 @@ namespace AIInterviewPlatform.API.Controllers
     public class SkillGapAnalysisController : ControllerBase
     {
         private readonly ISkillGapAnalysisService _skillGapAnalysisService;
+        private readonly ISkillGapAnalysisOrchestratorService _skillGapAnalysisOrchestratorService;
 
         public SkillGapAnalysisController(
-            ISkillGapAnalysisService skillGapAnalysisService)
+            ISkillGapAnalysisService skillGapAnalysisService,
+            ISkillGapAnalysisOrchestratorService skillGapAnalysisOrchestratorService)
         {
             _skillGapAnalysisService = skillGapAnalysisService;
+            _skillGapAnalysisOrchestratorService = skillGapAnalysisOrchestratorService;
         }
 
         [HttpPost("analyze")]
@@ -30,6 +33,15 @@ namespace AIInterviewPlatform.API.Controllers
                     userId,
                     request);
 
+            return Ok(result);
+        }
+
+        [HttpPost("analyze-detailed")]
+        public async Task<IActionResult> AnalyzeDetailed(
+            ComprehensiveSkillGapAnalysisRequest request)
+        {
+            var userId = GetUserId();
+            var result = await _skillGapAnalysisOrchestratorService.AnalyzeSkillGapAsync(userId, request);
             return Ok(result);
         }
 

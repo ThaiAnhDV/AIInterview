@@ -1,184 +1,104 @@
 ﻿@page
 @{
-    Layout = null;
+    Layout = "_Layout";
     ViewData["Title"] = "Resume";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Page Header -->
+<div class="page-header">
+    <h2>
+        <i class="fas fa-file-alt"></i>
+        My Resumes
+    </h2>
+    <p class="page-subtitle">Upload and manage your resumes for interview analysis.</p>
+</div>
 
-    <title>Resume - AI Interview Platform</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
-    <link href="/css/site.css" rel="stylesheet" />
-</head>
-
-<body class="profile-page">
-
-    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light py-2">
-        <div class="container">
-            <a class="navbar-brand mr-lg-5" href="/">
-                <strong class="text-white">AI INTERVIEW PLATFORM</strong>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="navbar-collapse collapse" id="navbar_global">
-                <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">
-                            <span class="nav-link-inner--text">Home</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="/Profile" class="nav-link">
-                            <span class="nav-link-inner--text">Profile</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="/Resume" class="nav-link">
-                            <span class="nav-link-inner--text">Resume</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-link-inner--text">Mock Interview</span>
-                        </a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-                    <li class="nav-item mr-3">
-                        <span class="text-white font-weight-bold current-user-name"></span>
-                    </li>
-
-                    <li class="nav-item">
-                        <button onclick="logout()" class="btn btn-danger btn-sm">
-                            Logout
-                        </button>
-                    </li>
-                </ul>
+<!-- Page Content -->
+<div class="page-content">
+    <div class="card-ai">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-cloud-upload-alt mr-2"></i>Upload New Resume</h4>
+        </div>
+        <div class="card-ai-body">
+            <div class="upload-row mb-4" style="flex-wrap: wrap; gap: 12px;">
+                <input id="resumeFile"
+                       type="file"
+                       class="form-control-ai"
+                       accept=".pdf,.doc,.docx"
+                       style="flex: 1 1 200px; min-width: 0;">
+                <button onclick="uploadResume()" class="btn-primary-ai">
+                    <i class="fas fa-upload mr-2"></i>Upload Resume
+                </button>
             </div>
         </div>
-    </nav>
-
-    <div class="wrapper">
-        <section class="section section-shaped section-lg">
-            <div class="shape shape-style-1 bg-gradient-default">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-            </div>
-
-            <div class="container pt-lg-7">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-
-                        <div class="card shadow border-0">
-                            <div class="card-header bg-white">
-                                <h3 class="mb-0">Resume Management</h3>
-                                <p class="text-muted mb-0">
-                                    Upload and manage your CV/resume for interview analysis.
-                                </p>
-                            </div>
-
-                            <div class="card-body">
-
-                                <div class="row mb-4">
-                                    <div class="col-md-8">
-                                        <input id="resumeFile"
-                                               type="file"
-                                               class="form-control"
-                                               accept=".pdf,.doc,.docx">
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <button onclick="uploadResume()" class="btn btn-primary btn-block">
-                                            Upload Resume
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <hr />
-
-                                <div class="table-responsive">
-                                    <table class="table align-items-center">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th>File Name</th>
-                                                <th>Status</th>
-                                                <th>Uploaded At</th>
-                                                <th>View</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody id="resumeTableBody">
-                                            <tr>
-                                                <td colspan="5" class="text-center text-muted">
-                                                    Loading resumes...
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="text-center mt-4">
-                            <a href="/" class="btn btn-neutral">Back to Home</a>
-                            <a href="/Profile" class="btn btn-info">Go to Profile</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <hr>
-            <div class="row align-items-center justify-content-md-between">
-                <div class="col-md-6">
-                    <div class="copyright">
-                        &copy; 2026 AI Interview Platform
-                    </div>
+    <div class="card-ai mt-5">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-list mr-2"></i>Your Resumes</h4>
+        </div>
+        <div class="card-ai-body">
+            <div class="table-responsive">
+                <table class="table-ai">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Status</th>
+                            <th>Uploaded At</th>
+                            <th>View</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resumeTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center text-ai-muted" style="padding: 40px;">
+                                Loading resumes...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-5 pt-4" style="border-top: 1px solid var(--ai-border);">
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/Dashboard" class="btn-secondary-ai">
+                        <i class="fas fa-home mr-2"></i>Back to Dashboard
+                    </a>
+                    <a href="/Profile" class="btn-secondary-ai">
+                        <i class="fas fa-user mr-2"></i>Go to Profile
+                    </a>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <script src="/assets/js/core/jquery.min.js"></script>
-    <script src="/assets/js/core/popper.min.js"></script>
-    <script src="/assets/js/core/bootstrap.min.js"></script>
-    <script src="/assets/js/argon-design-system.min.js?v=1.2.2"></script>
+<style>
+    .upload-row {
+        display: flex;
+        gap: var(--ai-space-4);
+        align-items: center;
+        flex-wrap: wrap;
+    }
 
-    <script src="/js/api.js"></script>
-    <script src="/js/site.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/guard.js"></script>
-    <script src="/js/resume.js"></script>
+    .upload-row input[type="file"] {
+        flex: 1;
+        min-width: 200px;
+    }
+</style>
+
+@section Scripts {
+    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/resume.js"></script>
 
     <script>
-        if (requireLogin()) {
-            loadResumes();
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (requireLogin()) {
+                if (typeof loadResumes === 'function') {
+                    loadResumes();
+                }
+            }
+        });
     </script>
-
-</body>
-</html>
+}

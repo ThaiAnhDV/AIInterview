@@ -8,6 +8,7 @@ namespace AIInterviewPlatform.Domain.Enum
 {
     public enum SessionStatus
     {
+        PENDING,
         IN_PROGRESS,
         COMPLETED,
         CANCELLED

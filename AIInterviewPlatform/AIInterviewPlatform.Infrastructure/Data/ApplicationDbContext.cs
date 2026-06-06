@@ -871,6 +871,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("question_content")
                 .IsRequired();
 
+            entity.Property(e => e.SkillFocus)
+                .HasColumnName("skill_focus")
+                .HasMaxLength(255);
+
             entity.Property(e => e.GeneratedBy)
                 .HasColumnName("generated_by")
                 .HasConversion<string>()

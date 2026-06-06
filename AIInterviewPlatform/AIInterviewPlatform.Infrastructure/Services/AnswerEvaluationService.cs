@@ -23,12 +23,26 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 .FirstOrDefaultAsync(x => x.Id == answerId);
 
             if (answer == null)
-                throw new Exception("Answer not found");
+            {
+                return new AnswerEvaluationResponse
+                {
+                    Success = false,
+                    ErrorCode = "ANSWER_NOT_FOUND",
+                    Message = "Answer not found",
+                    InterviewAnswerId = answerId
+                };
+            }
 
             if (answer.AnswerEvaluation != null)
             {
                 return await GetEvaluationAsync(answerId)
-                       ?? throw new Exception();
+                       ?? new AnswerEvaluationResponse
+                       {
+                           Success = false,
+                           ErrorCode = "EVALUATION_NOT_FOUND",
+                           Message = "Evaluation could not be loaded.",
+                           InterviewAnswerId = answerId
+                       };
             }
 
             decimal clarity = 70;
@@ -83,7 +97,13 @@ namespace AIInterviewPlatform.Infrastructure.Services
             await _context.SaveChangesAsync();
 
             return await GetEvaluationAsync(answerId)
-                   ?? throw new Exception();
+                   ?? new AnswerEvaluationResponse
+                   {
+                       Success = false,
+                       ErrorCode = "EVALUATION_NOT_FOUND",
+                       Message = "Evaluation could not be loaded.",
+                       InterviewAnswerId = answerId
+                   };
         }
 
         public async Task<AnswerEvaluationResponse?> GetEvaluationAsync(long answerId)
@@ -98,6 +118,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
 
             return new AnswerEvaluationResponse
             {
+                Success = true,
                 Id = evaluation.Id,
                 InterviewAnswerId = evaluation.InterviewAnswerId,
                 ClarityScore = evaluation.ClarityScore ?? 0,
@@ -105,7 +126,6 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 RelevanceScore = evaluation.RelevanceScore ?? 0,
                 OverallScore = evaluation.OverallScore ?? 0,
                 EvaluatedAt = evaluation.EvaluatedAt,
-
                 Feedbacks = evaluation.Feedbacks
                     .Select(f => new FeedbackResponse
                     {
@@ -131,34 +151,27 @@ namespace AIInterviewPlatform.Infrastructure.Services
             return new SessionFeedbackResponse
             {
                 InterviewSessionId = sessionId,
-
                 AverageScore = evaluations.Any()
                     ? evaluations.Average(x =>
                         x.OverallScore ?? 0)
                     : 0,
-
                 Evaluations = evaluations.Select(e =>
                     new AnswerEvaluationResponse
                     {
+                        Success = true,
                         Id = e.Id,
                         InterviewAnswerId =
                             e.InterviewAnswerId,
-
                         ClarityScore =
                             e.ClarityScore ?? 0,
-
                         StructureScore =
                             e.StructureScore ?? 0,
-
                         RelevanceScore =
                             e.RelevanceScore ?? 0,
-
                         OverallScore =
                             e.OverallScore ?? 0,
-
                         EvaluatedAt =
                             e.EvaluatedAt,
-
                         Feedbacks =
                             e.Feedbacks.Select(f =>
                                 new FeedbackResponse
@@ -166,11 +179,9 @@ namespace AIInterviewPlatform.Infrastructure.Services
                                     Id = f.Id,
                                     FeedbackContent =
                                         f.FeedbackContent,
-
                                     FeedbackType =
                                         f.FeedbackType
                                             .ToString(),
-
                                     CreatedAt =
                                         f.CreatedAt
                                 })

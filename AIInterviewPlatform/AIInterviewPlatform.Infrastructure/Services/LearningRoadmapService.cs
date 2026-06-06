@@ -21,6 +21,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
             GenerateRoadmapRequest request)
         {
             var analysis = await _context.SkillGapAnalyses
+                .Include(x => x.JobDescription)
                 .Include(x => x.SkillGaps)
                     .ThenInclude(x => x.Skill)
                 .FirstOrDefaultAsync(x =>
@@ -30,6 +31,11 @@ namespace AIInterviewPlatform.Infrastructure.Services
             if (analysis == null)
             {
                 throw new Exception("Skill gap analysis not found.");
+            }
+
+            if (analysis.JobDescription == null)
+            {
+                throw new Exception($"JobDescription not loaded for SkillGapAnalysis {analysis.Id}");
             }
 
             var roadmap = new LearningRoadmap

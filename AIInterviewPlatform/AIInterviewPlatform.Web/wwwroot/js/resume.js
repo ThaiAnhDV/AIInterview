@@ -1,5 +1,39 @@
 ﻿const API_ORIGIN = API_BASE_URL.replace("/api", "");
 
+function getResumeExtension(fileName) {
+    return (fileName || "").split('.').pop().toLowerCase();
+}
+
+function getResumeMimeType(fileName) {
+    const extension = getResumeExtension(fileName);
+
+    switch (extension) {
+        case "pdf":
+            return "application/pdf";
+        case "docx":
+            return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        case "doc":
+            return "application/msword";
+        default:
+            return "application/octet-stream";
+    }
+}
+
+function canPreviewResume(fileName) {
+    return getResumeExtension(fileName) === "pdf";
+}
+
+function getResumeActionLabel(fileName) {
+    return canPreviewResume(fileName) ? "Preview" : "Download";
+}
+
+function showResumeFallbackMessage() {
+    showToast(
+        "This file type cannot be previewed in browser. The file will be downloaded instead.",
+        "info"
+    );
+}
+
 async function uploadResume() {
 
     const token = localStorage.getItem("token");
@@ -100,6 +134,8 @@ async function loadResumes() {
 
         resumes.forEach(resume => {
 
+            const actionLabel = getResumeActionLabel(resume.fileName);
+
             tableBody.innerHTML += `
                 <tr>
 
@@ -125,10 +161,10 @@ async function loadResumes() {
                     <td>
 
                         <button
-                            onclick="downloadResume(${resume.id}, '${resume.fileName}')"
+                            onclick="handleResumeViewClick(${resume.id}, '${resume.fileName}')"
                             class="btn btn-sm btn-info">
 
-                            VIEW
+                            ${actionLabel.toUpperCase()}
 
                         </button>
 
@@ -145,10 +181,10 @@ async function loadResumes() {
                         </button>
 
                         <button
-                            onclick="deleteResume(${resume.id})"
+                            onclick="downloadResume(${resume.id}, '${resume.fileName}')"
                             class="btn btn-sm btn-danger">
 
-                            DELETE
+                            DOWNLOAD
 
                         </button>
 
@@ -162,6 +198,58 @@ async function loadResumes() {
 
         console.error(error);
 
+        showToast("Cannot connect to server!", "error");
+    }
+}
+
+async function handleResumeViewClick(resumeId, fileName) {
+    if (canPreviewResume(fileName)) {
+        await viewResume(resumeId, fileName);
+        return;
+    }
+
+    showResumeFallbackMessage();
+    await downloadResume(resumeId, fileName);
+}
+
+async function viewResume(resumeId, fileName) {
+    const token = localStorage.getItem("token");
+    const url = `${API_BASE_URL}/Resume/view/${resumeId}`;
+
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(errorText);
+            showToast("Cannot open resume!", "error");
+            return;
+        }
+
+        const blob = await response.blob();
+        const mimeType = response.headers.get("content-type") || getResumeMimeType(fileName);
+        const viewBlob = new Blob([blob], { type: mimeType });
+        const objectUrl = window.URL.createObjectURL(viewBlob);
+
+        const opened = window.open(objectUrl, "_blank", "noopener,noreferrer");
+
+        if (!opened) {
+            window.URL.revokeObjectURL(objectUrl);
+            showToast("Pop-up blocked. Please allow pop-ups to view the resume.", "error");
+            return;
+        }
+
+        window.setTimeout(() => {
+            window.URL.revokeObjectURL(objectUrl);
+        }, 1000);
+    }
+    catch (error) {
+        console.error(error);
         showToast("Cannot connect to server!", "error");
     }
 }

@@ -1,383 +1,1333 @@
 ﻿@page
 @model IndexModel
 @{
-    Layout = null;
-    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+    ViewData["Title"] = "AI Interview Platform";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+    /* ===== LANDING PAGE STYLES ===== */
+    .landing-page {
+        overflow-x: hidden;
+    }
 
-    <title>AI Interview Platform</title>
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+        min-height: calc(100vh - 70px);
+        display: flex;
+        align-items: center;
+        padding: 60px 0;
+        position: relative;
+    }
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    .hero-content {
+        max-width: 600px;
+    }
 
-    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href="/assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
-    <link href="/css/site.css" rel="stylesheet" />
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(255, 110, 196, 0.1);
+        border: 1px solid rgba(255, 110, 196, 0.3);
+        border-radius: 50px;
+        font-size: 0.85rem;
+        color: #ff6ec4;
+        margin-bottom: 24px;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
+    .hero-badge i {
+        font-size: 0.75rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 32px;
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 30px rgba(255, 110, 196, 0.3);
+    }
+
+    .btn-hero-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(255, 110, 196, 0.4);
+        color: #fff;
+    }
+
+    .btn-hero-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 32px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-hero-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: #fff;
+    }
+
+    /* Hero Workflow Visual */
+    .hero-visual {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .workflow-diagram {
+        background: rgba(25, 25, 50, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .workflow-diagram::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #ff6ec4, #7873f5, #40c9ff);
+    }
+
+    .workflow-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .workflow-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .workflow-step {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .workflow-step:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 110, 196, 0.3);
+        transform: translateX(5px);
+    }
+
+    .workflow-step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .workflow-step-number.n1 { background: rgba(255, 110, 196, 0.2); color: #ff6ec4; }
+    .workflow-step-number.n2 { background: rgba(64, 201, 255, 0.2); color: #40c9ff; }
+    .workflow-step-number.n3 { background: rgba(120, 115, 245, 0.2); color: #7873f5; }
+    .workflow-step-number.n4 { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+
+    .workflow-step-content {
+        flex: 1;
+    }
+
+    .workflow-step-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 2px;
+    }
+
+    .workflow-step-desc {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .workflow-step-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .workflow-connector {
+        width: 2px;
+        height: 20px;
+        background: linear-gradient(to bottom, rgba(255, 110, 196, 0.3), rgba(76, 175, 80, 0.3));
+        margin-left: 31px;
+    }
+
+    /* ===== SECTION STYLES ===== */
+    .section {
+        padding: 100px 0;
+    }
+
+    .section-header {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 60px;
+    }
+
+    .section-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: rgba(120, 115, 245, 0.1);
+        border: 1px solid rgba(120, 115, 245, 0.3);
+        border-radius: 50px;
+        font-size: 0.8rem;
+        color: #7873f5;
+        margin-bottom: 16px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-it-works {
+        background: rgba(15, 15, 35, 0.5);
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        position: relative;
+    }
+
+    .step-card {
+        background: rgba(25, 25, 50, 0.8);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 20px;
+        padding: 32px 24px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 110, 196, 0.3);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .step-number {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(255, 110, 196, 0.3);
+    }
+
+    .step-icon {
+        width: 72px;
+        height: 72px;
+        margin: 20px auto 24px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+    }
+
+    .step-icon.pink { background: rgba(255, 110, 196, 0.15); color: #ff6ec4; }
+    .step-icon.blue { background: rgba(64, 201, 255, 0.15); color: #40c9ff; }
+    .step-icon.purple { background: rgba(120, 115, 245, 0.15); color: #7873f5; }
+    .step-icon.green { background: rgba(76, 175, 80, 0.15); color: #4caf50; }
+
+    .step-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .step-desc {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.5;
+    }
+
+    /* ===== FEATURES ===== */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .feature-card {
+        background: rgba(25, 25, 50, 0.8);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 20px;
+        padding: 32px;
+        display: flex;
+        gap: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 110, 196, 0.3);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon-wrapper {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    .feature-icon-wrapper.pink { background: linear-gradient(135deg, rgba(255, 110, 196, 0.2), rgba(255, 110, 196, 0.05)); color: #ff6ec4; }
+    .feature-icon-wrapper.blue { background: linear-gradient(135deg, rgba(64, 201, 255, 0.2), rgba(64, 201, 255, 0.05)); color: #40c9ff; }
+    .feature-icon-wrapper.purple { background: linear-gradient(135deg, rgba(120, 115, 245, 0.2), rgba(120, 115, 245, 0.05)); color: #7873f5; }
+    .feature-icon-wrapper.green { background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.05)); color: #4caf50; }
+
+    .feature-content {
+        flex: 1;
+    }
+
+    .feature-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .feature-desc {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 6px 0;
+    }
+
+    .feature-list li i {
+        color: #4caf50;
+        font-size: 0.75rem;
+    }
+
+    /* ===== PREVIEW SECTIONS ===== */
+    .preview-section {
+        background: rgba(15, 15, 35, 0.5);
+    }
+
+    .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        align-items: start;
+    }
+
+    .preview-card {
+        background: rgba(25, 25, 50, 0.8);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .preview-card-header {
+        padding: 20px 24px;
+        background: rgba(30, 30, 60, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .preview-card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    .preview-card-icon.purple { background: rgba(120, 115, 245, 0.2); color: #7873f5; }
+    .preview-card-icon.green { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+
+    .preview-card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .preview-card-body {
+        padding: 24px;
+    }
+
+    /* Readiness Score */
+    .readiness-display {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        margin-bottom: 24px;
+    }
+
+    .score-circle {
+        position: relative;
+        width: 120px;
+        height: 120px;
+    }
+
+    .score-circle svg {
+        transform: rotate(-90deg);
+    }
+
+    .score-bg {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.1);
+        stroke-width: 8;
+    }
+
+    .score-fill {
+        fill: none;
+        stroke: url(#scoreGradient);
+        stroke-width: 8;
+        stroke-linecap: round;
+        stroke-dasharray: 314;
+        stroke-dashoffset: 88;
+        transition: stroke-dashoffset 1s ease;
+    }
+
+    .score-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .score-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .score-label {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+    }
+
+    .missing-skills {
+        flex: 1;
+    }
+
+    .missing-skills-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 12px;
+    }
+
+    .skill-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        background: rgba(244, 67, 54, 0.1);
+        border: 1px solid rgba(244, 67, 54, 0.2);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        color: #f44336;
+        margin: 0 6px 8px 0;
+    }
+
+    .skill-tag i {
+        font-size: 0.7rem;
+    }
+
+    /* Roadmap Preview */
+    .roadmap-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .roadmap-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+    }
+
+    .roadmap-marker {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .roadmap-marker.completed { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+    .roadmap-marker.active { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+    .roadmap-marker.pending { background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5); }
+
+    .roadmap-info {
+        flex: 1;
+    }
+
+    .roadmap-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 2px;
+    }
+
+    .roadmap-meta {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .roadmap-status {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .roadmap-status.completed { background: rgba(76, 175, 80, 0.15); color: #4caf50; }
+    .roadmap-status.active { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+    .roadmap-status.pending { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.5); }
+
+    /* ===== INTERVIEW PREVIEW ===== */
+    .interview-preview {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .interview-chat {
+        background: rgba(25, 25, 50, 0.8);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .chat-header {
+        padding: 16px 24px;
+        background: rgba(30, 30, 60, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .chat-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .chat-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    .chat-info h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 0;
+    }
+
+    .chat-info span {
+        font-size: 0.8rem;
+        color: #4caf50;
+    }
+
+    .chat-messages {
+        padding: 24px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .chat-message {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .chat-message.ai {
+        flex-direction: row;
+    }
+
+    .chat-message.user {
+        flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+
+    .message-avatar.ai { background: linear-gradient(135deg, #ff6ec4, #7873f5); color: #fff; }
+    .message-avatar.user { background: rgba(64, 201, 255, 0.2); color: #40c9ff; }
+
+    .message-bubble {
+        max-width: 70%;
+        padding: 14px 18px;
+        border-radius: 16px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .message-bubble.ai {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.9);
+        border-bottom-left-radius: 4px;
+    }
+
+    .message-bubble.user {
+        background: linear-gradient(135deg, rgba(64, 201, 255, 0.2), rgba(64, 201, 255, 0.1));
+        border: 1px solid rgba(64, 201, 255, 0.3);
+        color: #fff;
+        border-bottom-right-radius: 4px;
+    }
+
+    .feedback-card {
+        margin-top: 24px;
+        padding: 20px;
+        background: rgba(76, 175, 80, 0.08);
+        border: 1px solid rgba(76, 175, 80, 0.2);
+        border-radius: 12px;
+    }
+
+    .feedback-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+
+    .feedback-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .feedback-title i {
+        color: #4caf50;
+    }
+
+    .feedback-score {
+        padding: 8px 16px;
+        background: rgba(76, 175, 80, 0.2);
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #4caf50;
+    }
+
+    .feedback-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .feedback-item i {
+        color: #4caf50;
+        width: 16px;
+    }
+
+    /* ===== FINAL CTA ===== */
+    .cta-section {
+        padding: 120px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(255, 110, 196, 0.15) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+
+    .cta-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 40px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 48px;
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+        border: none;
+        border-radius: 16px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 12px 40px rgba(255, 110, 196, 0.35);
+    }
+
+    .btn-cta:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 60px rgba(255, 110, 196, 0.45);
+        color: #fff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @@media (max-width: 1200px) {
+        .hero-title {
+            font-size: 2.8rem;
+        }
+        
+        .steps-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
 
-        .wrapper {
-            width: 100%;
+        .features-grid {
+            grid-template-columns: 1fr;
         }
 
-        .welcome-box {
-            animation: fadeInUp 1s ease;
+        .preview-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .hero-section {
+            padding: 40px 0;
         }
 
-        .typing-container {
-            min-height: 45px;
+        .hero-title {
+            font-size: 2.2rem;
         }
 
-        .typing-text {
-            font-size: 1.4rem;
-            color: #ffffff;
-            font-weight: 500;
-            letter-spacing: 1px;
+        .hero-subtitle {
+            font-size: 1rem;
         }
 
-        .typing-cursor {
-            color: #11cdef;
-            font-size: 1.5rem;
-            font-weight: bold;
-            animation: blink 0.8s infinite;
+        .hero-visual {
+            margin-top: 40px;
         }
 
-        @@keyframes blink {
-            50% {
-                opacity: 0;
-            }
+        .workflow-diagram {
+            padding: 24px;
         }
 
-        @@keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .steps-grid {
+            grid-template-columns: 1fr;
         }
-    </style>
-</head>
 
-<body class="landing-page">
+        .section {
+            padding: 60px 0;
+        }
 
-    <partial name="_Navbar" />
+        .section-title {
+            font-size: 2rem;
+        }
 
-    <div class="main-content" id="mainContent">
+        .readiness-display {
+            flex-direction: column;
+            text-align: center;
+        }
 
-        <div class="wrapper">
-            <div class="section section-hero section-shaped">
-                <div class="shape shape-style-3 shape-default">
-                    <span class="span-150"></span>
-                    <span class="span-50"></span>
-                    <span class="span-50"></span>
-                    <span class="span-75"></span>
-                    <span class="span-100"></span>
-                    <span class="span-75"></span>
-                    <span class="span-50"></span>
-                    <span class="span-100"></span>
-                    <span class="span-50"></span>
-                    <span class="span-100"></span>
+        .cta-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<div class="landing-page">
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <i class="fas fa-sparkles"></i>
+                            AI-Powered Interview Preparation
+                        </div>
+                        <h1 class="hero-title">AI-Powered Interview Preparation Platform</h1>
+                        <p class="hero-subtitle">
+                            Upload your resume, identify skill gaps, practice mock interviews, 
+                            and improve your interview readiness with AI.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="/Auth/Register" class="btn-hero-primary">
+                                <i class="fas fa-rocket"></i>
+                                Get Started
+                            </a>
+                            <a href="#how-it-works" class="btn-hero-secondary">
+                                <i class="fas fa-play-circle"></i>
+                                Try Demo
+                            </a>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="page-header">
-                    <div class="container shape-container d-flex align-items-center py-lg">
-                        <div class="col px-0">
-                            <div class="row align-items-center justify-content-center">
-
-                                <div class="col-lg-8 text-center">
-
-                                    <h1 class="display-2 text-white font-weight-bold mb-4">
-                                        AI Interview Platform
-                                    </h1>
-
-                                    <div class="welcome-box mb-4">
-
-                                        <h2 class="text-white font-weight-bold">
-                                            Welcome back,
-                                            <span id="welcomeUserName" class="text-info">
-                                                Future Interviewer
-                                            </span>
-                                        </h2>
-
-                                        <div class="typing-container mt-3">
-                                            <span id="typedText" class="typing-text"></span>
-                                            <span class="typing-cursor">|</span>
-                                        </div>
-
+                <div class="col-lg-6">
+                    <div class="hero-visual">
+                        <div class="workflow-diagram">
+                            <div class="workflow-title">Your Journey to Success</div>
+                            <div class="workflow-steps">
+                                <div class="workflow-step">
+                                    <div class="workflow-step-number n1">1</div>
+                                    <div class="workflow-step-content">
+                                        <div class="workflow-step-title">Upload Resume</div>
+                                        <div class="workflow-step-desc">Add your professional resume</div>
                                     </div>
-
-                                    <p class="lead text-white mb-5">
-                                        Upload your resume, analyze skill gaps,
-                                        practice mock interviews, and improve your
-                                        readiness score with AI-powered feedback.
-                                    </p>
-
-                                    <div class="btn-wrapper">
-
-                                        <a href="/TargetJob"
-                                           class="btn btn-info btn-icon mb-3 mb-sm-0">
-
-                                            <span class="btn-inner--icon">
-                                                <i class="ni ni-spaceship"></i>
-                                            </span>
-
-                                            <span class="btn-inner--text">
-                                                Explore Features
-                                            </span>
-
-                                        </a>
-
-                                        <a href="/Profile"
-                                           class="btn btn-white btn-icon mb-3 mb-sm-0">
-
-                                            <span class="btn-inner--icon">
-                                                <i class="ni ni-single-02"></i>
-                                            </span>
-
-                                            <span class="btn-inner--text">
-                                                My Profile
-                                            </span>
-
-                                        </a>
-
+                                    <div class="workflow-step-icon" style="background: rgba(255, 110, 196, 0.15); color: #ff6ec4;">
+                                        <i class="fas fa-file-alt"></i>
                                     </div>
-
                                 </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="separator separator-bottom separator-skew zindex-100">
-                    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none">
-                        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="section features-6">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-
-                            <div class="info info-horizontal info-hover-primary">
-                                <div class="description pl-4">
-                                    <h5 class="title">Resume & Job Analysis</h5>
-                                    <p>
-                                        Compare your resume with target job descriptions and discover
-                                        matched skills, missing skills, and improvement areas.
-                                    </p>
+                                <div class="workflow-connector"></div>
+                                <div class="workflow-step">
+                                    <div class="workflow-step-number n2">2</div>
+                                    <div class="workflow-step-content">
+                                        <div class="workflow-step-title">Skill Gap Analysis</div>
+                                        <div class="workflow-step-desc">AI identifies missing skills</div>
+                                    </div>
+                                    <div class="workflow-step-icon" style="background: rgba(64, 201, 255, 0.15); color: #40c9ff;">
+                                        <i class="fas fa-search"></i>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="info info-horizontal info-hover-primary mt-5">
-                                <div class="description pl-4">
-                                    <h5 class="title">AI Mock Interview</h5>
-                                    <p>
-                                        Practice behavioral and technical interview questions tailored
-                                        to your target role.
-                                    </p>
+                                <div class="workflow-connector"></div>
+                                <div class="workflow-step">
+                                    <div class="workflow-step-number n3">3</div>
+                                    <div class="workflow-step-content">
+                                        <div class="workflow-step-title">Mock Interview</div>
+                                        <div class="workflow-step-desc">Practice with AI interviewer</div>
+                                    </div>
+                                    <div class="workflow-step-icon" style="background: rgba(120, 115, 245, 0.15); color: #7873f5;">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                </div>
+                                <div class="workflow-connector"></div>
+                                <div class="workflow-step">
+                                    <div class="workflow-step-number n4">4</div>
+                                    <div class="workflow-step-content">
+                                        <div class="workflow-step-title">Learning Roadmap</div>
+                                        <div class="workflow-step-desc">Personalized skill improvement</div>
+                                    </div>
+                                    <div class="workflow-step-icon" style="background: rgba(76, 175, 80, 0.15); color: #4caf50;">
+                                        <i class="fas fa-route"></i>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="info info-horizontal info-hover-primary mt-5">
-                                <div class="description pl-4">
-                                    <h5 class="title">Personalized Roadmap</h5>
-                                    <p>
-                                        Follow a learning roadmap generated from your weaknesses and
-                                        track progress over time.
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-6 col-10 mx-md-auto">
-                            <img class="ml-lg-5" src="/assets/img/ill/ill.png" width="100%">
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="section features-1">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 mx-auto text-center">
-                            <span class="badge badge-primary badge-pill mb-3">Core Features</span>
-                            <h3 class="display-3">Prepare with data-driven feedback</h3>
-                            <p class="lead">
-                                Turn every practice session into measurable improvement.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <div class="info">
-                                <div class="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle">
-                                    <i class="ni ni-chart-bar-32"></i>
-                                </div>
-                                <h6 class="info-title text-uppercase text-primary">Readiness Score</h6>
-                                <p class="description opacity-8">
-                                    Measure how ready you are for your target role.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="info">
-                                <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle">
-                                    <i class="ni ni-chat-round"></i>
-                                </div>
-                                <h6 class="info-title text-uppercase text-success">Answer Feedback</h6>
-                                <p class="description opacity-8">
-                                    Receive feedback on clarity, relevance, structure, and technical accuracy.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="info">
-                                <div class="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle">
-                                    <i class="ni ni-map-big"></i>
-                                </div>
-                                <h6 class="info-title text-uppercase text-warning">Learning Path</h6>
-                                <p class="description opacity-8">
-                                    Know exactly what to practice next.
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
         </div>
+    </section>
 
-        <footer class="footer">
-            <div class="container">
-                <hr>
-                <div class="row align-items-center justify-content-md-between">
-                    <div class="col-md-6">
-                        <div class="copyright">
-                            &copy; 2026 AI Interview Platform
-                        </div>
+    <!-- ===== HOW IT WORKS ===== -->
+    <section id="how-it-works" class="section how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-cog"></i>
+                    Simple Process
+                </div>
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">
+                    Get started in minutes with our streamlined AI-powered interview preparation process
+                </p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon pink">
+                        <i class="fas fa-upload"></i>
                     </div>
+                    <h3 class="step-title">Upload Resume</h3>
+                    <p class="step-desc">Simply upload your resume and let our AI analyze your current skill set</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon blue">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="step-title">Choose Target Job</h3>
+                    <p class="step-desc">Select your dream job position to identify the skills you need</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon purple">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="step-title">AI Analysis</h3>
+                    <p class="step-desc">Our AI analyzes gaps and creates a personalized learning path</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon green">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="step-title">Improve & Get Hired</h3>
+                    <p class="step-desc">Practice interviews and track your progress to success</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="col-md-6">
-                        <ul class="nav nav-footer justify-content-end">
-                            <li class="nav-item">
-                                <a href="/" class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/Profile" class="nav-link">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/TargetJob" class="nav-link">Target Jobs</a>
-                            </li>
+    <!-- ===== FEATURES ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-star"></i>
+                    Powerful Features
+                </div>
+                <h2 class="section-title">Everything You Need to Succeed</h2>
+                <p class="section-subtitle">
+                    Comprehensive tools designed to help you prepare for interviews and land your dream job
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper pink">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Resume Analysis</h3>
+                        <p class="feature-desc">AI-powered analysis of your resume to highlight strengths and areas for improvement</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Skill extraction</li>
+                            <li><i class="fas fa-check"></i> ATS optimization tips</li>
+                            <li><i class="fas fa-check"></i> Keyword analysis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper blue">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Skill Gap Analysis</h3>
+                        <p class="feature-desc">Compare your skills against target job requirements to discover what to learn next</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Matched skills highlighting</li>
+                            <li><i class="fas fa-check"></i> Missing skills detection</li>
+                            <li><i class="fas fa-check"></i> Gap prioritization</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper purple">
+                        <i class="fas fa-user-robot"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">AI Mock Interview</h3>
+                        <p class="feature-desc">Practice with an AI interviewer that adapts to your skill level and provides instant feedback</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Real-time responses</li>
+                            <li><i class="fas fa-check"></i> Detailed feedback</li>
+                            <li><i class="fas fa-check"></i> Multiple domains</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper green">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Personalized Roadmap</h3>
+                        <p class="feature-desc">Get a customized learning path that guides you from beginner to interview-ready</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Milestone tracking</li>
+                            <li><i class="fas fa-check"></i> AI-generated activities</li>
+                            <li><i class="fas fa-check"></i> Progress analytics</li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
+    </section>
 
-    </div>
+    <!-- ===== PREVIEW SECTIONS ===== -->
+    <section class="section preview-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-eye"></i>
+                    See It In Action
+                </div>
+                <h2 class="section-title">Experience the Platform</h2>
+                <p class="section-subtitle">
+                    Preview how our AI-powered tools work together to prepare you for success
+                </p>
+            </div>
 
-    <script src="/assets/js/core/jquery.min.js"></script>
-    <script src="/assets/js/core/popper.min.js"></script>
-    <script src="/assets/js/core/bootstrap.min.js"></script>
-    <script src="/assets/js/argon-design-system.min.js?v=1.2.2"></script>
+            <div class="preview-grid">
+                <!-- Readiness Score Preview -->
+                <div class="preview-card">
+                    <div class="preview-card-header">
+                        <div class="preview-card-icon purple">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="preview-card-title">Readiness Score</h3>
+                    </div>
+                    <div class="preview-card-body">
+                        <div class="readiness-display">
+                            <div class="score-circle">
+                                <svg width="120" height="120" viewBox="0 0 120 120">
+                                    <defs>
+                                        <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#ff6ec4"/>
+                                            <stop offset="100%" style="stop-color:#7873f5"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="score-bg" cx="60" cy="60" r="50"/>
+                                    <circle class="score-fill" cx="60" cy="60" r="50"/>
+                                </svg>
+                                <div class="score-text">
+                                    <div class="score-value">72%</div>
+                                    <div class="score-label">Ready</div>
+                                </div>
+                            </div>
+                            <div class="missing-skills">
+                                <div class="missing-skills-title">Skills to Improve</div>
+                                <span class="skill-tag">
+                                    <i class="fas fa-times-circle"></i>
+                                    Docker
+                                </span>
+                                <span class="skill-tag">
+                                    <i class="fas fa-times-circle"></i>
+                                    Redis
+                                </span>
+                                <span class="skill-tag">
+                                    <i class="fas fa-times-circle"></i>
+                                    Microservices
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <script src="/js/api.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/site.js"></script>
+                <!-- Roadmap Preview -->
+                <div class="preview-card">
+                    <div class="preview-card-header">
+                        <div class="preview-card-icon green">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3 class="preview-card-title">Learning Roadmap</h3>
+                    </div>
+                    <div class="preview-card-body">
+                        <div class="roadmap-preview">
+                            <div class="roadmap-item">
+                                <div class="roadmap-marker completed">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="roadmap-info">
+                                    <div class="roadmap-title">Docker Fundamentals</div>
+                                    <div class="roadmap-meta">3 activities</div>
+                                </div>
+                                <span class="roadmap-status completed">Completed</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <div class="roadmap-marker active">2</div>
+                                <div class="roadmap-info">
+                                    <div class="roadmap-title">Container Orchestration</div>
+                                    <div class="roadmap-meta">4 activities</div>
+                                </div>
+                                <span class="roadmap-status active">In Progress</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <div class="roadmap-marker pending">3</div>
+                                <div class="roadmap-info">
+                                    <div class="roadmap-title">Microservices Architecture</div>
+                                    <div class="roadmap-meta">5 activities</div>
+                                </div>
+                                <span class="roadmap-status pending">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- ===== INTERVIEW PREVIEW ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-comments"></i>
+                    AI Interviewer
+                </div>
+                <h2 class="section-title">Practice Makes Perfect</h2>
+                <p class="section-subtitle">
+                    Experience realistic AI-powered interview sessions with instant feedback
+                </p>
+            </div>
+            <div class="interview-preview">
+                <div class="interview-chat">
+                    <div class="chat-header">
+                        <div class="chat-header-left">
+                            <div class="chat-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="chat-info">
+                                <h4>AI Interviewer</h4>
+                                <span><i class="fas fa-circle"></i> Online</span>
+                            </div>
+                        </div>
+                        <div style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">
+                            <i class="fas fa-clock"></i> 12:34
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="chat-message ai">
+                            <div class="message-avatar ai">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-bubble ai">
+                                Hello! I'm your AI interview assistant. Can you tell me about your experience with containerization technologies like Docker?
+                            </div>
+                        </div>
+                        <div class="chat-message user">
+                            <div class="message-avatar user">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-bubble user">
+                                I've used Docker in several projects for packaging applications. I'm familiar with creating Dockerfiles, docker-compose, and basic container management.
+                            </div>
+                        </div>
+                        <div class="chat-message ai">
+                            <div class="message-avatar ai">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-bubble ai">
+                                Great! Can you explain the difference between a Docker image and a container?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-card">
+                        <div class="feedback-header">
+                            <div class="feedback-title">
+                                <i class="fas fa-chart-bar"></i>
+                                Interview Feedback
+                            </div>
+                            <div class="feedback-score">
+                                <i class="fas fa-star"></i> 85/100
+                            </div>
+                        </div>
+                        <div class="feedback-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Good explanation of Docker fundamentals</span>
+                        </div>
+                        <div class="feedback-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Clear communication of technical concepts</span>
+                        </div>
+                        <div class="feedback-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Strong practical experience demonstrated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FINAL CTA ===== -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Ace Your Next Interview?</h2>
+                <p class="cta-subtitle">
+                    Join thousands of professionals who have improved their interview skills with our AI-powered platform
+                </p>
+                <a href="/Auth/Register" class="btn-cta">
+                    <i class="fas fa-rocket"></i>
+                    Start Your Journey
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- SVG Definitions -->
+<svg width="0" height="0">
+    <defs>
+        <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ff6ec4"/>
+            <stop offset="100%" style="stop-color:#7873f5"/>
+        </linearGradient>
+    </defs>
+</svg>
+
+@section Scripts {
+    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
+    
     <script>
-        const slogans = [
-            "Practice smarter. Interview better.",
-            "Discover your dream career with AI.",
-            "Explore personalized interview roadmaps.",
-            "Train with realistic mock interviews.",
-            "Boost your confidence before every interview.",
-            "Start your AI-powered career journey today."
-        ];
-
-        let sloganIndex = 0;
-        let charIndex = 0;
-        let currentText = "";
-        let deleting = false;
-
-        const typedText =
-            document.getElementById("typedText");
-
-        function typeEffect() {
-            currentText = slogans[sloganIndex];
-
-            if (!deleting) {
-                typedText.textContent =
-                    currentText.substring(0, charIndex);
-
-                charIndex++;
-            }
-            else {
-                typedText.textContent =
-                    currentText.substring(0, charIndex);
-
-                charIndex--;
-            }
-
-            let speed = deleting ? 40 : 80;
-
-            if (!deleting && charIndex > currentText.length) {
-                deleting = true;
-                speed = 1500;
-            }
-
-            if (deleting && charIndex < 0) {
-                deleting = false;
-
-                sloganIndex++;
-
-                if (sloganIndex >= slogans.length) {
-                    sloganIndex = 0;
-                }
-
-                speed = 400;
-            }
-
-            setTimeout(typeEffect, speed);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const user =
-                JSON.parse(localStorage.getItem("user"));
-
-            if (user && user.fullName) {
-                document.getElementById("welcomeUserName")
-                    .innerText = user.fullName;
-            }
-
-            typeEffect();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll for demo button
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
-
-</body>
-</html>
+}

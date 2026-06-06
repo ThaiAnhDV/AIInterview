@@ -19,6 +19,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public string QuestionContent { get; set; } = string.Empty;
 
+        public string SkillFocus { get; set; } = string.Empty;
+
         public QuestionGeneratedBy GeneratedBy { get; set; } = QuestionGeneratedBy.AI;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
