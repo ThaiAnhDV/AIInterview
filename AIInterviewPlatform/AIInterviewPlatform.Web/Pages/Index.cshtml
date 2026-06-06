@@ -161,12 +161,15 @@
         border: 1px solid rgba(255, 255, 255, 0.06);
         border-radius: 12px;
         transition: all 0.3s ease;
+        cursor: pointer;
     }
 
-    .workflow-step:hover {
+    .workflow-step:hover,
+    .workflow-step:focus {
         background: rgba(255, 255, 255, 0.06);
         border-color: rgba(255, 110, 196, 0.3);
         transform: translateX(5px);
+        outline: none;
     }
 
     .workflow-step-number {
@@ -185,6 +188,7 @@
     .workflow-step-number.n2 { background: rgba(64, 201, 255, 0.2); color: #40c9ff; }
     .workflow-step-number.n3 { background: rgba(120, 115, 245, 0.2); color: #7873f5; }
     .workflow-step-number.n4 { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+    .workflow-step-number.n5 { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
 
     .workflow-step-content {
         flex: 1;
@@ -263,7 +267,7 @@
 
     .steps-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 24px;
         position: relative;
     }
@@ -277,12 +281,15 @@
         text-align: center;
         position: relative;
         transition: all 0.3s ease;
+        cursor: pointer;
     }
 
-    .step-card:hover {
+    .step-card:hover,
+    .step-card:focus {
         transform: translateY(-8px);
         border-color: rgba(255, 110, 196, 0.3);
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        outline: none;
     }
 
     .step-number {
@@ -923,7 +930,7 @@
                         <div class="workflow-diagram">
                             <div class="workflow-title">Your Journey to Success</div>
                             <div class="workflow-steps">
-                                <div class="workflow-step">
+                                <div class="workflow-step" onclick="window.location.href='/Resume'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/Resume')">
                                     <div class="workflow-step-number n1">1</div>
                                     <div class="workflow-step-content">
                                         <div class="workflow-step-title">Upload Resume</div>
@@ -934,36 +941,47 @@
                                     </div>
                                 </div>
                                 <div class="workflow-connector"></div>
-                                <div class="workflow-step">
+                                <div class="workflow-step" onclick="window.location.href='/TargetJob'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/TargetJob')">
                                     <div class="workflow-step-number n2">2</div>
+                                    <div class="workflow-step-content">
+                                        <div class="workflow-step-title">Target Job & JD</div>
+                                        <div class="workflow-step-desc">Create your target job and JD</div>
+                                    </div>
+                                    <div class="workflow-step-icon" style="background: rgba(64, 201, 255, 0.15); color: #40c9ff;">
+                                        <i class="fas fa-bullseye"></i>
+                                    </div>
+                                </div>
+                                <div class="workflow-connector"></div>
+                                <div class="workflow-step" onclick="window.location.href='/SkillGap'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/SkillGap')">
+                                    <div class="workflow-step-number n3">3</div>
                                     <div class="workflow-step-content">
                                         <div class="workflow-step-title">Skill Gap Analysis</div>
                                         <div class="workflow-step-desc">AI identifies missing skills</div>
                                     </div>
-                                    <div class="workflow-step-icon" style="background: rgba(64, 201, 255, 0.15); color: #40c9ff;">
+                                    <div class="workflow-step-icon" style="background: rgba(120, 115, 245, 0.15); color: #7873f5;">
                                         <i class="fas fa-search"></i>
                                     </div>
                                 </div>
                                 <div class="workflow-connector"></div>
-                                <div class="workflow-step">
-                                    <div class="workflow-step-number n3">3</div>
+                                <div class="workflow-step" onclick="window.location.href='/Interview'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/Interview')">
+                                    <div class="workflow-step-number n4">4</div>
                                     <div class="workflow-step-content">
                                         <div class="workflow-step-title">Mock Interview</div>
                                         <div class="workflow-step-desc">Practice with AI interviewer</div>
                                     </div>
-                                    <div class="workflow-step-icon" style="background: rgba(120, 115, 245, 0.15); color: #7873f5;">
+                                    <div class="workflow-step-icon" style="background: rgba(76, 175, 80, 0.15); color: #4caf50;">
                                         <i class="fas fa-comments"></i>
                                     </div>
                                 </div>
                                 <div class="workflow-connector"></div>
-                                <div class="workflow-step">
-                                    <div class="workflow-step-number n4">4</div>
+                                <div class="workflow-step" onclick="window.location.href='/Roadmap'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/Roadmap')">
+                                    <div class="workflow-step-number n5">5</div>
                                     <div class="workflow-step-content">
                                         <div class="workflow-step-title">Learning Roadmap</div>
                                         <div class="workflow-step-desc">Personalized skill improvement</div>
                                     </div>
-                                    <div class="workflow-step-icon" style="background: rgba(76, 175, 80, 0.15); color: #4caf50;">
-                                        <i class="fas fa-route"></i>
+                                    <div class="workflow-step-icon" style="background: rgba(255, 193, 7, 0.15); color: #ffc107;">
+                                        <i class="fas fa-map"></i>
                                     </div>
                                 </div>
                             </div>
@@ -988,7 +1006,7 @@
                 </p>
             </div>
             <div class="steps-grid">
-                <div class="step-card">
+                <div class="step-card" onclick="window.location.href='/Resume'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/Resume')">
                     <div class="step-number">1</div>
                     <div class="step-icon pink">
                         <i class="fas fa-upload"></i>
@@ -996,24 +1014,32 @@
                     <h3 class="step-title">Upload Resume</h3>
                     <p class="step-desc">Simply upload your resume and let our AI analyze your current skill set</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" onclick="window.location.href='/TargetJob'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/TargetJob')">
                     <div class="step-number">2</div>
                     <div class="step-icon blue">
                         <i class="fas fa-bullseye"></i>
                     </div>
-                    <h3 class="step-title">Choose Target Job</h3>
-                    <p class="step-desc">Select your dream job position to identify the skills you need</p>
+                    <h3 class="step-title">Target Job & JD</h3>
+                    <p class="step-desc">Create your target job and add the job description</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" onclick="window.location.href='/SkillGap'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/SkillGap')">
                     <div class="step-number">3</div>
                     <div class="step-icon purple">
-                        <i class="fas fa-brain"></i>
+                        <i class="fas fa-search"></i>
                     </div>
                     <h3 class="step-title">AI Analysis</h3>
                     <p class="step-desc">Our AI analyzes gaps and creates a personalized learning path</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" onclick="window.location.href='/Interview'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/Interview')">
                     <div class="step-number">4</div>
+                    <div class="step-icon green">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="step-title">Mock Interview</h3>
+                    <p class="step-desc">Practice interviews and get feedback from AI</p>
+                </div>
+                <div class="step-card" onclick="window.location.href='/Roadmap'" role="button" tabindex="0" onkeydown="handleWorkflowKey(event, '/Roadmap')">
+                    <div class="step-number">5</div>
                     <div class="step-icon green">
                         <i class="fas fa-trophy"></i>
                     </div>
@@ -1040,7 +1066,7 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper pink">
-                        <i class="fas fa-file-medical"></i>
+                        <i class="fas fa-file-alt"></i>
                     </div>
                     <div class="feature-content">
                         <h3 class="feature-title">Resume Analysis</h3>
@@ -1068,7 +1094,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper purple">
-                        <i class="fas fa-user-robot"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
                     <div class="feature-content">
                         <h3 class="feature-title">AI Mock Interview</h3>
@@ -1082,7 +1108,7 @@
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper green">
-                        <i class="fas fa-map-marked-alt"></i>
+                        <i class="fas fa-map"></i>
                     </div>
                     <div class="feature-content">
                         <h3 class="feature-title">Personalized Roadmap</h3>
@@ -1162,7 +1188,7 @@
                 <div class="preview-card">
                     <div class="preview-card-header">
                         <div class="preview-card-icon green">
-                            <i class="fas fa-route"></i>
+                            <i class="fas fa-map"></i>
                         </div>
                         <h3 class="preview-card-title">Learning Roadmap</h3>
                     </div>
@@ -1315,6 +1341,13 @@
     @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
     
     <script>
+        function handleWorkflowKey(event, url) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                window.location.href = url;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Smooth scroll for demo button
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {

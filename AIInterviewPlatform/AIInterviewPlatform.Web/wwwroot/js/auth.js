@@ -2,7 +2,7 @@
 // AuthManager - Centralized Authentication State Management
 // =============================================================================
 
-const AuthManager = (function() {
+const AuthManager = (function () {
     'use strict';
 
     // Private state
@@ -88,9 +88,9 @@ const AuthManager = (function() {
 
             if (response.ok) {
                 const result = await response.json();
-                return { 
-                    valid: true, 
-                    user: result.data || result 
+                return {
+                    valid: true,
+                    user: result.data || result
                 };
             } else if (response.status === 401) {
                 // Token is invalid or expired
@@ -242,9 +242,63 @@ const AuthManager = (function() {
 // =============================================================================
 
 async function register() {
-    const fullName = document.getElementById("registerFullName").value;
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
+
+    const fullName =
+        document.getElementById("registerFullName")
+            .value
+            .trim();
+
+    const email =
+        document.getElementById("registerEmail")
+            .value
+            .trim();
+
+    const password =
+        document.getElementById("registerPassword")
+            .value;
+
+    const agree =
+        document.getElementById("customCheckRegister")
+            .checked;
+
+    if (!fullName) {
+        showToast("Full name is required.", "error");
+        return;
+    }
+
+    if (!email) {
+        showToast("Email is required.", "error");
+        return;
+    }
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
+        showToast("Invalid email format.", "error");
+        return;
+    }
+
+    if (!password) {
+        showToast("Password is required.", "error");
+        return;
+    }
+
+    if (password.length < 6) {
+        showToast(
+            "Password must be at least 6 characters.",
+            "error"
+        );
+        return;
+    }
+
+    if (!agree) {
+        showToast(
+            "Please accept Privacy Policy.",
+            "error"
+        );
+        return;
+    }
 
     try {
         const response = await fetch(`${API_BASE_URL}/Auth/register`, {
@@ -268,7 +322,16 @@ async function register() {
                 window.location.href = "/Auth/Login";
             }, 1200);
         } else {
-            showToast(result.message || "Register failed!", "error");
+
+            if (result.errors && Array.isArray(result.errors)) {
+                showToast(result.errors.join("<br>"), "error");
+            }
+            else {
+                showToast(
+                    result.message || "Register failed!",
+                    "error"
+                );
+            }
         }
     } catch (error) {
         showToast("Cannot connect to server!", "error");
@@ -357,11 +420,18 @@ async function login() {
 
             setLoginLoading(false);
 
-            const serverMessage =
-                result?.message ||
-                result?.detail ||
-                result?.title ||
-                "";
+            let serverMessage = "";
+
+            if (result?.errors && Array.isArray(result.errors)) {
+                serverMessage = result.errors.join(", ");
+            }
+            else {
+                serverMessage =
+                    result?.message ||
+                    result?.detail ||
+                    result?.title ||
+                    "";
+            }
 
             const lower = serverMessage.toLowerCase();
 
@@ -372,7 +442,7 @@ async function login() {
             ) {
 
                 showToast(
-                    "Email or password is invalid.",
+                    serverMessage || "Login failed.",
                     "error"
                 );
 

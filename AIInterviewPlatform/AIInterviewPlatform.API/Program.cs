@@ -72,6 +72,7 @@ builder.Services.AddScoped<IMilestoneGeneratorService, MilestoneGeneratorService
 builder.Services.AddHttpClient<IActivityDescriptionService, ActivityDescriptionService>();
 builder.Services.AddHttpClient<IInterviewQuestionGeneratorService, InterviewQuestionGeneratorService>();
 builder.Services.AddHttpClient<IInterviewEvaluationService, InterviewEvaluationService>();
+builder.Services.AddHttpClient<IAssistantChatService, AssistantChatService>();
 builder.Services.AddScoped<IInterviewEvaluationApplicationService, InterviewEvaluationApplicationService>();
 builder.Services.AddScoped<IRoadmapApplicationService, RoadmapApplicationService>();
 builder.Services.AddScoped<IInterviewSessionRepository, InterviewSessionRepository>();
