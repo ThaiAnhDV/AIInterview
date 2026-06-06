@@ -14,7 +14,7 @@ public class ActivityDescriptionService : IActivityDescriptionService
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<ActivityDescriptionService> _logger;
-    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     public ActivityDescriptionService(
         HttpClient httpClient,

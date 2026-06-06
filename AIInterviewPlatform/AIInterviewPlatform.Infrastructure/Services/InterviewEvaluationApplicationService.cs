@@ -33,16 +33,25 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
     {
         _logger.LogInformation("Evaluating answer {AnswerId}", answerId);
 
-        var answer = await LoadInterviewAnswerAsync(answerId, cancellationToken);
-        var question = await LoadInterviewQuestionAsync(answer.InterviewQuestionId, cancellationToken);
+        var answerLoad = await LoadInterviewAnswerAsync(answerId, cancellationToken);
+        if (!answerLoad.Success)
+        {
+            return answerLoad.Error!;
+        }
+
+        var questionLoad = await LoadInterviewQuestionAsync(answerLoad.Answer!.InterviewQuestionId, cancellationToken);
+        if (!questionLoad.Success)
+        {
+            return questionLoad.Error!;
+        }
 
         if (await HasExistingEvaluationAsync(answerId, cancellationToken))
         {
             _logger.LogWarning("Answer {AnswerId} already has an evaluation", answerId);
-            throw new InvalidOperationException($"Answer {answerId} has already been evaluated.");
+            return CreateFailure("ALREADY_EVALUATED", $"Answer {answerId} has already been evaluated.");
         }
 
-        var request = BuildEvaluationRequest(question, answer);
+        var request = BuildEvaluationRequest(questionLoad.Question!, answerLoad.Answer);
         var result = await _evaluationService.EvaluateAnswerAsync(request, cancellationToken);
 
         await PersistEvaluationAsync(answerId, result, cancellationToken);
@@ -62,16 +71,25 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
     {
         _logger.LogInformation("Evaluating answer {AnswerId} for user {UserId}", answerId, userId);
 
-        var answer = await LoadInterviewAnswerWithUserValidationAsync(answerId, userId, cancellationToken);
-        var question = await LoadInterviewQuestionAsync(answer.InterviewQuestionId, cancellationToken);
+        var answerLoad = await LoadInterviewAnswerWithUserValidationAsync(answerId, userId, cancellationToken);
+        if (!answerLoad.Success)
+        {
+            return answerLoad.Error!;
+        }
+
+        var questionLoad = await LoadInterviewQuestionAsync(answerLoad.Answer!.InterviewQuestionId, cancellationToken);
+        if (!questionLoad.Success)
+        {
+            return questionLoad.Error!;
+        }
 
         if (await HasExistingEvaluationAsync(answerId, cancellationToken))
         {
             _logger.LogWarning("Answer {AnswerId} already has an evaluation", answerId);
-            throw new InvalidOperationException($"Answer {answerId} has already been evaluated.");
+            return CreateFailure("ALREADY_EVALUATED", $"Answer {answerId} has already been evaluated.");
         }
 
-        var request = BuildEvaluationRequest(question, answer);
+        var request = BuildEvaluationRequest(questionLoad.Question!, answerLoad.Answer);
         var result = await _evaluationService.EvaluateAnswerAsync(request, cancellationToken);
 
         await PersistEvaluationAsync(answerId, result, cancellationToken);
@@ -99,6 +117,11 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         EvaluationResultDto result,
         CancellationToken cancellationToken)
     {
+        if (!result.Success)
+        {
+            return;
+        }
+
         await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 
         try
@@ -155,7 +178,7 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         };
     }
 
-    private async Task<InterviewAnswer> LoadInterviewAnswerAsync(
+    private async Task<AnswerLoadResult> LoadInterviewAnswerAsync(
         long answerId,
         CancellationToken cancellationToken)
     {
@@ -166,13 +189,13 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         if (answer == null)
         {
             _logger.LogWarning("Interview answer {AnswerId} not found", answerId);
-            throw new InvalidOperationException($"Interview answer with ID {answerId} not found.");
+            return AnswerLoadResult.Fail(CreateFailure("ANSWER_NOT_FOUND", $"Interview answer with ID {answerId} not found."));
         }
 
-        return answer;
+        return AnswerLoadResult.Ok(answer);
     }
 
-    private async Task<InterviewAnswer> LoadInterviewAnswerWithUserValidationAsync(
+    private async Task<AnswerLoadResult> LoadInterviewAnswerWithUserValidationAsync(
         long answerId,
         long userId,
         CancellationToken cancellationToken)
@@ -185,7 +208,7 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         if (answer == null)
         {
             _logger.LogWarning("Interview answer {AnswerId} not found", answerId);
-            throw new InvalidOperationException($"Interview answer with ID {answerId} not found.");
+            return AnswerLoadResult.Fail(CreateFailure("ANSWER_NOT_FOUND", $"Interview answer with ID {answerId} not found."));
         }
 
         if (answer.InterviewSession.UserId != userId)
@@ -194,13 +217,13 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
                 "User {UserId} attempted to access answer {AnswerId} belonging to another user",
                 userId,
                 answerId);
-            throw new UnauthorizedAccessException("You do not have permission to access this answer.");
+            return AnswerLoadResult.Fail(CreateFailure("UNAUTHORIZED", "You do not have permission to access this answer."));
         }
 
-        return answer;
+        return AnswerLoadResult.Ok(answer);
     }
 
-    private async Task<InterviewQuestion> LoadInterviewQuestionAsync(
+    private async Task<QuestionLoadResult> LoadInterviewQuestionAsync(
         long questionId,
         CancellationToken cancellationToken)
     {
@@ -212,10 +235,10 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         if (question == null)
         {
             _logger.LogWarning("Interview question {QuestionId} not found", questionId);
-            throw new InvalidOperationException($"Interview question with ID {questionId} not found.");
+            return QuestionLoadResult.Fail(CreateFailure("QUESTION_NOT_FOUND", $"Interview question with ID {questionId} not found."));
         }
 
-        return question;
+        return QuestionLoadResult.Ok(question);
     }
 
     private static EvaluationRequestDto BuildEvaluationRequest(
@@ -229,5 +252,37 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
             Category = question.Category?.CategoryName,
             SkillFocus = question.SkillFocus
         };
+    }
+
+    private static EvaluationResultDto CreateFailure(string errorCode, string message)
+    {
+        return new EvaluationResultDto
+        {
+            Success = false,
+            ErrorCode = errorCode,
+            Message = message,
+            Feedback = message,
+            Improvement = string.Empty
+        };
+    }
+
+    private sealed class AnswerLoadResult
+    {
+        public bool Success { get; init; }
+        public InterviewAnswer? Answer { get; init; }
+        public EvaluationResultDto? Error { get; init; }
+
+        public static AnswerLoadResult Ok(InterviewAnswer answer) => new() { Success = true, Answer = answer };
+        public static AnswerLoadResult Fail(EvaluationResultDto error) => new() { Success = false, Error = error };
+    }
+
+    private sealed class QuestionLoadResult
+    {
+        public bool Success { get; init; }
+        public InterviewQuestion? Question { get; init; }
+        public EvaluationResultDto? Error { get; init; }
+
+        public static QuestionLoadResult Ok(InterviewQuestion question) => new() { Success = true, Question = question };
+        public static QuestionLoadResult Fail(EvaluationResultDto error) => new() { Success = false, Error = error };
     }
 }

@@ -46,16 +46,21 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
         if (request.MissingSkills == null || request.MissingSkills.Count == 0)
         {
-            throw new ArgumentException("Missing skills list cannot be empty");
+            return CreateFailureRoadmap("INVALID_REQUEST", "Missing skills list cannot be empty");
         }
 
         var milestones = _milestoneGenerator.GenerateMilestones(request.MissingSkills);
 
         var roadmap = await CreateRoadmapWithMilestonesAsync(
-            userId, 
-            milestones, 
-            null, 
+            userId,
+            milestones,
+            null,
             null);
+
+        if (!roadmap.Success)
+        {
+            return roadmap;
+        }
 
         _logger.LogInformation(
             "Roadmap {RoadmapId} generated with {MilestoneCount} milestones",
@@ -82,7 +87,7 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
         if (analysis == null)
         {
-            throw new InvalidOperationException("Skill gap analysis not found");
+            return CreateFailureRoadmap("SKILL_GAP_ANALYSIS_NOT_FOUND", "Skill gap analysis not found");
         }
 
         var skillGaps = analysis.SkillGaps
@@ -91,13 +96,11 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
         var milestones = _milestoneGenerator.GenerateMilestones(skillGaps);
 
-        var roadmap = await CreateRoadmapWithMilestonesAsync(
+        return await CreateRoadmapWithMilestonesAsync(
             userId,
             milestones,
             request.SkillGapAnalysisId,
             analysis.JobDescription.TargetJobId);
-
-        return roadmap;
     }
 
     public async Task<RoadmapDto?> GetRoadmapByIdAsync(long userId, long roadmapId)
@@ -132,12 +135,21 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         long userId,
         long activityId)
     {
-        var (success, errorMessage, milestoneId, milestoneCompleted, milestoneProgress, roadmapProgress) = 
+        var (success, errorMessage, milestoneId, milestoneCompleted, milestoneProgress, roadmapProgress) =
             await _roadmapUnitOfWork.CompleteActivityAsync(activityId);
 
         if (!success)
         {
-            throw new InvalidOperationException(errorMessage ?? "Failed to complete activity");
+            return new ActivityCompletionResultDto
+            {
+                MilestoneId = milestoneId,
+                IsMilestoneCompleted = false,
+                MilestoneProgress = milestoneProgress,
+                RoadmapProgress = roadmapProgress,
+                RemainingActivities = 0,
+                Success = false,
+                Message = errorMessage ?? "Failed to complete activity"
+            };
         }
 
         return new ActivityCompletionResultDto
@@ -146,7 +158,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             IsMilestoneCompleted = milestoneCompleted,
             MilestoneProgress = milestoneProgress,
             RoadmapProgress = roadmapProgress,
-            RemainingActivities = 0
+            RemainingActivities = 0,
+            Success = true
         };
     }
 
@@ -239,15 +252,27 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
         if (!success)
         {
-            throw new InvalidOperationException($"Failed to save roadmap: {errorMessage}");
+            return CreateFailureRoadmap("ROADMAP_SAVE_FAILED", $"Failed to save roadmap: {errorMessage}");
         }
 
         _logger.LogInformation(
             "Roadmap {RoadmapId} saved successfully with {MilestoneCount} milestones and {ActivityCount} activities",
             roadmapId, milestonesToSave.Count, activitiesToSave.Count);
 
-        return await GetRoadmapByIdAsync(userId, roadmapId)
-            ?? throw new InvalidOperationException("Failed to retrieve created roadmap");
+        var createdRoadmap = await GetRoadmapByIdAsync(userId, roadmapId);
+        if (createdRoadmap == null)
+        {
+            return CreateFailureRoadmap("ROADMAP_LOAD_FAILED", "Failed to retrieve created roadmap");
+        }
+
+        createdRoadmap.Success = true;
+        createdRoadmap.IsAiFallback = geminiFailureCount > 0;
+        if (geminiFailureCount > 0)
+        {
+            createdRoadmap.Message = "Roadmap generated with fallback activity content due to temporary AI issues.";
+        }
+
+        return createdRoadmap;
     }
 
     private async Task<ActivityDescriptionResponse?> TryGenerateWithGeminiAsync(
@@ -283,7 +308,7 @@ public class RoadmapApplicationService : IRoadmapApplicationService
     private void LogGeminiFailure(Exception ex, string skillName, string errorType)
     {
         var statusCode = GetHttpStatusCode(ex);
-        
+
         if (statusCode.HasValue)
         {
             _logger.LogWarning(
@@ -316,7 +341,7 @@ public class RoadmapApplicationService : IRoadmapApplicationService
     private static bool ShouldEnhanceWithGemini(ActivityDto activity)
     {
         var defaultKeywords = new[] { "fundamentals", "practice", "project", "Study", "Build" };
-        return defaultKeywords.Any(k => 
+        return defaultKeywords.Any(k =>
             activity.ActivityTitle.Contains(k, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -328,7 +353,7 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         }
 
         var skill = await _context.Skills
-            .FirstOrDefaultAsync(x => 
+            .FirstOrDefaultAsync(x =>
                 x.SkillName.ToLower() == skillName.ToLower());
 
         if (skill == null)
@@ -344,70 +369,6 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         }
 
         return skill.Id;
-    }
-
-    private async Task<(long Id, bool IsCompleted, decimal CompletionPercentage)> UpdateMilestoneCompletionAsync(long milestoneId)
-    {
-        var milestone = await _context.RoadmapMilestones
-            .Include(x => x.LearningActivities)
-            .FirstAsync(x => x.Id == milestoneId);
-
-        var activities = milestone.LearningActivities.ToList();
-        var completedCount = activities.Count(a => a.IsCompleted);
-        var percentage = activities.Count == 0 
-            ? 0 
-            : Math.Round((decimal)completedCount / activities.Count * 100, 2);
-
-        milestone.IsCompleted = activities.Count > 0 && activities.All(a => a.IsCompleted);
-
-        await _context.SaveChangesAsync();
-
-        return (milestone.Id, milestone.IsCompleted, percentage);
-    }
-
-    private async Task<(long Id, decimal CompletionPercentage)> UpdateRoadmapProgressAsync(long roadmapId)
-    {
-        var roadmap = await _context.LearningRoadmaps
-            .Include(x => x.RoadmapMilestones)
-                .ThenInclude(x => x.LearningActivities)
-            .Include(x => x.RoadmapProgress)
-            .FirstAsync(x => x.Id == roadmapId);
-
-        var allActivities = roadmap.RoadmapMilestones
-            .SelectMany(m => m.LearningActivities)
-            .ToList();
-
-        var completedCount = allActivities.Count(a => a.IsCompleted);
-        var percentage = allActivities.Count == 0
-            ? 0
-            : Math.Round((decimal)completedCount / allActivities.Count * 100, 2);
-
-        if (roadmap.RoadmapProgress == null)
-        {
-            roadmap.RoadmapProgress = new RoadmapProgress
-            {
-                LearningRoadmapId = roadmapId
-            };
-            _context.RoadmapProgresses.Add(roadmap.RoadmapProgress);
-        }
-
-        roadmap.RoadmapProgress.CompletionPercentage = percentage;
-        roadmap.RoadmapProgress.LastUpdatedAt = DateTime.UtcNow;
-        roadmap.UpdatedAt = DateTime.UtcNow;
-
-        if (percentage >= 100)
-        {
-            roadmap.RoadmapStatus = RoadmapStatus.COMPLETED;
-        }
-
-        await _context.SaveChangesAsync();
-
-        return (roadmap.Id, percentage);
-    }
-
-    private static int GetRemainingActivitiesCount(RoadmapMilestone milestone)
-    {
-        return milestone.LearningActivities.Count(a => !a.IsCompleted);
     }
 
     private static string GenerateRoadmapTitle(long? skillGapAnalysisId, long? targetJobId)
@@ -430,8 +391,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             { "kubernetes", "Kubernetes" }
         };
 
-        return knownMappings.TryGetValue(skill, out var normalized) 
-            ? normalized 
+        return knownMappings.TryGetValue(skill, out var normalized)
+            ? normalized
             : skill;
     }
 
@@ -444,6 +405,17 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             "MOCK_INTERVIEW" => Domain.Enum.ActivityType.MOCK_INTERVIEW,
             "QUIZ" => Domain.Enum.ActivityType.QUIZ,
             _ => Domain.Enum.ActivityType.OTHER
+        };
+    }
+
+    private static RoadmapDto CreateFailureRoadmap(string errorCode, string message)
+    {
+        return new RoadmapDto
+        {
+            Success = false,
+            ErrorCode = errorCode,
+            Message = message,
+            RoadmapStatus = "FAILED"
         };
     }
 }

@@ -40,102 +40,61 @@ public class RoadmapController : ControllerBase
     [HttpPost("generate")]
     public async Task<IActionResult> GenerateRoadmap([FromBody] GenerateRoadmapApiRequest request)
     {
-        try
-        {
-            var userId = GetUserId();
-            
-            _logger.LogInformation(
-                "Generating roadmap for user {UserId} from analysis {AnalysisId}",
-                userId, request.SkillGapAnalysisId);
+        var userId = GetUserId();
 
-            var roadmap = await _roadmapService.GenerateRoadmapFromAnalysisAsync(
-                userId,
-                new GenerateRoadmapFromAnalysisRequest
-                {
-                    SkillGapAnalysisId = request.SkillGapAnalysisId,
-                    MilestonesPerSkill = request.MilestonesPerSkill,
-                    ActivitiesPerMilestone = request.ActivitiesPerMilestone
-                });
+        _logger.LogInformation(
+            "Generating roadmap for user {UserId} from analysis {AnalysisId}",
+            userId, request.SkillGapAnalysisId);
 
-            return Ok(new ApiResponse<RoadmapDto>
+        var roadmap = await _roadmapService.GenerateRoadmapFromAnalysisAsync(
+            userId,
+            new GenerateRoadmapFromAnalysisRequest
             {
-                Success = true,
-                Message = "Roadmap generated successfully",
-                Data = roadmap
+                SkillGapAnalysisId = request.SkillGapAnalysisId,
+                MilestonesPerSkill = request.MilestonesPerSkill,
+                ActivitiesPerMilestone = request.ActivitiesPerMilestone
             });
-        }
-        catch (InvalidOperationException ex)
+
+        return Ok(new ApiResponse<RoadmapDto>
         {
-            _logger.LogWarning(ex, "Invalid operation during roadmap generation");
-            return BadRequest(new ApiResponse<object>
-            {
-                Success = false,
-                Message = ex.Message
-            });
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error generating roadmap");
-            return StatusCode(500, new ApiResponse<object>
-            {
-                Success = false,
-                Message = "An error occurred while generating the roadmap"
-            });
-        }
+            Success = roadmap.Success,
+            Message = roadmap.Message ?? (roadmap.Success ? "Roadmap generated successfully" : "Roadmap generation failed"),
+            Data = roadmap
+        });
     }
 
     [HttpPost("generate-from-skills")]
     public async Task<IActionResult> GenerateRoadmapFromSkills([FromBody] GenerateRoadmapFromSkillsRequest request)
     {
-        try
-        {
-            var userId = GetUserId();
-            
-            _logger.LogInformation(
-                "Generating roadmap for user {UserId} with {Count} skills",
-                userId, request.Skills?.Count ?? 0);
+        var userId = GetUserId();
 
-            if (request.Skills == null || request.Skills.Count == 0)
-            {
-                return BadRequest(new ApiResponse<object>
-                {
-                    Success = false,
-                    Message = "Skills list cannot be empty"
-                });
-            }
+        _logger.LogInformation(
+            "Generating roadmap for user {UserId} with {Count} skills",
+            userId, request.Skills?.Count ?? 0);
 
-            var roadmap = await _roadmapService.GenerateRoadmapFromMissingSkillsAsync(
-                userId,
-                new GenerateRoadmapFromMissingSkillsRequest
-                {
-                    MissingSkills = request.Skills,
-                    TargetJobId = request.TargetJobId
-                });
-
-            return Ok(new ApiResponse<RoadmapDto>
-            {
-                Success = true,
-                Message = "Roadmap generated successfully",
-                Data = roadmap
-            });
-        }
-        catch (ArgumentException ex)
+        if (request.Skills == null || request.Skills.Count == 0)
         {
             return BadRequest(new ApiResponse<object>
             {
                 Success = false,
-                Message = ex.Message
+                Message = "Skills list cannot be empty"
             });
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error generating roadmap from skills");
-            return StatusCode(500, new ApiResponse<object>
+
+        var roadmap = await _roadmapService.GenerateRoadmapFromMissingSkillsAsync(
+            userId,
+            new GenerateRoadmapFromMissingSkillsRequest
             {
-                Success = false,
-                Message = "An error occurred while generating the roadmap"
+                MissingSkills = request.Skills,
+                TargetJobId = request.TargetJobId
             });
-        }
+
+        return Ok(new ApiResponse<RoadmapDto>
+        {
+            Success = roadmap.Success,
+            Message = roadmap.Message ?? (roadmap.Success ? "Roadmap generated successfully" : "Roadmap generation failed"),
+            Data = roadmap
+        });
     }
 
     [HttpGet]
@@ -205,19 +164,21 @@ public class RoadmapController : ControllerBase
             var userId = GetUserId();
             var result = await _roadmapService.CompleteActivityAsync(userId, activityId);
 
+            if (!result.Success)
+            {
+                return Ok(new ApiResponse<ActivityCompletionResultDto>
+                {
+                    Success = false,
+                    Message = result.Message,
+                    Data = result
+                });
+            }
+
             return Ok(new ApiResponse<ActivityCompletionResultDto>
             {
                 Success = true,
                 Message = "Activity completed successfully",
                 Data = result
-            });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return NotFound(new ApiResponse<object>
-            {
-                Success = false,
-                Message = ex.Message
             });
         }
         catch (Exception ex)
@@ -258,21 +219,26 @@ public class RoadmapController : ControllerBase
             var response = new SkillGapAnalysisPreviewDto
             {
                 AnalysisId = analysis.Id,
-                JobDescriptionTitle = analysis.JobDescription?.TargetJob?.JobTitle ?? "Unknown",
+                JobDescriptionTitle = analysis.JobDescription?.Content ?? "Unknown Job",
                 MissingSkillsCount = analysis.SkillGaps.Count,
-                MissingSkills = analysis.SkillGaps
-                    .Select(g => new SkillPreviewDto
-                    {
-                        SkillId = g.SkillId,
-                        SkillName = g.Skill.SkillName,
-                        GapLevel = g.GapLevel?.ToString() ?? "MEDIUM"
-                    })
-                    .ToList(),
-                ReadinessScore = await _context.ReadinessScores
-                    .Where(x => x.SkillGapAnalysisId == analysisId)
-                    .Select(x => x.Score)
-                    .FirstOrDefaultAsync()
+                MissingSkills = analysis.SkillGaps.Select(g => new SkillPreviewDto
+                {
+                    SkillId = g.SkillId,
+                    SkillName = g.Skill?.SkillName ?? "Unknown Skill",
+                    GapLevel = g.GapLevel?.ToString() ?? string.Empty
+                }).ToList(),
+                ReadinessScore = 0
             };
+
+            var score = await _context.ReadinessScores
+                .Where(x => x.SkillGapAnalysisId == analysisId)
+                .OrderByDescending(x => x.CalculatedAt)
+                .FirstOrDefaultAsync();
+
+            if (score != null)
+            {
+                response.ReadinessScore = score.Score;
+            }
 
             return Ok(new ApiResponse<SkillGapAnalysisPreviewDto>
             {
@@ -282,11 +248,50 @@ public class RoadmapController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error retrieving skill gap analysis {AnalysisId}", analysisId);
+            _logger.LogError(ex, "Error getting skill gap analysis for roadmap {AnalysisId}", analysisId);
             return StatusCode(500, new ApiResponse<object>
             {
                 Success = false,
-                Message = "An error occurred"
+                Message = "An error occurred while getting the skill gap analysis"
+            });
+        }
+    }
+
+    [HttpPost("preview-from-skills")]
+    public IActionResult PreviewRoadmapFromSkills([FromBody] GenerateRoadmapFromSkillsRequest request)
+    {
+        try
+        {
+            if (request.Skills == null || request.Skills.Count == 0)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "Skills list cannot be empty"
+                });
+            }
+
+            var milestones = _milestoneGenerator.GenerateMilestones(request.Skills);
+            var preview = new RoadmapPreviewDto
+            {
+                Milestones = milestones,
+                TotalSkills = request.Skills.Count,
+                EstimatedActivities = milestones.Sum(m => m.Activities.Count)
+            };
+
+            return Ok(new ApiResponse<RoadmapPreviewDto>
+            {
+                Success = true,
+                Data = preview
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error previewing roadmap from skills");
+            return StatusCode(500, new ApiResponse<object>
+            {
+                Success = false,
+                Message = "An error occurred while previewing the roadmap"
             });
         }
     }
@@ -297,12 +302,12 @@ public class RoadmapController : ControllerBase
     }
 }
 
-#region DTOs
+#region Request/Response DTOs
 
 public class GenerateRoadmapApiRequest
 {
     public long SkillGapAnalysisId { get; set; }
-    public int MilestonesPerSkill { get; set; } = 1;
+    public int MilestonesPerSkill { get; set; } = 2;
     public int ActivitiesPerMilestone { get; set; } = 3;
 }
 
@@ -333,6 +338,13 @@ public class SkillPreviewDto
     public long SkillId { get; set; }
     public string SkillName { get; set; } = string.Empty;
     public string GapLevel { get; set; } = string.Empty;
+}
+
+public class RoadmapPreviewDto
+{
+    public List<MilestoneDto> Milestones { get; set; } = [];
+    public int TotalSkills { get; set; }
+    public int EstimatedActivities { get; set; }
 }
 
 #endregion

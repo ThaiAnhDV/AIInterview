@@ -17,7 +17,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<InterviewQuestionGeneratorService> _logger;
-    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -464,7 +464,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
             IsFallback = isFallback,
             Metadata = new GenerationMetadata
             {
-                AiModelUsed = isFallback ? "fallback" : "gemini-2.0-flash",
+                AiModelUsed = isFallback ? "fallback" : "gemini-2.5-flash",
                 GenerationVersion = "1.0"
             }
         };

@@ -47,6 +47,8 @@ public class ActivityCompletionDto
 
 public class ActivityCompletionResultDto
 {
+    public bool Success { get; set; } = true;
+    public string? Message { get; set; }
     public long MilestoneId { get; set; }
     public bool IsMilestoneCompleted { get; set; }
     public decimal MilestoneProgress { get; set; }

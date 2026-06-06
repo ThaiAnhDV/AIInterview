@@ -1,3 +1,4 @@
+using AIInterviewPlatform.Application.DTOs.AI;
 using AIInterviewPlatform.Application.DTOs.Interview.Evaluation;
 using AIInterviewPlatform.Application.Interfaces.Services;
 
@@ -23,17 +24,6 @@ public class InterviewEvaluationController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// Evaluate an interview answer using AI.
-    /// </summary>
-    /// <param name="request">The evaluation request containing the answer ID.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>Evaluation results including scores and feedback.</returns>
-    /// <response code="200">Evaluation completed successfully.</response>
-    /// <response code="400">Invalid request or answer already evaluated.</response>
-    /// <response code="401">Unauthorized.</response>
-    /// <response code="404">Answer or question not found.</response>
-    /// <response code="500">Internal server error.</response>
     [HttpPost("evaluate")]
     [ProducesResponseType(typeof(EvaluationResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -58,36 +48,19 @@ public class InterviewEvaluationController : ControllerBase
             var response = new EvaluationResponse
             {
                 AnswerId = request.AnswerId,
+                Success = result.Success,
+                ErrorCode = result.ErrorCode,
                 Clarity = result.Clarity,
                 Structure = result.Structure,
                 Relevance = result.Relevance,
                 Overall = result.Overall,
                 Feedback = result.Feedback,
                 Improvement = result.Improvement,
-                Message = "Evaluation completed successfully."
+                IsFallback = result.IsFallback,
+                Message = result.Message ?? (result.Success ? "Evaluation completed successfully." : "AI service temporarily unavailable")
             };
 
             return Ok(response);
-        }
-        catch (InvalidOperationException ex)
-        {
-            _logger.LogWarning(ex, "Evaluation failed for answer {AnswerId}", request.AnswerId);
-            return BadRequest(new ProblemDetails
-            {
-                Title = "Evaluation Failed",
-                Detail = ex.Message,
-                Status = StatusCodes.Status400BadRequest
-            });
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            _logger.LogWarning(ex, "Unauthorized access to answer {AnswerId}", request.AnswerId);
-            return Unauthorized(new ProblemDetails
-            {
-                Title = "Unauthorized",
-                Detail = ex.Message,
-                Status = StatusCodes.Status401Unauthorized
-            });
         }
         catch (Exception ex)
         {

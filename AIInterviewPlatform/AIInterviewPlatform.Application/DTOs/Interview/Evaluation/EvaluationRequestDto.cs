@@ -10,6 +10,10 @@ public class EvaluationRequestDto
 
 public class EvaluationResultDto
 {
+    public bool Success { get; set; } = true;
+    public string? ErrorCode { get; set; }
+    public string? Message { get; set; }
+    public bool IsFallback { get; set; }
     public decimal Clarity { get; set; }
     public decimal Structure { get; set; }
     public decimal Relevance { get; set; }

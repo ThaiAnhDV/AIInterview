@@ -2,6 +2,9 @@ namespace AIInterviewPlatform.Application.DTOs.SkillGapAnalysis;
 
 public class ComprehensiveSkillGapAnalysisResponse
 {
+    public bool Success { get; set; } = true;
+    public string? ErrorCode { get; set; }
+    public string? Message { get; set; }
     public long AnalysisId { get; set; }
     public long ResumeId { get; set; }
     public long JobDescriptionId { get; set; }

@@ -44,7 +44,14 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
 
         if (resume == null)
         {
-            throw new InvalidOperationException("Resume not found");
+            return new ComprehensiveSkillGapAnalysisResponse
+            {
+                Success = false,
+                ErrorCode = "RESUME_NOT_FOUND",
+                Message = "Resume not found.",
+                ResumeId = request.ResumeId,
+                JobDescriptionId = request.JobDescriptionId
+            };
         }
 
         var jobDescription = await _context.JobDescriptions
@@ -52,19 +59,54 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
 
         if (jobDescription == null)
         {
-            throw new InvalidOperationException("Job description not found");
+            return new ComprehensiveSkillGapAnalysisResponse
+            {
+                Success = false,
+                ErrorCode = "JOB_DESCRIPTION_NOT_FOUND",
+                Message = "Job description not found.",
+                ResumeId = request.ResumeId,
+                JobDescriptionId = request.JobDescriptionId
+            };
         }
 
         var resumeSkillsResult = await _resumeSkillExtractionService
             .ExtractSkillsFromResumeAsync(resume.ParsedContent ?? string.Empty);
 
+        if (!resumeSkillsResult.Success)
+        {
+            return new ComprehensiveSkillGapAnalysisResponse
+            {
+                Success = false,
+                ErrorCode = resumeSkillsResult.Error?.ErrorCode ?? "GEMINI_ERROR",
+                Message = resumeSkillsResult.Error?.Message ?? "AI service temporarily unavailable.",
+                ResumeId = request.ResumeId,
+                JobDescriptionId = request.JobDescriptionId
+            };
+        }
+
         var jdSkillsResult = await _jdSkillExtractionService
             .ExtractRequiredSkillsAsync(jobDescription.Content);
 
+        if (!jdSkillsResult.Success)
+        {
+            return new ComprehensiveSkillGapAnalysisResponse
+            {
+                Success = false,
+                ErrorCode = jdSkillsResult.Error?.ErrorCode ?? "GEMINI_ERROR",
+                Message = jdSkillsResult.Error?.Message ?? "AI service temporarily unavailable.",
+                ResumeId = request.ResumeId,
+                JobDescriptionId = request.JobDescriptionId,
+                ResumeSkills = resumeSkillsResult.Data?.Skills ?? []
+            };
+        }
+
+        var resumeSkills = resumeSkillsResult.Data?.Skills ?? [];
+        var requiredSkills = jdSkillsResult.Data?.RequiredSkills ?? [];
+
         var matchRequest = new SkillMatchRequest
         {
-            ResumeSkills = resumeSkillsResult.Skills,
-            RequiredSkills = jdSkillsResult.RequiredSkills
+            ResumeSkills = resumeSkills,
+            RequiredSkills = requiredSkills
         };
 
         var matchResult = _skillMatchingService.MatchSkills(matchRequest);
@@ -73,7 +115,6 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             userId, request.ResumeId, request.JobDescriptionId, matchResult);
 
         await SaveSkillGapsAsync(analysis.Id, matchResult.MissingSkills);
-        
         await SaveReadinessScoreAsync(userId, analysis.Id, matchResult);
 
         _logger.LogInformation(
@@ -82,12 +123,13 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
 
         return new ComprehensiveSkillGapAnalysisResponse
         {
+            Success = true,
             AnalysisId = analysis.Id,
             ResumeId = request.ResumeId,
             JobDescriptionId = request.JobDescriptionId,
             ReadinessScore = (decimal)matchResult.ReadinessScore,
-            ResumeSkills = resumeSkillsResult.Skills,
-            RequiredSkills = jdSkillsResult.RequiredSkills,
+            ResumeSkills = resumeSkills,
+            RequiredSkills = requiredSkills,
             MatchedSkills = matchResult.MatchedSkills,
             MissingSkills = matchResult.MissingSkills
                 .Select(s => new SkillGapItemResponse
@@ -127,7 +169,7 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
         foreach (var skillName in missingSkills)
         {
             var normalizedSkillName = NormalizeSkillName(skillName);
-            
+
             var skill = await _context.Skills
                 .FirstOrDefaultAsync(x => x.SkillName.ToLower() == normalizedSkillName.ToLower());
 
@@ -178,7 +220,7 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
     private static string NormalizeSkillName(string skillName)
     {
         var normalized = skillName.Trim();
-        
+
         var knownMappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "c#", "C#" },
@@ -206,15 +248,13 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             { "angularjs", "Angular" }
         };
 
-        return knownMappings.TryGetValue(normalized, out var canonical) 
-            ? canonical 
+        return knownMappings.TryGetValue(normalized, out var canonical)
+            ? canonical
             : char.ToUpper(normalized[0]) + normalized[1..].ToLower();
     }
 
     private static string DetermineSkillType(string skillName)
     {
-        var lower = skillName.ToLowerInvariant();
-
         var languages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "C#", "Java", "Python", "JavaScript", "TypeScript", "Go", "Rust", "Ruby", "PHP", "Swift", "Kotlin",

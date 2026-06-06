@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
+using AIInterviewPlatform.Application.DTOs.AI;
 using AIInterviewPlatform.Application.DTOs.JobDescriptionSkillExtraction;
 using AIInterviewPlatform.Application.Interfaces.Services;
 
@@ -14,7 +15,7 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<JobDescriptionSkillExtractionService> _logger;
-    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     public JobDescriptionSkillExtractionService(
         HttpClient httpClient,
@@ -26,19 +27,46 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
         _logger = logger;
     }
 
-    public async Task<JobDescriptionSkillExtractionResult> ExtractRequiredSkillsAsync(
+    public async Task<AIServiceResult<JobDescriptionSkillExtractionResult>> ExtractRequiredSkillsAsync(
         string jobDescriptionContent)
     {
         if (string.IsNullOrWhiteSpace(jobDescriptionContent))
         {
             _logger.LogWarning("Job description content is empty");
-            return new JobDescriptionSkillExtractionResult { RequiredSkills = [] };
+            return AIServiceResult<JobDescriptionSkillExtractionResult>.Succeeded(
+                new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
+        }
+
+        if (string.IsNullOrEmpty(_apiKey))
+        {
+            _logger.LogError("Gemini API key is not configured for job description extraction");
+            return AIServiceResult<JobDescriptionSkillExtractionResult>.Failed(
+                "GEMINI_NOT_CONFIGURED",
+                "AI service temporarily unavailable.",
+                new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
         }
 
         var prompt = BuildPrompt(jobDescriptionContent);
+        _logger.LogInformation("=== JD EXTRACTION DEBUG ===");
+        _logger.LogInformation("Prompt: {Prompt}", prompt);
         var response = await SendGeminiRequestAsync(prompt);
-        
-        return ParseGeminiResponse(response);
+
+        if (!response.Success)
+        {
+            _logger.LogInformation("Raw Gemini Response: <request failed>");
+            _logger.LogInformation("Parsed DTO: <none>");
+            _logger.LogInformation("Validation Result: Failed with {ErrorCode} - {Message}", response.Error?.ErrorCode, response.Error?.Message);
+            return AIServiceResult<JobDescriptionSkillExtractionResult>.Failed(
+                response.Error?.ErrorCode ?? "GEMINI_ERROR",
+                response.Error?.Message ?? "Unable to process request at this time.",
+                new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
+        }
+
+        _logger.LogInformation("Raw Gemini Response: {Response}", response.Data);
+        var parsedResult = ParseGeminiResponse(response.Data ?? string.Empty);
+        _logger.LogInformation("Parsed DTO: {@ParsedDto}", parsedResult.Data);
+        _logger.LogInformation("Validation Result: {ValidationResult}", parsedResult.Success);
+        return parsedResult;
     }
 
     private string BuildPrompt(string jobDescriptionContent)
@@ -59,7 +87,7 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
             - Include only technical skills, not soft skills";
     }
 
-    private async Task<string> SendGeminiRequestAsync(string prompt)
+    private async Task<AIServiceResult<string>> SendGeminiRequestAsync(string prompt)
     {
         var requestBody = new
         {
@@ -89,19 +117,42 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
                 $"{GeminiApiUrl}?key={_apiKey}",
                 httpContent);
 
-            response.EnsureSuccessStatusCode();
-
             var responseBody = await response.Content.ReadAsStringAsync();
-            return responseBody;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError("Gemini API returned {StatusCode} for job description extraction: {Response}", response.StatusCode, responseBody);
+                return AIServiceResult<string>.Failed(
+                    "GEMINI_ERROR",
+                    "Unable to process request at this time.");
+            }
+
+            return AIServiceResult<string>.Succeeded(responseBody);
+        }
+        catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException || !ex.CancellationToken.IsCancellationRequested)
+        {
+            _logger.LogError(ex, "Gemini API timeout for job description skill extraction");
+            return AIServiceResult<string>.Failed(
+                "TIMEOUT",
+                "AI service temporarily unavailable.");
         }
         catch (HttpRequestException ex)
         {
             _logger.LogError(ex, "Failed to call Gemini API for job description skill extraction");
-            throw new InvalidOperationException("Failed to extract required skills from job description", ex);
+            return AIServiceResult<string>.Failed(
+                "GEMINI_ERROR",
+                "Unable to process request at this time.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unexpected error during job description skill extraction");
+            return AIServiceResult<string>.Failed(
+                "GEMINI_ERROR",
+                "Unable to process request at this time.");
         }
     }
 
-    private JobDescriptionSkillExtractionResult ParseGeminiResponse(string responseBody)
+    private AIServiceResult<JobDescriptionSkillExtractionResult> ParseGeminiResponse(string responseBody)
     {
         try
         {
@@ -124,19 +175,25 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
             }
 
             _logger.LogWarning("Unexpected Gemini response format for job description");
-            return new JobDescriptionSkillExtractionResult { RequiredSkills = [] };
+            return AIServiceResult<JobDescriptionSkillExtractionResult>.Failed(
+                "INVALID_AI_RESPONSE",
+                "AI service returned an unexpected response.",
+                new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
         }
         catch (JsonException ex)
         {
             _logger.LogError(ex, "Failed to parse Gemini response for job description");
-            throw new InvalidOperationException("Failed to parse job description skill extraction response", ex);
+            return AIServiceResult<JobDescriptionSkillExtractionResult>.Failed(
+                "INVALID_AI_RESPONSE",
+                "AI service returned an invalid response.",
+                new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
         }
     }
 
-    private JobDescriptionSkillExtractionResult ExtractSkillsFromJsonText(string jsonText)
+    private AIServiceResult<JobDescriptionSkillExtractionResult> ExtractSkillsFromJsonText(string jsonText)
     {
         var cleanedText = jsonText.Trim();
-        
+
         if (cleanedText.StartsWith("```json"))
         {
             cleanedText = cleanedText[7..];
@@ -154,31 +211,35 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
         cleanedText = cleanedText.Trim();
 
         var result = TryDeserialize(cleanedText);
-        
+
         if (result == null)
         {
             result = TryExtractWithRegex(cleanedText);
         }
 
-        return result ?? new JobDescriptionSkillExtractionResult { RequiredSkills = [] };
+        if (result == null)
+        {
+            _logger.LogWarning("Could not extract required skills from Gemini response text");
+            return AIServiceResult<JobDescriptionSkillExtractionResult>.Failed(
+                "INVALID_AI_RESPONSE",
+                "AI service returned an invalid response.",
+                new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
+        }
+
+        return AIServiceResult<JobDescriptionSkillExtractionResult>.Succeeded(result);
     }
 
     private JobDescriptionSkillExtractionResult? TryDeserialize(string jsonText)
     {
         try
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
             var parsed = JsonSerializer.Deserialize<JsonElement>(jsonText);
-            
+
             if (parsed.TryGetProperty("requiredSkills", out var skillsElement) &&
                 skillsElement.ValueKind == JsonValueKind.Array)
             {
                 var skills = new List<string>();
-                
+
                 foreach (var skill in skillsElement.EnumerateArray())
                 {
                     var skillValue = skill.GetString();
@@ -192,9 +253,9 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
                     }
                 }
 
-                return new JobDescriptionSkillExtractionResult 
-                { 
-                    RequiredSkills = skills.Distinct().ToList() 
+                return new JobDescriptionSkillExtractionResult
+                {
+                    RequiredSkills = skills.Distinct().ToList()
                 };
             }
 
@@ -207,10 +268,10 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
         }
     }
 
-    private JobDescriptionSkillExtractionResult TryExtractWithRegex(string text)
+    private JobDescriptionSkillExtractionResult? TryExtractWithRegex(string text)
     {
         var match = System.Text.RegularExpressions.Regex.Match(
-            text, 
+            text,
             @"\{.*?""requiredSkills""\s*:\s*\[(.*?)\].*\}",
             System.Text.RegularExpressions.RegexOptions.Singleline);
 
@@ -218,7 +279,7 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
         {
             var skillsArray = match.Groups[1].Value;
             var skillMatches = System.Text.RegularExpressions.Regex.Matches(
-                skillsArray, 
+                skillsArray,
                 @"""([^""]+)""");
 
             var skills = skillMatches
@@ -231,13 +292,13 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
         }
 
         _logger.LogWarning("Could not extract skills using regex from response: {Text}", text);
-        return new JobDescriptionSkillExtractionResult { RequiredSkills = [] };
+        return null;
     }
 
     private static string NormalizeSkill(string skill)
     {
         var normalized = skill.Trim();
-        
+
         normalized = normalized.ToUpperInvariant() switch
         {
             "C#" or "C SHARP" => "C#",

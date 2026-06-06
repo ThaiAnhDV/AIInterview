@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
+using AIInterviewPlatform.Application.DTOs.AI;
 using AIInterviewPlatform.Application.DTOs.SkillExtraction;
 using AIInterviewPlatform.Application.Interfaces.Services;
 
@@ -14,7 +15,7 @@ public class SkillExtractionService : ISkillExtractionService
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<SkillExtractionService> _logger;
-    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     public SkillExtractionService(
         HttpClient httpClient,
@@ -31,25 +32,45 @@ public class SkillExtractionService : ISkillExtractionService
         }
     }
 
-    public async Task<SkillExtractionResult> ExtractSkillsFromResumeAsync(
+    public async Task<AIServiceResult<SkillExtractionResult>> ExtractSkillsFromResumeAsync(
         string resumeContent)
     {
         if (string.IsNullOrWhiteSpace(resumeContent))
         {
             _logger.LogWarning("Resume content is empty");
-            return new SkillExtractionResult { Skills = [] };
+            return AIServiceResult<SkillExtractionResult>.Succeeded(new SkillExtractionResult { Skills = [] });
         }
 
         if (string.IsNullOrEmpty(_apiKey))
         {
             _logger.LogError("Gemini API key is not configured");
-            throw new InvalidOperationException("Gemini API key is not configured");
+            return AIServiceResult<SkillExtractionResult>.Failed(
+                "GEMINI_NOT_CONFIGURED",
+                "AI service temporarily unavailable.",
+                new SkillExtractionResult { Skills = [] });
         }
 
         var prompt = BuildPrompt(resumeContent);
+        _logger.LogInformation("=== SKILL EXTRACTION DEBUG ===");
+        _logger.LogInformation("Prompt: {Prompt}", prompt);
         var response = await SendGeminiRequestAsync(prompt);
-        
-        return ParseGeminiResponse(response);
+
+        if (!response.Success)
+        {
+            _logger.LogInformation("Raw Gemini Response: <request failed>");
+            _logger.LogInformation("Parsed DTO: <none>");
+            _logger.LogInformation("Validation Result: Failed with {ErrorCode} - {Message}", response.Error?.ErrorCode, response.Error?.Message);
+            return AIServiceResult<SkillExtractionResult>.Failed(
+                response.Error?.ErrorCode ?? "GEMINI_ERROR",
+                response.Error?.Message ?? "Unable to process request at this time.",
+                new SkillExtractionResult { Skills = [] });
+        }
+
+        _logger.LogInformation("Raw Gemini Response: {Response}", response.Data);
+        var parsedResult = ParseGeminiResponse(response.Data ?? string.Empty);
+        _logger.LogInformation("Parsed DTO: {@ParsedDto}", parsedResult.Data);
+        _logger.LogInformation("Validation Result: {ValidationResult}", parsedResult.Success);
+        return parsedResult;
     }
 
     private string BuildPrompt(string resumeContent)
@@ -70,7 +91,7 @@ public class SkillExtractionService : ISkillExtractionService
             - Include only technical skills, not soft skills (e.g., ""communication"", ""teamwork"" are not technical)";
     }
 
-    private async Task<string> SendGeminiRequestAsync(string prompt)
+    private async Task<AIServiceResult<string>> SendGeminiRequestAsync(string prompt)
     {
         var requestBody = new
         {
@@ -98,32 +119,50 @@ public class SkillExtractionService : ISkillExtractionService
         try
         {
             _logger.LogDebug("Sending request to Gemini API");
-            
+
             var response = await _httpClient.PostAsync(
                 $"{GeminiApiUrl}?key={_apiKey}",
                 httpContent);
 
             var responseBody = await response.Content.ReadAsStringAsync();
-            
+
             _logger.LogDebug("Gemini API response: {Response}", responseBody);
 
             if (!response.IsSuccessStatusCode)
             {
-                _logger.LogError("Gemini API error: {StatusCode} - {Response}", 
+                _logger.LogError("Gemini API error: {StatusCode} - {Response}",
                     response.StatusCode, responseBody);
-                throw new InvalidOperationException($"Gemini API returned {response.StatusCode}");
+                return AIServiceResult<string>.Failed(
+                    "GEMINI_ERROR",
+                    "Unable to process request at this time.");
             }
 
-            return responseBody;
+            return AIServiceResult<string>.Succeeded(responseBody);
+        }
+        catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException || !ex.CancellationToken.IsCancellationRequested)
+        {
+            _logger.LogError(ex, "Gemini API request timed out");
+            return AIServiceResult<string>.Failed(
+                "TIMEOUT",
+                "AI service temporarily unavailable.");
         }
         catch (HttpRequestException ex)
         {
             _logger.LogError(ex, "Failed to call Gemini API");
-            throw new InvalidOperationException("Failed to extract skills from resume", ex);
+            return AIServiceResult<string>.Failed(
+                "GEMINI_ERROR",
+                "Unable to process request at this time.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unexpected error during Gemini skill extraction request");
+            return AIServiceResult<string>.Failed(
+                "GEMINI_ERROR",
+                "Unable to process request at this time.");
         }
     }
 
-    private SkillExtractionResult ParseGeminiResponse(string responseBody)
+    private AIServiceResult<SkillExtractionResult> ParseGeminiResponse(string responseBody)
     {
         try
         {
@@ -146,19 +185,25 @@ public class SkillExtractionService : ISkillExtractionService
             }
 
             _logger.LogWarning("Unexpected Gemini response format");
-            return new SkillExtractionResult { Skills = [] };
+            return AIServiceResult<SkillExtractionResult>.Failed(
+                "INVALID_AI_RESPONSE",
+                "AI service returned an unexpected response.",
+                new SkillExtractionResult { Skills = [] });
         }
         catch (JsonException ex)
         {
             _logger.LogError(ex, "Failed to parse Gemini response");
-            throw new InvalidOperationException("Failed to parse skill extraction response", ex);
+            return AIServiceResult<SkillExtractionResult>.Failed(
+                "INVALID_AI_RESPONSE",
+                "AI service returned an invalid response.",
+                new SkillExtractionResult { Skills = [] });
         }
     }
 
-    private SkillExtractionResult ExtractSkillsFromJsonText(string jsonText)
+    private AIServiceResult<SkillExtractionResult> ExtractSkillsFromJsonText(string jsonText)
     {
         var cleanedText = jsonText.Trim();
-        
+
         if (cleanedText.StartsWith("```json"))
         {
             cleanedText = cleanedText[7..];
@@ -176,31 +221,35 @@ public class SkillExtractionService : ISkillExtractionService
         cleanedText = cleanedText.Trim();
 
         var result = TryDeserialize(cleanedText);
-        
+
         if (result == null)
         {
             result = TryExtractWithRegex(cleanedText);
         }
 
-        return result ?? new SkillExtractionResult { Skills = [] };
+        if (result == null)
+        {
+            _logger.LogWarning("Could not extract skills from Gemini response text");
+            return AIServiceResult<SkillExtractionResult>.Failed(
+                "INVALID_AI_RESPONSE",
+                "AI service returned an invalid response.",
+                new SkillExtractionResult { Skills = [] });
+        }
+
+        return AIServiceResult<SkillExtractionResult>.Succeeded(result);
     }
 
     private SkillExtractionResult? TryDeserialize(string jsonText)
     {
         try
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
             var parsed = JsonSerializer.Deserialize<JsonElement>(jsonText);
-            
+
             if (parsed.TryGetProperty("skills", out var skillsElement) &&
                 skillsElement.ValueKind == JsonValueKind.Array)
             {
                 var skills = new List<string>();
-                
+
                 foreach (var skill in skillsElement.EnumerateArray())
                 {
                     var skillValue = skill.GetString();
@@ -214,9 +263,9 @@ public class SkillExtractionService : ISkillExtractionService
                     }
                 }
 
-                return new SkillExtractionResult 
-                { 
-                    Skills = skills.Distinct().ToList() 
+                return new SkillExtractionResult
+                {
+                    Skills = skills.Distinct().ToList()
                 };
             }
 
@@ -229,10 +278,10 @@ public class SkillExtractionService : ISkillExtractionService
         }
     }
 
-    private SkillExtractionResult TryExtractWithRegex(string text)
+    private SkillExtractionResult? TryExtractWithRegex(string text)
     {
         var match = System.Text.RegularExpressions.Regex.Match(
-            text, 
+            text,
             @"\{.*?""skills""\s*:\s*\[(.*?)\].*\}",
             System.Text.RegularExpressions.RegexOptions.Singleline);
 
@@ -240,7 +289,7 @@ public class SkillExtractionService : ISkillExtractionService
         {
             var skillsArray = match.Groups[1].Value;
             var skillMatches = System.Text.RegularExpressions.Regex.Matches(
-                skillsArray, 
+                skillsArray,
                 @"""([^""]+)""");
 
             var skills = skillMatches
@@ -253,13 +302,13 @@ public class SkillExtractionService : ISkillExtractionService
         }
 
         _logger.LogWarning("Could not extract skills using regex from response: {Text}", text);
-        return new SkillExtractionResult { Skills = [] };
+        return null;
     }
 
     private static string NormalizeSkill(string skill)
     {
         var normalized = skill.Trim();
-        
+
         normalized = normalized.ToUpperInvariant() switch
         {
             "C#" or "C SHARP" => "C#",

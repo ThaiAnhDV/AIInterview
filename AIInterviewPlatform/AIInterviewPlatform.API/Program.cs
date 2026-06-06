@@ -76,6 +76,8 @@ builder.Services.AddScoped<IInterviewEvaluationApplicationService, InterviewEval
 builder.Services.AddScoped<IRoadmapApplicationService, RoadmapApplicationService>();
 builder.Services.AddScoped<IInterviewSessionRepository, InterviewSessionRepository>();
 builder.Services.AddScoped<IMockInterviewApplicationService, MockInterviewApplicationService>();
+builder.Services.AddHttpClient<IAIConnectionTestService, AIConnectionTestService>();
+builder.Services.AddScoped<IAIFunctionValidationService, AIFunctionValidationService>();
 
 // =======================
 // Controllers

@@ -27,7 +27,14 @@ namespace AIInterviewPlatform.Infrastructure.Services
 
             if (resume == null)
             {
-                throw new Exception("Resume not found.");
+                return new SkillGapAnalysisResponse
+                {
+                    Success = false,
+                    ErrorCode = "RESUME_NOT_FOUND",
+                    Message = "Resume not found.",
+                    ResumeId = request.ResumeId,
+                    JobDescriptionId = request.JobDescriptionId
+                };
             }
 
             var requiredSkills = await _context.RequiredSkills
@@ -37,7 +44,14 @@ namespace AIInterviewPlatform.Infrastructure.Services
 
             if (!requiredSkills.Any())
             {
-                throw new Exception("No required skills found for this job description.");
+                return new SkillGapAnalysisResponse
+                {
+                    Success = false,
+                    ErrorCode = "NO_REQUIRED_SKILLS",
+                    Message = "No required skills found for this job description.",
+                    ResumeId = request.ResumeId,
+                    JobDescriptionId = request.JobDescriptionId
+                };
             }
 
             var resumeContent =
@@ -105,6 +119,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
 
             return new SkillGapAnalysisResponse
             {
+                Success = true,
                 Id = analysis.Id,
                 ResumeId = analysis.ResumeId,
                 JobDescriptionId = analysis.JobDescriptionId,
@@ -147,6 +162,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
 
                 result.Add(new SkillGapAnalysisResponse
                 {
+                    Success = true,
                     Id = analysis.Id,
                     ResumeId = analysis.ResumeId,
                     JobDescriptionId = analysis.JobDescriptionId,
@@ -193,6 +209,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
 
             return new SkillGapAnalysisResponse
             {
+                Success = true,
                 Id = analysis.Id,
                 ResumeId = analysis.ResumeId,
                 JobDescriptionId = analysis.JobDescriptionId,

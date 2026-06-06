@@ -2,6 +2,10 @@ namespace AIInterviewPlatform.Application.DTOs.Roadmap.Responses;
 
 public class RoadmapDto
 {
+    public bool Success { get; set; } = true;
+    public string? ErrorCode { get; set; }
+    public string? Message { get; set; }
+    public bool IsAiFallback { get; set; }
     public long Id { get; set; }
     public string RoadmapTitle { get; set; } = string.Empty;
     public string RoadmapStatus { get; set; } = string.Empty;
