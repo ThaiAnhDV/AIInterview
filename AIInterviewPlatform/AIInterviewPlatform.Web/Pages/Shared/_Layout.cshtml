@@ -829,6 +829,9 @@
                         <a href="/Profile" class="dropdown-item" data-page="profile">
                             <i class="fas fa-user"></i> Profile
                         </a>
+                        <a href="/Admin" class="dropdown-item" id="adminDropdownItem" data-page="admin" style="display: none;">
+                            <i class="fas fa-user-shield"></i> Admin
+                        </a>
                         <a href="/Resume" class="dropdown-item">
                             <i class="fas fa-file-alt"></i> My Resume
                         </a>
@@ -901,6 +904,9 @@
             </a>
             <a href="#" onclick="logout(); return false;" class="mobile-nav-link" id="mobileLogoutBtn" style="display: none;">
                 <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+            <a href="/Admin" class="mobile-nav-link" id="mobileAdminBtn" data-page="admin" style="display: none;">
+                <i class="fas fa-user-shield"></i> Admin
             </a>
             <div class="language-switcher">
                 <div class="language-switcher-label">
@@ -1021,7 +1027,8 @@
             '/Interview': 'interview',
             '/SkillGap': 'skillgap',
             '/Roadmap': 'roadmap',
-            '/Profile': 'profile'
+            '/Profile': 'profile',
+            '/Admin': 'admin'
         };
 
         // ============================================
@@ -1042,12 +1049,15 @@
             const userAvatar = document.getElementById('userAvatar');
             const mobileAuthSection = document.getElementById('mobileAuthSection');
             const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+            const adminDropdownItem = document.getElementById('adminDropdownItem');
+            const mobileAdminBtn = document.getElementById('mobileAdminBtn');
 
             if (state.isAuthenticated && state.user) {
                 userDropdown.style.display = 'block';
                 authButtons.style.display = 'none';
                 
                 const userData = state.user;
+                const isAdmin = userData.role === 'ADMIN' || userData.Role === 'ADMIN';
                 const displayName = userData.fullName || userData.email || 'User';
                 userName.textContent = displayName;
                 
@@ -1065,6 +1075,8 @@
                     });
                 }
                 if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'flex';
+                if (adminDropdownItem) adminDropdownItem.style.display = isAdmin ? 'flex' : 'none';
+                if (mobileAdminBtn) mobileAdminBtn.style.display = isAdmin ? 'flex' : 'none';
             } else {
                 userDropdown.style.display = 'none';
                 authButtons.style.display = 'flex';
@@ -1076,6 +1088,8 @@
                     });
                 }
                 if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
+                if (adminDropdownItem) adminDropdownItem.style.display = 'none';
+                if (mobileAdminBtn) mobileAdminBtn.style.display = 'none';
             }
         }
 

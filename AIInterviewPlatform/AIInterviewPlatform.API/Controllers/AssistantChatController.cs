@@ -3,6 +3,7 @@ using AIInterviewPlatform.Application.Interfaces.Services;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AIInterviewPlatform.API.Controllers;
 
@@ -30,6 +31,8 @@ public class AssistantChatController : ControllerBase
                 message = "Vui lòng nhập câu hỏi."
             });
         }
+
+        request.IsAdmin = User.FindFirstValue(ClaimTypes.Role) == "ADMIN";
 
         var result = await _assistantChatService.AskAsync(request, cancellationToken);
         return Ok(result);

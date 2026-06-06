@@ -47,7 +47,9 @@ public class AssistantChatService : IAssistantChatService
         if (string.IsNullOrWhiteSpace(_apiKey) ||
             _apiKey.Equals("YOUR_API_KEY", StringComparison.OrdinalIgnoreCase))
         {
-            return CreateMissingApiKeyResponse();
+            return request.IsAdmin
+                ? CreateMissingApiKeyResponse()
+                : CreateFallbackResponse(request);
         }
 
         var prompt = BuildPrompt(request);

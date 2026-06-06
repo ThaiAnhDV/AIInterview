@@ -16,6 +16,8 @@ using Microsoft.OpenApi.Models;
 
 using System.Text;
 using AIInterviewPlatform.Infrastructure.Services.TextExtractors;
+using AIInterviewPlatform.Domain.Enities;
+using AIInterviewPlatform.Domain.Enum;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -166,6 +168,13 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await SeedAdminUserAsync(dbContext, configuration);
+}
+
 // =======================
 // Swagger
 // =======================
@@ -213,3 +222,85 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static async Task SeedAdminUserAsync(
+    ApplicationDbContext dbContext,
+    IConfiguration configuration)
+{
+    const string adminEmail = "admin@aiinterview.local";
+    const string adminDefaultPassword = "Admin@123456";
+    const string adminFullName = "Admin";
+
+    var account = await dbContext.AuthenticationAccounts
+        .Include(authenticationAccount => authenticationAccount.User)
+        .ThenInclude(user => user.UserProfile)
+        .FirstOrDefaultAsync(authenticationAccount => authenticationAccount.Email.ToLower() == adminEmail);
+
+    if (account != null)
+    {
+        if (account.User.UserType != UserType.ADMIN)
+        {
+            account.User.UserType = UserType.ADMIN;
+            account.User.UpdatedAt = DateTime.Now;
+        }
+
+        if (!IsBCryptHash(account.PasswordHash))
+        {
+            account.PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminDefaultPassword);
+            account.UpdatedAt = DateTime.Now;
+        }
+
+        await dbContext.SaveChangesAsync();
+        return;
+    }
+
+    var existingAdmin = await dbContext.Users
+        .AnyAsync(user => user.UserType == UserType.ADMIN);
+
+    if (existingAdmin)
+    {
+        return;
+    }
+
+    var user = new User
+    {
+        UserType = UserType.ADMIN,
+        Status = UserStatus.ACTIVE,
+        CreatedAt = DateTime.Now
+    };
+
+    await dbContext.Users.AddAsync(user);
+    await dbContext.SaveChangesAsync();
+
+    var adminAccount = new AuthenticationAccount
+    {
+        UserId = user.Id,
+        Email = adminEmail,
+        PasswordHash = BCrypt.Net.BCrypt.HashPassword(adminDefaultPassword),
+        IsVerified = true,
+        CreatedAt = DateTime.Now
+    };
+
+    var profile = new UserProfile
+    {
+        UserId = user.Id,
+        FullName = adminFullName,
+        CreatedAt = DateTime.Now
+    };
+
+    await dbContext.AuthenticationAccounts.AddAsync(adminAccount);
+    await dbContext.UserProfiles.AddAsync(profile);
+    await dbContext.SaveChangesAsync();
+}
+
+static bool IsBCryptHash(string? passwordHash)
+{
+    if (string.IsNullOrWhiteSpace(passwordHash))
+    {
+        return false;
+    }
+
+    return passwordHash.StartsWith("$2a$") ||
+        passwordHash.StartsWith("$2b$") ||
+        passwordHash.StartsWith("$2y$");
+}

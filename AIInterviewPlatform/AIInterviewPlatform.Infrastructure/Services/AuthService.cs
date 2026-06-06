@@ -149,9 +149,18 @@ namespace AIInterviewPlatform.Infrastructure.Services
             if (account.User.Status != UserStatus.ACTIVE)
                 throw new ValidationException("Account is inactive.");
 
-            var isValidPassword = BCrypt.Net.BCrypt.Verify(
-                request.Password,
-                account.PasswordHash);
+            bool isValidPassword;
+
+            try
+            {
+                isValidPassword = BCrypt.Net.BCrypt.Verify(
+                    request.Password,
+                    account.PasswordHash);
+            }
+            catch (BCrypt.Net.SaltParseException)
+            {
+                throw new ValidationException("Invalid email or password.");
+            }
 
             if (!isValidPassword)
                 throw new ValidationException("Invalid email or password.");

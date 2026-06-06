@@ -5,4 +5,6 @@ public class AssistantChatRequest
     public string Message { get; set; } = string.Empty;
 
     public string? Page { get; set; }
+
+    public bool IsAdmin { get; set; }
 }
