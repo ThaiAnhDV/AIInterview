@@ -1,0 +1,16 @@
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\bin\Release\net8.0\AIInterviewPlatform.Application.deps.json
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\bin\Release\net8.0\AIInterviewPlatform.Application.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\bin\Release\net8.0\AIInterviewPlatform.Application.pdb
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\bin\Release\net8.0\AIInterviewPlatform.Domain.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\bin\Release\net8.0\AIInterviewPlatform.Domain.pdb
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.csproj.AssemblyReference.cache
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.AssemblyInfoInputs.cache
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.AssemblyInfo.cs
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.csproj.CoreCompileInputs.cache
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.sourcelink.json
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterv.C3F1B18A.Up2Date
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\refint\AIInterviewPlatform.Application.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\AIInterviewPlatform.Application.pdb
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Application\obj\Release\net8.0\ref\AIInterviewPlatform.Application.dll

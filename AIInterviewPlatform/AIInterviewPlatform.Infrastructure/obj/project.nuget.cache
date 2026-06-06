@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Jq6uEa+o1jI=",
+  "dgSpecHash": "HeerQWPv05Q=",
   "success": true,
   "projectFilePath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -72,6 +72,8 @@
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\hoang\\.nuget\\packages\\npgsql\\8.0.5\\npgsql.8.0.5.nupkg.sha512",
+    "C:\\Users\\hoang\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.10\\npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\pdfpig\\0.1.14\\pdfpig.0.1.14.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\system.buffers\\4.6.0\\system.buffers.4.6.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",

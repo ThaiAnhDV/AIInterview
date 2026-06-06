@@ -1,4 +1,6 @@
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\bin\Debug\net8.0\AIInterviewPlatform.Domain.deps.json
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\bin\Debug\net8.0\AIInterviewPlatform.Domain.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\bin\Debug\net8.0\AIInterviewPlatform.Domain.pdb
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\AIInterviewPlatform.Domain.GeneratedMSBuildEditorConfig.editorconfig
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\AIInterviewPlatform.Domain.AssemblyInfoInputs.cache
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\AIInterviewPlatform.Domain.AssemblyInfo.cs
@@ -7,6 +9,4 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\AIInterviewPlatform.Domain.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\refint\AIInterviewPlatform.Domain.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\AIInterviewPlatform.Domain.pdb
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\bin\Debug\net8.0\AIInterviewPlatform.Domain.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\bin\Debug\net8.0\AIInterviewPlatform.Domain.pdb
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.Domain\obj\Debug\net8.0\ref\AIInterviewPlatform.Domain.dll

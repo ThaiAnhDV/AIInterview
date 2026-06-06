@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tidq3obpZj0=",
+  "dgSpecHash": "9eRGGVjw3h8=",
   "success": true,
   "projectFilePath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj",
   "expectedPackageFiles": [
@@ -70,6 +70,8 @@
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\hoang\\.nuget\\packages\\npgsql\\8.0.5\\npgsql.8.0.5.nupkg.sha512",
+    "C:\\Users\\hoang\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.10\\npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\pdfpig\\0.1.14\\pdfpig.0.1.14.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\system.buffers\\4.6.0\\system.buffers.4.6.0.nupkg.sha512",
     "C:\\Users\\hoang\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",

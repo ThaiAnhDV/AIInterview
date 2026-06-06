@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AIInterviewPlatform.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbc3338b40a4f811bb538ff95bbf7e6b2fac7d6e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebc3b4e0a8b2d3bfaf5fb2395adf5241b4990d8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("AIInterviewPlatform.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AIInterviewPlatform.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

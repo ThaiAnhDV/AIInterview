@@ -10,6 +10,8 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Azure.Core.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Azure.Identity.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\BCrypt-Net-Next.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Humanizer.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -47,6 +49,15 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Npgsql.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Core.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.DocumentLayoutAnalysis.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Fonts.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Package.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Tokenization.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Tokens.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -59,6 +70,7 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Drawing.Common.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.IO.Packaging.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Memory.Data.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Runtime.Caching.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
@@ -157,14 +169,3 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\AIInterviewPlatform.API.pdb
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\AIInterviewPlatform.API.genruntimeconfig.cache
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\ref\AIInterviewPlatform.API.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Core.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.DocumentLayoutAnalysis.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Fonts.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Package.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Tokenization.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Tokens.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.IO.Packaging.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

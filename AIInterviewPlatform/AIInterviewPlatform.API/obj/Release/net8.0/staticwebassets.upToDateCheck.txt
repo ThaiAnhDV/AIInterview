@@ -1,0 +1,12 @@
+wwwroot\uploads\resumes\062407a6-4dd0-4d8e-a226-17d7f9a004f2.pdf
+wwwroot\uploads\resumes\21b8789e-bd9d-4d4f-9720-5864a92eedb6.docx
+wwwroot\uploads\resumes\22f179de-c68e-4bc4-804b-e2f96bda53a2.docx
+wwwroot\uploads\resumes\38d76236-c59d-498b-917f-5e18afb1e0b1.pdf
+wwwroot\uploads\resumes\6226b4c3-9842-4a79-8796-bda0a7cc6e2b.docx
+wwwroot\uploads\resumes\63f160d6-c722-49f1-86e7-033d852f2b95.docx
+wwwroot\uploads\resumes\6f6b68d1-57c3-4b17-bd14-22f47b287334.docx
+wwwroot\uploads\resumes\7eb25fdb-fe80-4a86-8b9f-b4b52d67463d.docx
+wwwroot\uploads\resumes\a25233fe-7233-4d38-879f-57f302786efb.docx
+wwwroot\uploads\resumes\a9000179-e2a8-4f6f-8135-c46e4724f80c.docx
+wwwroot\uploads\resumes\c26448e4-5c51-48d4-817d-af7bb2191940.pdf
+wwwroot\uploads\resumes\eae7f335-d335-49f3-9de1-263632b160c1.docx
