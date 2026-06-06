@@ -1,0 +1,493 @@
+﻿@page
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<style>
+    /* Profile Page Specific Styles */
+    
+    /* Avatar Section */
+    .profile-avatar-section {
+        text-align: center;
+        padding: var(--ai-space-8) 0;
+        margin-bottom: var(--ai-space-6);
+        background: linear-gradient(135deg, rgba(255, 110, 196, 0.08), rgba(120, 115, 245, 0.08));
+        border-radius: var(--ai-radius-2xl);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .profile-avatar-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 110, 196, 0.1) 0%, transparent 50%);
+        animation: pulse 4s ease-in-out infinite;
+    }
+
+    @@keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .profile-avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: var(--ai-space-4);
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--ai-radius-circle);
+        object-fit: cover;
+        border: 4px solid var(--ai-pink);
+        box-shadow: 0 0 30px rgba(255, 110, 196, 0.4);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-avatar-initials {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--ai-radius-circle);
+        background: var(--ai-primary-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-4xl);
+        font-weight: var(--ai-font-weight-bold);
+        color: var(--ai-text-primary);
+        border: 4px solid var(--ai-pink);
+        box-shadow: 0 0 30px rgba(255, 110, 196, 0.4);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-avatar-badge {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 32px;
+        height: 32px;
+        background: var(--ai-success);
+        border-radius: var(--ai-radius-circle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid var(--ai-bg-base);
+        z-index: 2;
+    }
+
+    .profile-avatar-badge i {
+        color: white;
+        font-size: var(--ai-font-size-sm);
+    }
+
+    .profile-name {
+        color: var(--ai-text-primary);
+        font-size: var(--ai-font-size-3xl);
+        font-weight: var(--ai-font-weight-bold);
+        margin-bottom: var(--ai-space-2);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-email {
+        color: var(--ai-text-secondary);
+        font-size: var(--ai-font-size-md);
+        margin-bottom: var(--ai-space-2);
+        position: relative;
+        z-index: 1;
+    }
+
+    .profile-education {
+        color: var(--ai-pink);
+        font-size: var(--ai-font-size-sm);
+        font-weight: var(--ai-font-weight-medium);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Stats Grid */
+    .profile-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--ai-space-4);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .profile-stat-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-5);
+        text-align: center;
+        transition: all var(--ai-transition-normal);
+    }
+
+    .profile-stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--ai-border-primary);
+        box-shadow: var(--ai-shadow-md);
+    }
+
+    .profile-stat-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto var(--ai-space-3);
+        border-radius: var(--ai-radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .profile-stat-icon.pink {
+        background: rgba(255, 110, 196, 0.15);
+        color: var(--ai-pink);
+    }
+
+    .profile-stat-icon.purple {
+        background: rgba(120, 115, 245, 0.15);
+        color: var(--ai-purple);
+    }
+
+    .profile-stat-icon.green {
+        background: var(--ai-success-bg);
+        color: var(--ai-success);
+    }
+
+    .profile-stat-value {
+        font-size: var(--ai-font-size-3xl);
+        font-weight: var(--ai-font-weight-bold);
+        background: var(--ai-primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--ai-space-1);
+    }
+
+    .profile-stat-label {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+    }
+
+    /* Form Section */
+    .profile-form-section {
+        background: var(--ai-card-bg-light);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-6);
+    }
+
+    .profile-form-header {
+        display: flex;
+        align-items: center;
+        gap: var(--ai-space-3);
+        margin-bottom: var(--ai-space-6);
+        padding-bottom: var(--ai-space-4);
+        border-bottom: 1px solid var(--ai-border);
+    }
+
+    .profile-form-header i {
+        color: var(--ai-pink);
+        font-size: var(--ai-font-size-xl);
+    }
+
+    .profile-form-header h4 {
+        color: var(--ai-text-primary);
+        margin: 0;
+        font-size: var(--ai-font-size-lg);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    .profile-form-description {
+        color: var(--ai-text-muted);
+        font-size: var(--ai-font-size-sm);
+        margin-bottom: var(--ai-space-6);
+    }
+
+    .profile-form-actions {
+        display: flex;
+        gap: var(--ai-space-4);
+        margin-top: var(--ai-space-6);
+        padding-top: var(--ai-space-5);
+        border-top: 1px solid var(--ai-border);
+    }
+
+    /* Quick Links */
+    .profile-quick-links {
+        display: flex;
+        gap: var(--ai-space-4);
+        justify-content: center;
+        margin-top: var(--ai-space-5);
+    }
+
+    .quick-link-card {
+        background: var(--ai-card-bg);
+        border: 1px solid var(--ai-border);
+        border-radius: var(--ai-radius-xl);
+        padding: var(--ai-space-5);
+        text-align: center;
+        flex: 1;
+        max-width: 200px;
+        transition: all var(--ai-transition-normal);
+        text-decoration: none;
+        display: block;
+    }
+
+    .quick-link-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--ai-pink);
+        box-shadow: var(--ai-shadow-primary);
+    }
+
+    .quick-link-card i {
+        font-size: var(--ai-font-size-2xl);
+        color: var(--ai-pink);
+        margin-bottom: var(--ai-space-3);
+    }
+
+    .quick-link-card span {
+        color: var(--ai-text-secondary);
+        font-size: var(--ai-font-size-sm);
+        font-weight: var(--ai-font-weight-medium);
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .profile-stats-grid {
+            grid-template-columns: 1fr;
+            gap: var(--ai-space-3);
+        }
+
+        .profile-stat-card {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            padding: var(--ai-space-4);
+        }
+
+        .profile-stat-icon {
+            margin: 0;
+            margin-right: var(--ai-space-4);
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .profile-stat-content {
+            flex: 1;
+        }
+
+        .profile-stat-value {
+            font-size: var(--ai-font-size-2xl);
+            margin-bottom: 0;
+        }
+
+        .profile-stat-label {
+            font-size: var(--ai-font-size-xs);
+        }
+
+        .profile-form-actions {
+            flex-direction: column;
+        }
+
+        .profile-form-actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .profile-quick-links {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-link-card {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .profile-avatar,
+        .profile-avatar-initials {
+            width: 100px;
+            height: 100px;
+            font-size: var(--ai-font-size-3xl);
+        }
+    }
+</style>
+
+<div class="page-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2>
+            <i class="fas fa-user"></i>
+            My Profile
+        </h2>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+        <!-- Profile Card -->
+        <div class="card-ai">
+            <div class="card-ai-body">
+                <!-- Avatar Section -->
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-wrapper">
+                        <div class="profile-avatar-initials" id="profileAvatarInitials">U</div>
+                        <img src="/img/logo.png" alt="Profile" class="profile-avatar" id="profileAvatarImg" style="display: none;">
+                        <div class="profile-avatar-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <h2 id="profileDisplayName" class="profile-name">Loading...</h2>
+                    <p id="profileDisplayEmail" class="profile-email">Loading...</p>
+                    <p id="profileDisplayEducation" class="profile-education">Preparing for better interviews</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="profile-stats-grid">
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon pink">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <div class="profile-stat-value" id="statSessions">0</div>
+                            <div class="profile-stat-label">Sessions</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon purple">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <div class="profile-stat-value" id="statRoadmaps">0</div>
+                            <div class="profile-stat-label">Roadmaps</div>
+                        </div>
+                    </div>
+                    <div class="profile-stat-card">
+                        <div class="profile-stat-icon green">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="profile-stat-content">
+                            <div class="profile-stat-value" id="statReadiness">0%</div>
+                            <div class="profile-stat-label">Readiness</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="profile-quick-links">
+                    <a href="/Dashboard" class="quick-link-card">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="/Resume" class="quick-link-card">
+                        <i class="fas fa-file-alt"></i>
+                        <span>My Resume</span>
+                    </a>
+                    <a href="/SkillGap" class="quick-link-card">
+                        <i class="fas fa-search"></i>
+                        <span>Skill Gap</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Card -->
+        <div class="card-ai mt-6">
+            <div class="card-ai-body">
+                <div class="profile-form-section">
+                    <div class="profile-form-header">
+                        <i class="fas fa-user-edit"></i>
+                        <h4>Edit Profile</h4>
+                    </div>
+
+                    <p class="profile-form-description">
+                        Update your personal interview preparation information. This helps us provide better recommendations.
+                    </p>
+
+                    <form onsubmit="event.preventDefault(); updateProfile();">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Full Name</label>
+                                    <input id="profileFullName"
+                                           type="text"
+                                           class="form-control-ai"
+                                           placeholder="Enter your full name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Email</label>
+                                    <input id="profileEmail"
+                                           type="email"
+                                           class="form-control-ai form-control-ai-readonly"
+                                           readonly
+                                           placeholder="Email address">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Phone</label>
+                                    <input id="profilePhone"
+                                           type="text"
+                                           class="form-control-ai"
+                                           placeholder="Phone number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-ai">
+                                    <label class="form-label-ai">Education Level</label>
+                                    <input id="profileEducationLevel"
+                                           type="text"
+                                           class="form-control-ai"
+                                           placeholder="University, College, High School...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-ai">
+                            <label class="form-label-ai">Career Goal</label>
+                            <textarea id="profileCareerGoal"
+                                      class="form-control-ai"
+                                      rows="4"
+                                      placeholder="Example: Become a Backend Developer specializing in cloud technologies"></textarea>
+                        </div>
+
+                        <div class="profile-form-actions">
+                            <button type="submit" class="btn-primary-ai">
+                                <i class="fas fa-save mr-2"></i>
+                                Save Changes
+                            </button>
+                            <a href="/Dashboard" class="btn-secondary-ai">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/profile.js"></script>
+
+    <script>
+        if (requireLogin()) {
+            if (typeof loadProfile === 'function') {
+                loadProfile();
+            }
+        }
+    </script>
+}

@@ -1,0 +1,2701 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\learningroadmapservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\learningroadmapservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\i18n.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\i18n.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\pricing\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\pricing\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\auth.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\shared\\_navbar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\roadmap.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\roadmap.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\roadmap\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\roadmap\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\roadmapactivitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\roadmapactivitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\roadmapscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\roadmapscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\answerevaluationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\answerevaluationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\skillgapanalysisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\skillgapanalysisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\interviewanswerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\interviewanswerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\interviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\interviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\roadmap\\roadmapmilestoneresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\roadmap\\roadmapmilestoneresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\roadmap\\roadmapactivityresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\roadmap\\roadmapactivityresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\ilearningroadmapservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\ilearningroadmapservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\iinterviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\iinterviewservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\iinterviewanswerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\iinterviewanswerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\roadmap\\roadmapdetailresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\roadmap\\roadmapdetailresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\roadmap\\roadmapresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\roadmap\\roadmapresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\roadmap\\generateroadmaprequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\roadmap\\generateroadmaprequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\interview.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\interview.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\interview\\session.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\interview\\session.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\interview\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\interview\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\feedback.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\feedback.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\feedback\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\feedback\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\answerevaluationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\answerevaluationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\ianswerevaluationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\ianswerevaluationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\answerevaluation\\sessionfeedbackresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\answerevaluation\\sessionfeedbackresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\answerevaluation\\answerevaluationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\answerevaluation\\answerevaluationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\answerevaluation\\feedbackresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\answerevaluation\\feedbackresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\interviewanswerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\interviewanswerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\interviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\interviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\interviewanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\interviewanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interviewanswer\\interviewanswerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interviewanswer\\interviewanswerresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interviewanswer\\updateinterviewanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interviewanswer\\updateinterviewanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interviewanswer\\submitinterviewanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interviewanswer\\submitinterviewanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\activitytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\activitytype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\roadmapstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\roadmapstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\roadmapprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\roadmapprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\jobdescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\jobdescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\learningactivity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\learningactivity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\roadmapmilestone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\roadmapmilestone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\learningroadmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\learningroadmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interviewanswer\\answerevaluationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interviewanswer\\answerevaluationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\answerevaluation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\answerevaluation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\analysisstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\analysisstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\sessionstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\sessionstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\questiongeneratedby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\questiongeneratedby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\feedbacktype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\feedbacktype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\practicehistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\practicehistory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\feedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\feedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interview\\interviewsessionresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interview\\interviewsessionresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interview\\interviewquestionresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interview\\interviewquestionresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\interview\\startinterviewrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\interview\\startinterviewrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enums\\difficultylevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enums\\difficultylevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\questioncategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\questioncategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\questiontemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\questiontemplate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\interviewquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\interviewquestion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\interviewsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\interviewsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\targetjob\\updatetargetjobrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\targetjob\\updatetargetjobrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\targetjob\\targetjobresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\targetjob\\targetjobresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\targetjob\\createtargetjobrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\targetjob\\createtargetjobrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\targetjob\\createjobdescriptionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\targetjob\\createjobdescriptionrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\skillgapanalysis\\skillgapitemresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\skillgapanalysis\\skillgapitemresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\skillgapanalysis\\skillgapanalysisresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\skillgapanalysis\\skillgapanalysisresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\skillgapanalysis\\createskillgapanalysisrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\skillgapanalysis\\createskillgapanalysisrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\skill\\skillresponse..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\skill\\skillresponse..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\skill\\requiredskillresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\skill\\requiredskillresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\skill\\createskillrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\skill\\createskillrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\skill-gap.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\skill-gap.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\skillgap\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\skillgap\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\skillgapanalysiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\skillgapanalysiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\iskillgapanalysisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\iskillgapanalysisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\readinessscore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\readinessscore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\resume.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\resume.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\skillgap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\skillgap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\skillgapanalysis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\skillgapanalysis.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\job-description.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\job-description.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\targetjob\\jobdescription.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\targetjob\\jobdescription.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\targetjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\targetjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\skillscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\skillscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\skillservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\skillservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\iskillservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\iskillservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\requiredskill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\requiredskill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.domain\\enities\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BEFA34A-011F-4D5A-9BC8-3E5676A11F35}|AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj|solutionrelative:aiinterviewplatform.domain\\enities\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\targetjob\\jobdescription.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\targetjob\\jobdescription.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\target-job.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\target-job.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\api.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\api.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\targetjob\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\targetjob\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\services\\targetjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\services\\targetjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\profile\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\profile\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\resume\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\resume\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\guard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\guard.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.web\\pages\\targetjob\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80A37EFC-AA79-4CA3-B5BF-F8489D531B45}|AIInterviewPlatform.Web\\AIInterviewPlatform.Web.csproj|solutionrelative:aiinterviewplatform.web\\pages\\targetjob\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\controllers\\targetjobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\controllers\\targetjobscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\interfaces\\services\\itargetjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\interfaces\\services\\itargetjobservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.application\\dtos\\targetjob\\jobdescriptionresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{64C9C9F1-CB63-41E6-A802-A5AFE4F717DE}|AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj|solutionrelative:aiinterviewplatform.application\\dtos\\targetjob\\jobdescriptionresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\migrations\\20260530053655_addisactivetotargetjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\migrations\\20260530053655_addisactivetotargetjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 202,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:10:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{873151d0-cf2e-48cc-b4bf-ad0394f6a3c3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c9c0ae26-aa77-11d2-b3f0-0000f87570ee}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1377497384:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:15:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:16:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:17:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:14:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:13:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:10:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:8:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:7:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:6:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{588470cc-84f8-4a57-9ac4-86bca0625ff4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1928210406:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:350743133:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:23:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:29:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:13:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:34:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f53-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:135:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:136:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:137:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:138:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{f5cd1b51-c771-5648-966f-646d419b1e7c}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:41:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:30:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:147:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:148:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:143:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:144:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:145:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:146:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:142:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:139:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:140:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:141:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:136:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:138:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:135:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:139:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:137:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:138:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:38:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:69:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:70:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:71:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:69:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:73:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:72:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:54:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0504ff91-9d61-11d0-a794-00a0c9110051}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:93:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:37:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:49:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:68:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:67:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:18:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:17:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:33:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:45:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:45:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1196186238:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:14:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:18:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:21:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:19:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:20:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:7:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:46:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:47:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:63:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:64:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:65:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:32:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:37:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:39:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:40:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:43:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:42:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:41:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{99a11807-c5db-4877-ad35-09b56a044012}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{131369f2-062d-44a2-8671-91ff31efb4f4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{9a7cebbb-dc5c-4986-bc49-962da46aa506}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:48:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{2456bd12-ecf7-4988-a4a6-67d49173f565}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:141:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:143:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:144:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:145:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:146:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:147:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:145:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:146:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:142:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:147:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:146:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:147:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{605322a2-17ae-43f4-b60f-766556e46c87}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:44:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:63:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:74:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:26:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:25:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:136:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:74:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:75:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:76:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:77:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:78:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:44:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{4a9b7e51-aa16-11d0-a8c5-00a0c921a4d2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:27:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:29:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:31:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:34:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{26341fe2-71dd-46fd-bb1b-2e51a92a0d64}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{80c411e8-fd5e-4b16-914b-0d9d84172cc1}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{c93a910a-0fa6-4307-93a4-f2bd61ec7828}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:135:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:14:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:24:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:6:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{6bf11835-8a31-496c-b01e-94f731afc7ce}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{6bf11835-8a31-496c-b01e-94f731afc7ce}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:48:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:62:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:81:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:36:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:6:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:21:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "RoadmapsController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowC4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:59:12.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RoadmapMilestoneResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:40:41.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "RoadmapActivityResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:40:27.341Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "InterviewService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:32:10.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_Navbar.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-26T10:08:23.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\appsettings.json",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\appsettings.json",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\appsettings.json",
+              "RelativeToolTip": "AIInterviewPlatform.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-26T09:48:07.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAC4DAAAAAAAAAAAuwHsDAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-26T10:07:46.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LearningRoadmapService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAowAQBAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:55:48.973Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAuwGYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T08:18:15.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAqwLEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-06T08:22:26.583Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "i18n.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
+              "ViewState": "AgIAACgCAAAAAAAAAAAcwEACAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-06-06T08:41:23.955Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
+              "ViewState": "AgIAALgAAAAAAAAAAAAAwNUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T08:18:51.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "auth.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
+              "ViewState": "AgIAANIBAAAAAAAAAAAqwPIBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-06-06T08:19:15.061Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RoadmapActivitiesController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T12:00:05.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
+              "ViewState": "AgIAADcAAAAAAAAAAAAiwEMAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-30T12:04:16.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "roadmap.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
+              "ViewState": "AgIAAMsAAAAAAAAAAAAiwOEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-30T12:09:24.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "InterviewAnswerService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACMAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T10:49:07.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SkillGapAnalysisService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAIwBsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:41:52.862Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AnswerEvaluationService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:04:19.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Program.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Program.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Program.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Program.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAowDIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:57:03.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ILearningRoadmapService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:56:29.072Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IInterviewService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:31:35.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IInterviewAnswerService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:23:02.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "RoadmapDetailResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:41:46.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "RoadmapResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:40:55.793Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "GenerateRoadmapRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:39:59.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "IAnswerEvaluationService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:03:54.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "SessionFeedbackResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:02:58.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "AnswerEvaluationResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:02:37.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Session.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAmwGkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-30T08:44:30.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAmwDgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-30T08:43:57.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "interview.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAkwLYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-30T08:44:53.704Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "AnswerEvaluationController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:06:36.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAmwB0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-30T11:08:41.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "feedback.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAmwH4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-30T11:12:58.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "FeedbackResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T11:02:17.31Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "InterviewAnswerResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:18:52.584Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "InterviewAnswer.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:48:10.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "InterviewController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAIwB0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:32:55.034Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "InterviewAnswersController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAiwFMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:31:48.196Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "UpdateInterviewAnswerRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T10:44:51.661Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAgwCcAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:24:26.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "SubmitInterviewAnswerRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:17:55.259Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "ActivityType.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:42:04.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "RoadmapStatus.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:41:50.236Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "RoadmapProgress.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:41:37.154Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "LearningActivity.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAwwB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:41:14.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "RoadmapMilestone.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:41:01.056Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "LearningRoadmap.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:40:48.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "AnswerEvaluationResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T09:19:25.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "JobDescription.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:44:13.471Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "AnswerEvaluation.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:51:59.428Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "AnalysisStatus.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:49:25.469Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "FeedbackType.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:49:02.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "PracticeHistory.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAIwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:48:49.941Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "Feedback.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAIwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:48:30.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "InterviewQuestionResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:30:14.885Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "QuestionGeneratedBy.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:52:23.015Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "DifficultyLevel.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:52:09.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "SessionStatus.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:52:00.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "InterviewSessionResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T08:30:44.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "QuestionCategory.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:49:50.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "QuestionTemplate.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:49:32.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "InterviewQuestion.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:49:20.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "InterviewSession.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:49:11.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "StartInterviewRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T07:26:33.611Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
+              "Title": "CreateJobDescriptionRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:52:11.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "CreateTargetJobRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:50:13.728Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "TargetJobResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:51:48.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 70,
+              "Title": "SkillGapItemResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:37:57.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 71,
+              "Title": "SkillGapAnalysisResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:39:30.767Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "UpdateTargetJobRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:51:18.121Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 72,
+              "Title": "CreateSkillGapAnalysisRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:36:38.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "SkillResponse..cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:44:49.481Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 74,
+              "Title": "RequiredSkillResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:45:12.096Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 75,
+              "Title": "CreateSkillRequest.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:44:29.723Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 79,
+              "Title": "ISkillGapAnalysisService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:40:26.133Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 77,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwEEAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-30T07:03:57.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 76,
+              "Title": "skill-gap.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
+              "ViewState": "AgIAAIIAAAAAAAAAAAA1wJUAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-30T07:13:44.616Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 78,
+              "Title": "SkillGapAnalysisController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:56:30.192Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 80,
+              "Title": "ReadinessScore.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:25:03.365Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 81,
+              "Title": "Resume.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Resume.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\Resume.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Resume.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\Resume.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:24:49.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 82,
+              "Title": "SkillGap.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T06:24:34.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 90,
+              "Title": "RequiredSkill.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:42:21.382Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 85,
+              "Title": "JobDescription.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAwwEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-27T10:12:14.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 84,
+              "Title": "job-description.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAwwKMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-27T10:12:44.52Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 91,
+              "Title": "Skill.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Skill.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\Skill.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Skill.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\Skill.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:42:12.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 83,
+              "Title": "SkillGapAnalysis.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAkwCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:39:39.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 86,
+              "Title": "TargetJob.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwBgAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:43:36.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 89,
+              "Title": "ISkillService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:45:49.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 88,
+              "Title": "SkillService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAAwHMAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:46:18.62Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 87,
+              "Title": "SkillsController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:46:45.429Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 107,
+              "Title": "20260530053655_AddIsActiveToTargetJob.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Migrations\\20260530053655_AddIsActiveToTargetJob.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Migrations\\20260530053655_AddIsActiveToTargetJob.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Migrations\\20260530053655_AddIsActiveToTargetJob.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Migrations\\20260530053655_AddIsActiveToTargetJob.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:36:56.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 98,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAHEBAAAAAAAAAAAgwH4BAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-26T10:09:09.434Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 93,
+              "Title": "target-job.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAwwIYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-26T10:04:35.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 97,
+              "Title": "TargetJobService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAYwJsAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:55:47.945Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 96,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAcwFYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-26T10:06:55.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 95,
+              "Title": "site.css",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAPAAAAAAAAAAAAAuwAkBAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-05-26T16:43:56.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 106,
+              "Title": "JobDescriptionResponse.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:52:33.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 94,
+              "Title": "api.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-27T08:40:35.163Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 92,
+              "Title": "JobDescription.cshtml.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-30T05:21:15.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 105,
+              "Title": "ITargetJobService.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:54:14.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 101,
+              "Title": "guard.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-26T16:58:21.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 99,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAIAwwOoAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-26T16:58:52.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 100,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAwwLcAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-26T16:59:49.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 102,
+              "Title": "site.js",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAowBsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-26T16:47:46.571Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 104,
+              "Title": "TargetJobsController.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
+              "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
+              "ViewState": "AgIAALMAAAAAAAAAAAAcwMQAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T09:56:49.3Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 103,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
+              "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T10:07:11.505Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 73,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{5b6781c0-e99d-11d0-9954-00a0c91bc8e5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:31:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:32:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:16:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:53:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:67:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:68:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:73:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:78:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:81:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1304,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:43:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:22:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:23:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:24:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:35:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{260978c3-582c-487d-ab12-c1fdde07c578}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:36:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:38:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:39:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:40:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:42:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{93c5e7ad-af06-49e6-a756-b8f3eaca790d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:33:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:27:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:30:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:28:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:15:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:13:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:25:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:26:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:35:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:28:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:22:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

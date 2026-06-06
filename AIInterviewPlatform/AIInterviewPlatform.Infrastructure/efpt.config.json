@@ -1,0 +1,182 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "AIInterviewPlatformDbContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "IrregularWords": null,
+   "MinimumProductVersion": "2.6.1382",
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Entities",
+   "PluralRules": null,
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "AIInterviewPlatform.Infrastructure.Data",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "SingularRules": null,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[answer_evaluations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[authentication_accounts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[feedbacks]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[improvement_suggestions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[interview_answers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[interview_questions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[interview_sessions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[job_descriptions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[learning_activities]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[learning_roadmaps]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[notifications]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[practice_histories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[progress_records]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[question_categories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[question_templates]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[readiness_scores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[recommendations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[required_skills]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[resumes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[roadmap_milestones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[roadmap_progress]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[roadmap_recommendations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[skill_gap_analyses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[skill_gaps]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[skill_improvement_trends]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[skills]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[strength_weakness_reports]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[system_logs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[target_jobs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[usage_statistics]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[user_profiles]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[weak_communication_patterns]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false,
+   "UseTypedTvpParameters": true
+}

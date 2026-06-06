@@ -1,0 +1,83 @@
+﻿@page
+@model AIInterviewPlatform.Web.Pages.TargetJob.JobDescriptionModel
+
+@{
+    ViewData["Title"] = "Job Description";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Target Job Description</h4>
+        </div>
+
+        <div class="card-body">
+
+            <input type="hidden"
+                   id="targetJobId"
+                   value="@Request.Query["targetJobId"]" />
+
+            <input type="hidden"
+                   id="jobDescriptionId" />
+
+            <p class="text-muted">
+                Enter the job description for this target job.
+            </p>
+
+            <textarea id="jobDescriptionContent"
+                      class="form-control"
+                      rows="12"
+                      placeholder="Example: Required skills: C#, ASP.NET Core, SQL Server, REST API, JWT, Git..."></textarea>
+
+            <div class="mt-4">
+                <button class="btn-primary-ai"
+                        onclick="saveJobDescription()">
+                    Save Job Description
+                </button>
+
+                <button class="btn-secondary-ai"
+                        onclick="extractSkills()">
+                    Extract Skills
+                </button>
+
+                <a href="/TargetJob"
+                   class="btn-secondary-ai">
+                    Back
+                </a>
+            </div>
+
+            <hr />
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Required Skills</h5>
+
+                <small class="text-muted">
+                    Extracted from Job Description
+                </small>
+            </div>
+
+            <div id="requiredSkillsContainer" class="mt-3">
+                <div class="text-muted">
+                    No skills extracted yet.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/job-description.js"></script>
+
+    <script>
+        if (requireLogin()) {
+            loadJobDescription();
+        }
+    </script>
+}

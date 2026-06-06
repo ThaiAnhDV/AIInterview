@@ -1,0 +1,104 @@
+﻿@page
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Resume";
+}
+
+<!-- Page Header -->
+<div class="page-header">
+    <h2>
+        <i class="fas fa-file-alt"></i>
+        My Resumes
+    </h2>
+    <p class="page-subtitle">Upload and manage your resumes for interview analysis.</p>
+</div>
+
+<!-- Page Content -->
+<div class="page-content">
+    <div class="card-ai">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-cloud-upload-alt mr-2"></i>Upload New Resume</h4>
+        </div>
+        <div class="card-ai-body">
+            <div class="upload-row mb-4" style="flex-wrap: wrap; gap: 12px;">
+                <input id="resumeFile"
+                       type="file"
+                       class="form-control-ai"
+                       accept=".pdf,.doc,.docx"
+                       style="flex: 1 1 200px; min-width: 0;">
+                <button onclick="uploadResume()" class="btn-primary-ai">
+                    <i class="fas fa-upload mr-2"></i>Upload Resume
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-ai mt-5">
+        <div class="card-ai-header">
+            <h4><i class="fas fa-list mr-2"></i>Your Resumes</h4>
+        </div>
+        <div class="card-ai-body">
+            <div class="table-responsive">
+                <table class="table-ai">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Status</th>
+                            <th>Uploaded At</th>
+                            <th>View</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resumeTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center text-ai-muted" style="padding: 40px;">
+                                Loading resumes...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-5 pt-4" style="border-top: 1px solid var(--ai-border);">
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/Dashboard" class="btn-secondary-ai">
+                        <i class="fas fa-home mr-2"></i>Back to Dashboard
+                    </a>
+                    <a href="/Profile" class="btn-secondary-ai">
+                        <i class="fas fa-user mr-2"></i>Go to Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .upload-row {
+        display: flex;
+        gap: var(--ai-space-4);
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .upload-row input[type="file"] {
+        flex: 1;
+        min-width: 200px;
+    }
+</style>
+
+@section Scripts {
+    @* Core scripts already loaded in _Layout.cshtml: api.js, auth.js, site.js *@
+    <script src="~/js/guard.js"></script>
+    <script src="~/js/resume.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (requireLogin()) {
+                if (typeof loadResumes === 'function') {
+                    loadResumes();
+                }
+            }
+        });
+    </script>
+}

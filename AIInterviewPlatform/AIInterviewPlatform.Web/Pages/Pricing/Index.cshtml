@@ -1,0 +1,200 @@
+﻿@page
+@model AIInterviewPlatform.Web.Pages.Pricing.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Pricing Plans";
+}
+
+<style>
+    .pricing-page {
+        padding: 80px 0;
+        min-height: calc(100vh - 70px);
+    }
+
+    .pricing-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .pricing-title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 15px;
+    }
+
+    .pricing-subtitle {
+        color: rgba(255,255,255,.65);
+        font-size: 1.1rem;
+    }
+
+    .pricing-grid {
+        max-width: 900px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .plan-card {
+        background: rgba(25,25,50,.85);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 24px;
+        padding: 40px 30px;
+        text-align: center;
+        position: relative;
+        transition: .3s;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .plan-name {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .plan-price {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 25px;
+    }
+
+    .plan-price span {
+        font-size: 1rem;
+        color: rgba(255,255,255,.6);
+    }
+
+    .plan-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
+        text-align: left;
+    }
+
+    .plan-features li {
+        color: rgba(255,255,255,.8);
+        margin-bottom: 15px;
+    }
+
+    .plan-features i {
+        color: #4caf50;
+        margin-right: 10px;
+    }
+
+    .plan-btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: none;
+        font-weight: 600;
+        transition: .3s;
+    }
+
+    .free-btn {
+        background: rgba(255,255,255,.08);
+        color: #fff;
+    }
+
+    .premium-btn {
+        background: linear-gradient(135deg,#ff6ec4,#7873f5);
+        color: #fff;
+    }
+
+    .premium-btn:hover {
+        box-shadow: 0 10px 30px rgba(255,110,196,.35);
+    }
+
+    .popular-badge {
+        position: absolute;
+        top: -12px;
+        right: 20px;
+        background: linear-gradient(135deg,#ff6ec4,#7873f5);
+        color: #fff;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+
+    .premium {
+        border: 2px solid rgba(255,110,196,.4);
+    }
+
+    @@media(max-width:768px){
+        .pricing-grid{
+            grid-template-columns:1fr;
+        }
+    }
+</style>
+
+<div class="pricing-page">
+    <div class="container">
+
+        <div class="pricing-header">
+            <h1 class="pricing-title">Choose Your Plan</h1>
+            <p class="pricing-subtitle">
+                Unlock powerful AI interview preparation features.
+            </p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <!-- FREE -->
+            <div class="plan-card">
+                <h3 class="plan-name">Free</h3>
+
+                <div class="plan-price">
+                    0₫
+                </div>
+
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> 1 Resume Upload</li>
+                    <li><i class="fas fa-check"></i> Basic Skill Analysis</li>
+                    <li><i class="fas fa-check"></i> 3 Mock Interviews / Month</li>
+                    <li><i class="fas fa-check"></i> Basic Roadmap</li>
+                </ul>
+
+                <button class="plan-btn free-btn">
+                    Current Plan
+                </button>
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="plan-card premium">
+
+                <div class="popular-badge">
+                    Most Popular
+                </div>
+
+                <h3 class="plan-name">Premium</h3>
+
+                <div class="plan-price">
+                    99.000₫
+                    <span>/ month</span>
+                </div>
+
+                <ul class="plan-features">
+                    <li><i class="fas fa-check"></i> Unlimited Resume Uploads</li>
+                    <li><i class="fas fa-check"></i> Advanced Skill Gap Analysis</li>
+                    <li><i class="fas fa-check"></i> Unlimited AI Mock Interviews</li>
+                    <li><i class="fas fa-check"></i> Detailed Feedback & Scores</li>
+                    <li><i class="fas fa-check"></i> Personalized Learning Roadmap</li>
+                    <li><i class="fas fa-check"></i> Priority Support</li>
+                </ul>
+
+                <button class="plan-btn premium-btn">
+                    Upgrade Now
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
