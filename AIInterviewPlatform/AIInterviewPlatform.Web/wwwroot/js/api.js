@@ -1,1 +1,1 @@
-﻿const API_BASE_URL = "https://localhost:7196/api";
+﻿const API_BASE_URL = "http://trwmnhhoang-001-site1.site4future.com/api";
