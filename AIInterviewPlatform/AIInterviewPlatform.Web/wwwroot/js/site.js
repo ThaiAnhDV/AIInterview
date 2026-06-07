@@ -9,14 +9,15 @@
 
     const noti = document.createElement("div");
     const variant = type === "error" ? "is-error" : "is-success";
-    const title = type === "error" ? "Error" : "Success";
+    const translate = window.t || ((text) => text);
+    const title = type === "error" ? translate("Error") : translate("Success");
 
     noti.className = `notification ${variant}`;
     noti.innerHTML = `
         <div class="notiborderglow"></div>
         <div class="notiglow"></div>
         <div class="notititle">${title}</div>
-        <div class="notibody">${String(message ?? "")}</div>
+        <div class="notibody">${String(translate(message ?? ""))}</div>
     `;
 
     stack.appendChild(noti);

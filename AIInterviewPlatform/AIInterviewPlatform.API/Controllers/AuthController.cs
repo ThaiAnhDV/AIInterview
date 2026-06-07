@@ -1,4 +1,5 @@
-﻿using AIInterviewPlatform.Application.DTOs.Auth;
+﻿using AIInterviewPlatform.Application.Common.Exceptions;
+using AIInterviewPlatform.Application.DTOs.Auth;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,27 +21,65 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequestDto request)
     {
-        var result = await _authService.RegisterAsync(request);
-
-        return Ok(new
+        try
         {
-            success = true,
-            message = "Register successfully.",
-            data = result
-        });
+            var result = await _authService.RegisterAsync(request);
+
+            return Ok(new
+            {
+                success = true,
+                message = "Register successfully.",
+                data = result
+            });
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                errors = ex.Errors
+            });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                success = false,
+                errors = new[] { ex.Message }
+            });
+        }
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequestDto request)
     {
-        var result = await _authService.LoginAsync(request);
-
-        return Ok(new
+        try
         {
-            success = true,
-            message = "Login successfully.",
-            data = result
-        });
+            var result = await _authService.LoginAsync(request);
+
+            return Ok(new
+            {
+                success = true,
+                message = "Login successfully.",
+                data = result
+            });
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                errors = ex.Errors
+            });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                success = false,
+                errors = new[] { ex.Message }
+            });
+        }
     }
 
     [Authorize]

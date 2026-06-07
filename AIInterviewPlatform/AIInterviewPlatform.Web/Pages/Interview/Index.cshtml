@@ -223,6 +223,226 @@
     }
 
     /* Answer Cards */
+    .interview-chat-shell {
+        max-width: 920px;
+        margin: 0 auto;
+        background: rgba(20, 20, 45, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    .interview-chat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--ai-space-4);
+        padding: 18px 22px;
+        background: rgba(30, 30, 60, 0.85);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .interview-chat-person {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .interview-chat-avatar,
+    .message-avatar-ai,
+    .message-avatar-user {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .interview-chat-avatar,
+    .message-avatar-ai {
+        background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    }
+
+    .message-avatar-user {
+        background: rgba(64, 201, 255, 0.2);
+        color: #40c9ff;
+    }
+
+    .interview-chat-title {
+        color: #fff;
+        font-weight: 700;
+        margin: 0 0 2px;
+    }
+
+    .interview-chat-status {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #4caf50;
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .interview-chat-time {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .interview-chat-body {
+        padding: 24px 22px 30px;
+    }
+
+    .interview-chat-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 0 0 20px;
+        color: rgba(255, 255, 255, 0.65);
+    }
+
+    .interview-chat-messages {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .chat-question-pair {
+        display: grid;
+        gap: 16px;
+    }
+
+    .chat-message-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .chat-message-row.user {
+        justify-content: flex-end;
+    }
+
+    .chat-message-row.user .message-avatar-user {
+        order: 2;
+    }
+
+    .message-bubble-ai,
+    .message-bubble-user {
+        max-width: min(680px, 78%);
+        border-radius: 12px;
+        padding: 14px 16px;
+        line-height: 1.55;
+        color: #fff;
+    }
+
+    .message-bubble-ai {
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .message-bubble-user {
+        background: rgba(64, 201, 255, 0.18);
+        border: 1px solid rgba(64, 201, 255, 0.4);
+    }
+
+    .message-bubble-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
+        color: rgba(255, 255, 255, 0.64);
+        font-size: 0.78rem;
+        font-weight: 700;
+    }
+
+    .chat-answer-input {
+        width: 100%;
+        min-height: 104px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        color: #fff;
+        resize: vertical;
+        outline: none;
+        line-height: 1.55;
+    }
+
+    .chat-answer-input::placeholder {
+        color: rgba(255, 255, 255, 0.48);
+    }
+
+    .chat-answer-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.78rem;
+    }
+
+    .chat-submit-bar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--ai-space-3);
+        padding: 22px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 15, 35, 0.7);
+    }
+
+    .chat-feedback-panel {
+        max-width: 920px;
+        margin: 0 auto;
+        background: rgba(24, 34, 49, 0.94);
+        border: 1px solid rgba(76, 175, 80, 0.28);
+        border-radius: 0 0 14px 14px;
+        padding: 24px;
+        text-align: left;
+    }
+
+    .chat-feedback-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 20px;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .feedback-score-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        background: rgba(76, 175, 80, 0.18);
+        color: #4caf50;
+        font-weight: 800;
+    }
+
+    .chat-feedback-list {
+        display: grid;
+        gap: 12px;
+        margin: 0 0 22px;
+        padding: 0;
+        list-style: none;
+        color: rgba(255, 255, 255, 0.78);
+    }
+
+    .chat-feedback-list i {
+        color: #4caf50;
+        margin-right: 8px;
+    }
+
     .answer-card-ai {
         background: var(--ai-card-bg);
         border: 1px solid var(--ai-border);
@@ -460,6 +680,11 @@
             align-items: flex-start;
         }
 
+        .message-bubble-ai,
+        .message-bubble-user {
+            max-width: 88%;
+        }
+
         .interview-actions {
             flex-direction: column;
         }
@@ -648,29 +873,45 @@
 
         <!-- Answer Form Section -->
         <div id="answerFormSection" style="display: none;">
-            <div class="card-ai mb-6">
-                <div class="card-ai-header">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                        <h4><i class="fas fa-edit mr-2"></i>Answer Questions</h4>
-                        <span id="answerProgress" class="progress-badge">0/0 Answered</span>
+            <div class="interview-chat-shell">
+                <div class="interview-chat-header">
+                    <div class="interview-chat-person">
+                        <div class="interview-chat-avatar"></div>
+                        <div>
+                            <p class="interview-chat-title">Người phỏng vấn AI</p>
+                            <p class="interview-chat-status">
+                                <i class="fas fa-circle"></i>
+                                Đang trực tuyến
+                            </p>
+                        </div>
+                    </div>
+                    <div class="interview-chat-time">
+                        <i class="fas fa-clock"></i>
+                        <span id="interviewClock">12:34</span>
                     </div>
                 </div>
-                <div class="card-ai-body">
-                    <div id="answerQuestionsContainer"></div>
+                <div class="interview-chat-body">
+                    <div class="interview-chat-meta">
+                        <span id="chatSessionMeta">Phiên phỏng vấn</span>
+                        <span id="answerProgress" class="progress-badge">0/0 Answered</span>
+                    </div>
+                    <div id="answerQuestionsContainer" class="interview-chat-messages"></div>
 
                     <!-- Validation Messages -->
                     <div id="validationMessage" class="alert-ai alert-ai-warning mt-5" style="display: none;">
                         <i class="fas fa-exclamation-triangle mr-2"></i>
                         <span id="validationText"></span>
                     </div>
-
-                    <!-- Submit Button -->
-                    <div class="mt-5 text-center">
-                        <button id="submitAnswersBtn" class="btn-primary-ai btn-lg" onclick="submitAllAnswers()">
-                            <i class="fas fa-paper-plane mr-2"></i>
-                            Submit All Answers
-                        </button>
-                    </div>
+                </div>
+                <div class="chat-submit-bar">
+                    <button id="submitAnswersBtn" class="btn-primary-ai btn-lg" onclick="submitAllAnswers()">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Submit All Answers
+                    </button>
+                    <button class="btn-secondary-ai btn-lg" onclick="resetToSelection()">
+                        <i class="fas fa-plus mr-2"></i>
+                        Start New Interview
+                    </button>
                 </div>
             </div>
         </div>
@@ -689,13 +930,23 @@
         </div>
 
         <!-- Success State -->
-        <div id="successState" class="card-ai text-center py-5" style="display: none;">
-            <div class="card-ai-body">
-                <div class="mb-4">
-                    <i class="fas fa-check-circle text-ai-success" style="font-size: 5rem;"></i>
+        <div id="successState" style="display: none;">
+            <div class="chat-feedback-panel">
+                <div class="chat-feedback-header">
+                    <span>
+                        <i class="fas fa-chart-bar text-ai-success mr-2"></i>
+                        Nhận xét phỏng vấn
+                    </span>
+                    <span class="feedback-score-pill">
+                        <i class="fas fa-star"></i>
+                        Đã gửi
+                    </span>
                 </div>
-                <h3 class="text-ai-primary mb-3">Answers Submitted Successfully!</h3>
-                <p class="text-ai-muted mb-5">Your interview answers have been recorded. View feedback to improve.</p>
+                <ul class="chat-feedback-list">
+                    <li><i class="fas fa-check-circle"></i>Câu trả lời của bạn đã được ghi nhận</li>
+                    <li><i class="fas fa-check-circle"></i>Hệ thống sẽ đánh giá nội dung và kỹ năng liên quan</li>
+                    <li><i class="fas fa-check-circle"></i>Xem feedback để biết điểm mạnh và phần cần cải thiện</li>
+                </ul>
                 <div class="interview-actions">
                     <a id="viewFeedbackBtn" href="#" class="btn-primary-ai btn-lg">
                         <i class="fas fa-star mr-2"></i>
@@ -938,13 +1189,17 @@
         // Display results
         function displayResults(data) {
             hideAllViews();
-            showView('results');
 
             InterviewPageState.setSession(data.sessionId, data.questions);
 
             document.getElementById("sessionBadge").textContent = `Session #${data.sessionId}`;
             document.getElementById("summaryJobTitle").textContent = data.targetJob?.title || "N/A";
             document.getElementById("summarySessionId").textContent = data.sessionId;
+            const chatSessionMeta = document.getElementById("chatSessionMeta");
+            if (chatSessionMeta) {
+                chatSessionMeta.textContent = `${data.targetJob?.title || "Mock Interview"} · Session #${data.sessionId}`;
+            }
+            updateInterviewClock();
 
             const fallbackBadge = document.getElementById("fallbackBadge");
             fallbackBadge.style.display = data.isFallback ? "inline-flex" : "none";
@@ -973,6 +1228,8 @@
             renderCategorySection("technical", "Technical", grouped.Technical);
             renderCategorySection("behavioral", "Behavioral", grouped.Behavioral);
             renderCategorySection("communication", "Communication", grouped.Communication);
+
+            showAnswerForm();
         }
 
         // Show answer form
@@ -997,7 +1254,7 @@
         // Create answer card
         function createAnswerCard(question, index) {
             const card = document.createElement("div");
-            card.className = "answer-card-ai";
+            card.className = "chat-question-pair";
             card.dataset.questionId = question.questionId;
 
             const category = question.category?.toLowerCase() || "technical";
@@ -1005,42 +1262,45 @@
             const isAnswered = existingAnswer?.answerText?.trim()?.length > 0;
 
             card.innerHTML = `
-                <div class="answer-card-header ${category}">
-                    <div class="d-flex align-items-center gap-3">
-                        <span class="question-badge ${category}">
-                            ${question.category || 'Technical'}
-                        </span>
-                        <span class="question-number">Question #${question.questionId}</span>
-                    </div>
-                    <div class="answer-status-indicator ${isAnswered ? 'answered' : 'pending'}">
-                        ${isAnswered 
-                            ? '<i class="fas fa-check-circle"></i> Answered' 
-                            : '<i class="fas fa-clock"></i> Pending'}
+                <div class="chat-message-row ai">
+                    <div class="message-avatar-ai"></div>
+                    <div class="message-bubble-ai">
+                        <div class="message-bubble-label">
+                            <span>${question.category || 'Technical'}</span>
+                            <span>Q${index}</span>
+                        </div>
+                        <div>${question.questionContent}</div>
+                        ${question.skillArea ? `
+                            <div class="mt-3">
+                                <span class="badge-ai badge-ai-info badge-ai-sm">
+                                    <i class="fas fa-star mr-1"></i>
+                                    Skill Focus: ${question.skillArea}
+                                </span>
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
-                <div class="answer-card-body">
-                    <div class="answer-question-text">
-                        <strong>Q${index}:</strong> ${question.questionContent}
+                <div class="chat-message-row user">
+                    <div class="message-avatar-user">
+                        <i class="fas fa-user"></i>
                     </div>
-                    
-                    ${question.skillArea ? `
-                        <div class="mb-4">
-                            <span class="badge-ai badge-ai-info badge-ai-sm">
-                                <i class="fas fa-star mr-1"></i>
-                                Skill Focus: ${question.skillArea}
+                    <div class="message-bubble-user">
+                        <div class="message-bubble-label">
+                            <span>Câu trả lời của bạn</span>
+                            <span class="answer-status-indicator ${isAnswered ? 'answered' : 'pending'}">
+                                ${isAnswered 
+                                    ? '<i class="fas fa-check-circle"></i> Answered' 
+                                    : '<i class="fas fa-clock"></i> Pending'}
                             </span>
                         </div>
-                    ` : ''}
-
-                    <div class="answer-textarea-wrapper">
                         <textarea 
                             id="answer-${question.questionId}"
-                            class="answer-textarea-ai"
+                            class="chat-answer-input"
                             rows="5"
                             placeholder="Type your answer here... (minimum 10 characters for best results)"
                             oninput="handleAnswerInput(${question.questionId}, this.value)"
                         >${existingAnswer?.answerText || ''}</textarea>
-                        <div class="answer-char-counter">
+                        <div class="chat-answer-footer">
                             <span class="char-count-text">
                                 <span id="chars-${question.questionId}">${existingAnswer?.answerText?.length || 0}</span> characters
                             </span>
@@ -1173,13 +1433,26 @@
 
         // Show success
         function showSuccess(answerCount) {
-            hideAllViews();
-            showView('success');
+            hideValidationMessage();
+            document.getElementById("successState").style.display = "block";
 
             const feedbackBtn = document.getElementById("viewFeedbackBtn");
             if (feedbackBtn) {
                 feedbackBtn.href = `/Feedback?sessionId=${InterviewPageState.currentSessionId}`;
             }
+
+            const submitBtn = document.getElementById("submitAnswersBtn");
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Submitted';
+            }
+        }
+
+        function updateInterviewClock() {
+            const clock = document.getElementById("interviewClock");
+            if (!clock) return;
+            const now = new Date();
+            clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
         // View management

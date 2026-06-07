@@ -1,0 +1,537 @@
+@page
+@model AIInterviewPlatform.Web.Pages.Admin.IndexModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard - AI Interview Platform</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link type="text/css" href="~/assets/css/argon-design-system.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: #fff;
+            background: #080816;
+            overflow-x: hidden;
+        }
+
+        .admin-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+        }
+
+        .admin-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 20% 18%, rgba(255, 110, 196, 0.14), transparent 28%),
+                radial-gradient(circle at 80% 6%, rgba(64, 201, 255, 0.13), transparent 26%),
+                rgba(8, 8, 22, 0.9);
+        }
+
+        .admin-shell {
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            padding: 24px 18px;
+            background: rgba(12, 12, 30, 0.9);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .admin-brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+        }
+
+        .admin-brand strong {
+            display: block;
+            color: #fff;
+            font-size: 0.96rem;
+        }
+
+        .admin-brand span {
+            color: rgba(255, 255, 255, 0.52);
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .admin-menu {
+            display: grid;
+            gap: 8px;
+            margin-top: 22px;
+        }
+
+        .admin-menu a,
+        .admin-menu button {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            width: 100%;
+            min-height: 44px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 0 13px;
+            color: rgba(255, 255, 255, 0.72);
+            background: transparent;
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .admin-menu a.active,
+        .admin-menu a:hover,
+        .admin-menu button:hover {
+            color: #fff;
+            border-color: rgba(255, 110, 196, 0.28);
+            background: linear-gradient(135deg, rgba(255, 110, 196, 0.18), rgba(120, 115, 245, 0.14));
+        }
+
+        .admin-main {
+            min-width: 0;
+            padding: 28px;
+        }
+
+        .admin-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 26px;
+        }
+
+        .admin-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: #ff8ad5;
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .admin-title {
+            margin: 0;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .admin-subtitle {
+            max-width: 660px;
+            margin: 9px 0 0;
+            color: rgba(255, 255, 255, 0.62);
+            line-height: 1.65;
+        }
+
+        .admin-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-btn {
+            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 0 15px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.07);
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .admin-btn.primary {
+            border: 0;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            box-shadow: 0 14px 30px rgba(120, 115, 245, 0.22);
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .admin-card,
+        .admin-panel {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            background: rgba(18, 18, 42, 0.88);
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.26);
+            backdrop-filter: blur(16px);
+        }
+
+        .admin-card {
+            min-height: 158px;
+            padding: 20px;
+        }
+
+        .admin-card-icon {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            border-radius: 14px;
+            color: #fff;
+            background: linear-gradient(135deg, rgba(255, 110, 196, 0.75), rgba(64, 201, 255, 0.68));
+        }
+
+        .admin-card-label {
+            margin: 0 0 8px;
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 0.78rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .admin-card-value {
+            margin: 0;
+            color: #fff;
+            font-size: 1.55rem;
+            font-weight: 900;
+        }
+
+        .admin-card-note {
+            margin: 8px 0 0;
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 0.86rem;
+            line-height: 1.55;
+        }
+
+        .admin-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 11px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 900;
+        }
+
+        .admin-status.ok {
+            color: #7ff0a0;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.26);
+        }
+
+        .admin-status.warn {
+            color: #ffd166;
+            background: rgba(255, 193, 7, 0.13);
+            border: 1px solid rgba(255, 193, 7, 0.25);
+        }
+
+        .admin-status.danger {
+            color: #ff8a9a;
+            background: rgba(244, 67, 54, 0.14);
+            border: 1px solid rgba(244, 67, 54, 0.24);
+        }
+
+        .admin-panels {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+            gap: 16px;
+        }
+
+        .admin-panel {
+            padding: 20px;
+        }
+
+        .admin-panel h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 14px;
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 900;
+        }
+
+        .admin-list {
+            display: grid;
+            gap: 2px;
+            margin: 0;
+        }
+
+        .admin-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 13px 0;
+            color: rgba(255, 255, 255, 0.68);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .admin-row:last-child {
+            border-bottom: 0;
+        }
+
+        .admin-row strong {
+            color: #fff;
+            text-align: right;
+        }
+
+        .admin-loader,
+        .admin-denied {
+            max-width: 560px;
+            margin: 110px auto;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            background: rgba(18, 18, 42, 0.88);
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.28);
+        }
+
+        .admin-denied {
+            display: none;
+            border-color: rgba(244, 67, 54, 0.24);
+            background: rgba(45, 18, 28, 0.78);
+        }
+
+        .admin-denied h2,
+        .admin-loader h2 {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+
+        .admin-denied p,
+        .admin-loader p {
+            margin: 0 0 18px;
+            color: rgba(255, 255, 255, 0.68);
+        }
+
+        .admin-page {
+            display: none;
+        }
+
+        @@media (max-width: 1100px) {
+            .admin-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: relative;
+                height: auto;
+            }
+
+            .admin-grid,
+            .admin-panels {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @@media (max-width: 720px) {
+            .admin-main {
+                padding: 18px;
+            }
+
+            .admin-topbar,
+            .admin-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .admin-grid,
+            .admin-panels {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-bg">
+        <video autoplay muted loop playsinline>
+            <source src="/videos/videoBackGoundHome.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="admin-overlay"></div>
+
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <img src="/img/logo.png" alt="AI Interview Platform">
+                <div>
+                    <strong>AI Interview</strong>
+                    <span>Admin Console</span>
+                </div>
+            </div>
+
+            <nav class="admin-menu" aria-label="Admin navigation">
+                <a href="/Admin" class="active"><i class="fas fa-tachometer-alt"></i> Tổng quan</a>
+                <a href="/Dashboard"><i class="fas fa-home"></i> Về trang user</a>
+                <button type="button" id="adminLogoutBtn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <section class="admin-loader" id="adminLoader">
+                <h2><i class="fas fa-circle-notch fa-spin"></i> Đang kiểm tra quyền admin</h2>
+                <p>Vui lòng chờ trong giây lát.</p>
+            </section>
+
+            <section class="admin-denied" id="adminDenied">
+                <h2><i class="fas fa-lock"></i> Không có quyền truy cập</h2>
+                <p>Trang này chỉ dành cho tài khoản có role ADMIN. Hãy đăng nhập lại bằng tài khoản admin.</p>
+                <a href="/Auth/Login" class="admin-btn primary">Đến trang đăng nhập</a>
+            </section>
+
+            <section class="admin-page" id="adminPage">
+                <header class="admin-topbar">
+                    <div>
+                        <span class="admin-kicker"><i class="fas fa-user-shield"></i> Khu vực quản trị</span>
+                        <h1 class="admin-title">Bảng điều khiển admin</h1>
+                        <p class="admin-subtitle">
+                            Theo dõi trạng thái AI API, tài khoản, quyền admin và các thông tin vận hành dành riêng cho quản trị viên.
+                        </p>
+                    </div>
+                    <div class="admin-actions">
+                        <a href="/" class="admin-btn"><i class="fas fa-arrow-left"></i> Trang chủ</a>
+                        <button type="button" class="admin-btn primary" id="adminRefreshBtn">
+                            <i class="fas fa-sync-alt"></i>
+                            Làm mới
+                        </button>
+                    </div>
+                </header>
+
+                <div class="admin-grid">
+                    <article class="admin-card">
+                        <div class="admin-card-icon"><i class="fas fa-robot"></i></div>
+                        <p class="admin-card-label">Gemini API</p>
+                        <div id="geminiStatus" class="admin-status warn">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                            Đang kiểm tra
+                        </div>
+                        <p class="admin-card-note" id="geminiNote">Đang tải trạng thái kết nối AI.</p>
+                    </article>
+
+                    <article class="admin-card">
+                        <div class="admin-card-icon"><i class="fas fa-users"></i></div>
+                        <p class="admin-card-label">Người dùng</p>
+                        <p class="admin-card-value" id="totalUsers">--</p>
+                        <p class="admin-card-note">Tổng tài khoản trong hệ thống.</p>
+                    </article>
+
+                    <article class="admin-card">
+                        <div class="admin-card-icon"><i class="fas fa-user-shield"></i></div>
+                        <p class="admin-card-label">Admin</p>
+                        <p class="admin-card-value" id="totalAdmins">--</p>
+                        <p class="admin-card-note">Tài khoản có quyền quản trị.</p>
+                    </article>
+
+                    <article class="admin-card">
+                        <div class="admin-card-icon"><i class="fas fa-server"></i></div>
+                        <p class="admin-card-label">Môi trường</p>
+                        <p class="admin-card-value" id="serverEnvironmentCard">--</p>
+                        <p class="admin-card-note">Trạng thái máy chủ API.</p>
+                    </article>
+                </div>
+
+                <div class="admin-panels">
+                    <section class="admin-panel">
+                        <h2><i class="fas fa-sliders-h"></i> Chi tiết hệ thống</h2>
+                        <div class="admin-list">
+                            <div class="admin-row">
+                                <span>Model AI</span>
+                                <strong id="geminiModel">--</strong>
+                            </div>
+                            <div class="admin-row">
+                                <span>API key</span>
+                                <strong id="geminiKeyPreview">--</strong>
+                            </div>
+                            <div class="admin-row">
+                                <span>Môi trường</span>
+                                <strong id="serverEnvironment">--</strong>
+                            </div>
+                            <div class="admin-row">
+                                <span>Kiểm tra lúc</span>
+                                <strong id="checkedAt">--</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="admin-panel">
+                        <h2><i class="fas fa-user-circle"></i> Phiên admin</h2>
+                        <div class="admin-list">
+                            <div class="admin-row">
+                                <span>Tên đăng nhập</span>
+                                <strong id="adminEmail">--</strong>
+                            </div>
+                            <div class="admin-row">
+                                <span>Họ tên</span>
+                                <strong id="adminName">--</strong>
+                            </div>
+                            <div class="admin-row">
+                                <span>Role</span>
+                                <strong id="adminRole">--</strong>
+                            </div>
+                            <div class="admin-row">
+                                <span>Trạng thái</span>
+                                <strong>Đã xác thực</strong>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
