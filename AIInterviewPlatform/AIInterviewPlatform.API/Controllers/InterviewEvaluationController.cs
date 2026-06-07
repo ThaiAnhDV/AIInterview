@@ -43,6 +43,7 @@ public class InterviewEvaluationController : ControllerBase
         {
             var result = await _evaluationService.EvaluateAnswerAsync(
                 request.AnswerId,
+                request.LanguageCode,
                 cancellationToken);
 
             var response = new EvaluationResponse
@@ -51,13 +52,17 @@ public class InterviewEvaluationController : ControllerBase
                 Success = result.Success,
                 ErrorCode = result.ErrorCode,
                 Clarity = result.Clarity,
-                Structure = result.Structure,
-                Relevance = result.Relevance,
+                TechnicalAccuracy = result.TechnicalAccuracy,
+                Completeness = result.Completeness,
                 Overall = result.Overall,
+                Strengths = result.Strengths,
+                Weaknesses = result.Weaknesses,
                 Feedback = result.Feedback,
-                Improvement = result.Improvement,
                 IsFallback = result.IsFallback,
-                Message = result.Message ?? (result.Success ? "Evaluation completed successfully." : "AI service temporarily unavailable")
+                AiUsed = result.AiUsed,
+                GeneratedBy = result.GeneratedBy,
+                ErrorMessage = result.ErrorMessage,
+                Message = result.Message ?? (result.Success ? "Evaluation completed successfully." : "Evaluation failed")
             };
 
             return Ok(response);

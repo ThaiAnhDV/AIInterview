@@ -23,6 +23,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public QuestionGeneratedBy GeneratedBy { get; set; } = QuestionGeneratedBy.AI;
 
+        public string? LanguageCode { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public InterviewSession InterviewSession { get; set; } = null!;

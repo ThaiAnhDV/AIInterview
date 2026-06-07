@@ -20,6 +20,10 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public string? CareerGoal { get; set; }
 
+        public string? PreferredLanguageCode { get; set; }
+
+        public string? LanguageCode { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; set; }

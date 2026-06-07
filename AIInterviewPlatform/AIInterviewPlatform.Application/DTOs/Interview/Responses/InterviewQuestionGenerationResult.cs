@@ -14,6 +14,7 @@ public class InterviewQuestionGenerationResult
     public GenerationStatusEnum Status { get; init; } = GenerationStatusEnum.Pending;
     public string? ErrorMessage { get; init; }
     public bool IsFallback { get; init; }
+    public string LanguageCode { get; init; } = string.Empty;
 }
 
 public class TargetJobSummary

@@ -25,6 +25,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public DateTime? UpdatedAt { get; set; }
 
+        public string? LanguageCode { get; set; }
+
         public User User { get; set; } = null!;
 
         public TargetJob? TargetJob { get; set; }

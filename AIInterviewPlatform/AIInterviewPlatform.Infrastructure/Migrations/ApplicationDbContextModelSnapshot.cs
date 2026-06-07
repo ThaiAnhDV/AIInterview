@@ -45,6 +45,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("interview_answer_id");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<decimal?>("OverallScore")
                         .HasColumnType("decimal(5,2)")
                         .HasColumnName("overall_score");
@@ -101,6 +106,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("is_verified");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -155,6 +165,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("feedback_type");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.HasKey("Id");
 
@@ -271,6 +286,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("interview_session_id");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("QuestionContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -281,9 +301,10 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnName("question_template_id");
 
                     b.Property<string>("SkillFocus")
+                        .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasColumnName("skill_focus")
-                        .HasMaxLength(255);
+                        .HasColumnName("skill_focus");
 
                     b.HasKey("Id");
 
@@ -313,6 +334,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Property<DateTime?>("CompletedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("completed_at");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<string>("SessionStatus")
                         .IsRequired()
@@ -423,6 +449,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("is_completed");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<long>("RoadmapMilestoneId")
                         .HasColumnType("bigint")
                         .HasColumnName("roadmap_milestone_id");
@@ -459,6 +490,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<string>("RoadmapStatus")
                         .IsRequired()
@@ -1194,6 +1230,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("job_description_id");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<long>("ResumeId")
                         .HasColumnType("bigint")
                         .HasColumnName("resume_id");
@@ -1360,14 +1401,16 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("industry");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("job_title");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
@@ -1453,6 +1496,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -1512,10 +1560,20 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("full_name");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("Phone")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("phone");
+
+                    b.Property<string>("PreferredLanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("preferred_language_code");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")

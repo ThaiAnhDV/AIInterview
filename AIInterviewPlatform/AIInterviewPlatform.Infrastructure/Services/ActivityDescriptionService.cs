@@ -1,8 +1,11 @@
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
 using AIInterviewPlatform.Application.DTOs.Roadmap.Responses;
+using AIInterviewPlatform.Application.Interfaces.Prompts;
 using AIInterviewPlatform.Application.Interfaces.Services;
+using AIInterviewPlatform.Domain.Common;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,73 +17,93 @@ public class ActivityDescriptionService : IActivityDescriptionService
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<ActivityDescriptionService> _logger;
+    private readonly IPromptProviderFactory _promptProviderFactory;
     private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     public ActivityDescriptionService(
         HttpClient httpClient,
         IConfiguration configuration,
-        ILogger<ActivityDescriptionService> logger)
+        ILogger<ActivityDescriptionService> logger,
+        IPromptProviderFactory promptProviderFactory)
     {
         _httpClient = httpClient;
         _apiKey = configuration["GeminiSettings:ApiKey"] ?? string.Empty;
         _logger = logger;
+        _promptProviderFactory = promptProviderFactory;
     }
 
-    public async Task<ActivityDescriptionResponse?> GenerateActivityDescriptionAsync(string skillName)
+    public async Task<ActivityDescriptionResponse?> GenerateActivityDescriptionAsync(string skillName, string? languageCode = null)
     {
-        return await GenerateActivityDescriptionAsync(skillName, "BEGINNER");
+        return await GenerateActivityDescriptionAsync(skillName, "BEGINNER", languageCode);
     }
 
     public async Task<ActivityDescriptionResponse?> GenerateActivityDescriptionAsync(
         string skillName, 
-        string difficultyLevel)
+        string difficultyLevel,
+        string? languageCode = null)
     {
+        _logger.LogInformation(
+            "[LANG_AUDIT] Service={Service} Method={Method} LanguageCode={LanguageCode}",
+            nameof(ActivityDescriptionService), "GenerateActivityDescriptionAsync", languageCode);
+
         if (string.IsNullOrWhiteSpace(skillName))
         {
             _logger.LogWarning("Skill name is empty");
+            _logger.LogWarning("[ROADMAP_AUDIT] ACTIVITY_GENERATION_FAILED Reason=EmptySkillName");
             return null;
         }
 
-        var prompt = BuildPrompt(skillName, difficultyLevel);
+        var provider = _promptProviderFactory.Get(languageCode);
+        var prompt = provider.BuildActivityDescriptionPrompt(skillName, difficultyLevel);
         
         try
         {
+            _logger.LogInformation(
+                "[ROADMAP_AI] ActivityDescriptionService executing Skill={Skill} Difficulty={Difficulty}",
+                skillName,
+                difficultyLevel);
+
+            _logger.LogInformation(
+                "[ROADMAP_AUDIT] ActivityDescriptionService.GenerateActivityDescriptionAsync Skill={Skill} Difficulty={Difficulty}",
+                skillName,
+                difficultyLevel);
+
             var response = await SendGeminiRequestAsync(prompt);
             if (response == null)
             {
                 _logger.LogWarning("Gemini request returned null for skill: {Skill}", skillName);
+                _logger.LogWarning("[ROADMAP_AUDIT] ACTIVITY_GENERATION_FAILED Reason=NullGeminiResponse Skill={Skill}", skillName);
                 return null;
             }
             
-            return ParseGeminiResponse(response);
+            var parsed = ParseGeminiResponse(response);
+            if (parsed == null)
+            {
+                _logger.LogWarning("[ROADMAP_AUDIT] ACTIVITY_GENERATION_FAILED Reason=ParseReturnedNull Skill={Skill}", skillName);
+                return null;
+            }
+
+            _logger.LogInformation(
+                "[ROADMAP_AI] ACTIVITY_GENERATION_SUCCESS Skill={Skill} Title={Title} Type={Type}",
+                skillName,
+                parsed.ActivityTitle,
+                parsed.ActivityType);
+
+            _logger.LogInformation(
+                "[ROADMAP_AUDIT] Parsed Activity Skill={Skill} Title={Title} Description={Description} Type={Type}",
+                skillName,
+                parsed.ActivityTitle,
+                parsed.ActivityDescription,
+                parsed.ActivityType);
+
+            return parsed;
         }
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Failed to generate activity description for skill: {Skill}. Returning null for fallback.", skillName);
+            _logger.LogWarning("[ROADMAP_AI] ACTIVITY_GENERATION_FAILED Skill={Skill} Reason=Exception", skillName);
             return null;
         }
-    }
-
-    private static string BuildPrompt(string skillName, string difficultyLevel)
-    {
-        return $@"Generate ONE practical learning activity for a software engineer who wants to learn {skillName}.
-
-            Requirements:
-            - Beginner friendly (suitable for someone with basic programming knowledge)
-            - Maximum 50 words for the description
-            - Software engineering focus
-            - Practical and hands-on
-
-            Return ONLY a valid JSON object with this exact format (no markdown, no explanation):
-            {{""activityTitle"": ""short action-oriented title"", ""activityDescription"": ""concise description under 50 words""}}
-
-            Example activityTitle: ""Build a REST API Calculator"" or ""Create a Docker container""
-            Example activityDescription: ""Create a simple calculator REST API using Express.js. Implement basic operations: add, subtract, multiply, divide. Test endpoints with Postman.""
-
-            Skill: {skillName}
-            Difficulty: {difficultyLevel}
-
-            IMPORTANT: Return ONLY the JSON object.";
     }
 
     private async Task<string?> SendGeminiRequestAsync(string prompt)
@@ -100,7 +123,8 @@ public class ActivityDescriptionService : IActivityDescriptionService
             generationConfig = new
             {
                 temperature = 0.7,
-                maxOutputTokens = 200
+                maxOutputTokens = 200,
+                responseMimeType = "application/json"
             }
         };
 
@@ -109,6 +133,8 @@ public class ActivityDescriptionService : IActivityDescriptionService
 
         try
         {
+            _logger.LogInformation("[ROADMAP_AI] Calling Gemini URL={GeminiApiUrl}", GeminiApiUrl);
+            _logger.LogInformation("[ROADMAP_AUDIT] ActivityDescriptionService.SendGeminiRequestAsync prompt prepared");
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             
             var response = await _httpClient.PostAsync(
@@ -126,6 +152,9 @@ public class ActivityDescriptionService : IActivityDescriptionService
             }
 
             var responseBody = await response.Content.ReadAsStringAsync();
+            _logger.LogInformation("[ROADMAP_AI] RAW_RESPONSE={RawResponse}", responseBody);
+            _logger.LogInformation("[ROADMAP_AI] Gemini response received URL={GeminiApiUrl} StatusCode={StatusCode}", GeminiApiUrl, response.StatusCode);
+            _logger.LogInformation("[ROADMAP_AUDIT] Gemini Response Received in ActivityDescriptionService StatusCode={StatusCode}", response.StatusCode);
             return responseBody;
         }
         catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException || !string.IsNullOrEmpty(ex.Message))
@@ -153,6 +182,7 @@ public class ActivityDescriptionService : IActivityDescriptionService
         if (string.IsNullOrWhiteSpace(responseBody))
         {
             _logger.LogWarning("Empty response body from Gemini API");
+            _logger.LogWarning("[ROADMAP_AUDIT] Parse Failed Reason=EmptyResponseBody");
             return null;
         }
 
@@ -166,27 +196,37 @@ public class ActivityDescriptionService : IActivityDescriptionService
                 candidates.GetArrayLength() > 0)
             {
                 var candidate = candidates[0];
+
+                if (candidate.TryGetProperty("finishReason", out var finishReasonElement))
+                {
+                    _logger.LogInformation("[ROADMAP_AI] FINISH_REASON={FinishReason}", finishReasonElement.GetString() ?? string.Empty);
+                }
+
                 if (candidate.TryGetProperty("content", out var content) &&
                     content.TryGetProperty("parts", out var parts) &&
                     parts.ValueKind == JsonValueKind.Array &&
                     parts.GetArrayLength() > 0)
                 {
                     var text = parts[0].GetProperty("text").GetString() ?? string.Empty;
+                    _logger.LogInformation("[ROADMAP_AI] GENERATED_TEXT={Text}", text);
                     return ExtractActivityFromJsonText(text);
                 }
             }
 
             _logger.LogWarning("Unexpected Gemini response format - no candidates found");
+            _logger.LogWarning("[ROADMAP_AUDIT] Parse Failed Reason=NoCandidatesFound");
             return null;
         }
         catch (JsonException ex)
         {
             _logger.LogWarning(ex, "Failed to parse Gemini JSON response");
+            _logger.LogWarning("[ROADMAP_AUDIT] Parse Failed Reason=EnvelopeJsonException");
             return null;
         }
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Error parsing Gemini response");
+            _logger.LogWarning("[ROADMAP_AUDIT] Parse Failed Reason=EnvelopeException");
             return null;
         }
     }
@@ -200,51 +240,90 @@ public class ActivityDescriptionService : IActivityDescriptionService
         }
 
         var cleanedText = jsonText.Trim();
-        
-        if (cleanedText.StartsWith("```json"))
+        _logger.LogInformation("[ROADMAP_AI] CLEANED_TEXT={CleanedText}", cleanedText);
+
+        if (cleanedText.StartsWith("```json", StringComparison.OrdinalIgnoreCase))
         {
-            cleanedText = cleanedText[7..];
+            cleanedText = cleanedText[7..].Trim();
         }
-        else if (cleanedText.StartsWith("```"))
+        else if (cleanedText.StartsWith("```", StringComparison.OrdinalIgnoreCase))
         {
-            cleanedText = cleanedText[3..];
+            cleanedText = cleanedText[3..].Trim();
         }
 
-        if (cleanedText.EndsWith("```"))
+        if (cleanedText.EndsWith("```", StringComparison.OrdinalIgnoreCase))
         {
-            cleanedText = cleanedText[..^3];
+            cleanedText = cleanedText[..^3].Trim();
         }
 
-        cleanedText = cleanedText.Trim();
+        var candidateJson = ExtractJsonObject(cleanedText);
+        if (string.IsNullOrWhiteSpace(candidateJson))
+        {
+            _logger.LogWarning("[ROADMAP_AI] JSON_PARSE_FAILED Reason=NoJsonObjectFound");
+            return null;
+        }
+
+        _logger.LogInformation("[ROADMAP_AI] CLEANED_TEXT={CleanedText}", candidateJson);
+        _logger.LogInformation("[ROADMAP_AI] JSON_PARSE_START");
 
         try
         {
-            var result = JsonSerializer.Deserialize<ActivityDescriptionResponse>(cleanedText);
-            if (result != null && !string.IsNullOrWhiteSpace(result.ActivityTitle))
+            using var parsed = JsonDocument.Parse(candidateJson);
+            var root = parsed.RootElement;
+
+            var activityTitle = root.TryGetProperty("activityTitle", out var titleElement)
+                ? titleElement.GetString() ?? string.Empty
+                : string.Empty;
+
+            var activityDescription = root.TryGetProperty("activityDescription", out var descriptionElement)
+                ? descriptionElement.GetString() ?? string.Empty
+                : string.Empty;
+
+            var activityType = root.TryGetProperty("activityType", out var activityTypeElement)
+                ? activityTypeElement.GetString() ?? string.Empty
+                : string.Empty;
+
+            if (string.IsNullOrWhiteSpace(activityTitle) || string.IsNullOrWhiteSpace(activityDescription))
             {
-                result.ActivityDescription = TruncateToWords(result.ActivityDescription, 50);
-                return result;
+                _logger.LogWarning("[ROADMAP_AI] JSON_PARSE_FAILED Reason=MissingRequiredFields");
+                _logger.LogWarning("[ROADMAP_AUDIT] Parse Failed Reason=MissingRequiredFields Json={Json}", candidateJson);
+                return null;
             }
+
+            var result = new ActivityDescriptionResponse
+            {
+                ActivityTitle = activityTitle.Trim(),
+                ActivityDescription = TruncateToWords(activityDescription.Trim(), 50),
+                ActivityType = activityType.Trim()
+            };
+
+            _logger.LogInformation("[ROADMAP_AI] JSON_PARSE_SUCCESS");
+            return result;
         }
-        catch (JsonException)
+        catch (JsonException ex)
         {
-            var match = System.Text.RegularExpressions.Regex.Match(
-                cleanedText, 
-                @"\{.*?""activityTitle""\s*:\s*""([^""]+)"".*?""activityDescription""\s*:\s*""([^""]+)"".*\}");
+            _logger.LogWarning(ex, "[ROADMAP_AI] JSON_PARSE_FAILED");
+            _logger.LogWarning("[ROADMAP_AUDIT] Parse Failed Reason=JsonException Json={Json}", candidateJson);
+            return null;
+        }
+    }
 
-            if (match.Success)
-            {
-                var description = TruncateToWords(match.Groups[2].Value, 50);
-                return new ActivityDescriptionResponse
-                {
-                    ActivityTitle = match.Groups[1].Value,
-                    ActivityDescription = description
-                };
-            }
+    private static string? ExtractJsonObject(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return null;
         }
 
-        _logger.LogWarning("Could not extract activity from Gemini response text");
-        return null;
+        var firstBrace = text.IndexOf('{');
+        var lastBrace = text.LastIndexOf('}');
+
+        if (firstBrace < 0 || lastBrace <= firstBrace)
+        {
+            return null;
+        }
+
+        return text[firstBrace..(lastBrace + 1)].Trim();
     }
 
     private static string TruncateToWords(string? text, int maxWords)

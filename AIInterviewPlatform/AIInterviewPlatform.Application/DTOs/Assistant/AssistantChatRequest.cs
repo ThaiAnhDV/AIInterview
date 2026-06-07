@@ -6,5 +6,7 @@ public class AssistantChatRequest
 
     public string? Page { get; set; }
 
+    public string? LanguageCode { get; set; }
+
     public bool IsAdmin { get; set; }
 }

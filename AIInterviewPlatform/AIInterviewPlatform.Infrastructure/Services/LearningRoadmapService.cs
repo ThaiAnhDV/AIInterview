@@ -4,9 +4,11 @@ using AIInterviewPlatform.Domain.Enities;
 using AIInterviewPlatform.Domain.Enum;
 using AIInterviewPlatform.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace AIInterviewPlatform.Infrastructure.Services
 {
+    [Obsolete("Legacy template-based roadmap generation. Use RoadmapApplicationService for Gemini-powered roadmap generation.")]
     public class LearningRoadmapService : ILearningRoadmapService
     {
         private readonly ApplicationDbContext _context;

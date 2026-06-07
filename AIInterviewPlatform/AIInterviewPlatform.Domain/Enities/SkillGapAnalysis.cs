@@ -19,6 +19,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public AnalysisStatus AnalysisStatus { get; set; } = AnalysisStatus.COMPLETED;
 
+        public string? LanguageCode { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public User User { get; set; } = null!;

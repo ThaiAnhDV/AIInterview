@@ -6,6 +6,7 @@ public class GeminiInterviewQuestionRequest
     public required List<string> RequiredSkills { get; init; }
     public List<string> MissingSkills { get; init; } = [];
     public QuestionGenerationConfig Config { get; init; } = new();
+    public string? LanguageCode { get; init; }
 }
 
 public class TargetJobInfo

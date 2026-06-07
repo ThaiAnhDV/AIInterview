@@ -6,4 +6,6 @@ public class EvaluateInterviewAnswerRequest
 {
     [Required]
     public long AnswerId { get; set; }
+
+    public string? LanguageCode { get; set; }
 }

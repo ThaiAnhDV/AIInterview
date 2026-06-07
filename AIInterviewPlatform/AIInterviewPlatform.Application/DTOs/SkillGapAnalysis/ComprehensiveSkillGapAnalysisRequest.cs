@@ -4,4 +4,5 @@ public class ComprehensiveSkillGapAnalysisRequest
 {
     public long ResumeId { get; set; }
     public long JobDescriptionId { get; set; }
+    public string? LanguageCode { get; set; }
 }

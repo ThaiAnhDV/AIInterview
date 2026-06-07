@@ -14,10 +14,12 @@ public interface IInterviewQuestionGeneratorService
         string targetJobDescription,
         List<string> requiredSkills,
         List<string> missingSkills,
+        string? languageCode = null,
         CancellationToken cancellationToken = default);
 
     InterviewQuestionGenerationResult GetDefaultQuestions(
         string targetJob,
         List<string> requiredSkills,
-        List<string> missingSkills);
+        List<string> missingSkills,
+        string? languageCode = null);
 }

@@ -55,7 +55,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             userId,
             milestones,
             null,
-            null);
+            null,
+            request.LanguageCode);
 
         if (!roadmap.Success)
         {
@@ -73,6 +74,11 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         long userId,
         GenerateRoadmapFromAnalysisRequest request)
     {
+        _logger.LogInformation(
+            "[ROADMAP_AI] Generate roadmap requested UserId={UserId} AnalysisId={AnalysisId}",
+            userId,
+            request.SkillGapAnalysisId);
+
         _logger.LogInformation(
             "Generating roadmap for user {UserId} from analysis {AnalysisId}",
             userId, request.SkillGapAnalysisId);
@@ -100,7 +106,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             userId,
             milestones,
             request.SkillGapAnalysisId,
-            analysis.JobDescription.TargetJobId);
+            analysis.JobDescription.TargetJobId,
+            request.LanguageCode);
     }
 
     public async Task<RoadmapDto?> GetRoadmapByIdAsync(long userId, long roadmapId)
@@ -167,7 +174,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         long userId,
         List<MilestoneDto> milestones,
         long? skillGapAnalysisId,
-        long? targetJobId)
+        long? targetJobId,
+        string? languageCode)
     {
         var roadmap = new LearningRoadmap
         {
@@ -197,19 +205,44 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
             foreach (var activityDto in milestoneDto.Activities)
             {
+                activityDto.SourceMilestoneOrder ??= milestoneDto.MilestoneOrder;
+
                 var activityTitle = activityDto.ActivityTitle;
                 var activityDescription = activityDto.ActivityDescription;
+                var activityType = ParseActivityType(activityDto.ActivityType);
+                var activitySource = "Template";
 
                 if (ShouldEnhanceWithGemini(activityDto))
                 {
-                    var geminiResult = await TryGenerateWithGeminiAsync(
+                    _logger.LogInformation(
+                        "[ROADMAP_AI] Activity generated Skill={Skill} OriginalTitle={ActivityTitle} Difficulty={Difficulty}",
+                        milestoneDto.Metadata?.TargetSkill ?? "Unknown",
+                        activityDto.ActivityTitle,
+                        milestoneDto.Metadata?.DifficultyLevel ?? "BEGINNER");
+
+                    _logger.LogInformation(
+                        "[ROADMAP_AUDIT] ShouldEnhanceWithGemini=true Title={ActivityTitle} Skill={Skill} Difficulty={Difficulty}",
+                        activityDto.ActivityTitle,
                         milestoneDto.Metadata?.TargetSkill ?? "Unknown",
                         milestoneDto.Metadata?.DifficultyLevel ?? "BEGINNER");
+
+                    var geminiResult = await TryGenerateWithGeminiAsync(
+                        milestoneDto.Metadata?.TargetSkill ?? "Unknown",
+                        milestoneDto.Metadata?.DifficultyLevel ?? "BEGINNER",
+                        languageCode);
 
                     if (geminiResult != null)
                     {
                         activityTitle = geminiResult.ActivityTitle;
                         activityDescription = geminiResult.ActivityDescription;
+                        activityType = ParseActivityType(geminiResult.ActivityType);
+                        activitySource = "Gemini";
+                        _logger.LogInformation(
+                            "[ROADMAP_AUDIT] ACTIVITY_GENERATION_SUCCESS Skill={Skill} Title={Title} Description={Description} Type={Type}",
+                            milestoneDto.Metadata?.TargetSkill,
+                            activityTitle,
+                            activityDescription,
+                            activityType);
                         _logger.LogDebug(
                             "Generated activity for {Skill} using Gemini: {Title}",
                             milestoneDto.Metadata?.TargetSkill, activityTitle);
@@ -217,7 +250,20 @@ public class RoadmapApplicationService : IRoadmapApplicationService
                     else
                     {
                         geminiFailureCount++;
+                        activitySource = "Fallback";
+                        _logger.LogWarning(
+                            "[ROADMAP_AUDIT] Fallback Activated Skill={Skill} TemplateTitle={Title} TemplateDescription={Description} TemplateType={Type}",
+                            milestoneDto.Metadata?.TargetSkill,
+                            activityTitle,
+                            activityDescription,
+                            activityType);
                     }
+                }
+                else
+                {
+                    _logger.LogInformation(
+                        "[ROADMAP_AUDIT] ShouldEnhanceWithGemini=false Title={ActivityTitle}",
+                        activityDto.ActivityTitle);
                 }
 
                 var activity = new LearningActivity
@@ -226,9 +272,18 @@ public class RoadmapApplicationService : IRoadmapApplicationService
                     SkillId = await GetOrCreateSkillIdAsync(milestoneDto.Metadata?.TargetSkill),
                     ActivityTitle = activityTitle,
                     ActivityDescription = activityDescription,
-                    ActivityType = ParseActivityType(activityDto.ActivityType),
+                    ActivityType = activityType,
                     IsCompleted = false
                 };
+
+                activity.RoadmapMilestone = milestone;
+
+                _logger.LogInformation(
+                    "[ROADMAP_AUDIT] Saving Activity Title={Title} Description={Description} ActivityType={ActivityType} Source={Source}",
+                    activity.ActivityTitle,
+                    activity.ActivityDescription,
+                    activity.ActivityType,
+                    activitySource);
 
                 activitiesToSave.Add(activity);
             }
@@ -239,6 +294,10 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             _logger.LogWarning(
                 "Gemini API failed for {Count} activities. Using default activities. Roadmap will be generated with fallback content.",
                 geminiFailureCount);
+        }
+        else
+        {
+            _logger.LogInformation("[ROADMAP_AUDIT] All eligible activities used Gemini-generated content");
         }
 
         var progress = new RoadmapProgress
@@ -277,11 +336,46 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
     private async Task<ActivityDescriptionResponse?> TryGenerateWithGeminiAsync(
         string skillName,
-        string difficultyLevel)
+        string difficultyLevel,
+        string? languageCode)
     {
+        _logger.LogInformation(
+            "[ROADMAP_AI] Calling Gemini Skill={Skill} Difficulty={Difficulty}",
+            skillName,
+            difficultyLevel);
+
+        _logger.LogInformation(
+            "[ROADMAP_AUDIT] Enter TryGenerateWithGeminiAsync Skill={Skill} Difficulty={Difficulty} LanguageCode={LanguageCode}",
+            skillName,
+            difficultyLevel,
+            languageCode);
+
+        _logger.LogInformation(
+            "[LANG_AUDIT] RoadmapActivityDescriptionService LanguageCode={LanguageCode}",
+            languageCode);
+
         try
         {
-            return await _activityDescriptionService.GenerateActivityDescriptionAsync(skillName, difficultyLevel);
+            _logger.LogInformation(
+                "[ROADMAP_AUDIT] Calling Gemini Skill={Skill} Difficulty={Difficulty}",
+                skillName,
+                difficultyLevel);
+
+            var result = await _activityDescriptionService.GenerateActivityDescriptionAsync(skillName, difficultyLevel, languageCode);
+
+            _logger.LogInformation(
+                "[ROADMAP_AI] Gemini response received Skill={Skill} HasResult={HasResult} Title={Title}",
+                skillName,
+                result != null,
+                result?.ActivityTitle ?? "<null>");
+
+            _logger.LogInformation(
+                "[ROADMAP_AUDIT] Gemini Response Received Skill={Skill} HasResult={HasResult} Title={Title}",
+                skillName,
+                result != null,
+                result?.ActivityTitle ?? "<null>");
+
+            return result;
         }
         catch (HttpRequestException ex)
         {

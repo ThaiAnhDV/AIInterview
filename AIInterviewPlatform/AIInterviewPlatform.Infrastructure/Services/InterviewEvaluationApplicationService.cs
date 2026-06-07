@@ -29,9 +29,11 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
 
     public async Task<EvaluationResultDto> EvaluateAnswerAsync(
         long answerId,
+        string? languageCode = null,
         CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Evaluating answer {AnswerId}", answerId);
+        _logger.LogInformation("[Evaluation] PIPELINE=GEMINI AnswerId={AnswerId}", answerId);
 
         var answerLoad = await LoadInterviewAnswerAsync(answerId, cancellationToken);
         if (!answerLoad.Success)
@@ -48,10 +50,15 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         if (await HasExistingEvaluationAsync(answerId, cancellationToken))
         {
             _logger.LogWarning("Answer {AnswerId} already has an evaluation", answerId);
-            return CreateFailure("ALREADY_EVALUATED", $"Answer {answerId} has already been evaluated.");
+
+            var existingEvaluation = await LoadPersistedEvaluationAsync(answerId, cancellationToken);
+            return existingEvaluation ?? CreateFailure(
+                "ALREADY_EVALUATED",
+                $"Answer {answerId} has already been evaluated.",
+                "Answer already has a persisted evaluation.");
         }
 
-        var request = BuildEvaluationRequest(questionLoad.Question!, answerLoad.Answer);
+        var request = BuildEvaluationRequest(questionLoad.Question!, answerLoad.Answer, languageCode);
         var result = await _evaluationService.EvaluateAnswerAsync(request, cancellationToken);
 
         await PersistEvaluationAsync(answerId, result, cancellationToken);
@@ -67,9 +74,11 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
     public async Task<EvaluationResultDto> EvaluateAnswerAsync(
         long userId,
         long answerId,
+        string? languageCode = null,
         CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Evaluating answer {AnswerId} for user {UserId}", answerId, userId);
+        _logger.LogInformation("[Evaluation] PIPELINE=GEMINI AnswerId={AnswerId} UserId={UserId}", answerId, userId);
 
         var answerLoad = await LoadInterviewAnswerWithUserValidationAsync(answerId, userId, cancellationToken);
         if (!answerLoad.Success)
@@ -86,10 +95,15 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
         if (await HasExistingEvaluationAsync(answerId, cancellationToken))
         {
             _logger.LogWarning("Answer {AnswerId} already has an evaluation", answerId);
-            return CreateFailure("ALREADY_EVALUATED", $"Answer {answerId} has already been evaluated.");
+
+            var existingEvaluation = await LoadPersistedEvaluationAsync(answerId, cancellationToken);
+            return existingEvaluation ?? CreateFailure(
+                "ALREADY_EVALUATED",
+                $"Answer {answerId} has already been evaluated.",
+                "Answer already has a persisted evaluation.");
         }
 
-        var request = BuildEvaluationRequest(questionLoad.Question!, answerLoad.Answer);
+        var request = BuildEvaluationRequest(questionLoad.Question!, answerLoad.Answer, languageCode);
         var result = await _evaluationService.EvaluateAnswerAsync(request, cancellationToken);
 
         await PersistEvaluationAsync(answerId, result, cancellationToken);
@@ -119,6 +133,12 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
     {
         if (!result.Success)
         {
+            _logger.LogWarning(
+                "Skipping persistence for answer {AnswerId}. Success={Success}, ErrorCode={ErrorCode}, ErrorMessage={ErrorMessage}",
+                answerId,
+                result.Success,
+                result.ErrorCode,
+                result.ErrorMessage);
             return;
         }
 
@@ -130,8 +150,8 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
             {
                 InterviewAnswerId = answerId,
                 ClarityScore = result.Clarity,
-                StructureScore = result.Structure,
-                RelevanceScore = result.Relevance,
+                StructureScore = result.TechnicalAccuracy,
+                RelevanceScore = result.Completeness,
                 OverallScore = result.Overall,
                 EvaluatedAt = DateTime.UtcNow
             };
@@ -143,22 +163,47 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
                 CreatedAt = DateTime.UtcNow
             };
 
+            var weaknesses = result.Weaknesses.Any()
+                ? string.Join(" | ", result.Weaknesses)
+                : "No weaknesses provided.";
+
             var improvement = new DomainImprovement
             {
-                SuggestionContent = result.Improvement,
+                SuggestionContent = weaknesses,
                 PriorityLevel = DeterminePriority(result.Overall)
             };
 
             evaluation.Feedbacks.Add(feedback);
             feedback.ImprovementSuggestions.Add(improvement);
 
+            _logger.LogInformation(
+                "[Evaluation] PIPELINE=GEMINI Insert Feedback AnswerId={AnswerId} FeedbackType={FeedbackType} Content={FeedbackContent}",
+                answerId,
+                feedback.FeedbackType,
+                feedback.FeedbackContent);
+            _logger.LogInformation(
+                "[Evaluation] PIPELINE=GEMINI Insert ImprovementSuggestion AnswerId={AnswerId} Priority={Priority} Content={SuggestionContent}",
+                answerId,
+                improvement.PriorityLevel,
+                improvement.SuggestionContent);
+
             _context.AnswerEvaluations.Add(evaluation);
+            _logger.LogInformation(
+                "[Evaluation] PIPELINE=GEMINI Insert AnswerEvaluation AnswerId={AnswerId} Clarity={Clarity} TechnicalAccuracy={TechnicalAccuracy} Completeness={Completeness} Overall={Overall}",
+                answerId,
+                result.Clarity,
+                result.TechnicalAccuracy,
+                result.Completeness,
+                result.Overall);
+
             await _context.SaveChangesAsync(cancellationToken);
             await transaction.CommitAsync(cancellationToken);
 
             _logger.LogInformation(
-                "Evaluation persisted for answer {AnswerId}. EvaluationId: {EvaluationId}",
+                "Persisted evaluation for answer {AnswerId}: AIOverall={Overall}, StoredOverall={StoredOverall}, EvaluationId={EvaluationId}",
                 answerId,
+                result.Overall,
+                evaluation.OverallScore,
                 evaluation.Id);
         }
         catch (Exception ex)
@@ -175,6 +220,42 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
             >= 80 => PriorityLevel.LOW,
             >= 60 => PriorityLevel.MEDIUM,
             _ => PriorityLevel.HIGH
+        };
+    }
+
+    private async Task<EvaluationResultDto?> LoadPersistedEvaluationAsync(
+        long answerId,
+        CancellationToken cancellationToken)
+    {
+        var evaluation = await _context.AnswerEvaluations
+            .Include(e => e.Feedbacks)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.InterviewAnswerId == answerId, cancellationToken);
+
+        if (evaluation == null)
+        {
+            return null;
+        }
+
+        var overallFeedback = evaluation.Feedbacks
+            .Where(f => f.FeedbackType == FeedbackType.OVERALL)
+            .Select(f => f.FeedbackContent)
+            .FirstOrDefault();
+
+        return new EvaluationResultDto
+        {
+            Success = true,
+            AiUsed = true,
+            GeneratedBy = "GEMINI",
+            IsFallback = false,
+            Clarity = evaluation.ClarityScore ?? 0,
+            TechnicalAccuracy = evaluation.StructureScore ?? 0,
+            Completeness = evaluation.RelevanceScore ?? 0,
+            Overall = evaluation.OverallScore ?? 0,
+            Feedback = overallFeedback ?? string.Join(" ", evaluation.Feedbacks.Select(f => f.FeedbackContent).Where(content => !string.IsNullOrWhiteSpace(content))),
+            Strengths = new List<string>(),
+            Weaknesses = new List<string>(),
+            Message = "Evaluation already exists."
         };
     }
 
@@ -243,26 +324,33 @@ public class InterviewEvaluationApplicationService : IInterviewEvaluationApplica
 
     private static EvaluationRequestDto BuildEvaluationRequest(
         InterviewQuestion question,
-        InterviewAnswer answer)
+        InterviewAnswer answer,
+        string? languageCode)
     {
         return new EvaluationRequestDto
         {
             Question = question.QuestionContent,
             Answer = answer.AnswerText,
             Category = question.Category?.CategoryName,
-            SkillFocus = question.SkillFocus
+            SkillFocus = question.SkillFocus,
+            LanguageCode = languageCode
         };
     }
 
-    private static EvaluationResultDto CreateFailure(string errorCode, string message)
+    private static EvaluationResultDto CreateFailure(string errorCode, string message, string? errorMessage = null)
     {
         return new EvaluationResultDto
         {
             Success = false,
             ErrorCode = errorCode,
             Message = message,
+            ErrorMessage = errorMessage ?? message,
+            AiUsed = false,
+            GeneratedBy = "FAILED",
+            IsFallback = false,
             Feedback = message,
-            Improvement = string.Empty
+            Strengths = new List<string>(),
+            Weaknesses = new List<string>()
         };
     }
 

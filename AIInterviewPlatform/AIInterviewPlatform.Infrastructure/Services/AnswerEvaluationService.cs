@@ -1,107 +1,52 @@
 ﻿using AIInterviewPlatform.Application.DTOs.AnswerEvaluation;
+using AIInterviewPlatform.Application.DTOs.Interview.Evaluation;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Domain.Enities;
 using AIInterviewPlatform.Domain.Enum;
 using AIInterviewPlatform.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace AIInterviewPlatform.Infrastructure.Services
 {
     public class AnswerEvaluationService : IAnswerEvaluationService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IInterviewEvaluationApplicationService _geminiEvaluationService;
+        private readonly ILogger<AnswerEvaluationService> _logger;
 
-        public AnswerEvaluationService(ApplicationDbContext context)
+        public AnswerEvaluationService(
+            ApplicationDbContext context,
+            IInterviewEvaluationApplicationService geminiEvaluationService,
+            ILogger<AnswerEvaluationService> logger)
         {
             _context = context;
+            _geminiEvaluationService = geminiEvaluationService;
+            _logger = logger;
         }
 
         public async Task<AnswerEvaluationResponse> EvaluateAnswerAsync(long answerId)
         {
-            var answer = await _context.InterviewAnswers
-                .Include(x => x.AnswerEvaluation)
-                .FirstOrDefaultAsync(x => x.Id == answerId);
+            _logger.LogInformation("[Evaluation] PIPELINE=GEMINI_VIA_LEGACY_CONTROLLER AnswerId={AnswerId}", answerId);
 
-            if (answer == null)
+            var evaluationResult = await _geminiEvaluationService.EvaluateAnswerAsync(answerId);
+            if (!evaluationResult.Success)
             {
                 return new AnswerEvaluationResponse
                 {
                     Success = false,
-                    ErrorCode = "ANSWER_NOT_FOUND",
-                    Message = "Answer not found",
+                    ErrorCode = evaluationResult.ErrorCode,
+                    Message = evaluationResult.ErrorMessage ?? evaluationResult.Message ?? "Gemini evaluation failed.",
                     InterviewAnswerId = answerId
                 };
             }
-
-            if (answer.AnswerEvaluation != null)
-            {
-                return await GetEvaluationAsync(answerId)
-                       ?? new AnswerEvaluationResponse
-                       {
-                           Success = false,
-                           ErrorCode = "EVALUATION_NOT_FOUND",
-                           Message = "Evaluation could not be loaded.",
-                           InterviewAnswerId = answerId
-                       };
-            }
-
-            decimal clarity = 70;
-            decimal structure = 75;
-            decimal relevance = 80;
-
-            if (answer.AnswerText.Length > 100)
-                clarity += 10;
-
-            if (answer.AnswerText.Length > 200)
-                structure += 10;
-
-            decimal overall =
-                (clarity + structure + relevance) / 3;
-
-            var evaluation = new AnswerEvaluation
-            {
-                InterviewAnswerId = answerId,
-                ClarityScore = clarity,
-                StructureScore = structure,
-                RelevanceScore = relevance,
-                OverallScore = overall
-            };
-
-            _context.AnswerEvaluations.Add(evaluation);
-
-            await _context.SaveChangesAsync();
-
-            _context.Feedbacks.AddRange(
-                new Feedback
-                {
-                    AnswerEvaluationId = evaluation.Id,
-                    FeedbackType = FeedbackType.CLARITY,
-                    FeedbackContent =
-                        "Answer clarity is acceptable."
-                },
-                new Feedback
-                {
-                    AnswerEvaluationId = evaluation.Id,
-                    FeedbackType = FeedbackType.STRUCTURE,
-                    FeedbackContent =
-                        "Answer structure is good."
-                },
-                new Feedback
-                {
-                    AnswerEvaluationId = evaluation.Id,
-                    FeedbackType = FeedbackType.RELEVANCE,
-                    FeedbackContent =
-                        "Answer is relevant to the question."
-                });
-
-            await _context.SaveChangesAsync();
 
             return await GetEvaluationAsync(answerId)
                    ?? new AnswerEvaluationResponse
                    {
                        Success = false,
                        ErrorCode = "EVALUATION_NOT_FOUND",
-                       Message = "Evaluation could not be loaded.",
+                       Message = "Gemini evaluation completed but persisted evaluation could not be loaded.",
                        InterviewAnswerId = answerId
                    };
         }

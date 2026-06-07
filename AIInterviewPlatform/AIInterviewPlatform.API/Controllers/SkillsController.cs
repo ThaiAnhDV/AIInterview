@@ -1,5 +1,6 @@
 ﻿using AIInterviewPlatform.Application.DTOs.Skill;
 using AIInterviewPlatform.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -32,11 +33,23 @@ public class SkillsController : ControllerBase
     public async Task<IActionResult> Extract(
         long jobDescriptionId)
     {
-        await _skillService
+        var result = await _skillService
             .ExtractSkillsFromJobDescriptionAsync(
                 jobDescriptionId);
 
-        return Ok();
+        if (!result.Success)
+        {
+            if (result.ErrorMessage == "Job Description not found")
+            {
+                return NotFound(result);
+            }
+
+            return StatusCode(
+                result.Diagnostics.HttpStatus ?? StatusCodes.Status502BadGateway,
+                result);
+        }
+
+        return Ok(result);
     }
 
     [HttpGet("required/{jobDescriptionId}")]

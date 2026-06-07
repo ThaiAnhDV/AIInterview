@@ -461,6 +461,12 @@ async function generateRoadmap() {
         return;
     }
 
+    const url = `${API_BASE_URL}/Roadmap/generate`;
+    console.log("[ROADMAP_FRONTEND_AUDIT] Roadmap Generation Requested", {
+        skillGapAnalysisId: Number(skillGapAnalysisId)
+    });
+    console.log(`[ROADMAP_FRONTEND_AUDIT] Calling URL = ${url}`);
+
     const btn = event?.target?.closest?.('button');
     if (!btn) {
         showToast("Button element not found.", "error");
@@ -472,7 +478,7 @@ async function generateRoadmap() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
 
     try {
-        const response = await fetch(`${API_BASE_URL}/Roadmaps/generate`, {
+        const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

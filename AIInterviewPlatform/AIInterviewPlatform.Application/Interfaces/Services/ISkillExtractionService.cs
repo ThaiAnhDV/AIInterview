@@ -5,5 +5,7 @@ namespace AIInterviewPlatform.Application.Interfaces.Services;
 
 public interface ISkillExtractionService
 {
-    Task<AIServiceResult<SkillExtractionResult>> ExtractSkillsFromResumeAsync(string resumeContent);
+    Task<AIServiceResult<SkillExtractionResult>> ExtractSkillsFromResumeAsync(
+        string resumeContent,
+        string? languageCode = null);
 }

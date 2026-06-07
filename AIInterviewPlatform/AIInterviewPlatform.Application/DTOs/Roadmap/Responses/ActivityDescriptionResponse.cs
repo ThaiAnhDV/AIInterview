@@ -10,4 +10,5 @@ public class ActivityDescriptionResponse
 {
     public string ActivityTitle { get; set; } = string.Empty;
     public string ActivityDescription { get; set; } = string.Empty;
+    public string ActivityType { get; set; } = string.Empty;
 }

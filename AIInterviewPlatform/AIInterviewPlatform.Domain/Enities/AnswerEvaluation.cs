@@ -20,6 +20,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public decimal? OverallScore { get; set; }
 
+        public string? LanguageCode { get; set; }
+
         public DateTime EvaluatedAt { get; set; } = DateTime.Now;
 
         public InterviewAnswer InterviewAnswer { get; set; } = null!;

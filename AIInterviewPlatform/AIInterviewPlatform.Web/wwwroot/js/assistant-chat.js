@@ -29,7 +29,7 @@
     };
 
     function currentLanguage() {
-        return window.I18n?.getLanguage?.() === "en" ? "en" : "vi";
+        return localStorage.getItem("appLanguage") || "vi";
     }
 
     function text(key) {
@@ -126,24 +126,35 @@
             input.disabled = true;
 
             try {
-                const response = await fetch(`${API_BASE_URL}/AssistantChat/message`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token()}`
-                    },
-                    body: JSON.stringify({
-                        message,
-                        page: pageContext()
-                    })
-                });
+            const languageCode = currentLanguage();
+            console.log("[ASSISTANT_UI] selected language:", languageCode);
+            console.log("[ASSISTANT_UI] localStorage keys:", Object.keys(localStorage));
+            console.log("[ASSISTANT_UI] localStorage.appLanguage:", localStorage.getItem("appLanguage"));
+            console.log("[ASSISTANT_UI] window.I18n?.getLanguage:", typeof window.I18n !== "undefined" ? window.I18n.getLanguage() : "I18n not loaded");
 
-                if (!response.ok) {
-                    throw new Error(`Assistant request failed: ${response.status}`);
-                }
+            const payload = {
+                message,
+                page: pageContext(),
+                languageCode
+            };
+            console.log("[ASSISTANT_UI] payload JSON:", JSON.stringify(payload));
 
-                const result = await response.json();
-                appendMessage(result.reply || text("error"), "bot");
+            const response = await fetch(`${API_BASE_URL}/AssistantChat/message`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token()}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Assistant request failed: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("[ASSISTANT_UI] Received reply — languageCode:", result.languageCode, "reply:", result.reply?.substring(0, 80));
+            appendMessage(result.reply || text("error"), "bot");
             } catch (error) {
                 console.error("AI assistant error:", error);
                 appendMessage(text("error"), "bot");

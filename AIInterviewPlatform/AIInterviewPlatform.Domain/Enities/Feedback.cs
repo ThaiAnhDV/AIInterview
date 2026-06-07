@@ -17,6 +17,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public FeedbackType? FeedbackType { get; set; }
 
+        public string? LanguageCode { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public AnswerEvaluation AnswerEvaluation { get; set; } = null!;

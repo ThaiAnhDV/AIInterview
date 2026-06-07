@@ -1,8 +1,11 @@
+using System.Net;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 using AIInterviewPlatform.Application.DTOs.AI;
 using AIInterviewPlatform.Application.DTOs.JobDescriptionSkillExtraction;
+using AIInterviewPlatform.Application.Interfaces.Prompts;
 using AIInterviewPlatform.Application.Interfaces.Services;
 
 using Microsoft.Extensions.Configuration;
@@ -12,24 +15,62 @@ namespace AIInterviewPlatform.Infrastructure.Services;
 
 public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtractionService
 {
+    private static readonly Dictionary<string, string> SkillNormalizationMap = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["auditing processes"] = "Auditing",
+        ["auditing process"] = "Auditing",
+        ["financial data analysis"] = "Data Analysis",
+        ["audit documentation preparation"] = "Audit Documentation",
+        ["microsoft word professional reporting"] = "Microsoft Word",
+        ["excel data analysis reporting"] = "Microsoft Excel",
+        ["bookkeeping and reporting tools"] = "Accounting"
+    };
+
+    private static readonly string[] ExcludedSkillPhrases =
+    [
+        "responsible for",
+        "worked on",
+        "assisted with",
+        "supported",
+        "handled",
+        "performed",
+        "activities",
+        "tasks",
+        "achievements",
+        "project"
+    ];
+
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<JobDescriptionSkillExtractionService> _logger;
+    private readonly IPromptProviderFactory _promptProviderFactory;
     private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+    private const string GeminiModel = "gemini-2.5-flash";
+    private const int RetryCount = 3;
+
+    public string ModelName => "gemini-2.5-flash";
+    public string Endpoint => GeminiApiUrl;
 
     public JobDescriptionSkillExtractionService(
         HttpClient httpClient,
         IConfiguration configuration,
-        ILogger<JobDescriptionSkillExtractionService> logger)
+        ILogger<JobDescriptionSkillExtractionService> logger,
+        IPromptProviderFactory promptProviderFactory)
     {
         _httpClient = httpClient;
         _apiKey = configuration["GeminiSettings:ApiKey"] ?? string.Empty;
         _logger = logger;
+        _promptProviderFactory = promptProviderFactory;
     }
 
     public async Task<AIServiceResult<JobDescriptionSkillExtractionResult>> ExtractRequiredSkillsAsync(
-        string jobDescriptionContent)
+        string jobDescriptionContent,
+        string? languageCode = null)
     {
+        _logger.LogInformation(
+            "[LANG_AUDIT] Service={Service} Method={Method} LanguageCode={LanguageCode}",
+            nameof(JobDescriptionSkillExtractionService), "ExtractRequiredSkillsAsync", languageCode);
+
         if (string.IsNullOrWhiteSpace(jobDescriptionContent))
         {
             _logger.LogWarning("Job description content is empty");
@@ -46,7 +87,8 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
                 new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
         }
 
-        var prompt = BuildPrompt(jobDescriptionContent);
+        var provider = _promptProviderFactory.Get(languageCode);
+        var prompt = provider.BuildJobDescriptionSkillExtractionPrompt(jobDescriptionContent);
         _logger.LogInformation("=== JD EXTRACTION DEBUG ===");
         _logger.LogInformation("Prompt: {Prompt}", prompt);
         var response = await SendGeminiRequestAsync(prompt);
@@ -69,24 +111,6 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
         return parsedResult;
     }
 
-    private string BuildPrompt(string jobDescriptionContent)
-    {
-        return $@"Analyze the following job description and extract ONLY the required skills, technologies, 
-            programming languages, frameworks, and tools mentioned. Return ONLY a valid JSON object 
-            with this exact format - no markdown, no explanation:
-            {{""requiredSkills"": [""skill1"", ""skill2"", ""skill3""]}}
-            
-            Job Description:
-            {jobDescriptionContent}
-            
-            Rules:
-            - Return ONLY the JSON object
-            - Use exact property name ""requiredSkills""
-            - Each skill should be clean and standardized (e.g., ""C#"" not ""c#"", ""ASP.NET Core"" not ""asp.net"")
-            - Remove duplicates if any
-            - Include only technical skills, not soft skills";
-    }
-
     private async Task<AIServiceResult<string>> SendGeminiRequestAsync(string prompt)
     {
         var requestBody = new
@@ -104,58 +128,129 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
             generationConfig = new
             {
                 temperature = 0.1,
-                maxOutputTokens = 800
+                topP = 0.95,
+                topK = 40,
+                maxOutputTokens = 2048,
+                responseMimeType = "application/json"
             }
         };
 
+        _logger.LogInformation("[JDExtraction] MAX_OUTPUT_TOKENS={Value}", 2048);
+
         var jsonContent = JsonSerializer.Serialize(requestBody);
-        var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         try
         {
-            var response = await _httpClient.PostAsync(
-                $"{GeminiApiUrl}?key={_apiKey}",
-                httpContent);
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
+            for (var attempt = 1; attempt <= RetryCount; attempt++)
             {
+                using var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync(
+                    $"{GeminiApiUrl}?key={_apiKey}",
+                    httpContent);
+
+                var responseBody = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return AIServiceResult<string>.Succeeded(responseBody);
+                }
+
+                if (IsTransientStatusCode(response.StatusCode) && attempt < RetryCount)
+                {
+                    _logger.LogWarning("[JDExtraction] RETRY_ATTEMPT={Attempt}", attempt);
+                    _logger.LogWarning("[JDExtraction] RETRY_REASON={StatusCode}", (int)response.StatusCode);
+                    _logger.LogWarning("[JDExtraction] GEMINI_UNAVAILABLE");
+
+                    await Task.Delay(TimeSpan.FromSeconds(attempt * 2));
+                    continue;
+                }
+
                 _logger.LogError("Gemini API returned {StatusCode} for job description extraction: {Response}", response.StatusCode, responseBody);
+
+                if (IsTransientStatusCode(response.StatusCode))
+                {
+                    _logger.LogError("[JDExtraction] GEMINI_UNAVAILABLE");
+                    _logger.LogError("[JDExtraction] RETRIES_EXHAUSTED");
+                    return CreateGeminiUnavailableFailure(response.StatusCode, responseBody);
+                }
+
                 return AIServiceResult<string>.Failed(
-                    "GEMINI_ERROR",
-                    "Unable to process request at this time.");
+                    response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden
+                        ? "GEMINI_AUTH_ERROR"
+                        : "GEMINI_ERROR",
+                    $"Gemini request failed with HTTP {(int)response.StatusCode} {response.StatusCode}.",
+                    responseBody);
             }
 
-            return AIServiceResult<string>.Succeeded(responseBody);
+            _logger.LogError("[JDExtraction] RETRIES_EXHAUSTED");
+            return CreateGeminiUnavailableFailure(null, string.Empty);
         }
         catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException || !ex.CancellationToken.IsCancellationRequested)
         {
             _logger.LogError(ex, "Gemini API timeout for job description skill extraction");
-            return AIServiceResult<string>.Failed(
-                "TIMEOUT",
-                "AI service temporarily unavailable.");
+            _logger.LogError("[JDExtraction] GEMINI_UNAVAILABLE");
+            _logger.LogError("[JDExtraction] RETRIES_EXHAUSTED");
+            return CreateGeminiUnavailableFailure(HttpStatusCode.GatewayTimeout, ex.Message);
         }
         catch (HttpRequestException ex)
         {
             _logger.LogError(ex, "Failed to call Gemini API for job description skill extraction");
-            return AIServiceResult<string>.Failed(
-                "GEMINI_ERROR",
-                "Unable to process request at this time.");
+            _logger.LogError("[JDExtraction] GEMINI_UNAVAILABLE");
+            _logger.LogError("[JDExtraction] RETRIES_EXHAUSTED");
+            return CreateGeminiUnavailableFailure(null, ex.Message);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Unexpected error during job description skill extraction");
-            return AIServiceResult<string>.Failed(
-                "GEMINI_ERROR",
-                "Unable to process request at this time.");
+            _logger.LogError("[JDExtraction] GEMINI_UNAVAILABLE");
+            _logger.LogError("[JDExtraction] RETRIES_EXHAUSTED");
+            return CreateGeminiUnavailableFailure(null, ex.Message);
         }
+    }
+
+    private static bool IsTransientStatusCode(HttpStatusCode statusCode)
+    {
+        return statusCode is HttpStatusCode.TooManyRequests
+            or HttpStatusCode.InternalServerError
+            or HttpStatusCode.BadGateway
+            or HttpStatusCode.ServiceUnavailable
+            or HttpStatusCode.GatewayTimeout;
+    }
+
+    private static AIServiceResult<string> CreateGeminiUnavailableFailure(HttpStatusCode? statusCode, string rawResponse)
+    {
+        var diagnostics = new
+        {
+            Success = false,
+            AiUsed = false,
+            GeneratedBy = "FAILED",
+            ErrorMessage = "Gemini service unavailable. Please try again later.",
+            Diagnostics = new
+            {
+                HttpStatus = statusCode.HasValue ? (int)statusCode.Value : (int?)null,
+                RawResponse = rawResponse,
+                Model = GeminiModel
+            }
+        };
+
+        return AIServiceResult<string>.Failed(
+            "GEMINI_UNAVAILABLE",
+            "AI service is temporarily busy. Please retry in a few minutes.",
+            JsonSerializer.Serialize(diagnostics));
     }
 
     private AIServiceResult<JobDescriptionSkillExtractionResult> ParseGeminiResponse(string responseBody)
     {
         try
         {
+            _logger.LogInformation(
+                "[JDExtraction] RAW_GEMINI_RESPONSE={Response}",
+                responseBody);
+
+            _logger.LogInformation(
+                "[JDExtraction] RESPONSE_LENGTH={Length}",
+                responseBody?.Length ?? 0);
+
             using var document = JsonDocument.Parse(responseBody);
             var root = document.RootElement;
 
@@ -164,13 +259,36 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
                 candidates.GetArrayLength() > 0)
             {
                 var candidate = candidates[0];
+
+                var finishReason = candidate.TryGetProperty("finishReason", out var finishReasonElement)
+                    ? finishReasonElement.GetString() ?? "OTHER"
+                    : "OTHER";
+
+                _logger.LogInformation(
+                    "[JDExtraction] FINISH_REASON={Reason}",
+                    finishReason);
+
+                if (string.Equals(finishReason, "MAX_TOKENS", StringComparison.OrdinalIgnoreCase))
+                {
+                    _logger.LogWarning("[JDExtraction] OUTPUT_TRUNCATED");
+                    return AIServiceResult<JobDescriptionSkillExtractionResult>.Failed(
+                        "OUTPUT_TRUNCATED",
+                        "Gemini output was truncated due to token limit",
+                        new JobDescriptionSkillExtractionResult { RequiredSkills = [] });
+                }
+
                 if (candidate.TryGetProperty("content", out var content) &&
                     content.TryGetProperty("parts", out var parts) &&
                     parts.ValueKind == JsonValueKind.Array &&
                     parts.GetArrayLength() > 0)
                 {
-                    var text = parts[0].GetProperty("text").GetString() ?? string.Empty;
-                    return ExtractSkillsFromJsonText(text);
+                    var generatedText = parts[0].GetProperty("text").GetString() ?? string.Empty;
+
+                    _logger.LogInformation(
+                        "[JDExtraction] GENERATED_TEXT={Text}",
+                        generatedText);
+
+                    return ExtractSkillsFromJsonText(generatedText);
                 }
             }
 
@@ -253,9 +371,13 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
                     }
                 }
 
+                var normalizedSkills = NormalizeExtractedSkills(skills);
+                _logger.LogInformation("[JDExtraction] RAW_SKILLS={Skills}", string.Join(", ", skills));
+                _logger.LogInformation("[JDExtraction] NORMALIZED_SKILLS={Skills}", string.Join(", ", normalizedSkills));
+
                 return new JobDescriptionSkillExtractionResult
                 {
-                    RequiredSkills = skills.Distinct().ToList()
+                    RequiredSkills = normalizedSkills
                 };
             }
 
@@ -288,11 +410,37 @@ public class JobDescriptionSkillExtractionService : IJobDescriptionSkillExtracti
                 .Distinct()
                 .ToList();
 
-            return new JobDescriptionSkillExtractionResult { RequiredSkills = skills };
+            var normalizedSkills = NormalizeExtractedSkills(skills);
+            _logger.LogInformation("[JDExtraction] RAW_SKILLS={Skills}", string.Join(", ", skills));
+            _logger.LogInformation("[JDExtraction] NORMALIZED_SKILLS={Skills}", string.Join(", ", normalizedSkills));
+
+            return new JobDescriptionSkillExtractionResult { RequiredSkills = normalizedSkills };
         }
 
         _logger.LogWarning("Could not extract skills using regex from response: {Text}", text);
         return null;
+    }
+
+    private static List<string> NormalizeExtractedSkills(IEnumerable<string> skills)
+    {
+        return skills
+            .Select(skill => skill.Trim())
+            .Where(skill => !string.IsNullOrWhiteSpace(skill))
+            .Select(RemoveParentheticalDetails)
+            .Select(skill => Regex.Replace(skill, @"[^\p{L}\p{Nd}\s]", " "))
+            .Select(skill => Regex.Replace(skill, @"\s+", " ").Trim())
+            .Select(skill => SkillNormalizationMap.TryGetValue(skill, out var mapped) ? mapped : skill)
+            .Where(skill => !string.IsNullOrWhiteSpace(skill))
+            .Where(skill => !ExcludedSkillPhrases.Any(phrase => skill.Contains(phrase, StringComparison.OrdinalIgnoreCase)))
+            .Select(skill => NormalizeSkill(skill))
+            .Where(skill => !string.IsNullOrWhiteSpace(skill))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    private static string RemoveParentheticalDetails(string skill)
+    {
+        return Regex.Replace(skill, @"\([^)]*\)", string.Empty).Trim();
     }
 
     private static string NormalizeSkill(string skill)

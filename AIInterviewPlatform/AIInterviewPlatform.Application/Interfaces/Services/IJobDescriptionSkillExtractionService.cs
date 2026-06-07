@@ -5,5 +5,10 @@ namespace AIInterviewPlatform.Application.Interfaces.Services;
 
 public interface IJobDescriptionSkillExtractionService
 {
-    Task<AIServiceResult<JobDescriptionSkillExtractionResult>> ExtractRequiredSkillsAsync(string jobDescriptionContent);
+    string ModelName { get; }
+    string Endpoint { get; }
+
+    Task<AIServiceResult<JobDescriptionSkillExtractionResult>> ExtractRequiredSkillsAsync(
+        string jobDescriptionContent,
+        string? languageCode = null);
 }

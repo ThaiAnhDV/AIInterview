@@ -27,6 +27,7 @@ public class TestInterviewQuestionsController : ControllerBase
             request.TargetJob,
             request.RequiredSkills,
             request.MissingSkills,
+            request.LanguageCode,
             cancellationToken);
 
         return Ok(result);
@@ -38,4 +39,5 @@ public class TestInterviewQuestionsRequest
     public string TargetJob { get; set; } = string.Empty;
     public List<string> RequiredSkills { get; set; } = [];
     public List<string> MissingSkills { get; set; } = [];
+    public string? LanguageCode { get; set; }
 }

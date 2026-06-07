@@ -7,4 +7,6 @@ public class AssistantChatResponse
     public bool IsFallback { get; set; }
 
     public string Model { get; set; } = "gemini-2.0-flash";
+
+    public string LanguageCode { get; set; } = string.Empty;
 }

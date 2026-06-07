@@ -1,4 +1,5 @@
-﻿using AIInterviewPlatform.Application.DTOs.Roadmap;
+﻿using System;
+using AIInterviewPlatform.Application.DTOs.Roadmap;
 using AIInterviewPlatform.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace AIInterviewPlatform.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
+    [Obsolete("Legacy template-based roadmap generation. Use /api/Roadmap endpoints backed by RoadmapApplicationService.")]
     public class RoadmapsController : ControllerBase
     {
         private readonly ILearningRoadmapService _roadmapService;

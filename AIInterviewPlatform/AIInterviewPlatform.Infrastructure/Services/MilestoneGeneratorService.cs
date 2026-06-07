@@ -36,10 +36,12 @@ public class MilestoneGeneratorService : IMilestoneGeneratorService, IMilestoneG
         foreach (var skill in normalizedSkills)
         {
             var milestone = _milestoneGenerator.GenerateSkillMilestone(skill, order++);
+            milestone.Activities.ForEach(activity => activity.SourceMilestoneOrder = milestone.MilestoneOrder);
             milestones.Add(milestone);
         }
 
         var mockInterviewMilestone = _milestoneGenerator.GenerateMockInterviewMilestone(order);
+        mockInterviewMilestone.Activities.ForEach(activity => activity.SourceMilestoneOrder = mockInterviewMilestone.MilestoneOrder);
         milestones.Add(mockInterviewMilestone);
 
         return milestones;
@@ -71,10 +73,12 @@ public class MilestoneGeneratorService : IMilestoneGeneratorService, IMilestoneG
                 GapLevel = gap.GapLevel,
                 DifficultyLevel = DetermineDifficulty(gap.GapLevel)
             };
+            milestone.Activities.ForEach(activity => activity.SourceMilestoneOrder = milestone.MilestoneOrder);
             milestones.Add(milestone);
         }
 
         var mockInterviewMilestone = _milestoneGenerator.GenerateMockInterviewMilestone(order);
+        mockInterviewMilestone.Activities.ForEach(activity => activity.SourceMilestoneOrder = mockInterviewMilestone.MilestoneOrder);
         milestones.Add(mockInterviewMilestone);
 
         return milestones;

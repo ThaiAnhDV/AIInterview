@@ -2,7 +2,9 @@ using System.Text;
 using System.Text.Json;
 
 using AIInterviewPlatform.Application.DTOs.Assistant;
+using AIInterviewPlatform.Application.Interfaces.Prompts;
 using AIInterviewPlatform.Application.Interfaces.Services;
+using AIInterviewPlatform.Domain.Common;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -11,120 +13,209 @@ namespace AIInterviewPlatform.Infrastructure.Services;
 
 public class AssistantChatService : IAssistantChatService
 {
-    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-    private const string ModelName = "gemini-2.0-flash";
+    private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+    private const string ModelName = "gemini-2.5-flash";
 
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<AssistantChatService> _logger;
+    private readonly IPromptProviderFactory _promptProviderFactory;
 
     public AssistantChatService(
         HttpClient httpClient,
         IConfiguration configuration,
-        ILogger<AssistantChatService> logger)
+        ILogger<AssistantChatService> logger,
+        IPromptProviderFactory promptProviderFactory)
     {
         _httpClient = httpClient;
         _apiKey = configuration["GeminiSettings:ApiKey"] ?? string.Empty;
         _logger = logger;
+        _promptProviderFactory = promptProviderFactory;
     }
 
     public async Task<AssistantChatResponse> AskAsync(
         AssistantChatRequest request,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation("[ASSISTANT_AUDIT] ========================================");
+        _logger.LogInformation("[ASSISTANT_AUDIT] REQUEST RECEIVED");
+        _logger.LogInformation("[ASSISTANT_AUDIT] RawLanguageCode: {RawLangCode}", request.LanguageCode ?? "(null)");
+        _logger.LogInformation("[ASSISTANT_AUDIT] Message: {Message}", request.Message);
+        _logger.LogInformation("[ASSISTANT_AUDIT] Page: {Page}", request.Page);
+        _logger.LogInformation("[ASSISTANT_AUDIT] IsAdmin: {IsAdmin}", request.IsAdmin);
+
+        var languageCode = SupportedLanguageCodes.NormalizeOrDefault(request.LanguageCode);
+        _logger.LogInformation("[ASSISTANT_AUDIT] ResolvedLanguageCode: {ResolvedLang}", languageCode);
+
+        var promptProvider = _promptProviderFactory.Get(languageCode);
+        _logger.LogInformation("[ASSISTANT_AUDIT] Provider: {ProviderType}", promptProvider.GetType().Name);
+
         var message = request.Message.Trim();
+        _logger.LogInformation("[ASSISTANT_AUDIT] Trimmed Message: {TrimmedMsg}", message);
 
         if (string.IsNullOrWhiteSpace(message))
         {
+            _logger.LogWarning("[ASSISTANT_AUDIT] Empty message - returning fallback");
             return new AssistantChatResponse
             {
-                Reply = "Bạn hãy nhập câu hỏi để trợ lý có thể hỗ trợ nhé.",
+                Reply = promptProvider.GetAssistantEmptyMessage(),
                 IsFallback = true,
-                Model = "fallback"
+                Model = "fallback",
+                LanguageCode = languageCode
             };
+        }
+
+        _logger.LogInformation("[ASSISTANT_AUDIT] API Key loaded: {HasKey}", !string.IsNullOrWhiteSpace(_apiKey));
+        if (string.IsNullOrWhiteSpace(_apiKey))
+        {
+            _logger.LogWarning("[ASSISTANT_AUDIT] API Key is NULL or EMPTY");
+        }
+        else if (_apiKey.Equals("YOUR_API_KEY", StringComparison.OrdinalIgnoreCase))
+        {
+            _logger.LogWarning("[ASSISTANT_AUDIT] API Key is placeholder 'YOUR_API_KEY'");
+        }
+        else
+        {
+            _logger.LogInformation("[ASSISTANT_AUDIT] API Key (first 10 chars): {KeyPrefix}...", _apiKey[..Math.Min(10, _apiKey.Length)]);
         }
 
         if (string.IsNullOrWhiteSpace(_apiKey) ||
             _apiKey.Equals("YOUR_API_KEY", StringComparison.OrdinalIgnoreCase))
         {
+            _logger.LogWarning("[ASSISTANT_AUDIT] Invalid API Key - returning fallback response");
             return request.IsAdmin
-                ? CreateMissingApiKeyResponse()
-                : CreateFallbackResponse(request);
+                ? CreateMissingApiKeyResponse(promptProvider, languageCode)
+                : CreateFallbackResponse(request, promptProvider, languageCode);
         }
 
-        var prompt = BuildPrompt(request);
+        var page = string.IsNullOrWhiteSpace(request.Page)
+            ? (languageCode == SupportedLanguageCodes.English ? "unknown" : "không xác định")
+            : request.Page.Trim();
+
+        _logger.LogInformation("[ASSISTANT_AUDIT] Building prompt for page: {Page}", page);
+
+        var prompt = promptProvider.BuildAssistantChatPrompt(page, message);
+        _logger.LogInformation("[ASSISTANT_AUDIT] ========== GENERATED PROMPT ==========");
+        _logger.LogInformation("[ASSISTANT_AUDIT] Prompt: {Prompt}", prompt);
+        _logger.LogInformation("[ASSISTANT_AUDIT] ========================================");
 
         try
         {
-            using var httpContent = new StringContent(
-                JsonSerializer.Serialize(new
+            var requestPayload = new
+            {
+                contents = new[]
                 {
-                    contents = new[]
+                    new
                     {
-                        new
-                        {
-                            parts = new[] { new { text = prompt } }
-                        }
-                    },
-                    generationConfig = new
-                    {
-                        temperature = 0.45,
-                        maxOutputTokens = 900
+                        parts = new[] { new { text = prompt } }
                     }
-                }),
-                Encoding.UTF8,
-                "application/json");
+                },
+                generationConfig = new
+                {
+                    temperature = 0.45,
+                    maxOutputTokens = 900
+                }
+            };
+
+            var requestJson = JsonSerializer.Serialize(requestPayload);
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========== REQUEST PAYLOAD ==========");
+            _logger.LogInformation("[ASSISTANT_AUDIT] RequestJson: {RequestJson}", requestJson);
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========================================");
+
+            using var httpContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
+
+            var apiEndpoint = $"{GeminiApiUrl}?key={_apiKey[..10]}...";
+            _logger.LogInformation("[ASSISTANT_AUDIT] API Endpoint: {Endpoint}", apiEndpoint);
+            _logger.LogInformation("[ASSISTANT_AUDIT] Model: {Model}", ModelName);
+
+            _logger.LogInformation("[ASSISTANT_AUDIT] Sending HTTP POST to Gemini API...");
+            var startTime = DateTime.UtcNow;
 
             using var response = await _httpClient.PostAsync(
                 $"{GeminiApiUrl}?key={_apiKey}",
                 httpContent,
                 cancellationToken);
 
+            var elapsed = DateTime.UtcNow - startTime;
+            _logger.LogInformation("[ASSISTANT_AUDIT] HTTP Request completed in {ElapsedMs}ms", elapsed.TotalMilliseconds);
+            _logger.LogInformation("[ASSISTANT_AUDIT] HTTP Status Code: {StatusCode}", (int)response.StatusCode);
+
             var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========== RAW GEMINI RESPONSE ==========");
+            _logger.LogInformation("[ASSISTANT_AUDIT] RawResponse: {RawResponse}", responseBody);
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========================================");
 
             if (!response.IsSuccessStatusCode)
             {
+                _logger.LogError(
+                    "[ASSISTANT_AUDIT] ==================== HTTP FAILURE ====================");
+                _logger.LogError(
+                    "[ASSISTANT_AUDIT] HTTP Status Code: {StatusCode} ({StatusText})",
+                    (int)response.StatusCode,
+                    response.StatusCode);
+                _logger.LogError(
+                    "[ASSISTANT_AUDIT] Response Body: {Body}",
+                    responseBody.Length > 500 ? responseBody[..500] + "..." : responseBody);
                 _logger.LogWarning(
-                    "Assistant Gemini request failed: {StatusCode} {Body}",
-                    response.StatusCode,
-                    responseBody.Length > 300 ? responseBody[..300] : responseBody);
+                    "[ASSISTANT_AUDIT] Gemini request FAILED: {StatusCode}",
+                    (int)response.StatusCode);
 
-                return CreateFallbackResponse(request);
+                return CreateFallbackResponse(request, promptProvider, languageCode);
             }
 
+            _logger.LogInformation("[ASSISTANT_AUDIT] Parsing JSON response...");
             var reply = ExtractText(responseBody);
+
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========== PARSED RESPONSE ==========");
+            _logger.LogInformation("[ASSISTANT_AUDIT] Extracted Text Length: {TextLen}", reply?.Length ?? 0);
+            _logger.LogInformation("[ASSISTANT_AUDIT] Extracted Text: {Text}", reply ?? "(null)");
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========================================");
+
             if (string.IsNullOrWhiteSpace(reply))
             {
-                _logger.LogWarning("Assistant Gemini response did not contain text.");
-                return CreateFallbackResponse(request);
+                _logger.LogWarning("[ASSISTANT_AUDIT] Parsed text is empty - returning fallback");
+                return CreateFallbackResponse(request, promptProvider, languageCode);
             }
 
-            return new AssistantChatResponse
+            var finalResponse = new AssistantChatResponse
             {
                 Reply = reply.Trim(),
                 IsFallback = false,
-                Model = ModelName
+                Model = ModelName,
+                LanguageCode = languageCode
             };
+
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========== FINAL API RESPONSE ==========");
+            _logger.LogInformation("[ASSISTANT_AUDIT] Reply: {Reply}", finalResponse.Reply);
+            _logger.LogInformation("[ASSISTANT_AUDIT] IsFallback: {IsFallback}", finalResponse.IsFallback);
+            _logger.LogInformation("[ASSISTANT_AUDIT] Model: {Model}", finalResponse.Model);
+            _logger.LogInformation("[ASSISTANT_AUDIT] LanguageCode: {LangCode}", finalResponse.LanguageCode);
+            _logger.LogInformation("[ASSISTANT_AUDIT] ========================================");
+            _logger.LogInformation("[ASSISTANT_AUDIT] EXECUTION COMPLETE - Returning 200 OK");
+
+            return finalResponse;
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or JsonException)
         {
-            _logger.LogWarning(ex, "Assistant Gemini request failed. Returning fallback response.");
-            return CreateFallbackResponse(request);
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] ==================== AI FAILURE ====================");
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] EXCEPTION TYPE: {ExceptionType}", ex.GetType().FullName);
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] EXCEPTION MESSAGE: {Message}", ex.Message);
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] INNER EXCEPTION: {Inner}", ex.InnerException?.Message ?? "(none)");
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] STACK TRACE: {StackTrace}", ex.StackTrace);
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] Full exception details logged above");
+            _logger.LogWarning("[ASSISTANT_AUDIT] Returning fallback response due to exception");
+            return CreateFallbackResponse(request, promptProvider, languageCode);
         }
-    }
-
-    private static string BuildPrompt(AssistantChatRequest request)
-    {
-        var page = string.IsNullOrWhiteSpace(request.Page) ? "không xác định" : request.Page.Trim();
-
-        return
-            "Bạn là trợ lý AI thân thiện trong nền tảng luyện phỏng vấn AI.\n" +
-            "Nhiệm vụ: giải thích ngắn gọn, dễ hiểu, bằng tiếng Việt, giúp người dùng biết nên làm gì tiếp theo trong sản phẩm.\n" +
-            "Không hỏi thông tin nhạy cảm, không bịa dữ liệu cá nhân, không trả lời như đang phỏng vấn trực tiếp.\n" +
-            "Nếu câu hỏi không liên quan nền tảng, vẫn hỗ trợ ngắn gọn nhưng ưu tiên hướng người dùng quay lại mục tiêu luyện phỏng vấn.\n\n" +
-            $"Trang hiện tại: {page}\n" +
-            $"Câu hỏi người dùng: {request.Message.Trim()}\n\n" +
-            "Trả lời trong 2-5 câu, có thể đưa 1-3 bước cụ thể nếu phù hợp.";
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] ==================== UNEXPECTED AI FAILURE ====================");
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] EXCEPTION TYPE: {ExceptionType}", ex.GetType().FullName);
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] EXCEPTION MESSAGE: {Message}", ex.Message);
+            _logger.LogError(ex, "[ASSISTANT_AUDIT] STACK TRACE: {StackTrace}", ex.StackTrace);
+            _logger.LogWarning("[ASSISTANT_AUDIT] Returning fallback response due to unexpected exception");
+            return CreateFallbackResponse(request, promptProvider, languageCode);
+        }
     }
 
     private static string ExtractText(string responseBody)
@@ -153,43 +244,30 @@ public class AssistantChatService : IAssistantChatService
             : string.Empty;
     }
 
-    private static AssistantChatResponse CreateFallbackResponse(AssistantChatRequest request)
+    private static AssistantChatResponse CreateFallbackResponse(
+        AssistantChatRequest request,
+        IPromptProvider promptProvider,
+        string languageCode)
     {
-        var page = (request.Page ?? string.Empty).ToLowerInvariant();
-        var reply = "Hiện tại AI chưa kết nối được, nhưng bạn có thể tiếp tục theo luồng chính: tải hồ sơ, tạo công việc mục tiêu và JD, phân tích kỹ năng, rồi luyện phỏng vấn.";
-
-        if (page.Contains("resume"))
-        {
-            reply = "Bạn đang ở phần hồ sơ. Hãy tải CV lên trước, sau đó chọn hồ sơ chính để hệ thống có dữ liệu phân tích kỹ năng.";
-        }
-        else if (page.Contains("target"))
-        {
-            reply = "Bạn đang ở phần công việc mục tiêu. Hãy tạo vị trí muốn ứng tuyển, rồi thêm JD để AI biết yêu cầu kỹ năng cần so sánh.";
-        }
-        else if (page.Contains("skill"))
-        {
-            reply = "Bạn đang ở phần phân tích kỹ năng. Hãy chọn hồ sơ và công việc đã có JD để xem kỹ năng phù hợp, kỹ năng còn thiếu và hướng ưu tiên học tập.";
-        }
-        else if (page.Contains("roadmap"))
-        {
-            reply = "Bạn đang ở phần lộ trình. Hãy chọn kết quả phân tích kỹ năng để tạo kế hoạch học tập cá nhân hóa và theo dõi tiến độ từng hoạt động.";
-        }
-
         return new AssistantChatResponse
         {
-            Reply = reply,
+            Reply = promptProvider.GetAssistantFallbackMessage(request.Page ?? string.Empty),
             IsFallback = true,
-            Model = "fallback"
+            Model = "fallback",
+            LanguageCode = languageCode
         };
     }
 
-    private static AssistantChatResponse CreateMissingApiKeyResponse()
+    private static AssistantChatResponse CreateMissingApiKeyResponse(
+        IPromptProvider promptProvider,
+        string languageCode)
     {
         return new AssistantChatResponse
         {
-            Reply = "Trợ lý AI chưa kết nối được vì Gemini API key chưa được cấu hình. Hãy thêm API key thật vào GeminiSettings:ApiKey rồi khởi động lại API.",
+            Reply = promptProvider.GetAssistantMissingApiKeyMessage(),
             IsFallback = true,
-            Model = "fallback"
+            Model = "fallback",
+            LanguageCode = languageCode
         };
     }
 }

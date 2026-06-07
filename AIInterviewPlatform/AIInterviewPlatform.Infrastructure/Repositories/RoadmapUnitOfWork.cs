@@ -87,15 +87,21 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
 
             if (activities.Count > 0)
             {
-                var milestoneDict = milestones.ToDictionary(m => m.MilestoneOrder);
-                
                 foreach (var activity in activities)
                 {
-                    if (milestoneDict.TryGetValue(GetMilestoneOrder(activity), out var milestone))
+                    var milestone = activity.RoadmapMilestone;
+
+                    if (milestone == null)
                     {
-                        activity.RoadmapMilestoneId = milestone.Id;
+                        throw new InvalidOperationException($"LearningActivity '{activity.ActivityTitle}' is missing its RoadmapMilestone reference before save.");
                     }
+
+                    activity.RoadmapMilestoneId = milestone.Id;
+
+                    Console.WriteLine($"[ROADMAP_FIX] MilestoneId={milestone.Id} MilestoneTitle={milestone.MilestoneTitle} ActivityTitle={activity.ActivityTitle}");
+                    Console.WriteLine($"[ROADMAP_AUDIT] Activity Saved Title={activity.ActivityTitle} Description={activity.ActivityDescription} ActivityType={activity.ActivityType} MilestoneId={activity.RoadmapMilestoneId}");
                 }
+
                 await Activities.AddRangeAsync(activities);
                 await SaveChangesAsync();
             }
@@ -192,12 +198,6 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
         }
         await Roadmaps.UpdateAsync(roadmap);
     }
-
-    private static int GetMilestoneOrder(LearningActivity activity)
-    {
-        return 1;
-    }
-
     private static decimal CalculateProgress(RoadmapMilestone? milestone)
     {
         if (milestone == null || !milestone.LearningActivities.Any())

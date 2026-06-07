@@ -1,6 +1,7 @@
 ﻿using AIInterviewPlatform.Application.Interfaces;
 using AIInterviewPlatform.Application.Interfaces.Repositories;
 using AIInterviewPlatform.Application.Interfaces.Services;
+using AIInterviewPlatform.Application.Interfaces.Prompts;
 using AIInterviewPlatform.Application.Services;
 using AIInterviewPlatform.Application.Common.Validators;
 using AIInterviewPlatform.Infrastructure.Data;
@@ -19,6 +20,8 @@ using AIInterviewPlatform.Infrastructure.Services.TextExtractors;
 using AIInterviewPlatform.Domain.Enities;
 using AIInterviewPlatform.Domain.Enum;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using AIInterviewPlatform.Infrastructure.AI.Prompts;
+using AIInterviewPlatform.Infrastructure.AI.Prompts.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,6 +74,9 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDashboardQueryService, DashboardQueryService>();
 builder.Services.AddScoped<IDashboardQueryValidator, DashboardQueryValidator>();
 builder.Services.AddScoped<IMilestoneGeneratorService, MilestoneGeneratorService>();
+builder.Services.AddScoped<IPromptProvider, EnglishPromptProvider>();
+builder.Services.AddScoped<IPromptProvider, VietnamesePromptProvider>();
+builder.Services.AddScoped<IPromptProviderFactory, PromptProviderFactory>();
 builder.Services.AddHttpClient<IActivityDescriptionService, ActivityDescriptionService>();
 builder.Services.AddHttpClient<IInterviewQuestionGeneratorService, InterviewQuestionGeneratorService>();
 builder.Services.AddHttpClient<IInterviewEvaluationService, InterviewEvaluationService>();

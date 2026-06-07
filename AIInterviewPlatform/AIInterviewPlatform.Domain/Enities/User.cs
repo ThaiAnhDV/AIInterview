@@ -19,6 +19,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public DateTime? UpdatedAt { get; set; }
 
+        public string? LanguageCode { get; set; }
+
         public AuthenticationAccount? AuthenticationAccount { get; set; }
 
         public UserProfile? UserProfile { get; set; }

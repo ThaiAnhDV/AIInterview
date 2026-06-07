@@ -8,6 +8,7 @@ public class GenerateRoadmapFromMissingSkillsRequest
     public long? TargetJobId { get; set; }
     public int MilestonesPerSkill { get; set; } = 2;
     public int ActivitiesPerMilestone { get; set; } = 3;
+    public string? LanguageCode { get; set; }
 }
 
 public class GenerateRoadmapFromAnalysisRequest
@@ -15,6 +16,7 @@ public class GenerateRoadmapFromAnalysisRequest
     public long SkillGapAnalysisId { get; set; }
     public int MilestonesPerSkill { get; set; } = 2;
     public int ActivitiesPerMilestone { get; set; } = 3;
+    public string? LanguageCode { get; set; }
 }
 
 public class UpdateRoadmapRequest

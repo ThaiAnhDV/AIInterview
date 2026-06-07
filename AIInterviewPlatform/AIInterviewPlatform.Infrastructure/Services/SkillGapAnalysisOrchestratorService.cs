@@ -39,6 +39,10 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             "Starting comprehensive skill gap analysis for user {UserId}, Resume: {ResumeId}, JD: {JobDescriptionId}",
             userId, request.ResumeId, request.JobDescriptionId);
 
+        _logger.LogInformation(
+            "[LANG_AUDIT] Orchestrator={Service} Call=ExtractResumeSkills LanguageCode={LanguageCode}",
+            nameof(SkillGapAnalysisOrchestratorService), request.LanguageCode);
+
         var resume = await _context.Resumes
             .FirstOrDefaultAsync(x => x.Id == request.ResumeId && x.UserId == userId);
 
@@ -69,34 +73,43 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             };
         }
 
+        _logger.LogInformation(
+            "[LANG_AUDIT] Orchestrator={Service} Call=ExtractResumeSkills LanguageCode={LanguageCode}",
+            nameof(SkillGapAnalysisOrchestratorService), request.LanguageCode);
+
         var resumeSkillsResult = await _resumeSkillExtractionService
-            .ExtractSkillsFromResumeAsync(resume.ParsedContent ?? string.Empty);
+            .ExtractSkillsFromResumeAsync(resume.ParsedContent ?? string.Empty, request.LanguageCode);
 
         if (!resumeSkillsResult.Success)
         {
+            _logger.LogWarning("[SkillGap] ANALYSIS_ABORTED");
             return new ComprehensiveSkillGapAnalysisResponse
             {
                 Success = false,
                 ErrorCode = resumeSkillsResult.Error?.ErrorCode ?? "GEMINI_ERROR",
-                Message = resumeSkillsResult.Error?.Message ?? "AI service temporarily unavailable.",
+                Message = resumeSkillsResult.Error?.Message ?? "AI service is temporarily busy. Please retry in a few minutes.",
                 ResumeId = request.ResumeId,
                 JobDescriptionId = request.JobDescriptionId
             };
         }
 
+        _logger.LogInformation(
+            "[LANG_AUDIT] Orchestrator={Service} Call=ExtractJDSkills LanguageCode={LanguageCode}",
+            nameof(SkillGapAnalysisOrchestratorService), request.LanguageCode);
+
         var jdSkillsResult = await _jdSkillExtractionService
-            .ExtractRequiredSkillsAsync(jobDescription.Content);
+            .ExtractRequiredSkillsAsync(jobDescription.Content, request.LanguageCode);
 
         if (!jdSkillsResult.Success)
         {
+            _logger.LogWarning("[SkillGap] ANALYSIS_ABORTED");
             return new ComprehensiveSkillGapAnalysisResponse
             {
                 Success = false,
                 ErrorCode = jdSkillsResult.Error?.ErrorCode ?? "GEMINI_ERROR",
-                Message = jdSkillsResult.Error?.Message ?? "AI service temporarily unavailable.",
+                Message = jdSkillsResult.Error?.Message ?? "AI service is temporarily busy. Please retry in a few minutes.",
                 ResumeId = request.ResumeId,
-                JobDescriptionId = request.JobDescriptionId,
-                ResumeSkills = resumeSkillsResult.Data?.Skills ?? []
+                JobDescriptionId = request.JobDescriptionId
             };
         }
 

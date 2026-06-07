@@ -124,6 +124,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("updated_at")
                 .HasColumnType("datetime2");
 
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
+
             entity.HasCheckConstraint(
                 "chk_users_user_type",
                 "[user_type] IN ('USER', 'ADMIN')"
@@ -176,6 +180,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("updated_at")
                 .HasColumnType("datetime2");
 
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
+
             entity.HasIndex(e => e.UserId)
                 .IsUnique();
 
@@ -221,6 +229,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.CareerGoal)
                 .HasColumnName("career_goal");
 
+            entity.Property(e => e.PreferredLanguageCode)
+                .HasColumnName("preferred_language_code")
+                .HasMaxLength(10);
+
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
                 .HasColumnType("datetime2")
@@ -230,6 +242,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.UpdatedAt)
                 .HasColumnName("updated_at")
                 .HasColumnType("datetime2");
+
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
 
             entity.HasIndex(e => e.UserId)
                 .IsUnique();
@@ -328,6 +344,10 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.UpdatedAt)
                 .HasColumnName("updated_at")
                 .HasColumnType("datetime2");
+
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
 
             entity.HasIndex(e => e.UserId)
                 .HasDatabaseName("idx_target_jobs_user_id");
@@ -507,6 +527,10 @@ public class ApplicationDbContext : DbContext
                 .HasMaxLength(50)
                 .HasDefaultValue(AnalysisStatus.COMPLETED)
                 .IsRequired();
+
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
 
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
@@ -821,6 +845,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("completed_at")
                 .HasColumnType("datetime2");
 
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
+
             entity.HasIndex(e => e.UserId)
                 .HasDatabaseName("idx_interview_sessions_user_id");
 
@@ -881,6 +909,10 @@ public class ApplicationDbContext : DbContext
                 .HasMaxLength(50)
                 .HasDefaultValue(QuestionGeneratedBy.AI)
                 .IsRequired();
+
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
 
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
@@ -997,6 +1029,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("overall_score")
                 .HasColumnType("decimal(5,2)");
 
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
+
             entity.Property(e => e.EvaluatedAt)
                 .HasColumnName("evaluated_at")
                 .HasColumnType("datetime2")
@@ -1056,6 +1092,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("feedback_type")
                 .HasConversion<string>()
                 .HasMaxLength(50);
+
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
 
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
@@ -1259,6 +1299,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("updated_at")
                 .HasColumnType("datetime2");
 
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
+
             entity.HasIndex(e => e.UserId)
                 .HasDatabaseName("idx_learning_roadmaps_user_id");
 
@@ -1367,6 +1411,10 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("is_completed")
                 .HasDefaultValue(false)
                 .IsRequired();
+
+            entity.Property(e => e.LanguageCode)
+                .HasColumnName("language_code")
+                .HasMaxLength(10);
 
             entity.HasIndex(e => e.RoadmapMilestoneId)
                 .HasDatabaseName("idx_activities_milestone_id");

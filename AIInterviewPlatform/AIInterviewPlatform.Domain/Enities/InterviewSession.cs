@@ -21,6 +21,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public DateTime? CompletedAt { get; set; }
 
+        public string? LanguageCode { get; set; }
+
         public User User { get; set; } = null!;
 
         public TargetJob TargetJob { get; set; } = null!;

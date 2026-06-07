@@ -4,11 +4,13 @@ public class ActivityDto
 {
     public long Id { get; set; }
     public long RoadmapMilestoneId { get; set; }
+    public int? SourceMilestoneOrder { get; set; }
     public long? SkillId { get; set; }
     public string? SkillName { get; set; }
     public string ActivityTitle { get; set; } = string.Empty;
     public string? ActivityDescription { get; set; }
     public string ActivityType { get; set; } = string.Empty;
+    public string LanguageCode { get; set; } = string.Empty;
     public bool IsCompleted { get; set; }
     public DateTime? CompletedAt { get; set; }
     public ActivityMetadataDto? Metadata { get; set; }

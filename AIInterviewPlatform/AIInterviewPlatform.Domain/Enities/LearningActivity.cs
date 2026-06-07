@@ -23,6 +23,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public bool IsCompleted { get; set; } = false;
 
+        public string? LanguageCode { get; set; }
+
         public RoadmapMilestone RoadmapMilestone { get; set; } = null!;
 
         public Skill? Skill { get; set; }

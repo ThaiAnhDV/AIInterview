@@ -9,6 +9,7 @@ public class RoadmapDto
     public long Id { get; set; }
     public string RoadmapTitle { get; set; } = string.Empty;
     public string RoadmapStatus { get; set; } = string.Empty;
+    public string LanguageCode { get; set; } = string.Empty;
     public long? TargetJobId { get; set; }
     public string? TargetJobTitle { get; set; }
     public long? SkillGapAnalysisId { get; set; }

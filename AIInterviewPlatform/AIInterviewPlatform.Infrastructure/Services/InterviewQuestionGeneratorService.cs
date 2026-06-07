@@ -5,6 +5,7 @@ using AIInterviewPlatform.Application.DTOs.Interview.Enums;
 using AIInterviewPlatform.Application.DTOs.Interview.Gemini;
 using AIInterviewPlatform.Application.DTOs.Interview.Models;
 using AIInterviewPlatform.Application.DTOs.Interview.Responses;
+using AIInterviewPlatform.Application.Interfaces.Prompts;
 using AIInterviewPlatform.Application.Interfaces.Services;
 
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     private readonly ILogger<InterviewQuestionGeneratorService> _logger;
+    private readonly IPromptProviderFactory _promptProviderFactory;
     private const string GeminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -28,11 +30,13 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
     public InterviewQuestionGeneratorService(
         HttpClient httpClient,
         IConfiguration configuration,
-        ILogger<InterviewQuestionGeneratorService> logger)
+        ILogger<InterviewQuestionGeneratorService> logger,
+        IPromptProviderFactory promptProviderFactory)
     {
         _httpClient = httpClient;
         _apiKey = configuration["GeminiSettings:ApiKey"] ?? string.Empty;
         _logger = logger;
+        _promptProviderFactory = promptProviderFactory;
 
         _logger.LogInformation(
             "[Interview] API_KEY_LOADED={Loaded}",
@@ -56,6 +60,10 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         GeminiInterviewQuestionRequest request,
         CancellationToken cancellationToken = default)
     {
+        _logger.LogInformation(
+            "[LANG_AUDIT] Service={Service} Method={Method} LanguageCode={LanguageCode}",
+            nameof(InterviewQuestionGeneratorService), "GenerateQuestionsAsync", request.LanguageCode);
+
         _logger.LogWarning("[Interview] ENTER GenerateQuestionsAsync");
 
         try
@@ -86,7 +94,12 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
             return GetDefaultQuestions(request);
         }
 
-        var prompt = BuildGeminiPrompt(request);
+        var provider = _promptProviderFactory.Get(request.LanguageCode);
+        var prompt = provider.BuildInterviewQuestionPrompt(
+            request.TargetJob.Title,
+            request.TargetJob.Description,
+            request.RequiredSkills,
+            request.MissingSkills);
 
         _logger.LogWarning("[Interview] GEMINI_REQUEST_START");
 
@@ -139,6 +152,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         string targetJobDescription,
         List<string> requiredSkills,
         List<string> missingSkills,
+        string? languageCode = null,
         CancellationToken cancellationToken = default)
     {
         _logger.LogWarning("ENTER GenerateQuestionsFromJobAsync");
@@ -151,7 +165,8 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
                 Description = targetJobDescription
             },
             RequiredSkills = requiredSkills,
-            MissingSkills = missingSkills
+            MissingSkills = missingSkills,
+            LanguageCode = languageCode
         };
 
         return await GenerateQuestionsAsync(request, cancellationToken);
@@ -169,30 +184,6 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
             throw new ArgumentException("At least one required skill is needed");
     }
 
-
-    private string BuildGeminiPrompt(GeminiInterviewQuestionRequest request)
-    {
-        var missingSkillsText = request.MissingSkills.Count > 0 
-            ? string.Join(", ", request.MissingSkills) 
-            : string.Join(", ", request.RequiredSkills);
-
-        var prompt = "Generate 10 interview questions for a candidate applying for:\n" +
-            "Position: " + request.TargetJob.Title + "\n" +
-            "Description: " + request.TargetJob.Description + "\n\n" +
-            "Focus areas (prioritized): " + missingSkillsText + "\n\n" +
-            "Return ONLY valid JSON - no markdown, no explanation:\n" +
-            @"{""questions"":[
-  {""question"":"""",""category"":"""",""skillFocus"":""""}
-]}\n\n" +
-            "Categories: Technical, Behavioral, Communication\n" +
-            "Rules:\n" +
-            "- Prioritize missing skills\n" +
-            "- Match job requirements\n" +
-            "- JSON only\n" +
-            "- No additional fields";
-
-        return prompt;
-    }
 
     private async Task<string?> SendGeminiRequestAsync(string prompt, CancellationToken cancellationToken)
     {
@@ -319,6 +310,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         }
     }
 
+
     private static bool TryExtractTextFromResponse(JsonElement root, out string text)
     {
         text = string.Empty;
@@ -341,6 +333,7 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         return false;
     }
 
+
     private static string CleanJsonResponse(string jsonText)
     {
         var cleaned = jsonText.Trim();
@@ -356,13 +349,14 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
         return cleaned.Trim();
     }
 
+
     private GeminiInterviewQuestionResponse TryExtractQuestionsManually(string text)
     {
         var result = new GeminiInterviewQuestionResponse();
 
-        if (TryExtractArray(text, "questions", out var questionsArray))
+        if (TryExtractArray(text, "questions", out var questionsContent))
         {
-            result.Questions = ParseQuestions(questionsArray);
+            result.Questions = ParseQuestions(questionsContent);
         }
 
         return result;
@@ -502,7 +496,8 @@ public class InterviewQuestionGeneratorService : IInterviewQuestionGeneratorServ
     public InterviewQuestionGenerationResult GetDefaultQuestions(
         string targetJob,
         List<string> requiredSkills,
-        List<string> missingSkills)
+        List<string> missingSkills,
+        string? languageCode = null)
     {
         _logger.LogInformation("Generating default interview questions for: {TargetJob}", targetJob);
         

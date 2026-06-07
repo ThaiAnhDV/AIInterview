@@ -83,12 +83,17 @@ public class MockInterviewApplicationService : IMockInterviewApplicationService
             "Skills loaded. MissingSkills count: {MissingSkillsCount}, RequiredSkills count: {RequiredSkillsCount}",
             missingSkills.Count, requiredSkills.Count);
 
+        _logger.LogInformation(
+            "[LANG_AUDIT] MockInterview=StartMockInterviewAsync LanguageCode={LanguageCode}",
+            request.LanguageCode);
+
         // Generate Questions
         var result = await _questionGenerator.GenerateQuestionsFromJobAsync(
             targetJob.JobTitle,
             targetJob.JobTitle,
             requiredSkills,
             missingSkills,
+            request.LanguageCode,
             cancellationToken);
 
         // Log fallback usage
