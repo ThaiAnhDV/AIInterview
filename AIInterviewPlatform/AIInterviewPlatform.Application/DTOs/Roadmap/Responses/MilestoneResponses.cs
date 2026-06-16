@@ -11,6 +11,10 @@ public class MilestoneDto
     public List<ActivityDto> Activities { get; set; } = [];
     public DateTime? CompletedAt { get; set; }
     public MilestoneMetadataDto? Metadata { get; set; }
+
+    public int EstimatedDays { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 }
 
 public class MilestoneSummaryDto
@@ -22,6 +26,9 @@ public class MilestoneSummaryDto
     public int TotalActivities { get; set; }
     public int CompletedActivities { get; set; }
     public decimal CompletionPercentage { get; set; }
+    public int EstimatedDays { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 }
 
 public class MilestoneMetadataDto
@@ -32,6 +39,7 @@ public class MilestoneMetadataDto
     public string? EstimatedDuration { get; set; }
     public string? DifficultyLevel { get; set; }
     public List<string> LearningObjectives { get; set; } = [];
+    public int EstimatedDays { get; set; }
 }
 
 public class MilestoneWithRoadmapDto

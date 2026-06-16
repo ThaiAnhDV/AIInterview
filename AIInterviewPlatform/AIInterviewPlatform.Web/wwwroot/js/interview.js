@@ -2,6 +2,8 @@
     const token = localStorage.getItem("token");
 
     try {
+        showLoader();
+
         const response = await fetch(`${API_BASE_URL}/TargetJobs/my`, {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -33,41 +35,55 @@
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server.", "error");
+    } finally {
+        hideLoader();
     }
 }
 
-async function startInterview() {
-    const token = localStorage.getItem("token");
+async function startMockInterview() {
     const targetJobId = document.getElementById("targetJobSelect").value;
+    const skillGapAnalysisId = document.getElementById("skillGapSelect").value;
 
     if (!targetJobId) {
         showToast("Please select a target job.", "error");
         return;
     }
 
+    if (!skillGapAnalysisId) {
+        showToast("Please select a skill gap analysis.", "error");
+        return;
+    }
+
+    hideAllViews();
+    showView('loading');
+    setButtonLoading(true);
+
+    const token = localStorage.getItem("token");
+
     try {
-        const response = await fetch(`${API_BASE_URL}/Interview/start`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+        showLoader();
+
+        const response = await axios.post(
+            `${API_BASE_URL}/MockInterviews/generate`,
+            {
+                targetJobId: parseInt(targetJobId),
+                skillGapAnalysisId: parseInt(skillGapAnalysisId)
             },
-            body: JSON.stringify({
-                targetJobId: Number(targetJobId)
-            })
-        });
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
 
-        if (!response.ok) {
-            showToast("Cannot start interview.", "error");
-            return;
-        }
-
-        const session = await response.json();
-
-        window.location.href = `/Interview/Session?id=${session.id}`;
+        displayResults(response.data);
     } catch (error) {
-        console.error(error);
-        showToast("Cannot connect to server.", "error");
+        console.error('Interview generation failed:', error);
+        showError(error);
+    } finally {
+        hideLoader();
+        setButtonLoading(false);
     }
 }
 
@@ -77,6 +93,8 @@ async function loadInterviewSession() {
     const id = params.get("id");
 
     try {
+        showLoader();
+
         const response = await fetch(`${API_BASE_URL}/Interview/${id}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -127,6 +145,8 @@ async function loadInterviewSession() {
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server.", "error");
+    } finally {
+        hideLoader();
     }
 }
 
@@ -135,7 +155,15 @@ async function completeInterview() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
+    const completeButton = document.getElementById("completeInterviewButton");
+    if (completeButton) {
+        completeButton.disabled = true;
+        completeButton.classList.add("loading");
+    }
+
     try {
+        showLoader();
+
         await fetch(`${API_BASE_URL}/Interview/${id}/complete`, {
             method: "POST",
             headers: {
@@ -149,6 +177,13 @@ async function completeInterview() {
     } catch (error) {
         console.error(error);
         showToast("Cannot complete interview.", "error");
+    } finally {
+        hideLoader();
+
+        if (completeButton) {
+            completeButton.disabled = false;
+            completeButton.classList.remove("loading");
+        }
     }
 }
 
@@ -158,26 +193,46 @@ async function submitInterviewAnswers() {
     const sessionId = params.get("id");
     const answers = document.querySelectorAll(".answer-input");
 
-    for (const answer of answers) {
-        const questionId = answer.dataset.questionId;
-        const answerText = answer.value.trim();
-
-        if (!answerText) {
-            continue;
-        }
-
-        await fetch(`${API_BASE_URL}/interviews/${sessionId}/answers`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                interviewQuestionId: Number(questionId),
-                answerText: answerText
-            })
-        });
+    const submitButton = document.getElementById("submitAnswersButton");
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.classList.add("loading");
     }
 
-    showToast("Answers submitted successfully.", "success");
+    try {
+        showLoader();
+
+        for (const answer of answers) {
+            const questionId = answer.dataset.questionId;
+            const answerText = answer.value.trim();
+
+            if (!answerText) {
+                continue;
+            }
+
+            await fetch(`${API_BASE_URL}/interviews/${sessionId}/answers`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    interviewQuestionId: Number(questionId),
+                    answerText: answerText
+                })
+            });
+        }
+
+        showToast("Answers submitted successfully.", "success");
+    } catch (error) {
+        console.error(error);
+        showToast("Cannot submit answers.", "error");
+    } finally {
+        hideLoader();
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.classList.remove("loading");
+        }
+    }
 }

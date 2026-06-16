@@ -10,7 +10,7 @@ namespace AIInterviewPlatform.Infrastructure.Services;
 
 public class SkillMatchingService : ISkillMatchingService
 {
-    private const double FuzzyMatchThreshold = 0.55;
+    private const double FuzzyMatchThreshold = 0.60;
     private readonly ILogger<SkillMatchingService> _logger;
 
     public SkillMatchingService(ILogger<SkillMatchingService> logger)
@@ -39,6 +39,7 @@ public class SkillMatchingService : ISkillMatchingService
             .ToList();
 
         var matchedSkills = new List<string>();
+        var matchedSkillsWithScores = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
         var missingSkills = new List<string>();
         var matchedResumeSkills = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -65,6 +66,7 @@ public class SkillMatchingService : ISkillMatchingService
             if (bestResumeMatch != null && bestScore >= FuzzyMatchThreshold)
             {
                 matchedSkills.Add(required.Original);
+                matchedSkillsWithScores[required.Original] = bestScore;
                 matchedResumeSkills.Add(bestResumeMatch.Original);
             }
             else
@@ -90,6 +92,7 @@ public class SkillMatchingService : ISkillMatchingService
         return new SkillMatchResult
         {
             MatchedSkills = matchedSkills,
+            MatchedSkillsWithScores = matchedSkillsWithScores,
             MissingSkills = missingSkills,
             UnmatchedResumeSkills = unmatchedResumeSkills,
             MatchPercentage = Math.Round(matchPercentage, 2),
@@ -113,39 +116,107 @@ public class SkillMatchingService : ISkillMatchingService
             return 0;
         }
 
+        // Exact match (canonical or normalized)
         if (string.Equals(resume.Canonical, required.Canonical, StringComparison.OrdinalIgnoreCase) ||
             string.Equals(resume.Normalized, required.Normalized, StringComparison.Ordinal))
         {
             return 1.0;
         }
 
-        var tokenOverlap = CalculateTokenOverlap(resume.Tokens, required.Tokens);
-        var containsBoost = IsContainmentMatch(resume.Normalized, required.Normalized) ? 0.9 : 0;
+        // Skill Hierarchy Check
+        // Resume has CHILD skill, Required has PARENT skill => MATCH (candidate knows specific)
+        // Resume has PARENT skill, Required has CHILD skill => NO MATCH (candidate doesn't know specific)
+        var hierarchyResult = CheckSkillHierarchy(resume.Canonical, required.Canonical);
+        if (hierarchyResult.HasValue)
+        {
+            return hierarchyResult.Value;
+        }
+
+        // Unidirectional Containment: Only resume contains required
+        // e.g., "SQL Server" contains "SQL" => candidate knows more than required
+        var containsBoost = IsUnidirectionalContainment(resume.Normalized, required.Normalized) ? 0.85 : 0;
+
+        // Token overlap with penalty for asymmetric matches
+        var tokenOverlap = CalculateTokenOverlapWithPenalty(resume.Tokens, required.Tokens);
+
+        // Levenshtein similarity
         var similarity = SkillNormalizer.CalculateSimilarity(resume.Normalized, required.Normalized);
 
         return Math.Max(containsBoost, Math.Max(tokenOverlap, similarity));
     }
 
-    private static bool IsContainmentMatch(string left, string right)
+    private static double? CheckSkillHierarchy(string resumeCanonical, string requiredCanonical)
     {
-        return left.Contains(right, StringComparison.Ordinal) || right.Contains(left, StringComparison.Ordinal);
+        // Check if resume skill is a CHILD of required skill (candidate knows more specific)
+        if (IsChildOf(resumeCanonical, requiredCanonical))
+        {
+            // Resume: Child, Required: Parent => MATCH
+            return 1.0;
+        }
+
+        // Check if resume skill is a PARENT of required skill (candidate knows less specific)
+        if (IsChildOf(requiredCanonical, resumeCanonical))
+        {
+            // Resume: Parent, Required: Child => NO MATCH
+            return 0.0;
+        }
+
+        return null; // No hierarchy relationship
     }
 
-    private static double CalculateTokenOverlap(IReadOnlyCollection<string> leftTokens, IReadOnlyCollection<string> rightTokens)
+    private static bool IsChildOf(string skill, string potentialParent)
     {
-        if (leftTokens.Count == 0 || rightTokens.Count == 0)
+        if (string.Equals(skill, potentialParent, StringComparison.OrdinalIgnoreCase))
+        {
+            return false; // Same skill is not a child
+        }
+
+        var parentChildren = SkillHierarchy.GetChildren(potentialParent);
+        return parentChildren.Contains(skill, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static bool IsUnidirectionalContainment(string resumeNormalized, string requiredNormalized)
+    {
+        // Only boost if RESUME contains REQUIRED (candidate knows more)
+        // "SQL Server" contains "SQL" => true (candidate knows SQL Server, satisfies SQL requirement)
+        // "JavaScript" contains "Java" => false (candidate knows JS, doesn't satisfy Java requirement)
+        return resumeNormalized.Contains(requiredNormalized, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static double CalculateTokenOverlapWithPenalty(
+        IReadOnlyCollection<string> resumeTokens,
+        IReadOnlyCollection<string> requiredTokens)
+    {
+        if (resumeTokens.Count == 0 || requiredTokens.Count == 0)
         {
             return 0;
         }
 
-        var intersectionCount = leftTokens.Intersect(rightTokens, StringComparer.Ordinal).Count();
+        var intersectionCount = resumeTokens.Intersect(requiredTokens, StringComparer.OrdinalIgnoreCase).Count();
         if (intersectionCount == 0)
         {
             return 0;
         }
 
-        var denominator = Math.Min(leftTokens.Count, rightTokens.Count);
-        return (double)intersectionCount / denominator;
+        // Base overlap calculation
+        var baseOverlap = (double)intersectionCount / Math.Max(resumeTokens.Count, requiredTokens.Count);
+
+        // Penalty for asymmetric token counts
+        // Required: 1 token, Resume: N tokens => partial match at most
+        if (requiredTokens.Count == 1 && resumeTokens.Count > 1)
+        {
+            // "SQL" required, "SQL Server" in resume => 0.5 max (too generic)
+            return baseOverlap * 0.5;
+        }
+
+        // Resume: 1 token, Required: N tokens => poor match
+        if (resumeTokens.Count == 1 && requiredTokens.Count > 1)
+        {
+            // "SQL" in resume, "SQL Server" required => 0.0 (doesn't know SQL Server)
+            return 0;
+        }
+
+        return baseOverlap;
     }
 
     private static string NormalizeForMatching(string skill)
@@ -223,6 +294,7 @@ public class SkillMatchingService : ISkillMatchingService
         return new SkillMatchResult
         {
             MatchedSkills = [],
+            MatchedSkillsWithScores = new Dictionary<string, double>(),
             MissingSkills = [],
             UnmatchedResumeSkills = [],
             MatchPercentage = 0,

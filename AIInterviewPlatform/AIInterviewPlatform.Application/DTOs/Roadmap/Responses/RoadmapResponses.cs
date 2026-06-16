@@ -1,3 +1,5 @@
+using AIInterviewPlatform.Application.DTOs.Recommendation;
+
 namespace AIInterviewPlatform.Application.DTOs.Roadmap.Responses;
 
 public class RoadmapDto
@@ -15,6 +17,7 @@ public class RoadmapDto
     public long? SkillGapAnalysisId { get; set; }
     public RoadmapProgressDto? Progress { get; set; }
     public List<MilestoneDto> Milestones { get; set; } = [];
+    public List<RecommendationResponse> Recommendations { get; set; } = [];
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 }
@@ -24,11 +27,13 @@ public class RoadmapSummaryDto
     public long Id { get; set; }
     public string RoadmapTitle { get; set; } = string.Empty;
     public string RoadmapStatus { get; set; } = string.Empty;
+    public long? SkillGapAnalysisId { get; set; }
     public int TotalMilestones { get; set; }
     public int CompletedMilestones { get; set; }
     public int TotalActivities { get; set; }
     public int CompletedActivities { get; set; }
     public decimal CompletionPercentage { get; set; }
+    public int TotalEstimatedDays { get; set; }
     public DateTime CreatedAt { get; set; }
 }
 

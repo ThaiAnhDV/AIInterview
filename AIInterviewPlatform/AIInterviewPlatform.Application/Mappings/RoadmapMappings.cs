@@ -1,3 +1,4 @@
+using AIInterviewPlatform.Application.DTOs.Recommendation;
 using AIInterviewPlatform.Application.DTOs.Roadmap.Responses;
 using AIInterviewPlatform.Domain.Enities;
 
@@ -19,6 +20,20 @@ public static class RoadmapMappings
                 .OrderBy(m => m.MilestoneOrder)
                 .Select(m => m.ToDto())
                 .ToList(),
+            Recommendations = roadmap.RoadmapRecommendations
+                .Select(rr => new RecommendationResponse
+                {
+                    Id = rr.Recommendation.Id,
+                    SkillGapAnalysisId = rr.Recommendation.SkillGapAnalysisId,
+                    SkillId = rr.Recommendation.SkillId,
+                    SkillName = rr.Recommendation.Skill?.SkillName ?? string.Empty,
+                    RecommendationTitle = rr.Recommendation.RecommendationTitle,
+                    RecommendationContent = rr.Recommendation.RecommendationContent,
+                    RecommendationType = rr.Recommendation.RecommendationType?.ToString() ?? string.Empty,
+                    PriorityLevel = rr.Recommendation.PriorityLevel.ToString(),
+                    CreatedAt = rr.Recommendation.CreatedAt
+                })
+                .ToList(),
             CreatedAt = roadmap.CreatedAt,
             UpdatedAt = roadmap.UpdatedAt
         };
@@ -34,11 +49,13 @@ public static class RoadmapMappings
             Id = roadmap.Id,
             RoadmapTitle = roadmap.RoadmapTitle,
             RoadmapStatus = roadmap.RoadmapStatus.ToString(),
+            SkillGapAnalysisId = roadmap.SkillGapAnalysisId,
             TotalMilestones = milestones.Count,
             CompletedMilestones = milestones.Count(m => m.IsCompleted),
             TotalActivities = activities.Count,
             CompletedActivities = activities.Count(a => a.IsCompleted),
             CompletionPercentage = CalculateCompletionPercentage(activities),
+            TotalEstimatedDays = milestones.Sum(m => m.EstimatedDays),
             CreatedAt = roadmap.CreatedAt
         };
     }
@@ -57,7 +74,10 @@ public static class RoadmapMappings
                 .OrderBy(a => a.Id)
                 .Select(a => a.ToDto())
                 .ToList(),
-            CompletedAt = milestone.IsCompleted ? DateTime.Now : null
+            CompletedAt = milestone.IsCompleted ? DateTime.Now : null,
+            EstimatedDays = milestone.EstimatedDays,
+            StartDate = milestone.StartDate,
+            EndDate = milestone.EndDate
         };
     }
 
@@ -73,7 +93,10 @@ public static class RoadmapMappings
             IsCompleted = milestone.IsCompleted,
             TotalActivities = activities.Count,
             CompletedActivities = activities.Count(a => a.IsCompleted),
-            CompletionPercentage = CalculateMilestoneCompletion(milestone)
+            CompletionPercentage = CalculateMilestoneCompletion(milestone),
+            EstimatedDays = milestone.EstimatedDays,
+            StartDate = milestone.StartDate,
+            EndDate = milestone.EndDate
         };
     }
 
@@ -130,8 +153,8 @@ public static class RoadmapMappings
         return new SkillGapForRoadmapDto
         {
             SkillId = skillGap.SkillId,
-            SkillName = skillGap.Skill.SkillName,
-            SkillType = skillGap.Skill.SkillType ?? "Technology",
+            SkillName = skillGap.Skill?.SkillName ?? string.Empty,
+            SkillType = skillGap.Skill?.SkillType ?? "Technology",
             GapLevel = skillGap.GapLevel?.ToString() ?? "MEDIUM",
             GapDescription = skillGap.GapDescription
         };
@@ -150,7 +173,10 @@ public static class RoadmapMappings
             LearningRoadmapId = roadmapId,
             MilestoneTitle = dto.MilestoneTitle,
             MilestoneOrder = dto.MilestoneOrder,
-            IsCompleted = dto.IsCompleted
+            IsCompleted = dto.IsCompleted,
+            EstimatedDays = dto.EstimatedDays,
+            StartDate = dto.StartDate,
+            EndDate = dto.EndDate
         };
     }
 

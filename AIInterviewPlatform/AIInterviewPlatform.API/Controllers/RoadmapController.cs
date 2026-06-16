@@ -59,7 +59,8 @@ public class RoadmapController : ControllerBase
         {
             Success = roadmap.Success,
             Message = roadmap.Message ?? (roadmap.Success ? "Roadmap generated successfully" : "Roadmap generation failed"),
-            Data = roadmap
+            Data = roadmap,
+            IsExistingRoadmap = roadmap.Id > 0 && roadmap.Success && !string.IsNullOrEmpty(roadmap.Message) && roadmap.Message.Contains("existing", StringComparison.OrdinalIgnoreCase)
         });
     }
 
@@ -216,6 +217,12 @@ public class RoadmapController : ControllerBase
                 });
             }
 
+            var existingRoadmap = await _context.LearningRoadmaps
+                .Where(r => r.UserId == userId 
+                    && r.SkillGapAnalysisId == analysisId 
+                    && r.RoadmapStatus == RoadmapStatus.ACTIVE)
+                .FirstOrDefaultAsync();
+
             var response = new SkillGapAnalysisPreviewDto
             {
                 AnalysisId = analysis.Id,
@@ -227,7 +234,11 @@ public class RoadmapController : ControllerBase
                     SkillName = g.Skill?.SkillName ?? "Unknown Skill",
                     GapLevel = g.GapLevel?.ToString() ?? string.Empty
                 }).ToList(),
-                ReadinessScore = 0
+                ReadinessScore = 0,
+                ExistingRoadmapId = existingRoadmap?.Id,
+                ExistingRoadmapMessage = existingRoadmap != null 
+                    ? "An active roadmap already exists for this analysis" 
+                    : null
             };
 
             var score = await _context.ReadinessScores
@@ -296,6 +307,50 @@ public class RoadmapController : ControllerBase
         }
     }
 
+    [HttpGet("analysis/{analysisId}/roadmap")]
+    public async Task<IActionResult> GetRoadmapByAnalysisId(long analysisId)
+    {
+        try
+        {
+            var userId = GetUserId();
+
+            var roadmap = await _context.LearningRoadmaps
+                .Include(x => x.RoadmapProgress)
+                .Include(x => x.RoadmapMilestones)
+                    .ThenInclude(x => x.LearningActivities)
+                .Include(x => x.RoadmapRecommendations)
+                    .ThenInclude(rr => rr.Recommendation)
+                        .ThenInclude(r => r.Skill)
+                .Where(x => x.UserId == userId && x.SkillGapAnalysisId == analysisId && x.RoadmapStatus == RoadmapStatus.ACTIVE)
+                .OrderByDescending(x => x.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            if (roadmap == null)
+            {
+                return NotFound(new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = "No active roadmap found for this analysis"
+                });
+            }
+
+            return Ok(new ApiResponse<RoadmapDto>
+            {
+                Success = true,
+                Data = roadmap.ToDto()
+            });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting roadmap for analysis {AnalysisId}", analysisId);
+            return StatusCode(500, new ApiResponse<object>
+            {
+                Success = false,
+                Message = "An error occurred while retrieving the roadmap"
+            });
+        }
+    }
+
     private long GetUserId()
     {
         return long.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -322,6 +377,7 @@ public class ApiResponse<T>
     public bool Success { get; set; }
     public string? Message { get; set; }
     public T? Data { get; set; }
+    public bool IsExistingRoadmap { get; set; }
 }
 
 public class SkillGapAnalysisPreviewDto
@@ -331,6 +387,8 @@ public class SkillGapAnalysisPreviewDto
     public int MissingSkillsCount { get; set; }
     public List<SkillPreviewDto> MissingSkills { get; set; } = [];
     public decimal ReadinessScore { get; set; }
+    public long? ExistingRoadmapId { get; set; }
+    public string? ExistingRoadmapMessage { get; set; }
 }
 
 public class SkillPreviewDto

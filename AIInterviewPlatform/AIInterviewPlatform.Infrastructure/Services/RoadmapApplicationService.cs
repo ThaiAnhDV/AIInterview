@@ -1,3 +1,4 @@
+using AIInterviewPlatform.Application.DTOs.Recommendation;
 using AIInterviewPlatform.Application.DTOs.Roadmap.Requests;
 using AIInterviewPlatform.Application.DTOs.Roadmap.Responses;
 using AIInterviewPlatform.Application.Interfaces.Services;
@@ -9,8 +10,6 @@ using AIInterviewPlatform.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace AIInterviewPlatform.Infrastructure.Services;
 
@@ -42,21 +41,31 @@ public class RoadmapApplicationService : IRoadmapApplicationService
     {
         _logger.LogInformation(
             "Generating roadmap for user {UserId} with {Count} missing skills",
-            userId, request.MissingSkills.Count);
+            userId, request.MissingSkills?.Count ?? 0);
 
         if (request.MissingSkills == null || request.MissingSkills.Count == 0)
         {
             return CreateFailureRoadmap("INVALID_REQUEST", "Missing skills list cannot be empty");
         }
 
-        var milestones = _milestoneGenerator.GenerateMilestones(request.MissingSkills);
+        var recommendations = await GetOrCreateRecommendationsAsync(userId, request.MissingSkills, null);
+
+        var milestones = _milestoneGenerator.GenerateMilestones(
+            request.MissingSkills.Select(s => new SkillGapForRoadmapDto
+            {
+                SkillId = s.SkillId,
+                SkillName = s.SkillName,
+                GapDescription = s.GapDescription,
+                GapLevel = s.GapLevel
+            }).ToList());
 
         var roadmap = await CreateRoadmapWithMilestonesAsync(
             userId,
             milestones,
             null,
             null,
-            request.LanguageCode);
+            request.LanguageCode,
+            recommendations);
 
         if (!roadmap.Success)
         {
@@ -75,12 +84,7 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         GenerateRoadmapFromAnalysisRequest request)
     {
         _logger.LogInformation(
-            "[ROADMAP_AI] Generate roadmap requested UserId={UserId} AnalysisId={AnalysisId}",
-            userId,
-            request.SkillGapAnalysisId);
-
-        _logger.LogInformation(
-            "Generating roadmap for user {UserId} from analysis {AnalysisId}",
+            "[ROADMAP_INTEGRATION] Generate roadmap from analysis UserId={UserId} AnalysisId={AnalysisId}",
             userId, request.SkillGapAnalysisId);
 
         var analysis = await _context.SkillGapAnalyses
@@ -96,9 +100,21 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             return CreateFailureRoadmap("SKILL_GAP_ANALYSIS_NOT_FOUND", "Skill gap analysis not found");
         }
 
+        var existingRoadmap = await _roadmapUnitOfWork.Roadmaps.GetActiveByAnalysisIdAsync(userId, request.SkillGapAnalysisId);
+        if (existingRoadmap != null)
+        {
+            _logger.LogInformation(
+                "[ROADMAP_INTEGRATION] Returning existing roadmap {RoadmapId} for AnalysisId={AnalysisId}",
+                existingRoadmap.Id, request.SkillGapAnalysisId);
+
+            return existingRoadmap.ToDto();
+        }
+
         var skillGaps = analysis.SkillGaps
             .Select(g => g.ToRoadmapDto())
             .ToList();
+
+        var recommendations = await GetOrCreateRecommendationsAsync(userId, null, analysis.SkillGaps.ToList());
 
         var milestones = _milestoneGenerator.GenerateMilestones(skillGaps);
 
@@ -107,7 +123,45 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             milestones,
             request.SkillGapAnalysisId,
             analysis.JobDescription.TargetJobId,
-            request.LanguageCode);
+            request.LanguageCode,
+            recommendations);
+    }
+
+    private async Task<List<Recommendation>> GetOrCreateRecommendationsAsync(
+        long userId,
+        List<SkillGapForRoadmapDto>? directSkills,
+        List<SkillGap>? analysisSkillGaps)
+    {
+        var skillIds = new List<long>();
+        var skillNames = new List<string>();
+
+        if (directSkills != null)
+        {
+            skillIds = directSkills.Select(s => s.SkillId).Where(id => id > 0).ToList();
+            skillNames = directSkills.Select(s => s.SkillName).ToList();
+        }
+        else if (analysisSkillGaps != null)
+        {
+            skillIds = analysisSkillGaps.Select(g => g.SkillId).ToList();
+            skillNames = analysisSkillGaps.Select(g => g.Skill?.SkillName ?? "").ToList();
+        }
+
+        var recommendations = await _context.Recommendations
+            .Include(r => r.Skill)
+            .Where(r => r.UserId == userId)
+            .ToListAsync();
+
+        var missingSkillIds = skillIds.Where(id => id > 0 && !recommendations.Any(r => r.SkillId == id)).ToList();
+        var missingSkillNames = skillNames.Where(n => !string.IsNullOrEmpty(n) && !recommendations.Any(r => r.Skill?.SkillName == n)).ToList();
+
+        if (missingSkillIds.Any() || missingSkillNames.Any())
+        {
+            _logger.LogWarning(
+                "[ROADMAP_INTEGRATION] {Count} skills have no recommendations. Roadmap will be generated without full recommendation linking.",
+                missingSkillIds.Count + missingSkillNames.Count);
+        }
+
+        return recommendations;
     }
 
     public async Task<RoadmapDto?> GetRoadmapByIdAsync(long userId, long roadmapId)
@@ -117,7 +171,11 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             .Include(x => x.RoadmapMilestones)
                 .ThenInclude(x => x.LearningActivities)
                     .ThenInclude(x => x.Skill)
+            .Include(x => x.RoadmapRecommendations)
+                .ThenInclude(rr => rr.Recommendation)
+                    .ThenInclude(r => r.Skill)
             .Include(x => x.TargetJob)
+            .Include(x => x.SkillGapAnalysis)
             .FirstOrDefaultAsync(x =>
                 x.Id == roadmapId &&
                 x.UserId == userId);
@@ -131,6 +189,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             .Include(x => x.RoadmapProgress)
             .Include(x => x.RoadmapMilestones)
                 .ThenInclude(x => x.LearningActivities)
+            .Include(x => x.RoadmapRecommendations)
+                .ThenInclude(rr => rr.Recommendation)
             .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
@@ -175,7 +235,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         List<MilestoneDto> milestones,
         long? skillGapAnalysisId,
         long? targetJobId,
-        string? languageCode)
+        string? languageCode,
+        List<Recommendation>? recommendations = null)
     {
         var roadmap = new LearningRoadmap
         {
@@ -184,21 +245,29 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             TargetJobId = targetJobId,
             RoadmapTitle = GenerateRoadmapTitle(skillGapAnalysisId, targetJobId),
             RoadmapStatus = RoadmapStatus.ACTIVE,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            LanguageCode = languageCode
         };
 
         var milestonesToSave = new List<RoadmapMilestone>();
         var activitiesToSave = new List<LearningActivity>();
         var geminiFailureCount = 0;
+        var startDate = DateTime.UtcNow;
 
-        foreach (var milestoneDto in milestones)
+        for (int i = 0; i < milestones.Count; i++)
         {
+            var milestoneDto = milestones[i];
+            var milestoneStartDate = startDate.AddDays(i > 0 ? milestones.Take(i).Sum(m => m.Metadata?.EstimatedDays ?? 7) : 0);
+
             var milestone = new RoadmapMilestone
             {
                 LearningRoadmapId = roadmap.Id,
                 MilestoneTitle = milestoneDto.MilestoneTitle,
                 MilestoneOrder = milestoneDto.MilestoneOrder,
-                IsCompleted = false
+                IsCompleted = false,
+                EstimatedDays = milestoneDto.Metadata?.EstimatedDays ?? 7,
+                StartDate = milestoneStartDate,
+                EndDate = milestoneStartDate.AddDays(milestoneDto.Metadata?.EstimatedDays ?? 7)
             };
 
             milestonesToSave.Add(milestone);
@@ -214,18 +283,6 @@ public class RoadmapApplicationService : IRoadmapApplicationService
 
                 if (ShouldEnhanceWithGemini(activityDto))
                 {
-                    _logger.LogInformation(
-                        "[ROADMAP_AI] Activity generated Skill={Skill} OriginalTitle={ActivityTitle} Difficulty={Difficulty}",
-                        milestoneDto.Metadata?.TargetSkill ?? "Unknown",
-                        activityDto.ActivityTitle,
-                        milestoneDto.Metadata?.DifficultyLevel ?? "BEGINNER");
-
-                    _logger.LogInformation(
-                        "[ROADMAP_AUDIT] ShouldEnhanceWithGemini=true Title={ActivityTitle} Skill={Skill} Difficulty={Difficulty}",
-                        activityDto.ActivityTitle,
-                        milestoneDto.Metadata?.TargetSkill ?? "Unknown",
-                        milestoneDto.Metadata?.DifficultyLevel ?? "BEGINNER");
-
                     var geminiResult = await TryGenerateWithGeminiAsync(
                         milestoneDto.Metadata?.TargetSkill ?? "Unknown",
                         milestoneDto.Metadata?.DifficultyLevel ?? "BEGINNER",
@@ -237,33 +294,12 @@ public class RoadmapApplicationService : IRoadmapApplicationService
                         activityDescription = geminiResult.ActivityDescription;
                         activityType = ParseActivityType(geminiResult.ActivityType);
                         activitySource = "Gemini";
-                        _logger.LogInformation(
-                            "[ROADMAP_AUDIT] ACTIVITY_GENERATION_SUCCESS Skill={Skill} Title={Title} Description={Description} Type={Type}",
-                            milestoneDto.Metadata?.TargetSkill,
-                            activityTitle,
-                            activityDescription,
-                            activityType);
-                        _logger.LogDebug(
-                            "Generated activity for {Skill} using Gemini: {Title}",
-                            milestoneDto.Metadata?.TargetSkill, activityTitle);
                     }
                     else
                     {
                         geminiFailureCount++;
                         activitySource = "Fallback";
-                        _logger.LogWarning(
-                            "[ROADMAP_AUDIT] Fallback Activated Skill={Skill} TemplateTitle={Title} TemplateDescription={Description} TemplateType={Type}",
-                            milestoneDto.Metadata?.TargetSkill,
-                            activityTitle,
-                            activityDescription,
-                            activityType);
                     }
-                }
-                else
-                {
-                    _logger.LogInformation(
-                        "[ROADMAP_AUDIT] ShouldEnhanceWithGemini=false Title={ActivityTitle}",
-                        activityDto.ActivityTitle);
                 }
 
                 var activity = new LearningActivity
@@ -277,27 +313,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
                 };
 
                 activity.RoadmapMilestone = milestone;
-
-                _logger.LogInformation(
-                    "[ROADMAP_AUDIT] Saving Activity Title={Title} Description={Description} ActivityType={ActivityType} Source={Source}",
-                    activity.ActivityTitle,
-                    activity.ActivityDescription,
-                    activity.ActivityType,
-                    activitySource);
-
                 activitiesToSave.Add(activity);
             }
-        }
-
-        if (geminiFailureCount > 0)
-        {
-            _logger.LogWarning(
-                "Gemini API failed for {Count} activities. Using default activities. Roadmap will be generated with fallback content.",
-                geminiFailureCount);
-        }
-        else
-        {
-            _logger.LogInformation("[ROADMAP_AUDIT] All eligible activities used Gemini-generated content");
         }
 
         var progress = new RoadmapProgress
@@ -306,8 +323,14 @@ public class RoadmapApplicationService : IRoadmapApplicationService
             LastUpdatedAt = DateTime.UtcNow
         };
 
+        var roadmapRecommendations = recommendations?.Select(r => new RoadmapRecommendation
+        {
+            LearningRoadmapId = roadmap.Id,
+            RecommendationId = r.Id
+        }).ToList();
+
         var (success, errorMessage, roadmapId) = await _roadmapUnitOfWork.SaveRoadmapWithDetailsAsync(
-            roadmap, milestonesToSave, activitiesToSave, progress);
+            roadmap, milestonesToSave, activitiesToSave, progress, roadmapRecommendations);
 
         if (!success)
         {
@@ -315,8 +338,8 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         }
 
         _logger.LogInformation(
-            "Roadmap {RoadmapId} saved successfully with {MilestoneCount} milestones and {ActivityCount} activities",
-            roadmapId, milestonesToSave.Count, activitiesToSave.Count);
+            "[ROADMAP_INTEGRATION] Roadmap {RoadmapId} saved with {MilestoneCount} milestones, {ActivityCount} activities, {RecommendationCount} recommendation links",
+            roadmapId, milestonesToSave.Count, activitiesToSave.Count, roadmapRecommendations?.Count ?? 0);
 
         var createdRoadmap = await GetRoadmapByIdAsync(userId, roadmapId);
         if (createdRoadmap == null)
@@ -339,97 +362,15 @@ public class RoadmapApplicationService : IRoadmapApplicationService
         string difficultyLevel,
         string? languageCode)
     {
-        _logger.LogInformation(
-            "[ROADMAP_AI] Calling Gemini Skill={Skill} Difficulty={Difficulty}",
-            skillName,
-            difficultyLevel);
-
-        _logger.LogInformation(
-            "[ROADMAP_AUDIT] Enter TryGenerateWithGeminiAsync Skill={Skill} Difficulty={Difficulty} LanguageCode={LanguageCode}",
-            skillName,
-            difficultyLevel,
-            languageCode);
-
-        _logger.LogInformation(
-            "[LANG_AUDIT] RoadmapActivityDescriptionService LanguageCode={LanguageCode}",
-            languageCode);
-
         try
         {
-            _logger.LogInformation(
-                "[ROADMAP_AUDIT] Calling Gemini Skill={Skill} Difficulty={Difficulty}",
-                skillName,
-                difficultyLevel);
-
-            var result = await _activityDescriptionService.GenerateActivityDescriptionAsync(skillName, difficultyLevel, languageCode);
-
-            _logger.LogInformation(
-                "[ROADMAP_AI] Gemini response received Skill={Skill} HasResult={HasResult} Title={Title}",
-                skillName,
-                result != null,
-                result?.ActivityTitle ?? "<null>");
-
-            _logger.LogInformation(
-                "[ROADMAP_AUDIT] Gemini Response Received Skill={Skill} HasResult={HasResult} Title={Title}",
-                skillName,
-                result != null,
-                result?.ActivityTitle ?? "<null>");
-
-            return result;
-        }
-        catch (HttpRequestException ex)
-        {
-            LogGeminiFailure(ex, skillName, "HTTP error");
-            return null;
-        }
-        catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException)
-        {
-            LogGeminiFailure(ex, skillName, "Timeout");
-            return null;
-        }
-        catch (InvalidOperationException ex)
-        {
-            LogGeminiFailure(ex, skillName, "Invalid response");
-            return null;
+            return await _activityDescriptionService.GenerateActivityDescriptionAsync(skillName, difficultyLevel, languageCode);
         }
         catch (Exception ex)
         {
-            LogGeminiFailure(ex, skillName, "Unknown error");
+            _logger.LogWarning(ex, "[ROADMAP_INTEGRATION] Gemini API failed for skill '{Skill}'", skillName);
             return null;
         }
-    }
-
-    private void LogGeminiFailure(Exception ex, string skillName, string errorType)
-    {
-        var statusCode = GetHttpStatusCode(ex);
-
-        if (statusCode.HasValue)
-        {
-            _logger.LogWarning(
-                "Gemini API {ErrorType} for skill '{Skill}': Status={StatusCode}. Using default activity. Error: {Message}",
-                errorType, skillName, statusCode, ex.Message);
-        }
-        else
-        {
-            _logger.LogWarning(
-                "Gemini API {ErrorType} for skill '{Skill}'. Using default activity. Error: {Message}",
-                errorType, skillName, ex.Message);
-        }
-    }
-
-    private static int? GetHttpStatusCode(Exception ex)
-    {
-        if (ex is HttpRequestException httpEx && httpEx.StatusCode.HasValue)
-        {
-            return (int)httpEx.StatusCode.Value;
-        }
-
-        if (ex.InnerException is HttpRequestException innerHttpEx && innerHttpEx.StatusCode.HasValue)
-        {
-            return (int)innerHttpEx.StatusCode.Value;
-        }
-
-        return null;
     }
 
     private static bool ShouldEnhanceWithGemini(ActivityDto activity)

@@ -70,6 +70,7 @@ builder.Services.AddHttpClient<ISkillExtractionService, SkillExtractionService>(
 builder.Services.AddHttpClient<IJobDescriptionSkillExtractionService, JobDescriptionSkillExtractionService>();
 builder.Services.AddScoped<ISkillMatchingService, SkillMatchingService>();
 builder.Services.AddScoped<ISkillGapAnalysisOrchestratorService, SkillGapAnalysisOrchestratorService>();
+builder.Services.AddScoped<IRecommendationService,RecommendationService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IDashboardQueryService, DashboardQueryService>();
 builder.Services.AddScoped<IDashboardQueryValidator, DashboardQueryValidator>();

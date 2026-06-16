@@ -90,7 +90,30 @@ async function saveJobDescription() {
     }
 }
 
+window.showExtractLoading = function () {
+    const container = document.getElementById("requiredSkillsContainer");
+    if (!container) return;
+    container.innerHTML = `
+        <div class="text-center py-3">
+            <i class="fas fa-spinner fa-spin fa-2x text-primary"></i>
+            <div class="mt-2 text-muted">Extracting skills...</div>
+        </div>
+    `;
+};
+
+window.hideExtractLoading = function () {
+    const container = document.getElementById("requiredSkillsContainer");
+    if (!container) return;
+    container.innerHTML = `
+        <div class="text-muted">
+            No skills extracted yet.
+        </div>
+    `;
+};
+
 async function extractSkills() {
+    console.log('EXTRACT CLICK');
+showLoader();
     const token = localStorage.getItem("token");
     let jobDescriptionId = document.getElementById("jobDescriptionId").value;
 
@@ -103,6 +126,9 @@ async function extractSkills() {
         showToast("Please save job description first!", "error");
         return;
     }
+
+    //window.showExtractLoading();
+    showLoader();
 
     try {
         const response = await fetch(
@@ -123,10 +149,12 @@ async function extractSkills() {
         showToast("Skills extracted successfully!", "success");
 
         await loadRequiredSkills(jobDescriptionId);
-
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server!", "error");
+    } finally {
+        hideLoader();
+        window.hideExtractLoading();
     }
 }
 

@@ -18,6 +18,7 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public ICollection<RequiredSkill> RequiredSkills { get; set; } = new List<RequiredSkill>();
         public ICollection<SkillGap> SkillGaps { get; set; } = new List<SkillGap>();
+        public ICollection<MatchedSkill> MatchedSkills { get; set; } = new List<MatchedSkill>();
         public ICollection<LearningActivity> LearningActivities { get; set; } = new List<LearningActivity>();
         public ICollection<SkillImprovementTrend> SkillImprovementTrends { get; set; } = new List<SkillImprovementTrend>();
     }

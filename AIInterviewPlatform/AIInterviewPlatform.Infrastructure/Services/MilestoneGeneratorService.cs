@@ -158,7 +158,8 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
 
     public MilestoneDto GenerateSkillMilestone(string skillName, int order)
     {
-        var activities = GenerateDefaultActivities(skillName);
+        var estimatedDays = EstimateDuration(skillName);
+        var activities = GenerateDefaultActivities(skillName, estimatedDays);
 
         return new MilestoneDto
         {
@@ -170,10 +171,14 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
             CompletionPercentage = 0,
             Activities = activities,
             CompletedAt = null,
+            EstimatedDays = estimatedDays,
+            StartDate = null,
+            EndDate = null,
             Metadata = new MilestoneMetadataDto
             {
                 TargetSkill = skillName,
-                EstimatedDuration = EstimateDuration(skillName),
+                EstimatedDuration = $"{estimatedDays} days",
+                EstimatedDays = estimatedDays,
                 DifficultyLevel = "INTERMEDIATE",
                 LearningObjectives = GenerateLearningObjectives(skillName)
             }
@@ -183,6 +188,7 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
     public MilestoneDto GenerateMockInterviewMilestone(int order)
     {
         var activities = GenerateMockInterviewActivities();
+        var estimatedDays = 5;
 
         return new MilestoneDto
         {
@@ -194,10 +200,14 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
             CompletionPercentage = 0,
             Activities = activities,
             CompletedAt = null,
+            EstimatedDays = estimatedDays,
+            StartDate = null,
+            EndDate = null,
             Metadata = new MilestoneMetadataDto
             {
                 TargetSkill = "Interview Preparation",
-                EstimatedDuration = "3 days",
+                EstimatedDuration = $"{estimatedDays} days",
+                EstimatedDays = estimatedDays,
                 DifficultyLevel = "ADVANCED",
                 LearningObjectives = new List<string>
                 {
@@ -209,8 +219,12 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
         };
     }
 
-    private static List<ActivityDto> GenerateDefaultActivities(string skillName)
+    private static List<ActivityDto> GenerateDefaultActivities(string skillName, int estimatedDays)
     {
+        var readingDays = Math.Max(2, estimatedDays / 3);
+        var practiceDays = Math.Max(2, estimatedDays / 3);
+        var projectDays = Math.Max(3, estimatedDays - readingDays - practiceDays);
+
         return
         [
             new ActivityDto
@@ -223,7 +237,7 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
                 IsCompleted = false,
                 Metadata = new ActivityMetadataDto
                 {
-                    EstimatedDuration = GetReadingDuration(skillName),
+                    EstimatedDuration = $"{readingDays} days",
                     DifficultyLevel = "BEGINNER",
                     Tags = ["fundamentals", "basics"]
                 }
@@ -238,7 +252,7 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
                 IsCompleted = false,
                 Metadata = new ActivityMetadataDto
                 {
-                    EstimatedDuration = GetPracticeDuration(skillName),
+                    EstimatedDuration = $"{practiceDays} days",
                     DifficultyLevel = "INTERMEDIATE",
                     Tags = ["practice", "hands-on"]
                 }
@@ -253,7 +267,7 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
                 IsCompleted = false,
                 Metadata = new ActivityMetadataDto
                 {
-                    EstimatedDuration = GetProjectDuration(skillName),
+                    EstimatedDuration = $"{projectDays} days",
                     DifficultyLevel = "ADVANCED",
                     Tags = ["project", "real-world"]
                 }
@@ -324,7 +338,7 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
         ];
     }
 
-    private static string EstimateDuration(string skillName)
+    private static int EstimateDuration(string skillName)
     {
         var lower = skillName.ToLowerInvariant();
         
@@ -338,12 +352,8 @@ public class DefaultMilestoneGenerator : IMilestoneGenerator
             "C#", "Java", "Python", "Node.js", "React", "Angular"
         };
 
-        if (complexSkills.Contains(skillName)) return "14 days";
-        if (mediumSkills.Contains(skillName)) return "7 days";
-        return "5 days";
+        if (complexSkills.Contains(skillName)) return 14;
+        if (mediumSkills.Contains(skillName)) return 10;
+        return 7;
     }
-
-    private static string GetReadingDuration(string skillName) => "2-3 days";
-    private static string GetPracticeDuration(string skillName) => "2-3 days";
-    private static string GetProjectDuration(string skillName) => "3-5 days";
 }

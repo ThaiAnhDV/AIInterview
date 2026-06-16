@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AIInterviewPlatform.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260519160037_Add_LearningRoadmap")]
-    partial class Add_LearningRoadmap
+    [Migration("20260615070905_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Property<long>("InterviewAnswerId")
                         .HasColumnType("bigint")
                         .HasColumnName("interview_answer_id");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<decimal?>("OverallScore")
                         .HasColumnType("decimal(5,2)")
@@ -104,6 +109,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("is_verified");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -158,6 +168,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("feedback_type");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.HasKey("Id");
 
@@ -274,6 +289,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("interview_session_id");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("QuestionContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -282,6 +302,12 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Property<long?>("QuestionTemplateId")
                         .HasColumnType("bigint")
                         .HasColumnName("question_template_id");
+
+                    b.Property<string>("SkillFocus")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("skill_focus");
 
                     b.HasKey("Id");
 
@@ -311,6 +337,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Property<DateTime?>("CompletedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("completed_at");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<string>("SessionStatus")
                         .IsRequired()
@@ -421,6 +452,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("is_completed");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<long>("RoadmapMilestoneId")
                         .HasColumnType("bigint")
                         .HasColumnName("roadmap_milestone_id");
@@ -457,6 +493,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<string>("RoadmapStatus")
                         .IsRequired()
@@ -501,6 +542,182 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.ToTable("learning_roadmaps", null, t =>
                         {
                             t.HasCheckConstraint("chk_roadmap_status", "[roadmap_status] IN ('ACTIVE', 'COMPLETED', 'ARCHIVED')");
+                        });
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.MatchedSkill", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<decimal>("MatchScore")
+                        .HasColumnType("decimal(5,4)")
+                        .HasColumnName("match_score");
+
+                    b.Property<long>("SkillGapAnalysisId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("skill_gap_analysis_id");
+
+                    b.Property<long>("SkillId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("skill_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillGapAnalysisId")
+                        .HasDatabaseName("idx_matched_skills_analysis_id");
+
+                    b.HasIndex("SkillId")
+                        .HasDatabaseName("idx_matched_skills_skill_id");
+
+                    b.HasIndex("SkillGapAnalysisId", "SkillId")
+                        .IsUnique()
+                        .HasDatabaseName("uq_matched_skill");
+
+                    b.ToTable("matched_skills", null, t =>
+                        {
+                            t.HasCheckConstraint("chk_matched_skill_score", "[match_score] >= 0 AND [match_score] <= 1");
+                        });
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.Notification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<bool>("IsRead")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_read");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("message");
+
+                    b.Property<string>("NotificationType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("notification_type");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "IsRead")
+                        .HasDatabaseName("idx_notifications_user_read");
+
+                    b.ToTable("notifications", null, t =>
+                        {
+                            t.HasCheckConstraint("chk_notification_type", "[notification_type] IS NULL OR [notification_type] IN ('ROADMAP', 'INTERVIEW', 'SYSTEM', 'REMINDER')");
+                        });
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.PracticeHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ActivityType")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("activity_type");
+
+                    b.Property<long?>("InterviewSessionId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("interview_session_id");
+
+                    b.Property<long?>("LearningActivityId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("learning_activity_id");
+
+                    b.Property<DateTime>("PracticedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("practiced_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InterviewSessionId")
+                        .HasDatabaseName("idx_practice_histories_session_id");
+
+                    b.HasIndex("LearningActivityId")
+                        .HasDatabaseName("idx_practice_histories_activity_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("idx_practice_histories_user_id");
+
+                    b.ToTable("practice_histories", null, t =>
+                        {
+                            t.HasCheckConstraint("chk_practice_activity_type", "[activity_type] IS NULL OR [activity_type] IN ('READING', 'PRACTICE', 'MOCK_INTERVIEW', 'QUIZ', 'OTHER')");
+                        });
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.ProgressRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("OverallProgress")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(5,2)")
+                        .HasDefaultValue(0m)
+                        .HasColumnName("overall_progress");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("recorded_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "RecordedAt")
+                        .HasDatabaseName("idx_progress_records_user_time");
+
+                    b.ToTable("progress_records", null, t =>
+                        {
+                            t.HasCheckConstraint("chk_progress_record_range", "[overall_progress] >= 0 AND [overall_progress] <= 100");
                         });
                 });
 
@@ -637,7 +854,10 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SkillGapAnalysisId");
+                    b.HasIndex("SkillGapAnalysisId")
+                        .IsUnique()
+                        .HasDatabaseName("uq_readiness_score_analysis")
+                        .HasFilter("[skill_gap_analysis_id] IS NOT NULL");
 
                     b.HasIndex("UserId", "CalculatedAt")
                         .IsDescending(false, true)
@@ -670,19 +890,37 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("feedback_id");
 
+                    b.Property<string>("PriorityLevel")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("MEDIUM")
+                        .HasColumnName("priority_level");
+
                     b.Property<string>("RecommendationContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("recommendation_content");
+
+                    b.Property<string>("RecommendationTitle")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("recommendation_title");
 
                     b.Property<string>("RecommendationType")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("recommendation_type");
 
-                    b.Property<long?>("SkillGapAnalysisId")
+                    b.Property<long>("SkillGapAnalysisId")
                         .HasColumnType("bigint")
                         .HasColumnName("skill_gap_analysis_id");
+
+                    b.Property<long>("SkillId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("skill_id");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint")
@@ -695,11 +933,20 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.HasIndex("SkillGapAnalysisId")
                         .HasDatabaseName("idx_recommendations_analysis_id");
 
+                    b.HasIndex("SkillId")
+                        .HasDatabaseName("idx_recommendations_skill_id");
+
                     b.HasIndex("UserId")
                         .HasDatabaseName("idx_recommendations_user_id");
 
+                    b.HasIndex("SkillGapAnalysisId", "SkillId")
+                        .IsUnique()
+                        .HasDatabaseName("uq_recommendation_analysis_skill");
+
                     b.ToTable("recommendations", null, t =>
                         {
+                            t.HasCheckConstraint("chk_recommendation_priority", "[priority_level] IN ('LOW', 'MEDIUM', 'HIGH')");
+
                             t.HasCheckConstraint("chk_recommendation_type", "[recommendation_type] IS NULL OR [recommendation_type] IN ('SKILL', 'INTERVIEW', 'COMMUNICATION', 'ROADMAP', 'GENERAL')");
                         });
                 });
@@ -802,6 +1049,16 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("end_date");
+
+                    b.Property<int>("EstimatedDays")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(7)
+                        .HasColumnName("estimated_days");
+
                     b.Property<bool>("IsCompleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -821,6 +1078,10 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("milestone_title");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("start_date");
 
                     b.HasKey("Id");
 
@@ -1061,6 +1322,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("job_description_id");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<long>("ResumeId")
                         .HasColumnType("bigint")
                         .HasColumnName("resume_id");
@@ -1083,6 +1349,48 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.ToTable("skill_gap_analyses", null, t =>
                         {
                             t.HasCheckConstraint("chk_sga_status", "[analysis_status] IN ('PENDING', 'PROCESSING', 'COMPLETED', 'FAILED')");
+                        });
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.SkillImprovementTrend", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("ImprovementScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(5,2)")
+                        .HasDefaultValue(0m)
+                        .HasColumnName("improvement_score");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("recorded_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<long>("SkillId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("skill_id");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillId");
+
+                    b.HasIndex("UserId", "SkillId", "RecordedAt")
+                        .HasDatabaseName("idx_skill_trends_user_skill_time");
+
+                    b.ToTable("skill_improvement_trends", null, t =>
+                        {
+                            t.HasCheckConstraint("chk_skill_trend_score_range", "[improvement_score] >= 0 AND [improvement_score] <= 100");
                         });
                 });
 
@@ -1120,6 +1428,46 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.SystemLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("action");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt")
+                        .HasDatabaseName("idx_system_logs_created_at");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("idx_system_logs_user_id");
+
+                    b.ToTable("system_logs", (string)null);
+                });
+
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.TargetJob", b =>
                 {
                     b.Property<long>("Id")
@@ -1151,6 +1499,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("job_title");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("updated_at");
@@ -1167,6 +1520,59 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.ToTable("target_jobs", (string)null);
                 });
 
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.UsageStatistic", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AverageScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(5,2)")
+                        .HasDefaultValue(0m)
+                        .HasColumnName("average_score");
+
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("last_updated_at")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("TotalQuestionsAnswered")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("total_questions_answered");
+
+                    b.Property<int>("TotalSessions")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("total_sessions");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("uq_usage_statistics_user");
+
+                    b.ToTable("usage_statistics", null, t =>
+                        {
+                            t.HasCheckConstraint("chk_usage_average_score", "[average_score] >= 0 AND [average_score] <= 100");
+
+                            t.HasCheckConstraint("chk_usage_total_questions", "[total_questions_answered] >= 0");
+
+                            t.HasCheckConstraint("chk_usage_total_sessions", "[total_sessions] >= 0");
+                        });
+                });
+
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.User", b =>
                 {
                     b.Property<long>("Id")
@@ -1181,6 +1587,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -1241,10 +1652,20 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("full_name");
 
+                    b.Property<string>("LanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("language_code");
+
                     b.Property<string>("Phone")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("phone");
+
+                    b.Property<string>("PreferredLanguageCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("preferred_language_code");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2")
@@ -1472,6 +1893,79 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.MatchedSkill", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.SkillGapAnalysis", "SkillGapAnalysis")
+                        .WithMany("MatchedSkills")
+                        .HasForeignKey("SkillGapAnalysisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_matched_skill_analysis");
+
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.Skill", "Skill")
+                        .WithMany("MatchedSkills")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_matched_skill_skill");
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("SkillGapAnalysis");
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.Notification", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_notification_user");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.PracticeHistory", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.InterviewSession", "InterviewSession")
+                        .WithMany("PracticeHistories")
+                        .HasForeignKey("InterviewSessionId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_practice_session");
+
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.LearningActivity", "LearningActivity")
+                        .WithMany("PracticeHistories")
+                        .HasForeignKey("LearningActivityId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_practice_activity");
+
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
+                        .WithMany("PracticeHistories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_practice_user");
+
+                    b.Navigation("InterviewSession");
+
+                    b.Navigation("LearningActivity");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.ProgressRecord", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
+                        .WithMany("ProgressRecords")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_progress_record_user");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.QuestionTemplate", b =>
                 {
                     b.HasOne("AIInterviewPlatform.Domain.Enities.QuestionCategory", "Category")
@@ -1523,8 +2017,16 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.HasOne("AIInterviewPlatform.Domain.Enities.SkillGapAnalysis", "SkillGapAnalysis")
                         .WithMany("Recommendations")
                         .HasForeignKey("SkillGapAnalysisId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_recommendation_analysis");
+
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_recommendation_skill");
 
                     b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
                         .WithMany("Recommendations")
@@ -1534,6 +2036,8 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .HasConstraintName("fk_recommendation_user");
 
                     b.Navigation("Feedback");
+
+                    b.Navigation("Skill");
 
                     b.Navigation("SkillGapAnalysis");
 
@@ -1669,6 +2173,27 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.SkillImprovementTrend", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.Skill", "Skill")
+                        .WithMany("SkillImprovementTrends")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_skill_trend_skill");
+
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
+                        .WithMany("SkillImprovementTrends")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("fk_skill_trend_user");
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.StrengthWeaknessReport", b =>
                 {
                     b.HasOne("AIInterviewPlatform.Domain.Enities.SkillGapAnalysis", "SkillGapAnalysis")
@@ -1681,6 +2206,17 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Navigation("SkillGapAnalysis");
                 });
 
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.SystemLog", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
+                        .WithMany("SystemLogs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .HasConstraintName("fk_system_log_user");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.TargetJob", b =>
                 {
                     b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
@@ -1689,6 +2225,18 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_target_job_user");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.UsageStatistic", b =>
+                {
+                    b.HasOne("AIInterviewPlatform.Domain.Enities.User", "User")
+                        .WithMany("UsageStatistics")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_usage_user");
 
                     b.Navigation("User");
                 });
@@ -1746,6 +2294,8 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Navigation("InterviewAnswers");
 
                     b.Navigation("InterviewQuestions");
+
+                    b.Navigation("PracticeHistories");
                 });
 
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.JobDescription", b =>
@@ -1753,6 +2303,11 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                     b.Navigation("RequiredSkills");
 
                     b.Navigation("SkillGapAnalyses");
+                });
+
+            modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.LearningActivity", b =>
+                {
+                    b.Navigation("PracticeHistories");
                 });
 
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.LearningRoadmap", b =>
@@ -1795,14 +2350,20 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
                 {
                     b.Navigation("LearningActivities");
 
+                    b.Navigation("MatchedSkills");
+
                     b.Navigation("RequiredSkills");
 
                     b.Navigation("SkillGaps");
+
+                    b.Navigation("SkillImprovementTrends");
                 });
 
             modelBuilder.Entity("AIInterviewPlatform.Domain.Enities.SkillGapAnalysis", b =>
                 {
                     b.Navigation("LearningRoadmaps");
+
+                    b.Navigation("MatchedSkills");
 
                     b.Navigation("ReadinessScores");
 
@@ -1832,6 +2393,12 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
 
                     b.Navigation("LearningRoadmaps");
 
+                    b.Navigation("Notifications");
+
+                    b.Navigation("PracticeHistories");
+
+                    b.Navigation("ProgressRecords");
+
                     b.Navigation("ReadinessScores");
 
                     b.Navigation("Recommendations");
@@ -1840,7 +2407,13 @@ namespace AIInterviewPlatform.Infrastructure.Migrations
 
                     b.Navigation("SkillGapAnalyses");
 
+                    b.Navigation("SkillImprovementTrends");
+
+                    b.Navigation("SystemLogs");
+
                     b.Navigation("TargetJobs");
+
+                    b.Navigation("UsageStatistics");
 
                     b.Navigation("UserProfile");
                 });

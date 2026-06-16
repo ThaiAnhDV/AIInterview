@@ -128,6 +128,7 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             userId, request.ResumeId, request.JobDescriptionId, matchResult);
 
         await SaveSkillGapsAsync(analysis.Id, matchResult.MissingSkills);
+        await SaveMatchedSkillsAsync(analysis.Id, matchResult.MatchedSkillsWithScores);
         await SaveReadinessScoreAsync(userId, analysis.Id, matchResult);
 
         _logger.LogInformation(
@@ -207,6 +208,41 @@ public class SkillGapAnalysisOrchestratorService : ISkillGapAnalysisOrchestrator
             };
 
             _context.SkillGaps.Add(skillGap);
+        }
+
+        await _context.SaveChangesAsync();
+    }
+
+    private async Task SaveMatchedSkillsAsync(long analysisId, Dictionary<string, double> matchedSkillsWithScores)
+    {
+        foreach (var (skillName, matchScore) in matchedSkillsWithScores)
+        {
+            var normalizedSkillName = NormalizeSkillName(skillName);
+
+            var skill = await _context.Skills
+                .FirstOrDefaultAsync(x => x.SkillName.ToLower() == normalizedSkillName.ToLower());
+
+            if (skill == null)
+            {
+                skill = new Skill
+                {
+                    SkillName = normalizedSkillName,
+                    SkillType = DetermineSkillType(normalizedSkillName)
+                };
+
+                _context.Skills.Add(skill);
+                await _context.SaveChangesAsync();
+            }
+
+            var matchedSkill = new MatchedSkill
+            {
+                SkillGapAnalysisId = analysisId,
+                SkillId = skill.Id,
+                MatchScore = matchScore,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.MatchedSkills.Add(matchedSkill);
         }
 
         await _context.SaveChangesAsync();

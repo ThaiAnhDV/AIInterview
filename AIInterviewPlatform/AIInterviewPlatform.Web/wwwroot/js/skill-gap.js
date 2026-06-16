@@ -3,53 +3,79 @@
     await loadTargetJobsForAnalysis();
 }
 
+console.log("SKILL-GAP VERSION 999");
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text ?? "";
+    return div.innerHTML;
+}
+
 async function loadResumesForAnalysis() {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(`${API_BASE_URL}/Resume/my-resumes`, {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
+    try {
+        showLoader();
 
-    const resumes = await response.json();
-    const select = document.getElementById("resumeSelect");
+        const response = await fetch(`${API_BASE_URL}/Resume/my-resumes`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
 
-    select.innerHTML = "";
+        const resumes = await response.json();
+        const select = document.getElementById("resumeSelect");
 
-    resumes.forEach(resume => {
-        select.innerHTML += `
-            <option value="${resume.id}">
-                ${resume.fileName}
-            </option>
-        `;
-    });
+        select.innerHTML = "";
+
+        resumes.forEach(resume => {
+            select.innerHTML += `
+                <option value="${resume.id}">
+                    ${resume.fileName}
+                </option>
+            `;
+        });
+    } catch (error) {
+        console.error("Failed to load resumes for analysis:", error);
+        showToast("Cannot connect to server!", "error");
+    } finally {
+        hideLoader();
+    }
 }
 
 async function loadTargetJobsForAnalysis() {
     const token = localStorage.getItem("token");
 
-    const response = await fetch(`${API_BASE_URL}/TargetJobs/my`, {
-        headers: {
-            "Authorization": `Bearer ${token}`
+    try {
+        showLoader();
+
+        const response = await fetch(`${API_BASE_URL}/TargetJobs/my`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const jobs = await response.json();
+        const select = document.getElementById("targetJobSelect");
+
+        select.innerHTML = "";
+
+        jobs.forEach(job => {
+            select.innerHTML += `
+                <option value="${job.id}">
+                    ${job.jobTitle}
+                </option>
+            `;
+        });
+
+        if (jobs.length > 0) {
+            await loadJobDescriptionForSelectedJob();
         }
-    });
-
-    const jobs = await response.json();
-    const select = document.getElementById("targetJobSelect");
-
-    select.innerHTML = "";
-
-    jobs.forEach(job => {
-        select.innerHTML += `
-            <option value="${job.id}">
-                ${job.jobTitle}
-            </option>
-        `;
-    });
-
-    if (jobs.length > 0) {
-        await loadJobDescriptionForSelectedJob();
+    } catch (error) {
+        console.error("Failed to load target jobs for analysis:", error);
+        showToast("Cannot connect to server!", "error");
+    } finally {
+        hideLoader();
     }
 }
 
@@ -61,23 +87,26 @@ async function loadJobDescriptionForSelectedJob() {
         return;
     }
 
-    const response = await fetch(
-        `${API_BASE_URL}/TargetJobs/${targetJobId}/job-description`,
-        {
-            headers: {
-                "Authorization": `Bearer ${token}`
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/TargetJobs/${targetJobId}/job-description`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             }
+        );
+
+        if (!response.ok) {
+            document.getElementById("jobDescriptionId").value = "";
+            return;
         }
-    );
 
-    if (!response.ok) {
-        document.getElementById("jobDescriptionId").value = "";
-        return;
+        const jd = await response.json();
+        document.getElementById("jobDescriptionId").value = jd.id;
+    } catch (error) {
+        console.error("Failed to load job description:", error);
     }
-
-    const jd = await response.json();
-
-    document.getElementById("jobDescriptionId").value = jd.id;
 }
 
 async function runSkillGapAnalysis() {
@@ -96,7 +125,17 @@ async function runSkillGapAnalysis() {
         return;
     }
 
+    const analyzeButton = document.getElementById("analyzeSkillGapButton");
+    if (analyzeButton) {
+        analyzeButton.disabled = true;
+        analyzeButton.classList.add("loading");
+        analyzeButton.dataset.originalHtml = analyzeButton.innerHTML;
+        analyzeButton.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Analyzing...`;
+    }
+
     try {
+        showLoader();
+
         const response = await fetch(`${API_BASE_URL}/SkillGapAnalysis/analyze-detailed`, {
             method: "POST",
             headers: {
@@ -111,7 +150,7 @@ async function runSkillGapAnalysis() {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error(errorText);
+            console.error("HTTP Error:", errorText);
             showToast("Cannot analyze skill gap!", "error");
             return;
         }
@@ -121,10 +160,17 @@ async function runSkillGapAnalysis() {
         renderAnalysisResult(result);
 
         showToast("Skill gap analysis completed!", "success");
-
     } catch (error) {
-        console.error(error);
+        console.error("Network Error:", error);
         showToast("Cannot connect to server!", "error");
+    } finally {
+        hideLoader();
+
+        if (analyzeButton) {
+            analyzeButton.disabled = false;
+            analyzeButton.classList.remove("loading");
+            analyzeButton.innerHTML = analyzeButton.dataset.originalHtml || `<i class="fas fa-play mr-2"></i>Analyze Skill Gap`;
+        }
     }
 }
 
@@ -141,13 +187,13 @@ function renderAnalysisResult(result) {
 
     const renderTextList = (items, emptyMessage, isMissing = false) => {
         if (!items || items.length === 0) {
-            return `<span class="text-muted">${emptyMessage}</span>`;
+            return `<span class="text-ai-muted">${emptyMessage}</span>`;
         }
 
         return items.map(item => {
             const skillName = typeof item === "string" ? item : (item.skillName || "");
             const icon = isMissing ? "✗" : "✓";
-            const itemClass = isMissing ? "text-danger" : "text-success";
+            const itemClass = isMissing ? "text-ai-danger" : "text-ai-success";
 
             return `
                 <div class="mb-2 ${itemClass}">

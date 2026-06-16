@@ -1,4 +1,6 @@
-﻿namespace AIInterviewPlatform.Application.DTOs.SkillGapAnalysis;
+﻿using AIInterviewPlatform.Application.DTOs.Recommendation;
+
+namespace AIInterviewPlatform.Application.DTOs.SkillGapAnalysis;
 
 public class SkillGapAnalysisResponse
 {
@@ -13,4 +15,11 @@ public class SkillGapAnalysisResponse
     public List<string> MatchedSkills { get; set; } = new();
     public List<SkillGapItemResponse> MissingSkills { get; set; } = new();
     public DateTime CreatedAt { get; set; }
+
+    // FR-012: Strengths and Weaknesses from StrengthWeaknessReports
+    public List<StrengthWeaknessReportResponse> Strengths { get; set; } = new();
+    public List<StrengthWeaknessReportResponse> Weaknesses { get; set; } = new();
+
+    // Recommendation Engine MVP: Recommendations for missing skills
+    public List<RecommendationResponse> Recommendations { get; set; } = new();
 }

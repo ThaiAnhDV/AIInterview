@@ -477,6 +477,8 @@ async function generateRoadmap() {
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
 
+    showRoadmapsLoading();
+
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -509,6 +511,7 @@ async function generateRoadmap() {
     } catch (error) {
         console.error(error);
         showToast("Cannot connect to server.", "error");
+        await loadRoadmaps();
     } finally {
         if (btn) {
             btn.disabled = false;

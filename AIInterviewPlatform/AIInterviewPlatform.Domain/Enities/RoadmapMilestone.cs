@@ -18,6 +18,12 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public bool IsCompleted { get; set; } = false;
 
+        public int EstimatedDays { get; set; } = 7;
+
+        public DateTime? StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
+
         public LearningRoadmap LearningRoadmap { get; set; } = null!;
 
         public ICollection<LearningActivity> LearningActivities { get; set; } = new List<LearningActivity>();

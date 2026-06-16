@@ -31,6 +31,8 @@ namespace AIInterviewPlatform.Domain.Enities
 
         public ICollection<SkillGap> SkillGaps { get; set; } = new List<SkillGap>();
 
+        public ICollection<MatchedSkill> MatchedSkills { get; set; } = new List<MatchedSkill>();
+
         public ICollection<ReadinessScore> ReadinessScores { get; set; } = new List<ReadinessScore>();
 
         public ICollection<StrengthWeaknessReport> StrengthWeaknessReports { get; set; } = new List<StrengthWeaknessReport>();

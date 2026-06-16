@@ -18,9 +18,27 @@ public class RoadmapRepository : GenericRepository<LearningRoadmap>, IRoadmapRep
             .Include(r => r.RoadmapMilestones)
                 .ThenInclude(m => m.LearningActivities)
                     .ThenInclude(a => a.Skill)
+            .Include(r => r.RoadmapRecommendations)
+                .ThenInclude(rr => rr.Recommendation)
             .Include(r => r.TargetJob)
             .Include(r => r.SkillGapAnalysis)
             .FirstOrDefaultAsync(r => r.Id == id);
+    }
+
+    public async Task<LearningRoadmap?> GetActiveByAnalysisIdAsync(long userId, long analysisId)
+    {
+        return await _dbSet
+            .Include(r => r.RoadmapProgress)
+            .Include(r => r.RoadmapMilestones)
+                .ThenInclude(m => m.LearningActivities)
+            .Include(r => r.RoadmapRecommendations)
+                .ThenInclude(rr => rr.Recommendation)
+            .Include(r => r.SkillGapAnalysis)
+            .Where(r => r.UserId == userId 
+                && r.SkillGapAnalysisId == analysisId 
+                && r.RoadmapStatus == Domain.Enum.RoadmapStatus.ACTIVE)
+            .OrderByDescending(r => r.CreatedAt)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<List<LearningRoadmap>> GetByUserIdAsync(long userId)
@@ -29,6 +47,8 @@ public class RoadmapRepository : GenericRepository<LearningRoadmap>, IRoadmapRep
             .Include(r => r.RoadmapProgress)
             .Include(r => r.RoadmapMilestones)
                 .ThenInclude(m => m.LearningActivities)
+            .Include(r => r.RoadmapRecommendations)
+                .ThenInclude(rr => rr.Recommendation)
             .Where(r => r.UserId == userId)
             .OrderByDescending(r => r.CreatedAt)
             .ToListAsync();
@@ -186,5 +206,39 @@ public class ProgressRepository : GenericRepository<RoadmapProgress>, IProgressR
     {
         _dbSet.Update(progress);
         await Task.CompletedTask;
+    }
+}
+
+public class RoadmapRecommendationRepository : GenericRepository<RoadmapRecommendation>, IRoadmapRecommendationRepository
+{
+    public RoadmapRecommendationRepository(ApplicationDbContext context) : base(context)
+    {
+    }
+
+    public async Task<List<RoadmapRecommendation>> GetByRoadmapIdAsync(long roadmapId)
+    {
+        return await _dbSet
+            .Include(rr => rr.Recommendation)
+                .ThenInclude(r => r.Skill)
+            .Where(rr => rr.LearningRoadmapId == roadmapId)
+            .ToListAsync();
+    }
+
+    public async Task<List<RoadmapRecommendation>> GetByRecommendationIdAsync(long recommendationId)
+    {
+        return await _dbSet
+            .Include(rr => rr.LearningRoadmap)
+            .Where(rr => rr.RecommendationId == recommendationId)
+            .ToListAsync();
+    }
+
+    public async Task AddAsync(RoadmapRecommendation roadmapRecommendation)
+    {
+        await _dbSet.AddAsync(roadmapRecommendation);
+    }
+
+    public async Task AddRangeAsync(IEnumerable<RoadmapRecommendation> roadmapRecommendations)
+    {
+        await _dbSet.AddRangeAsync(roadmapRecommendations);
     }
 }

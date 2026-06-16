@@ -14,6 +14,7 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
     private IMilestoneRepository? _milestones;
     private IActivityRepository? _activities;
     private IProgressRepository? _progress;
+    private IRoadmapRecommendationRepository? _roadmapRecommendations;
 
     public RoadmapUnitOfWork(ApplicationDbContext context)
     {
@@ -31,6 +32,9 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
 
     public IProgressRepository Progress =>
         _progress ??= new ProgressRepository(_context);
+
+    public IRoadmapRecommendationRepository RoadmapRecommendationsRepo =>
+        _roadmapRecommendations ??= new RoadmapRecommendationRepository(_context);
 
     public async Task<int> SaveChangesAsync()
     {
@@ -66,7 +70,8 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
         LearningRoadmap roadmap,
         List<RoadmapMilestone> milestones,
         List<LearningActivity> activities,
-        RoadmapProgress progress)
+        RoadmapProgress progress,
+        List<RoadmapRecommendation>? roadmapRecommendations = null)
     {
         try
         {
@@ -97,9 +102,6 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
                     }
 
                     activity.RoadmapMilestoneId = milestone.Id;
-
-                    Console.WriteLine($"[ROADMAP_FIX] MilestoneId={milestone.Id} MilestoneTitle={milestone.MilestoneTitle} ActivityTitle={activity.ActivityTitle}");
-                    Console.WriteLine($"[ROADMAP_AUDIT] Activity Saved Title={activity.ActivityTitle} Description={activity.ActivityDescription} ActivityType={activity.ActivityType} MilestoneId={activity.RoadmapMilestoneId}");
                 }
 
                 await Activities.AddRangeAsync(activities);
@@ -109,6 +111,16 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
             progress.LearningRoadmapId = roadmap.Id;
             await Progress.AddAsync(progress);
             await SaveChangesAsync();
+
+            if (roadmapRecommendations != null && roadmapRecommendations.Count > 0)
+            {
+                foreach (var rr in roadmapRecommendations)
+                {
+                    rr.LearningRoadmapId = roadmap.Id;
+                }
+                await RoadmapRecommendationsRepo.AddRangeAsync(roadmapRecommendations);
+                await SaveChangesAsync();
+            }
 
             await CommitTransactionAsync();
 
@@ -198,6 +210,7 @@ public class RoadmapUnitOfWork : IRoadmapUnitOfWork
         }
         await Roadmaps.UpdateAsync(roadmap);
     }
+
     private static decimal CalculateProgress(RoadmapMilestone? milestone)
     {
         if (milestone == null || !milestone.LearningActivities.Any())

@@ -21,6 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<RequiredSkill> RequiredSkills => Set<RequiredSkill>();
     public DbSet<SkillGapAnalysis> SkillGapAnalyses => Set<SkillGapAnalysis>();
     public DbSet<SkillGap> SkillGaps => Set<SkillGap>();
+    public DbSet<MatchedSkill> MatchedSkills => Set<MatchedSkill>();
     public DbSet<ReadinessScore> ReadinessScores => Set<ReadinessScore>();
     public DbSet<StrengthWeaknessReport> StrengthWeaknessReports => Set<StrengthWeaknessReport>();
     public DbSet<QuestionCategory> QuestionCategories => Set<QuestionCategory>();
@@ -60,6 +61,7 @@ public class ApplicationDbContext : DbContext
 
         ConfigureSkillGapAnalyses(modelBuilder);
         ConfigureSkillGaps(modelBuilder);
+        ConfigureMatchedSkills(modelBuilder);
         ConfigureReadinessScores(modelBuilder);
         ConfigureStrengthWeaknessReports(modelBuilder);
 
@@ -626,6 +628,64 @@ public class ApplicationDbContext : DbContext
                 .HasConstraintName("fk_skill_gap_skill");
         });
     }
+    private static void ConfigureMatchedSkills(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<MatchedSkill>(entity =>
+        {
+            entity.ToTable("matched_skills");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Id)
+                .HasColumnName("id");
+
+            entity.Property(e => e.SkillGapAnalysisId)
+                .HasColumnName("skill_gap_analysis_id")
+                .IsRequired();
+
+            entity.Property(e => e.SkillId)
+                .HasColumnName("skill_id")
+                .IsRequired();
+
+            entity.Property(e => e.MatchScore)
+                .HasColumnName("match_score")
+                .HasColumnType("decimal(5,4)")
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
+                .HasColumnType("datetime2")
+                .HasDefaultValueSql("GETDATE()")
+                .IsRequired();
+
+            entity.HasIndex(e => new { e.SkillGapAnalysisId, e.SkillId })
+                .IsUnique()
+                .HasDatabaseName("uq_matched_skill");
+
+            entity.HasIndex(e => e.SkillGapAnalysisId)
+                .HasDatabaseName("idx_matched_skills_analysis_id");
+
+            entity.HasIndex(e => e.SkillId)
+                .HasDatabaseName("idx_matched_skills_skill_id");
+
+            entity.HasCheckConstraint(
+                "chk_matched_skill_score",
+                "[match_score] >= 0 AND [match_score] <= 1"
+            );
+
+            entity.HasOne(e => e.SkillGapAnalysis)
+                .WithMany(e => e.MatchedSkills)
+                .HasForeignKey(e => e.SkillGapAnalysisId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("fk_matched_skill_analysis");
+
+            entity.HasOne(e => e.Skill)
+                .WithMany(e => e.MatchedSkills)
+                .HasForeignKey(e => e.SkillId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("fk_matched_skill_skill");
+        });
+    }
     private static void ConfigureReadinessScores(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ReadinessScore>(entity =>
@@ -665,6 +725,11 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => new { e.UserId, e.CalculatedAt })
                 .HasDatabaseName("idx_readiness_scores_user_time")
                 .IsDescending(false, true);
+
+            entity.HasIndex(e => e.SkillGapAnalysisId)
+                .HasDatabaseName("uq_readiness_score_analysis")
+                .IsUnique()
+                .HasFilter("[skill_gap_analysis_id] IS NOT NULL");
 
             entity.HasCheckConstraint(
                 "chk_readiness_score_range",
@@ -1206,10 +1271,20 @@ public class ApplicationDbContext : DbContext
                 .IsRequired();
 
             entity.Property(e => e.SkillGapAnalysisId)
-                .HasColumnName("skill_gap_analysis_id");
+                .HasColumnName("skill_gap_analysis_id")
+                .IsRequired();
+
+            entity.Property(e => e.SkillId)
+                .HasColumnName("skill_id")
+                .IsRequired();
 
             entity.Property(e => e.FeedbackId)
                 .HasColumnName("feedback_id");
+
+            entity.Property(e => e.RecommendationTitle)
+                .HasColumnName("recommendation_title")
+                .HasMaxLength(255)
+                .IsRequired();
 
             entity.Property(e => e.RecommendationContent)
                 .HasColumnName("recommendation_content")
@@ -1219,6 +1294,13 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("recommendation_type")
                 .HasConversion<string>()
                 .HasMaxLength(50);
+
+            entity.Property(e => e.PriorityLevel)
+                .HasColumnName("priority_level")
+                .HasConversion<string>()
+                .HasMaxLength(50)
+                .HasDefaultValue(PriorityLevel.MEDIUM)
+                .IsRequired();
 
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
@@ -1232,9 +1314,21 @@ public class ApplicationDbContext : DbContext
             entity.HasIndex(e => e.SkillGapAnalysisId)
                 .HasDatabaseName("idx_recommendations_analysis_id");
 
+            entity.HasIndex(e => e.SkillId)
+                .HasDatabaseName("idx_recommendations_skill_id");
+
+            entity.HasIndex(e => new { e.SkillGapAnalysisId, e.SkillId })
+                .IsUnique()
+                .HasDatabaseName("uq_recommendation_analysis_skill");
+
             entity.HasCheckConstraint(
                 "chk_recommendation_type",
                 "[recommendation_type] IS NULL OR [recommendation_type] IN ('SKILL', 'INTERVIEW', 'COMMUNICATION', 'ROADMAP', 'GENERAL')"
+            );
+
+            entity.HasCheckConstraint(
+                "chk_recommendation_priority",
+                "[priority_level] IN ('LOW', 'MEDIUM', 'HIGH')"
             );
 
             entity.HasOne(e => e.User)
@@ -1246,8 +1340,14 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.SkillGapAnalysis)
                 .WithMany(e => e.Recommendations)
                 .HasForeignKey(e => e.SkillGapAnalysisId)
-                .OnDelete(DeleteBehavior.SetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fk_recommendation_analysis");
+
+            entity.HasOne(e => e.Skill)
+                .WithMany()
+                .HasForeignKey(e => e.SkillId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("fk_recommendation_skill");
 
             entity.HasOne(e => e.Feedback)
                 .WithMany(e => e.Recommendations)
@@ -1361,6 +1461,19 @@ public class ApplicationDbContext : DbContext
                 .HasColumnName("is_completed")
                 .HasDefaultValue(false)
                 .IsRequired();
+
+            entity.Property(e => e.EstimatedDays)
+                .HasColumnName("estimated_days")
+                .HasDefaultValue(7)
+                .IsRequired();
+
+            entity.Property(e => e.StartDate)
+                .HasColumnName("start_date")
+                .HasColumnType("datetime2");
+
+            entity.Property(e => e.EndDate)
+                .HasColumnName("end_date")
+                .HasColumnType("datetime2");
 
             entity.HasIndex(e => e.LearningRoadmapId)
                 .HasDatabaseName("idx_milestones_roadmap_id");
