@@ -15,6 +15,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
@@ -329,6 +330,77 @@
         .success-message.show {
             display: block;
         }
+
+        .auth-field-error {
+            display: none;
+            margin: -14px 0 12px 20px;
+            color: #ffb4b4;
+            font-size: 12.5px;
+            line-height: 1.35;
+        }
+
+        .auth-field-error.show {
+            display: block;
+        }
+
+        .auth-field-error.success {
+            color: #b9ffd9;
+        }
+
+        .input-box input.auth-input-error {
+            border-color: rgba(255, 107, 107, 0.9);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.16);
+        }
+
+        .input-box input.auth-input-success {
+            border-color: rgba(0, 255, 136, 0.65);
+        }
+
+        .remember-forgot.auth-input-error {
+            color: #ffb4b4;
+        }
+
+        .auth-form-message {
+            display: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .auth-form-message.show {
+            display: block;
+        }
+
+        .auth-form-message.error {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ffb4b4;
+        }
+
+        .auth-form-message.success {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #b9ffd9;
+        }
+
+        .google-register-slot {
+            width: 100%;
+            min-height: 44px;
+            margin-bottom: 18px;
+        }
+
+        .google-register-slot .google-fallback-button {
+            display: flex;
+        }
+
+        .google-register-slot .google-render-target {
+            display: none;
+            justify-content: center;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -350,10 +422,14 @@
         
         <div class="subtitle">Create your account</div>
 
-        <div class="social-login">
-            <a href="#" class="social-btn" title="Sign up with Google">
+        <div id="googleRegisterButton" class="google-register-slot">
+            <button id="googleFallbackRegisterButton" type="button" onclick="startGoogleRedirectLogin()" class="google-fallback-button social-btn" title="Sign up with Google">
                 <i class="fab fa-google"></i>
-            </a>
+            </button>
+            <div id="googleRegisterRenderTarget" class="google-render-target"></div>
+        </div>
+
+        <div class="social-login">
             <a href="#" class="social-btn" title="Sign up with GitHub">
                 <i class="fab fa-github"></i>
             </a>
@@ -368,38 +444,46 @@
 
         <div id="errorMessage" class="error-message"></div>
         <div id="successMessage" class="success-message"></div>
+        <div id="registerFormMessage" class="auth-form-message" aria-live="polite"></div>
 
-        <form id="registerForm" onsubmit="event.preventDefault(); register();">
+        <form id="registerForm" novalidate onsubmit="event.preventDefault(); register();">
             <div class="input-box">
                 <input id="registerFullName" 
                        type="text" 
                        placeholder="Full Name" 
+                       aria-describedby="registerFullNameError"
                        required />
                 <i class="fas fa-user"></i>
             </div>
+            <p id="registerFullNameError" class="auth-field-error" aria-live="polite"></p>
 
             <div class="input-box">
                 <input id="registerEmail" 
                        type="email" 
                        placeholder="Email" 
+                       aria-describedby="registerEmailError"
                        required />
                 <i class="fas fa-envelope"></i>
             </div>
+            <p id="registerEmailError" class="auth-field-error" aria-live="polite"></p>
 
             <div class="input-box">
                 <input id="registerPassword" 
                        type="password" 
                        placeholder="Password" 
+                       aria-describedby="registerPasswordError"
                        required />
                 <i class="fas fa-lock"></i>
             </div>
+            <p id="registerPasswordError" class="auth-field-error" aria-live="polite"></p>
 
-            <div class="remember-forgot">
+            <div class="remember-forgot" id="registerPolicyGroup">
                 <label>
                     <input type="checkbox" id="customCheckRegister" required>
                     <span>I agree with the <a href="#">Privacy Policy</a></span>
                 </label>
             </div>
+            <p id="registerPolicyError" class="auth-field-error" aria-live="polite"></p>
 
             <button type="submit" class="btn">Register</button>
         </form>
@@ -420,7 +504,10 @@
 
     <script src="/js/api.js"></script>
     <script src="/js/site.js"></script>
-    <script src="/js/auth.js"></script>
+    <script>
+        window.GOOGLE_CLIENT_ID = "70967209815-9opcu15jdkfh5b3f7cf4ub6kpldt9g2g.apps.googleusercontent.com";
+    </script>
+    <script src="/js/auth.js?v=auth-validate-1"></script>
 
 </body>
 </html>

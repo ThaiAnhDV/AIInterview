@@ -4,6 +4,7 @@ using AIInterviewPlatform.Application.Interfaces.Services;
 using AIInterviewPlatform.Domain.Enities;
 using AIInterviewPlatform.Domain.Enum;
 using AIInterviewPlatform.Infrastructure.Data;
+using Google.Apis.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -182,6 +183,143 @@ namespace AIInterviewPlatform.Infrastructure.Services
                 Role = role,
                 Token = token
             };
+        }
+
+        public async Task<AuthResponseDto> GoogleLoginAsync(GoogleLoginRequestDto request)
+        {
+            if (request == null || string.IsNullOrWhiteSpace(request.Credential))
+                throw new ValidationException("Google credential is required.");
+
+            var clientId = _configuration["GoogleAuth:ClientId"];
+
+            if (string.IsNullOrWhiteSpace(clientId))
+                throw new ValidationException("Google login is not configured.");
+
+            GoogleJsonWebSignature.Payload payload;
+
+            try
+            {
+                payload = await GoogleJsonWebSignature.ValidateAsync(
+                    request.Credential,
+                    new GoogleJsonWebSignature.ValidationSettings
+                    {
+                        Audience = new[] { clientId }
+                    });
+            }
+            catch (InvalidJwtException)
+            {
+                throw new ValidationException("Google login failed. Please try again.");
+            }
+
+            if (!payload.EmailVerified)
+                throw new ValidationException("Google email is not verified.");
+
+            var email = payload.Email.Trim().ToLowerInvariant();
+            var fullName = GetGoogleDisplayName(payload);
+
+            var account = await _context.AuthenticationAccounts
+                .Include(x => x.User)
+                .ThenInclude(x => x.UserProfile)
+                .FirstOrDefaultAsync(x => x.Email.ToLower() == email);
+
+            if (account == null)
+            {
+                account = await CreateGoogleAccountAsync(email, fullName);
+            }
+            else if (account.User.Status != UserStatus.ACTIVE)
+            {
+                throw new ValidationException("Account is inactive.");
+            }
+
+            if (account.User.UserProfile == null)
+            {
+                account.User.UserProfile = new UserProfile
+                {
+                    UserId = account.UserId,
+                    FullName = fullName,
+                    CreatedAt = DateTime.Now
+                };
+
+                await _context.UserProfiles.AddAsync(account.User.UserProfile);
+                await _context.SaveChangesAsync();
+            }
+            else if (string.IsNullOrWhiteSpace(account.User.UserProfile.FullName))
+            {
+                account.User.UserProfile.FullName = fullName;
+                account.User.UserProfile.UpdatedAt = DateTime.Now;
+                await _context.SaveChangesAsync();
+            }
+
+            var role = account.User.UserType.ToString();
+            var token = GenerateJwtToken(
+                account.UserId,
+                account.User.UserProfile?.FullName ?? fullName,
+                account.Email,
+                role);
+
+            return new AuthResponseDto
+            {
+                UserId = account.UserId,
+                FullName = account.User.UserProfile?.FullName ?? fullName,
+                Email = account.Email,
+                Role = role,
+                Token = token
+            };
+        }
+
+        private async Task<AuthenticationAccount> CreateGoogleAccountAsync(
+            string email,
+            string fullName)
+        {
+            var user = new User
+            {
+                UserType = UserType.USER,
+                Status = UserStatus.ACTIVE,
+                CreatedAt = DateTime.Now
+            };
+
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            var account = new AuthenticationAccount
+            {
+                UserId = user.Id,
+                Email = email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Guid.NewGuid().ToString("N")),
+                IsVerified = true,
+                CreatedAt = DateTime.Now,
+                User = user
+            };
+
+            var profile = new UserProfile
+            {
+                UserId = user.Id,
+                FullName = fullName,
+                CreatedAt = DateTime.Now,
+                User = user
+            };
+
+            await _context.AuthenticationAccounts.AddAsync(account);
+            await _context.UserProfiles.AddAsync(profile);
+            await _context.SaveChangesAsync();
+
+            user.AuthenticationAccount = account;
+            user.UserProfile = profile;
+
+            return account;
+        }
+
+        private static string GetGoogleDisplayName(GoogleJsonWebSignature.Payload payload)
+        {
+            if (!string.IsNullOrWhiteSpace(payload.Name))
+                return payload.Name.Trim();
+
+            var parts = new[] { payload.GivenName, payload.FamilyName }
+                .Where(part => !string.IsNullOrWhiteSpace(part))
+                .Select(part => part!.Trim());
+
+            var fullName = string.Join(" ", parts);
+            return string.IsNullOrWhiteSpace(fullName) ? payload.Email : fullName;
         }
 
         private string GenerateJwtToken(

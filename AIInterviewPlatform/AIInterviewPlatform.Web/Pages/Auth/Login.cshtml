@@ -17,6 +17,7 @@
     <link rel="icon" type="image/png" href="/assets/img/favicon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link href="/css/site.css?v=3" rel="stylesheet" />
     <style>
         /* Login loading – inline to avoid Tailwind/cache conflicts */
@@ -125,6 +126,72 @@
                 0 0 30px #323232,
                 0 0 40px hsl(176.61, 42.28%, 40.7%);
         }
+
+        .auth-field-error {
+            display: none;
+            margin-top: -0.75rem;
+            margin-bottom: 1rem;
+            color: #fca5a5;
+            font-size: 0.78rem;
+            line-height: 1.25rem;
+        }
+
+        .auth-field-error.show {
+            display: block;
+        }
+
+        .auth-field-error.success {
+            color: #86efac;
+        }
+
+        .auth-input-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+
+        .auth-input-success {
+            border-color: #22c55e !important;
+        }
+
+        .auth-form-message {
+            display: none;
+            margin: 0.75rem 0 1rem;
+            padding: 0.75rem 0.875rem;
+            border-radius: 0.75rem;
+            font-size: 0.86rem;
+            line-height: 1.35rem;
+        }
+
+        .auth-form-message.show {
+            display: block;
+        }
+
+        .auth-form-message.error {
+            color: #fecaca;
+            background: rgba(127, 29, 29, 0.35);
+            border: 1px solid rgba(248, 113, 113, 0.35);
+        }
+
+        .auth-form-message.success {
+            color: #bbf7d0;
+            background: rgba(20, 83, 45, 0.35);
+            border: 1px solid rgba(74, 222, 128, 0.35);
+        }
+
+        .google-login-slot {
+            width: 100%;
+            min-height: 44px;
+        }
+
+        .google-login-slot .google-fallback-button {
+            display: flex;
+        }
+
+        .google-login-slot .google-render-target {
+            display: none;
+            justify-content: center;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -172,22 +239,28 @@
                         </svg>
                     </div>
 
-                    <form role="form" onsubmit="event.preventDefault(); login();">
+                    <form role="form" novalidate onsubmit="event.preventDefault(); login();">
                         <div class="mt-5">
                             <label for="loginEmail" class="font-semibold text-sm text-gray-400 pb-1 block">E-mail</label>
                             <input id="loginEmail"
                                    type="email"
                                    placeholder="you@example.com"
+                                   aria-describedby="loginEmailError"
                                    class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white border-gray-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500 focus:outline-none"
                                    required>
+                            <p id="loginEmailError" class="auth-field-error" aria-live="polite"></p>
 
                             <label for="loginPassword" class="font-semibold text-sm text-gray-400 pb-1 block">Password</label>
                             <input id="loginPassword"
                                    type="password"
                                    placeholder="••••••••"
+                                   aria-describedby="loginPasswordError"
                                    class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white border-gray-600 focus:border-blue-500 focus:ring-4 focus:ring-blue-500 focus:outline-none"
                                    required>
+                            <p id="loginPasswordError" class="auth-field-error" aria-live="polite"></p>
                         </div>
+
+                        <div id="loginFormMessage" class="auth-form-message" aria-live="polite"></div>
 
                         <div class="text-right mb-4">
                             <a href="#" class="text-xs font-semibold text-gray-500 hover:text-gray-400 cursor-pointer">
@@ -197,16 +270,20 @@
 
                         <div class="flex justify-center items-center">
                             <div class="w-full">
-                                <button type="button"
-                                        class="flex items-center justify-center py-2 px-20 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
-                                    <svg viewBox="0 0 24 24" height="25" width="25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M12,5c1.6167603,0,3.1012573,0.5535278,4.2863159,1.4740601l3.637146-3.4699707 C17.8087769,1.1399536,15.0406494,0,12,0C7.392395,0,3.3966675,2.5999146,1.3858032,6.4098511l4.0444336,3.1929321 C6.4099731,6.9193726,8.977478,5,12,5z" fill="#F44336"></path>
-                                        <path d="M23.8960571,13.5018311C23.9585571,13.0101929,24,12.508667,24,12 c0-0.8578491-0.093689-1.6931763-0.2647705-2.5H12v5h6.4862061c-0.5247192,1.3637695-1.4589844,2.5177612-2.6481934,3.319458 l4.0594482,3.204834C22.0493774,19.135437,23.5219727,16.4903564,23.8960571,13.5018311z" fill="#2196F3"></path>
-                                        <path d="M5,12c0-0.8434448,0.1568604-1.6483765,0.4302368-2.3972168L1.3858032,6.4098511 C0.5043335,8.0800171,0,9.9801636,0,12c0,1.9972534,0.4950562,3.8763428,1.3582153,5.532959l4.0495605-3.1970215 C5.1484375,13.6044312,5,12.8204346,5,12z" fill="#FFC107"></path>
-                                        <path d="M12,19c-3.0455322,0-5.6295776-1.9484863-6.5922241-4.6640625L1.3582153,17.532959 C3.3592529,21.3734741,7.369812,24,12,24c3.027771,0,5.7887573-1.1248169,7.8974609-2.975708l-4.0594482-3.204834 C14.7412109,18.5588989,13.4284058,19,12,19z" fill="#00B060"></path>
-                                    </svg>
-                                    <span class="ml-8">Sign in with Google</span>
-                                </button>
+                                <div id="googleLoginButton" class="google-login-slot">
+                                    <button id="googleFallbackLoginButton" type="button"
+                                            onclick="startGoogleRedirectLogin()"
+                                            class="google-fallback-button items-center justify-center py-2 px-20 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+                                        <svg viewBox="0 0 24 24" height="25" width="25" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path d="M12,5c1.6167603,0,3.1012573,0.5535278,4.2863159,1.4740601l3.637146-3.4699707 C17.8087769,1.1399536,15.0406494,0,12,0C7.392395,0,3.3966675,2.5999146,1.3858032,6.4098511l4.0444336,3.1929321 C6.4099731,6.9193726,8.977478,5,12,5z" fill="#F44336"></path>
+                                            <path d="M23.8960571,13.5018311C23.9585571,13.0101929,24,12.508667,24,12 c0-0.8578491-0.093689-1.6931763-0.2647705-2.5H12v5h6.4862061c-0.5247192,1.3637695-1.4589844,2.5177612-2.6481934,3.319458 l4.0594482,3.204834C22.0493774,19.135437,23.5219727,16.4903564,23.8960571,13.5018311z" fill="#2196F3"></path>
+                                            <path d="M5,12c0-0.8434448,0.1568604-1.6483765,0.4302368-2.3972168L1.3858032,6.4098511 C0.5043335,8.0800171,0,9.9801636,0,12c0,1.9972534,0.4950562,3.8763428,1.3582153,5.532959l4.0495605-3.1970215 C5.1484375,13.6044312,5,12.8204346,5,12z" fill="#FFC107"></path>
+                                            <path d="M12,19c-3.0455322,0-5.6295776-1.9484863-6.5922241-4.6640625L1.3582153,17.532959 C3.3592529,21.3734741,7.369812,24,12,24c3.027771,0,5.7887573-1.1248169,7.8974609-2.975708l-4.0594482-3.204834 C14.7412109,18.5588989,13.4284058,19,12,19z" fill="#00B060"></path>
+                                        </svg>
+                                        <span class="ml-8">Sign in with Google</span>
+                                    </button>
+                                    <div id="googleLoginRenderTarget" class="google-render-target"></div>
+                                </div>
 
                                 <button type="button"
                                         class="flex items-center justify-center py-2 px-20 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg mt-4">
@@ -256,7 +333,10 @@
 
     <script src="/js/api.js"></script>
     <script src="/js/site.js"></script>
-    <script src="/js/auth.js"></script>
+    <script>
+        window.GOOGLE_CLIENT_ID = "70967209815-9opcu15jdkfh5b3f7cf4ub6kpldt9g2g.apps.googleusercontent.com";
+    </script>
+    <script src="/js/auth.js?v=auth-validate-1"></script>
 </body>
 
 </html>

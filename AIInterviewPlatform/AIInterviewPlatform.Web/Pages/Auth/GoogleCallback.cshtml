@@ -1,0 +1,63 @@
+@page
+@{
+    Layout = null;
+    ViewData["Title"] = "Google Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google Login - AI Interview Platform</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #050816;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <p>Completing Google login...</p>
+
+    <script>
+        (function () {
+            const hash = new URLSearchParams(window.location.hash.substring(1));
+            const query = new URLSearchParams(window.location.search);
+            const credential = hash.get("id_token");
+            const error = hash.get("error") || query.get("error");
+            const state = hash.get("state") || query.get("state");
+
+            if (window.opener) {
+                window.opener.postMessage({
+                    source: "aiinterview-google-auth",
+                    credential,
+                    error,
+                    state
+                }, window.location.origin);
+
+                window.close();
+                return;
+            }
+
+            function saveGoogleValue(key, value) {
+                if (!value) return;
+                sessionStorage.setItem(key, value);
+                localStorage.setItem(key, value);
+            }
+
+            saveGoogleValue("googleCredential", credential);
+            saveGoogleValue("googleAuthError", error);
+            saveGoogleValue("googleCallbackState", state);
+
+            window.location.href = "/Auth/Login?google=1";
+        })();
+    </script>
+</body>
+</html>

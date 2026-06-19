@@ -97,12 +97,20 @@ builder.Services.AddControllers();
 // =======================
 // CORS
 // =======================
+var allowedCorsOrigins = new[]
+{
+    "http://aiinterview.io.vn",
+    "https://aiinterview.io.vn",
+    "http://localhost:5114",
+    "https://localhost:7048"
+};
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("FrontendCors", policy =>
     {
         policy
-            .AllowAnyOrigin()
+            .WithOrigins(allowedCorsOrigins)
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
@@ -187,18 +195,42 @@ using (var scope = app.Services.CreateScope())
 // =======================
 // Swagger
 // =======================
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // =======================
 // Middleware
 // =======================
-app.UseHttpsRedirection();
+if (!app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
 
-app.UseCors("AllowAll");
+app.Use(async (context, next) =>
+{
+    var origin = context.Request.Headers.Origin.ToString();
+
+    if (!string.IsNullOrWhiteSpace(origin))
+    {
+        context.Response.Headers["Access-Control-Allow-Origin"] =
+            allowedCorsOrigins.Contains(origin, StringComparer.OrdinalIgnoreCase)
+                ? origin
+                : allowedCorsOrigins[0];
+        context.Response.Headers["Vary"] = "Origin";
+        context.Response.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,PATCH,DELETE,OPTIONS";
+        context.Response.Headers["Access-Control-Allow-Headers"] = "Authorization,Content-Type,Accept,Origin,X-Requested-With";
+    }
+
+    if (HttpMethods.IsOptions(context.Request.Method))
+    {
+        context.Response.StatusCode = StatusCodes.Status204NoContent;
+        return;
+    }
+
+    await next();
+});
+
+app.UseCors("FrontendCors");
 
 // =======================
 // Static Files
@@ -228,6 +260,19 @@ app.UseAuthorization();
 // =======================
 // Controllers
 // =======================
+app.MapGet("/", () => Results.Redirect("/swagger"));
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "OK",
+    app = "AIInterviewPlatform.API",
+    environment = app.Environment.EnvironmentName,
+    version = "cors-20260617-1",
+    time = DateTime.UtcNow
+}));
+
+app.MapMethods("{*path}", new[] { "OPTIONS" }, () => Results.NoContent())
+    .AllowAnonymous();
+
 app.MapControllers();
 
 app.Run();

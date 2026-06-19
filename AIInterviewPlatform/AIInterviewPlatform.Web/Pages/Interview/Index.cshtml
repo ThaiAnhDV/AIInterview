@@ -1096,39 +1096,7 @@
             const select = document.getElementById("skillGapSelect");
             const emptyMessage = document.getElementById("noAnalysesMessage");
 
-            try {
-                const response = await axios.get(`${API_BASE_URL}/SkillGapAnalysis/my-analyses`, {
-                    headers: { "Authorization": `Bearer ${token}` }
-                });
-
-                select.innerHTML = '<option value="">-- Select Analysis --</option>';
-
-                if (response.data && response.data.length > 0) {
-                    response.data.forEach(analysis => {
-                        const option = document.createElement('option');
-                        option.value = analysis.id;
-                        const readinessScore = analysis.readinessScore ?? 0;
-                        const date = analysis.createdAt 
-                            ? new Date(analysis.createdAt).toLocaleDateString() 
-                            : 'N/A';
-                        option.textContent = `Analysis #${analysis.id} - Readiness: ${readinessScore}% (${date})`;
-                        select.appendChild(option);
-                    });
-                    emptyMessage.style.display = 'none';
-                    select.style.display = 'block';
-                } else {
-                    select.innerHTML = '<option value="">-- Select Analysis --</option>';
-                    select.style.display = 'none';
-                    emptyMessage.innerHTML = `
-                        <i class="fas fa-info-circle"></i>
-                        No Skill Gap Analysis found.
-                        Please run Skill Gap Analysis first.
-                        <a href="/SkillGap" class="text-ai-primary ml-2">Go to Analysis →</a>
-                    `;
-                    emptyMessage.style.display = 'flex';
-                }
-            } catch (error) {
-                console.error('Failed to load analyses:', error);
+            const showNoAnalyses = () => {
                 select.innerHTML = '<option value="">-- Select Analysis --</option>';
                 select.style.display = 'none';
                 emptyMessage.innerHTML = `
@@ -1136,6 +1104,94 @@
                     No Skill Gap Analysis found.
                     Please run Skill Gap Analysis first.
                     <a href="/SkillGap" class="text-ai-primary ml-2">Go to Analysis →</a>
+                `;
+                emptyMessage.style.display = 'flex';
+            };
+
+            const getLatestLocalAnalysis = () => {
+                try {
+                    const raw = localStorage.getItem("latestSkillGapAnalysis");
+                    if (!raw) return null;
+
+                    const analysis = JSON.parse(raw);
+                    const id = Number(analysis.id ?? analysis.analysisId);
+                    if (!id) return null;
+
+                    return {
+                        id,
+                        readinessScore: analysis.readinessScore ?? 0,
+                        createdAt: analysis.createdAt ?? new Date().toISOString(),
+                        isLocalFallback: true
+                    };
+                } catch (error) {
+                    console.warn("Invalid cached skill gap analysis:", error);
+                    localStorage.removeItem("latestSkillGapAnalysis");
+                    return null;
+                }
+            };
+
+            const renderAnalyses = (analyses) => {
+                select.innerHTML = '<option value="">-- Select Analysis --</option>';
+
+                analyses.forEach(analysis => {
+                    const analysisId = analysis.id ?? analysis.analysisId ?? analysis.skillGapAnalysisId;
+                    if (!analysisId) return;
+
+                    const option = document.createElement('option');
+                    option.value = analysisId;
+                    const readinessScore = analysis.readinessScore ?? 0;
+                    const date = analysis.createdAt
+                        ? new Date(analysis.createdAt).toLocaleDateString()
+                        : 'N/A';
+                    const labelSuffix = analysis.isLocalFallback ? ' - latest' : '';
+                    option.textContent = `Analysis #${analysisId} - Readiness: ${readinessScore}% (${date})${labelSuffix}`;
+                    select.appendChild(option);
+                });
+
+                if (select.options.length > 1) {
+                    emptyMessage.style.display = 'none';
+                    select.style.display = 'block';
+                    if (select.options.length === 2) {
+                        select.selectedIndex = 1;
+                    }
+                } else {
+                    showNoAnalyses();
+                }
+            };
+
+            try {
+                const response = await axios.get(`${API_BASE_URL}/SkillGapAnalysis/my-analyses`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                const analyses = Array.isArray(response.data) ? response.data : [];
+                const latestLocalAnalysis = getLatestLocalAnalysis();
+                const hasLatestLocalAnalysis = latestLocalAnalysis &&
+                    !analyses.some(analysis => Number(analysis.id ?? analysis.analysisId ?? analysis.skillGapAnalysisId) === latestLocalAnalysis.id);
+
+                if (hasLatestLocalAnalysis) {
+                    analyses.unshift(latestLocalAnalysis);
+                }
+
+                if (analyses.length > 0) {
+                    renderAnalyses(analyses);
+                } else {
+                    showNoAnalyses();
+                }
+            } catch (error) {
+                console.error('Failed to load analyses:', error);
+                const latestLocalAnalysis = getLatestLocalAnalysis();
+
+                if (latestLocalAnalysis) {
+                    renderAnalyses([latestLocalAnalysis]);
+                    return;
+                }
+
+                select.innerHTML = '<option value="">-- Select Analysis --</option>';
+                select.style.display = 'none';
+                emptyMessage.innerHTML = `
+                    <i class="fas fa-exclamation-circle"></i>
+                    Cannot load Skill Gap Analysis history. Please refresh or run analysis again.
                 `;
                 emptyMessage.style.display = 'flex';
             }

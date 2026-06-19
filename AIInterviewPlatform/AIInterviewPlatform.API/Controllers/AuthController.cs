@@ -82,6 +82,38 @@ public class AuthController : ControllerBase
         }
     }
 
+    [HttpPost("google")]
+    public async Task<IActionResult> GoogleLogin(GoogleLoginRequestDto request)
+    {
+        try
+        {
+            var result = await _authService.GoogleLoginAsync(request);
+
+            return Ok(new
+            {
+                success = true,
+                message = "Login with Google successfully.",
+                data = result
+            });
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                errors = ex.Errors
+            });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                success = false,
+                errors = new[] { ex.Message }
+            });
+        }
+    }
+
     [Authorize]
     [HttpGet("me")]
     public IActionResult Me()

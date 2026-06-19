@@ -224,9 +224,6 @@ namespace AIInterviewPlatform.Infrastructure.Services
                     .ThenInclude(x => x.Skill)
                 .Include(x => x.MatchedSkills)
                     .ThenInclude(x => x.Skill)
-                .Include(x => x.StrengthWeaknessReports)
-                .Include(x => x.Recommendations)
-                    .ThenInclude(r => r.Skill)
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
@@ -251,41 +248,6 @@ namespace AIInterviewPlatform.Infrastructure.Services
                     .Where(name => !string.IsNullOrEmpty(name))
                     .ToList();
 
-                var strengths = analysis.StrengthWeaknessReports
-                    .Where(r => r.ReportType == ReportType.STRENGTH)
-                    .Select(r => new StrengthWeaknessReportResponse
-                    {
-                        Id = r.Id,
-                        ReportType = ReportTypeResponse.STRENGTH,
-                        Content = r.Content
-                    })
-                    .ToList();
-
-                var weaknesses = analysis.StrengthWeaknessReports
-                    .Where(r => r.ReportType == ReportType.WEAKNESS)
-                    .Select(r => new StrengthWeaknessReportResponse
-                    {
-                        Id = r.Id,
-                        ReportType = ReportTypeResponse.WEAKNESS,
-                        Content = r.Content
-                    })
-                    .ToList();
-
-                var recommendations = analysis.Recommendations
-                    .Select(r => new RecommendationResponse
-                    {
-                        Id = r.Id,
-                        SkillGapAnalysisId = r.SkillGapAnalysisId,
-                        SkillId = r.SkillId,
-                        SkillName = r.Skill?.SkillName ?? string.Empty,
-                        RecommendationTitle = r.RecommendationTitle,
-                        RecommendationContent = r.RecommendationContent,
-                        RecommendationType = r.RecommendationType?.ToString() ?? string.Empty,
-                        PriorityLevel = r.PriorityLevel.ToString(),
-                        CreatedAt = r.CreatedAt
-                    })
-                    .ToList();
-
                 return new SkillGapAnalysisResponse
                 {
                     Success = true,
@@ -295,10 +257,7 @@ namespace AIInterviewPlatform.Infrastructure.Services
                     ReadinessScore = score,
                     CreatedAt = analysis.CreatedAt,
                     MatchedSkills = matchedSkills,
-                    MissingSkills = missingSkills,
-                    Strengths = strengths,
-                    Weaknesses = weaknesses,
-                    Recommendations = recommendations
+                    MissingSkills = missingSkills
                 };
             }).ToList();
         }
