@@ -41,6 +41,8 @@
 }
 
 async function startMockInterview() {
+    console.log("[1] startMockInterview entered");
+
     const targetJobId = document.getElementById("targetJobSelect").value;
     const skillGapAnalysisId = document.getElementById("skillGapSelect").value;
 
@@ -56,12 +58,21 @@ async function startMockInterview() {
 
     hideAllViews();
     showView('loading');
-    setButtonLoading(true);
+
+    console.log("[2] before setButtonLoading");
+    try {
+        setButtonLoading(true);
+    } catch (ex) {
+        console.error("[BUTTON ERROR]", ex);
+    }
+    console.log("[3] after setButtonLoading");
 
     const token = localStorage.getItem("token");
 
     try {
         showLoader();
+
+        console.log("[4] before axios");
 
         const response = await axios.post(
             `${API_BASE_URL}/MockInterviews/generate`,
@@ -77,13 +88,23 @@ async function startMockInterview() {
             }
         );
 
+        console.log("[5] axios completed");
+        console.log("[6] response.data =", response.data);
+        console.log("[7] before displayResults");
+
         displayResults(response.data);
+
+        console.log("[8] after displayResults");
     } catch (error) {
         console.error('Interview generation failed:', error);
         showError(error);
     } finally {
         hideLoader();
-        setButtonLoading(false);
+        try {
+            setButtonLoading(false);
+        } catch (ex) {
+            console.error("[BUTTON ERROR finally]", ex);
+        }
     }
 }
 

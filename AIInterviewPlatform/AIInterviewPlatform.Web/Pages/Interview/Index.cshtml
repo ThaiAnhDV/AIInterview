@@ -1188,9 +1188,14 @@
 
         // Display results
         function displayResults(data) {
+            console.log("[DISPLAY 1] entered");
+            console.log("displayResults data:", data);
+
             hideAllViews();
+            console.log("[DISPLAY 2] after hideAllViews");
 
             InterviewPageState.setSession(data.sessionId, data.questions);
+            console.log("[DISPLAY 3] after setSession");
 
             document.getElementById("sessionBadge").textContent = `Session #${data.sessionId}`;
             document.getElementById("summaryJobTitle").textContent = data.targetJob?.title || "N/A";
@@ -1230,6 +1235,7 @@
             renderCategorySection("communication", "Communication", grouped.Communication);
 
             showAnswerForm();
+            console.log("[DISPLAY 4] after showAnswerForm");
         }
 
         // Show answer form
@@ -1585,7 +1591,7 @@
 
         // Set button loading
         function setButtonLoading(loading) {
-            const btn = document.getElementById("startInterviewBtn");
+            const btn = document.getElementById("startInterviewButton");
             if (loading) {
                 btn.disabled = true;
                 btn.innerHTML = '<span class="loading-spinner-ai loading-spinner-ai-sm mr-2"></span>Generating...';
@@ -1597,7 +1603,7 @@
 
         // Set submit button loading
         function setSubmitButtonLoading(loading) {
-            const btn = document.getElementById("submitAnswersBtn");
+            const btn = document.getElementById("submitAnswersButton");
             if (loading) {
                 btn.disabled = true;
                 btn.innerHTML = '<span class="loading-spinner-ai loading-spinner-ai-sm mr-2"></span>Submitting...';
