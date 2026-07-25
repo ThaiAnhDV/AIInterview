@@ -49,8 +49,6 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Mono.TextTemplating.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Npgsql.dll
-D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Core.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.DocumentLayoutAnalysis.dll
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\UglyToad.PdfPig.Fonts.dll
@@ -169,3 +167,9 @@ D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatf
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\AIInterviewPlatform.API.pdb
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\AIInterviewPlatform.API.genruntimeconfig.cache
 D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\ref\AIInterviewPlatform.API.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.IO.Pipelines.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Net.Http.Json.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\System.Text.Json.dll
+D:\AIInterview - Copy - Copy\GitAIInterview\AIInterviewPlatform\AIInterviewPlatform.API\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll

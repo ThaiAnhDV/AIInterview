@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AIInterviewPlatform.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fed1c019d74beede0b24ac3a94619451c328f58a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebc3b4e0a8b2d3bfaf5fb2395adf5241b4990d8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("AIInterviewPlatform.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AIInterviewPlatform.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

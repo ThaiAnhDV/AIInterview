@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj": {}
+    "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj": {}
   },
   "projects": {
-    "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj": {
+    "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj",
+        "projectUniqueName": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj",
         "projectName": "AIInterviewPlatform.Application",
-        "projectPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj",
+        "projectPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\AIInterviewPlatform.Application.csproj",
         "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Application\\obj\\",
+        "outputPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj": {
-                "projectPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj"
+              "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj": {
+                "projectPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj"
               }
             }
           }
@@ -83,14 +83,14 @@
         }
       }
     },
-    "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj": {
+    "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj",
+        "projectUniqueName": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj",
         "projectName": "AIInterviewPlatform.Domain",
-        "projectPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj",
+        "projectPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\AIInterviewPlatform.Domain.csproj",
         "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-        "outputPath": "D:\\ProjectEXE\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\obj\\",
+        "outputPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

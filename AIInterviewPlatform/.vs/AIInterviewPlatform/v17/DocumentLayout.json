@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.infrastructure\\migrations\\20260606160737_initsupabasepostgres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61B32759-C840-4A09-8AD2-B372DECCCDCE}|AIInterviewPlatform.Infrastructure\\AIInterviewPlatform.Infrastructure.csproj|solutionrelative:aiinterviewplatform.infrastructure\\migrations\\20260606160737_initsupabasepostgres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|d:\\aiinterview - copy - copy\\gitaiinterview\\aiinterviewplatform\\aiinterviewplatform.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{106DBC10-C8FE-4940-8CCC-CF065716CC86}|AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj|solutionrelative:aiinterviewplatform.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -446,7 +442,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 196,
+          "SelectedChildIndex": 197,
           "Children": [
             {
               "$type": "Bookmark",
@@ -1233,26 +1229,26 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:22:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260606160737_InitSupabasePostgres.cs",
-              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Migrations\\20260606160737_InitSupabasePostgres.cs",
-              "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Migrations\\20260606160737_InitSupabasePostgres.cs",
-              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Migrations\\20260606160737_InitSupabasePostgres.cs",
-              "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Migrations\\20260606160737_InitSupabasePostgres.cs",
-              "ViewState": "AgIAAFgDAAAAAAAAAAAwwGwDAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-06T16:07:37.572Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\appsettings.json",
+              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\appsettings.json",
+              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\appsettings.json",
+              "RelativeToolTip": "AIInterviewPlatform.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-26T09:48:07.449Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:21:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AIInterviewPlatform.API",
+              "DocumentIndex": 2,
+              "Title": "AIInterviewPlatform.API.csproj",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\AIInterviewPlatform.API.csproj",
@@ -1264,7 +1260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 20,
               "Title": "RoadmapActivityResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
@@ -1272,11 +1268,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapActivityResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:40:27.341Z"
+              "WhenOpened": "2026-05-30T11:40:27.341Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "InterviewService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
@@ -1284,11 +1281,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\InterviewService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:32:10.201Z"
+              "WhenOpened": "2026-05-30T07:32:10.201Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "_Navbar.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
@@ -1296,37 +1294,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Shared\\_Navbar.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-26T10:08:23.902Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\appsettings.json",
-              "RelativeDocumentMoniker": "AIInterviewPlatform.API\\appsettings.json",
-              "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\appsettings.json",
-              "RelativeToolTip": "AIInterviewPlatform.API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-26T09:48:07.449Z",
+              "WhenOpened": "2026-05-26T10:08:23.902Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Program.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Program.cs",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Program.cs",
               "RelativeToolTip": "AIInterviewPlatform.API\\Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwBwAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-26T09:57:03.467Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "RoadmapMilestoneResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
@@ -1334,11 +1320,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapMilestoneResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:40:41.378Z"
+              "WhenOpened": "2026-05-30T11:40:41.378Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "RoadmapsController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
@@ -1346,23 +1333,25 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\RoadmapsController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAowC4AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:59:12.542Z"
+              "WhenOpened": "2026-05-30T11:59:12.542Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAC4DAAAAAAAAAAAuwHsDAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAC4DAAAAAAAAAAAuwHsDAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-26T10:07:46.573Z"
+              "WhenOpened": "2026-05-26T10:07:46.573Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "LearningRoadmapService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
@@ -1370,11 +1359,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\LearningRoadmapService.cs",
               "ViewState": "AgIAAOkAAAAAAAAAAAAowAQBAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:55:48.973Z"
+              "WhenOpened": "2026-05-30T11:55:48.973Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\AuthController.cs",
@@ -1382,11 +1372,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\AuthController.cs",
               "ViewState": "AgIAAE0AAAAAAAAAAAAuwGYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-06T08:18:15.176Z"
+              "WhenOpened": "2026-06-06T08:18:15.176Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
@@ -1394,11 +1385,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Pricing\\Index.cshtml",
               "ViewState": "AgIAAJwAAAAAAAAAAAAqwLEAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-06-06T08:22:26.583Z"
+              "WhenOpened": "2026-06-06T08:22:26.583Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "i18n.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
@@ -1406,23 +1398,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\i18n.js",
               "ViewState": "AgIAACgCAAAAAAAAAAAcwEACAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-06-06T08:41:23.955Z"
+              "WhenOpened": "2026-06-06T08:41:23.955Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "AuthService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\AuthService.cs",
-              "ViewState": "AgIAALgAAAAAAAAAAAAAwNUAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAALgAAAAAAAAAAAAAwNUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-06T08:18:51.467Z"
+              "WhenOpened": "2026-06-06T08:18:51.467Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "auth.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
@@ -1430,11 +1424,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\auth.js",
               "ViewState": "AgIAANIBAAAAAAAAAAAqwPIBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-06-06T08:19:15.061Z"
+              "WhenOpened": "2026-06-06T08:19:15.061Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "RoadmapActivitiesController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
@@ -1442,23 +1437,25 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\RoadmapActivitiesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T12:00:05.664Z"
+              "WhenOpened": "2026-05-30T12:00:05.664Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Roadmap\\Index.cshtml",
-              "ViewState": "AgIAADcAAAAAAAAAAAAiwEMAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAAAiwEMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-30T12:04:16.827Z"
+              "WhenOpened": "2026-05-30T12:04:16.827Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "roadmap.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
@@ -1466,23 +1463,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\roadmap.js",
               "ViewState": "AgIAAMsAAAAAAAAAAAAiwOEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-30T12:09:24.116Z"
+              "WhenOpened": "2026-05-30T12:09:24.116Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "InterviewAnswerService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\InterviewAnswerService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACMAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwCMAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T10:49:07.594Z"
+              "WhenOpened": "2026-05-30T10:49:07.594Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "SkillGapAnalysisService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
@@ -1490,11 +1489,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\SkillGapAnalysisService.cs",
               "ViewState": "AgIAAL8AAAAAAAAAAAAIwBsAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:41:52.862Z"
+              "WhenOpened": "2026-05-30T06:41:52.862Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "AnswerEvaluationService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
@@ -1502,11 +1502,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\AnswerEvaluationService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:04:19.33Z"
+              "WhenOpened": "2026-05-30T11:04:19.33Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 21,
               "Title": "ILearningRoadmapService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
@@ -1514,11 +1515,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ILearningRoadmapService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:56:29.072Z"
+              "WhenOpened": "2026-05-30T09:56:29.072Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 22,
               "Title": "IInterviewService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
@@ -1526,11 +1528,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:31:35.118Z"
+              "WhenOpened": "2026-05-30T07:31:35.118Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 23,
               "Title": "IInterviewAnswerService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
@@ -1538,11 +1541,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\IInterviewAnswerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:23:02.588Z"
+              "WhenOpened": "2026-05-30T09:23:02.588Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 24,
               "Title": "RoadmapDetailResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
@@ -1550,11 +1554,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapDetailResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:41:46.672Z"
+              "WhenOpened": "2026-05-30T11:41:46.672Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 25,
               "Title": "RoadmapResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
@@ -1562,11 +1567,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\RoadmapResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:40:55.793Z"
+              "WhenOpened": "2026-05-30T11:40:55.793Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 26,
               "Title": "GenerateRoadmapRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
@@ -1574,11 +1580,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Roadmap\\GenerateRoadmapRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:39:59.995Z"
+              "WhenOpened": "2026-05-30T11:39:59.995Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 33,
               "Title": "IAnswerEvaluationService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
@@ -1586,11 +1593,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\IAnswerEvaluationService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:03:54.573Z"
+              "WhenOpened": "2026-05-30T11:03:54.573Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 34,
               "Title": "SessionFeedbackResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
@@ -1598,11 +1606,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\SessionFeedbackResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:02:58.022Z"
+              "WhenOpened": "2026-05-30T11:02:58.022Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 35,
               "Title": "AnswerEvaluationResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
@@ -1610,23 +1619,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\AnswerEvaluationResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:02:37.188Z"
+              "WhenOpened": "2026-05-30T11:02:37.188Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 28,
               "Title": "Session.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Interview\\Session.cshtml",
-              "ViewState": "AgIAADYAAAAAAAAAAAAmwGkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAmwGcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-30T08:44:30.399Z"
+              "WhenOpened": "2026-05-30T08:44:30.399Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 29,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
@@ -1634,11 +1645,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Interview\\Index.cshtml",
               "ViewState": "AgIAAAUAAAAAAAAAAAAmwDgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-30T08:43:57.634Z"
+              "WhenOpened": "2026-05-30T08:43:57.634Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 27,
               "Title": "interview.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
@@ -1646,11 +1658,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\interview.js",
               "ViewState": "AgIAAI8AAAAAAAAAAAAkwLYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-30T08:44:53.704Z"
+              "WhenOpened": "2026-05-30T08:44:53.704Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 32,
               "Title": "AnswerEvaluationController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
@@ -1658,11 +1671,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\AnswerEvaluationController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:06:36.347Z"
+              "WhenOpened": "2026-05-30T11:06:36.347Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 31,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
@@ -1670,11 +1684,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Feedback\\Index.cshtml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAmwB0AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-30T11:08:41.954Z"
+              "WhenOpened": "2026-05-30T11:08:41.954Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 30,
               "Title": "feedback.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
@@ -1682,11 +1697,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\feedback.js",
               "ViewState": "AgIAAGYAAAAAAAAAAAAmwH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-30T11:12:58.598Z"
+              "WhenOpened": "2026-05-30T11:12:58.598Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 36,
               "Title": "FeedbackResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
@@ -1694,11 +1710,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\AnswerEvaluation\\FeedbackResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T11:02:17.31Z"
+              "WhenOpened": "2026-05-30T11:02:17.31Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 40,
               "Title": "InterviewAnswerResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
@@ -1706,11 +1723,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\InterviewAnswerResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:18:52.584Z"
+              "WhenOpened": "2026-05-30T09:18:52.584Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 39,
               "Title": "InterviewAnswer.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
@@ -1718,11 +1736,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\InterviewAnswer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:48:10.995Z"
+              "WhenOpened": "2026-05-30T08:48:10.995Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 38,
               "Title": "InterviewController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
@@ -1730,11 +1749,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\InterviewController.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAIwB0AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:32:55.034Z"
+              "WhenOpened": "2026-05-30T07:32:55.034Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 37,
               "Title": "InterviewAnswersController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
@@ -1742,11 +1762,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\InterviewAnswersController.cs",
               "ViewState": "AgIAADoAAAAAAAAAAAAiwFMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:31:48.196Z"
+              "WhenOpened": "2026-05-30T09:31:48.196Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 41,
               "Title": "UpdateInterviewAnswerRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
@@ -1754,23 +1775,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\UpdateInterviewAnswerRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T10:44:51.661Z"
+              "WhenOpened": "2026-05-30T10:44:51.661Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 43,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAgwCcAAABfAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAA1wCcAAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:24:26.55Z"
+              "WhenOpened": "2026-05-30T09:24:26.55Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 42,
               "Title": "SubmitInterviewAnswerRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
@@ -1778,11 +1801,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\SubmitInterviewAnswerRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:17:55.259Z"
+              "WhenOpened": "2026-05-30T09:17:55.259Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 44,
               "Title": "ActivityType.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
@@ -1790,11 +1814,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\ActivityType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:42:04.149Z"
+              "WhenOpened": "2026-05-30T09:42:04.149Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 45,
               "Title": "RoadmapStatus.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
@@ -1802,11 +1827,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\RoadmapStatus.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:41:50.236Z"
+              "WhenOpened": "2026-05-30T09:41:50.236Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 46,
               "Title": "RoadmapProgress.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
@@ -1814,11 +1840,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\RoadmapProgress.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:41:37.154Z"
+              "WhenOpened": "2026-05-30T09:41:37.154Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 48,
               "Title": "LearningActivity.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
@@ -1826,11 +1853,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\LearningActivity.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAwwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:41:14.195Z"
+              "WhenOpened": "2026-05-30T09:41:14.195Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 49,
               "Title": "RoadmapMilestone.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
@@ -1838,23 +1866,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\RoadmapMilestone.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:41:01.056Z"
+              "WhenOpened": "2026-05-30T09:41:01.056Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 50,
               "Title": "LearningRoadmap.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\LearningRoadmap.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAgwCgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wCgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:40:48.565Z"
+              "WhenOpened": "2026-05-30T09:40:48.565Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 51,
               "Title": "AnswerEvaluationResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
@@ -1862,11 +1892,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\InterviewAnswer\\AnswerEvaluationResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T09:19:25.388Z"
+              "WhenOpened": "2026-05-30T09:19:25.388Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 47,
               "Title": "JobDescription.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
@@ -1874,11 +1905,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\JobDescription.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAYwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:44:13.471Z"
+              "WhenOpened": "2026-05-26T09:44:13.471Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 52,
               "Title": "AnswerEvaluation.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
@@ -1886,11 +1918,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\AnswerEvaluation.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:51:59.428Z"
+              "WhenOpened": "2026-05-30T08:51:59.428Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 53,
               "Title": "AnalysisStatus.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
@@ -1898,11 +1931,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\AnalysisStatus.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:49:25.469Z"
+              "WhenOpened": "2026-05-30T08:49:25.469Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 56,
               "Title": "FeedbackType.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
@@ -1910,11 +1944,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\FeedbackType.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:49:02.672Z"
+              "WhenOpened": "2026-05-30T08:49:02.672Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 57,
               "Title": "PracticeHistory.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
@@ -1922,11 +1957,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\PracticeHistory.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAIwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:48:49.941Z"
+              "WhenOpened": "2026-05-30T08:48:49.941Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 58,
               "Title": "Feedback.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
@@ -1934,11 +1970,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\Feedback.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAIwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:48:30.33Z"
+              "WhenOpened": "2026-05-30T08:48:30.33Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 60,
               "Title": "InterviewQuestionResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
@@ -1946,11 +1983,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewQuestionResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:30:14.885Z"
+              "WhenOpened": "2026-05-30T08:30:14.885Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 55,
               "Title": "QuestionGeneratedBy.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
@@ -1958,11 +1996,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\QuestionGeneratedBy.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:52:23.015Z"
+              "WhenOpened": "2026-05-30T07:52:23.015Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 62,
               "Title": "DifficultyLevel.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
@@ -1970,11 +2009,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\DifficultyLevel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:52:09.572Z"
+              "WhenOpened": "2026-05-30T07:52:09.572Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 54,
               "Title": "SessionStatus.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
@@ -1982,11 +2022,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enums\\SessionStatus.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:52:00.752Z"
+              "WhenOpened": "2026-05-30T07:52:00.752Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 59,
               "Title": "InterviewSessionResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
@@ -1994,11 +2035,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Interview\\InterviewSessionResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T08:30:44.004Z"
+              "WhenOpened": "2026-05-30T08:30:44.004Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 63,
               "Title": "QuestionCategory.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
@@ -2006,11 +2048,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\QuestionCategory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:49:50.41Z"
+              "WhenOpened": "2026-05-30T07:49:50.41Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 64,
               "Title": "QuestionTemplate.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
@@ -2018,11 +2061,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\QuestionTemplate.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:49:32.129Z"
+              "WhenOpened": "2026-05-30T07:49:32.129Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 65,
               "Title": "InterviewQuestion.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
@@ -2030,11 +2074,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\InterviewQuestion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:49:20.605Z"
+              "WhenOpened": "2026-05-30T07:49:20.605Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 66,
               "Title": "InterviewSession.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
@@ -2042,11 +2087,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\InterviewSession.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:49:11.457Z"
+              "WhenOpened": "2026-05-30T07:49:11.457Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 61,
               "Title": "StartInterviewRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
@@ -2054,11 +2100,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Interview\\StartInterviewRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T07:26:33.611Z"
+              "WhenOpened": "2026-05-30T07:26:33.611Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 70,
               "Title": "CreateJobDescriptionRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
@@ -2066,11 +2113,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateJobDescriptionRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:52:11.995Z"
+              "WhenOpened": "2026-05-26T09:52:11.995Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 69,
               "Title": "CreateTargetJobRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
@@ -2078,11 +2126,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\CreateTargetJobRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:50:13.728Z"
+              "WhenOpened": "2026-05-26T09:50:13.728Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 68,
               "Title": "TargetJobResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
@@ -2090,11 +2139,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\TargetJobResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:51:48.453Z"
+              "WhenOpened": "2026-05-26T09:51:48.453Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 71,
               "Title": "SkillGapItemResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
@@ -2102,11 +2152,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapItemResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:37:57.868Z"
+              "WhenOpened": "2026-05-30T06:37:57.868Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 72,
               "Title": "SkillGapAnalysisResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
@@ -2114,11 +2165,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\SkillGapAnalysisResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:39:30.767Z"
+              "WhenOpened": "2026-05-30T06:39:30.767Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 67,
               "Title": "UpdateTargetJobRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
@@ -2126,11 +2178,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\UpdateTargetJobRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:51:18.121Z"
+              "WhenOpened": "2026-05-26T09:51:18.121Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 73,
               "Title": "CreateSkillGapAnalysisRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
@@ -2138,11 +2191,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\SkillGapAnalysis\\CreateSkillGapAnalysisRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:36:38.253Z"
+              "WhenOpened": "2026-05-30T06:36:38.253Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 74,
               "Title": "SkillResponse..cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
@@ -2150,11 +2204,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Skill\\SkillResponse..cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:44:49.481Z"
+              "WhenOpened": "2026-05-30T05:44:49.481Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 75,
               "Title": "RequiredSkillResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
@@ -2162,11 +2217,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Skill\\RequiredSkillResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:45:12.096Z"
+              "WhenOpened": "2026-05-30T05:45:12.096Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 76,
               "Title": "CreateSkillRequest.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
@@ -2174,11 +2230,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\Skill\\CreateSkillRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:44:29.723Z"
+              "WhenOpened": "2026-05-30T05:44:29.723Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 80,
               "Title": "ISkillGapAnalysisService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
@@ -2186,35 +2243,38 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillGapAnalysisService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:40:26.133Z"
+              "WhenOpened": "2026-05-30T06:40:26.133Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 78,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\SkillGap\\Index.cshtml",
-              "ViewState": "AgIAACIAAAAAAAAAAAAgwEEAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-30T07:03:57.652Z"
+              "WhenOpened": "2026-05-30T07:03:57.652Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 77,
               "Title": "skill-gap.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\skill-gap.js",
-              "ViewState": "AgIAAIIAAAAAAAAAAAA1wJUAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAQwJUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-30T07:13:44.616Z"
+              "WhenOpened": "2026-05-30T07:13:44.616Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 79,
               "Title": "SkillGapAnalysisController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
@@ -2222,11 +2282,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\SkillGapAnalysisController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:56:30.192Z"
+              "WhenOpened": "2026-05-30T06:56:30.192Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 81,
               "Title": "ReadinessScore.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
@@ -2234,11 +2295,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\ReadinessScore.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:25:03.365Z"
+              "WhenOpened": "2026-05-30T06:25:03.365Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 82,
               "Title": "Resume.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Resume.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\Resume.cs",
@@ -2246,11 +2308,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\Resume.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:24:49.991Z"
+              "WhenOpened": "2026-05-30T06:24:49.991Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 83,
               "Title": "SkillGap.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
@@ -2258,23 +2321,25 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\SkillGap.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T06:24:34.082Z"
+              "WhenOpened": "2026-05-30T06:24:34.082Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 91,
               "Title": "RequiredSkill.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\RequiredSkill.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAABDAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwBMAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:42:21.382Z"
+              "WhenOpened": "2026-05-30T05:42:21.382Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 86,
               "Title": "JobDescription.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
@@ -2282,11 +2347,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml",
               "ViewState": "AgIAACcAAAAAAAAAAAAwwEMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-27T10:12:14.636Z"
+              "WhenOpened": "2026-05-27T10:12:14.636Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 85,
               "Title": "job-description.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
@@ -2294,11 +2360,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\job-description.js",
               "ViewState": "AgIAAIIAAAAAAAAAAAAwwKMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-27T10:12:44.52Z"
+              "WhenOpened": "2026-05-27T10:12:44.52Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 92,
               "Title": "Skill.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\Skill.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\Skill.cs",
@@ -2306,11 +2373,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\Skill.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:42:12.727Z"
+              "WhenOpened": "2026-05-30T05:42:12.727Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 84,
               "Title": "SkillGapAnalysis.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
@@ -2318,11 +2386,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\SkillGapAnalysis.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAkwCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:39:39.009Z"
+              "WhenOpened": "2026-05-30T05:39:39.009Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
+              "DocumentIndex": 87,
               "Title": "TargetJob.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
@@ -2330,11 +2399,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Domain\\Enities\\TargetJob.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAqwBgAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:43:36.841Z"
+              "WhenOpened": "2026-05-26T09:43:36.841Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 91,
+              "DocumentIndex": 90,
               "Title": "ISkillService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
@@ -2342,11 +2412,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ISkillService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:45:49.85Z"
+              "WhenOpened": "2026-05-30T05:45:49.85Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 90,
+              "DocumentIndex": 89,
               "Title": "SkillService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
@@ -2354,11 +2425,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\SkillService.cs",
               "ViewState": "AgIAAFsAAAAAAAAAAAAAwHMAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:46:18.62Z"
+              "WhenOpened": "2026-05-30T05:46:18.62Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 89,
+              "DocumentIndex": 88,
               "Title": "SkillsController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
@@ -2366,11 +2438,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\SkillsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:46:45.429Z"
+              "WhenOpened": "2026-05-30T05:46:45.429Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 100,
+              "DocumentIndex": 99,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Index.cshtml",
@@ -2378,11 +2451,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Index.cshtml",
               "ViewState": "AgIAAHEBAAAAAAAAAAAgwH4BAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-26T10:09:09.434Z"
+              "WhenOpened": "2026-05-26T10:09:09.434Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 95,
+              "DocumentIndex": 94,
               "Title": "target-job.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
@@ -2390,11 +2464,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\target-job.js",
               "ViewState": "AgIAAGUAAAAAAAAAAAAwwIYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-26T10:04:35.653Z"
+              "WhenOpened": "2026-05-26T10:04:35.653Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 99,
+              "DocumentIndex": 98,
               "Title": "TargetJobService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
@@ -2402,11 +2477,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Infrastructure\\Services\\TargetJobService.cs",
               "ViewState": "AgIAAI8AAAAAAAAAAAAYwJsAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:55:47.945Z"
+              "WhenOpened": "2026-05-26T09:55:47.945Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 98,
+              "DocumentIndex": 97,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
@@ -2414,11 +2490,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml",
               "ViewState": "AgIAAEAAAAAAAAAAAAAcwFYAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-26T10:06:55.543Z"
+              "WhenOpened": "2026-05-26T10:06:55.543Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 97,
+              "DocumentIndex": 96,
               "Title": "site.css",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
@@ -2426,11 +2503,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\css\\site.css",
               "ViewState": "AgIAAPAAAAAAAAAAAAAuwAkBAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-05-26T16:43:56.847Z"
+              "WhenOpened": "2026-05-26T16:43:56.847Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 108,
+              "DocumentIndex": 107,
               "Title": "JobDescriptionResponse.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
@@ -2438,11 +2516,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\DTOs\\TargetJob\\JobDescriptionResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:52:33.07Z"
+              "WhenOpened": "2026-05-26T09:52:33.07Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 96,
+              "DocumentIndex": 95,
               "Title": "api.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
@@ -2450,11 +2529,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\api.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-27T08:40:35.163Z"
+              "WhenOpened": "2026-05-27T08:40:35.163Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 94,
+              "DocumentIndex": 93,
               "Title": "JobDescription.cshtml.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
@@ -2462,11 +2542,12 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\JobDescription.cshtml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-30T05:21:15.307Z"
+              "WhenOpened": "2026-05-30T05:21:15.307Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 107,
+              "DocumentIndex": 106,
               "Title": "ITargetJobService.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
@@ -2474,59 +2555,64 @@
               "RelativeToolTip": "AIInterviewPlatform.Application\\Interfaces\\Services\\ITargetJobService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:54:14.598Z"
+              "WhenOpened": "2026-05-26T09:54:14.598Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 103,
+              "DocumentIndex": 102,
               "Title": "guard.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\guard.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA6wA0AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-26T16:58:21.462Z"
+              "WhenOpened": "2026-05-26T16:58:21.462Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 101,
+              "DocumentIndex": 100,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Profile\\Index.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAIAwwOoAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAIAwwOoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-26T16:58:52.725Z"
+              "WhenOpened": "2026-05-26T16:58:52.725Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 102,
+              "DocumentIndex": 101,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\Resume\\Index.cshtml",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAwwLcAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAGUAAAAAAAAAAIBJwGgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-26T16:59:49.27Z"
+              "WhenOpened": "2026-05-26T16:59:49.27Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 104,
+              "DocumentIndex": 103,
               "Title": "site.js",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
               "ToolTip": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
               "RelativeToolTip": "AIInterviewPlatform.Web\\wwwroot\\js\\site.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAowBsAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA5wBsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-05-26T16:47:46.571Z"
+              "WhenOpened": "2026-05-26T16:47:46.571Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 106,
+              "DocumentIndex": 105,
               "Title": "TargetJobsController.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
@@ -2534,11 +2620,12 @@
               "RelativeToolTip": "AIInterviewPlatform.API\\Controllers\\TargetJobsController.cs",
               "ViewState": "AgIAALMAAAAAAAAAAAAcwMQAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T09:56:49.3Z"
+              "WhenOpened": "2026-05-26T09:56:49.3Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 105,
+              "DocumentIndex": 104,
               "Title": "Index.cshtml.cs",
               "DocumentMoniker": "D:\\AIInterview - Copy - Copy\\GitAIInterview\\AIInterviewPlatform\\AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
               "RelativeDocumentMoniker": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
@@ -2546,7 +2633,8 @@
               "RelativeToolTip": "AIInterviewPlatform.Web\\Pages\\TargetJob\\Index.cshtml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-26T10:07:11.505Z"
+              "WhenOpened": "2026-05-26T10:07:11.505Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -2703,10 +2791,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:28:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:22:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
             },
             {
               "$type": "Bookmark",

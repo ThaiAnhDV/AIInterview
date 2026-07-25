@@ -11,7 +11,6 @@ using AIInterviewPlatform.Infrastructure.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -23,21 +22,11 @@ using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<ForwardedHeadersOptions>(options =>
-{
-    options.ForwardedHeaders =
-        ForwardedHeaders.XForwardedFor |
-        ForwardedHeaders.XForwardedProto;
-
-    options.KnownNetworks.Clear();
-    options.KnownProxies.Clear();
-});
-
 // =======================
 // Database
 // =======================
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
+    options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // =======================
@@ -198,8 +187,6 @@ if (app.Environment.IsDevelopment())
 // =======================
 // Middleware
 // =======================
-app.UseForwardedHeaders();
-
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
@@ -232,12 +219,6 @@ app.UseAuthorization();
 // =======================
 // Controllers
 // =======================
-app.MapGet("/health", () => Results.Ok(new
-{
-    status = "ok",
-    checkedAt = DateTime.UtcNow
-}));
-
 app.MapControllers();
 
 app.Run();
